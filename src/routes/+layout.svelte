@@ -3,9 +3,9 @@
 	import { wHeight } from '$lib/store.js';
 	import { onMount } from 'svelte';
 
-	console.log($wWidth, $wHeight);
+	// console.log($wWidth, $wHeight);
 	onMount(() => {
-		console.log('layout is mounting');
+		// console.log('layout is mounting');
 	});
 </script>
 

@@ -23,7 +23,7 @@
 						crossorigin="anonimous"
 						decoding="async"
 						draggable="false"
-						src="image/720_{seriya.LandscapeFileName}.jpg"
+						src="https://ik.imagekit.io/svobodinaphoto/tr:w-720/{seriya.LandscapeFileName}.jpg"
 					/>
 				</a>
 			</picture>
