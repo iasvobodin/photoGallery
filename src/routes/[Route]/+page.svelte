@@ -22,10 +22,8 @@
 		width: number;
 	$: galleryHeight = 0;
 
-	$: outerWidth = 0;
-	$: innerWidth = 0;
-	$: outerHeight = 0;
-	$: innerHeight = 0;
+	let innerWidth: number;
+	let innerHeight: number;
 	export let data;
 	// console.log(data.data);
 
@@ -38,6 +36,8 @@
 	});
 
 	function setLoy(galleryData, width: number, height: number) {
+		console.log(width, 'WW');
+
 		layout = justifiedLayout([...galleryData.Aspect], {
 			fullWidthBreakoutRowCadence: 3,
 			// showWidows: false,
@@ -51,7 +51,7 @@
 			},
 			boxSpacing: {
 				horizontal: width * 0.11,
-				vertical: height * 0.19
+				vertical: height * 0.11
 			}
 		});
 		containerHeightLoy = `${layout.containerHeight}px`;
@@ -108,7 +108,7 @@
 	function resize() {
 		console.log('resize');
 
-		// paddingCoef = window.innerWidth / window.innerHeight > 1 ? 0.12 : 0.03;
+		paddingCoef = innerWidth / innerHeight > 1 ? 0.12 : 0.05;
 		// if (wWidth != window.innerWidth) {
 		// 	console.log('here', window.innerWidth);
 
@@ -121,9 +121,11 @@
 		// height = window.innerHeight;
 		// // setLoy(gallery, wWidth, wHeight);
 
-		// setLoy(gallery, innerWidth, innerHeight);
+		setLoy(gallery, innerWidth, innerHeight);
 	}
 	onMount(() => {
+		// debugger;
+
 		if (typeof IntersectionObserver !== 'undefined') {
 			const options: IntersectionObserverInit | undefined = {
 				rootMargin: '0px 0px 100px 0px'
@@ -143,10 +145,10 @@
 			observElements.forEach((element) => observer.observe(element));
 		}
 		// console.log(observElements);
-		wWidth = window.innerWidth;
-		wHeight = window.innerHeight;
+		// wWidth = window.innerWidth;
+		// wHeight = window.innerHeight;
 
-		setLoy(gallery, wWidth, wHeight);
+		setLoy(gallery, innerWidth, innerHeight);
 		// onmm = true;
 
 		gsap.set('.tt', {
@@ -164,12 +166,13 @@
 	<title>{gallery.Title}</title>
 </svelte:head>
 
-<svelte:window bind:innerWidth bind:outerWidth bind:innerHeight bind:outerHeight />
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <h1 class="main__head">
 	{gallery.Title}
 </h1>
-
+<p>{innerWidth} ww</p>
+<p>{innerHeight} hh</p>
 <div class="holder" style={`height: ${containerHeightLoy}`}>
 	{#each layoutData as photo, index (index)}
 		<div
@@ -205,7 +208,7 @@
 		margin: auto;
 		margin-bottom: 10vh;
 		height: 70vh;
-		width: calc(70vh * 1.6);
+		width: 80vw;
 		opacity: 0;
 	}
 

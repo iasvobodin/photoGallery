@@ -9,5 +9,9 @@ declare global {
 		// interface Platform {}
 	}
 }
-
-export {};
+declare namespace svelteHTML {
+	interface HTMLAttributes<T> {
+		'on:intersect'?: (event: CustomEvent) => void;
+	}
+}
+export { };
