@@ -258,6 +258,14 @@
 		height: 100%;
 		object-fit: cover;
 	}
+	.review__title {
+		font-family: Cormorant Infant;
+		font-size: max(36px, 5.8vw);
+		line-height: max(40px, 5.8vw);
+		font-weight: 300;
+		color: #ffffff;
+		margin: 5vw;
+	}
 	.main__head {
 		/* opacity: 0; */
 		/* z-index: 3; */
@@ -271,8 +279,8 @@
 		font-weight: 300;
 		color: rgb(255, 255, 255);
 		margin: 3vh;
-		font-size: clamp(14px, 6vw + 12px, 80px);
-		line-height: clamp(18px, 6.5vw + 12px, 80px);
+		font-size: clamp(36px, 6vw + 12px, 80px);
+		line-height: clamp(40px, 6.5vw + 12px, 90px);
 	}
 	.main__head2 {
 		/* opacity: 0; */
