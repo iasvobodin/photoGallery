@@ -9,12 +9,6 @@
 				{seriya?.Title}
 			</h3>
 			<picture class="standart__picture">
-				<source
-					media="(orientation: landscape)"
-					srcset="image/720_{seriya.LandscapeFileName}.webp"
-					type="image/webp"
-				/>
-				<!-- on:click={() => goto(`/${seriya.R÷oute}`)} -->
 				<a href={`/${seriya.Route}`}>
 					<img
 						data-sampler="planeTexture"
