@@ -8,9 +8,6 @@
 <div class="wrapper">
 	{#each data.photoseries as seriya, index (index)}
 		<div class="plane plane__redy">
-			<h3 class="photoseries__head">
-				{seriya?.Title}
-			</h3>
 			<picture class="standart__picture">
 				<a class="photo__link" href={`/${seriya.Route}`}>
 					<img
@@ -24,6 +21,9 @@
 					/>
 				</a>
 			</picture>
+			<h3 class="photoseries__head">
+				{seriya?.Title}
+			</h3>
 		</div>
 	{/each}
 </div>
@@ -62,7 +62,7 @@
 		font-weight: 300;
 		color: rgb(255, 255, 255);
 		margin: 0;
-		font-size: clamp(28px, 2vw + 12px, 40px);
+		font-size: clamp(28px, 2vw + 12px, 60px);
 		line-height: clamp(32px, 2.5vw + 12px, 40px);
 	}
 	.slider__img {

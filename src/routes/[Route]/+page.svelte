@@ -6,7 +6,7 @@
 	import justifiedLayout from 'justified-layout';
 	import { gsap } from 'gsap';
 
-	let paddingCoef;
+	let paddingCoef, initH: number, initW: number;
 	$: galleryParams = {};
 	let onmm = false;
 	let layout,
@@ -106,29 +106,26 @@
 		return calcWidth;
 	}
 	function resize() {
-		// console.log('resize');
-
 		paddingCoef = innerWidth / innerHeight > 1 ? 0.12 : 0.05;
-		// if (wWidth != window.innerWidth) {
-		// 	console.log('here', window.innerWidth);
 
-		// 	setLoy(gallery, window.innerWidth, wHeight);
-		// 	width = window.innerWidth;
-		// }
-		// if (Math.abs(wHeight - window.innerHeight) < 100) {
-		// 	return;
-		// }
-		// height = window.innerHeight;
-		// // setLoy(gallery, wWidth, wHeight);
+		if (initH != innerHeight && Math.abs(initH - innerHeight) < 100) {
+			return;
+		}
 
 		setLoy(gallery, innerWidth, innerHeight);
+		initH = innerHeight;
 	}
 	onMount(() => {
+		setLoy(gallery, innerWidth, innerHeight);
+
 		// debugger;
+
+		initH = window.innerHeight;
+		initW = window.innerWidth;
 
 		if (typeof IntersectionObserver !== 'undefined') {
 			const options: IntersectionObserverInit | undefined = {
-				rootMargin: '0px 0px 100px 0px'
+				rootMargin: '0px 0px 0px 0px'
 			};
 			const callback: IntersectionObserverCallback = (entries, observer) => {
 				entries.forEach((entry) => {
@@ -148,14 +145,13 @@
 		// wWidth = window.innerWidth;
 		// wHeight = window.innerHeight;
 
-		setLoy(gallery, innerWidth, innerHeight);
-		onmm = true;
+		onmm = true; //opaciti 1
 
 		gsap.set('.tt', {
 			delay: 0.5,
-			x: `+=random(${-wWidth * 0.04}, ${wWidth * 0.04}, 5)`,
-			y: `+=random(${-wHeight * 0.045}, ${wHeight * 0.045}, 5)`,
-			opacity: 1,
+			x: `+=random(${-innerWidth * 0.04}, ${innerWidth * 0.04}, 5)`,
+			y: `+=random(${-innerHeight * 0.045}, ${innerHeight * 0.045}, 5)`,
+			// opacity: 1,
 			duration: 0.8
 		});
 		window.addEventListener('resize', debounce(resize, 400));
