@@ -13,8 +13,9 @@ body {
 	font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 	font-size: 14px;
 	line-height: 1.5;
-	color: #333;
+	color: #ffffff;
 	overscroll-behavior: none;
+	background-color: black;
 }
 
 h1,
@@ -34,6 +35,23 @@ h1 {
 
 a {
 	color: inherit;
+}
+
+.main__head {
+	/* opacity: 0; */
+	/* z-index: 3; */
+	white-space: pre;
+	/* transform: translate(0, -50%); */
+	/* position: absolute; */
+	/* top: calc((100vh - var(--plane__height)) / 4); */
+	left: 2vw;
+	display: block;
+	font-family: Cormorant Infant, sans-serif;
+	font-weight: 300;
+	color: rgb(255, 255, 255);
+	margin: 2vh;
+	font-size: clamp(36px, 6vw + 12px, 80px);
+	line-height: clamp(40px, 6.5vw + 12px, 90px);
 }
 
 code {

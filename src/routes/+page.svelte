@@ -1,15 +1,18 @@
 <script>
 	export let data;
+	// font-size: clamp(14px, 2vw + 12px, 40px);
+	// 	line-height: clamp(18px, 2.5vw + 12px, 40px);
 </script>
 
+<h1 class="main__head">Фотосерии</h1>
 <div class="wrapper">
 	{#each data.photoseries as seriya, index (index)}
 		<div class="plane plane__redy">
-			<h3 class="main__head">
+			<h3 class="photoseries__head">
 				{seriya?.Title}
 			</h3>
 			<picture class="standart__picture">
-				<a href={`/${seriya.Route}`}>
+				<a class="photo__link" href={`/${seriya.Route}`}>
 					<img
 						data-sampler="planeTexture"
 						class="slider__img"
@@ -53,25 +56,26 @@
 		border-radius: 3px;
 		overflow: hidden;
 	}
-	.main__head {
-		/* opacity: 0; */
-		/* z-index: 3; */
+	.photoseries__head {
 		white-space: pre;
-		/* transform: translate(0, -50%); */
-		/* position: absolute; */
-		/* top: calc((100vh - var(--plane__height)) / 4); */
-		/* left: 1vw; */
 		font-family: Cormorant Infant, sans-serif;
 		font-weight: 300;
 		color: rgb(255, 255, 255);
 		margin: 0;
-		font-size: clamp(14px, 2vw + 12px, 40px);
-		line-height: clamp(18px, 2.5vw + 12px, 40px);
+		font-size: clamp(28px, 2vw + 12px, 40px);
+		line-height: clamp(32px, 2.5vw + 12px, 40px);
+	}
+	.slider__img {
+		border-radius: 5px;
 	}
 	.event {
 		pointer-events: none;
 	}
-
+	.photo__link,
+	.standart__picture {
+		display: block;
+		height: auto;
+	}
 	.price__holder {
 	}
 
@@ -79,11 +83,11 @@
 		display: grid;
 		justify-content: center;
 		grid-template-columns: repeat(auto-fill, minmax(max(38vw, 250px), 1fr));
-		row-gap: 5vh;
+		row-gap: 3vh;
 		column-gap: 2vw;
-		width: min(95vw, 1600px);
+		width: min(95vw, 1200px);
 		margin: auto;
-		margin-top: 3vh;
+		/* margin-top: 3vh; */
 		color: white;
 	}
 </style>

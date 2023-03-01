@@ -41,12 +41,12 @@
 		layout = justifiedLayout([...galleryData.Aspect], {
 			fullWidthBreakoutRowCadence: 3,
 			// showWidows: false,
-			targetRowHeight: height * 0.55,
+			targetRowHeight: height * 0.57,
 			containerWidth: width, //* 2,
 			containerPadding: {
-				top: height * 0.19,
+				top: height * 0.08,
 				right: width * 0.08, // window.innerWidth * paddingCoef,
-				bottom: height * 0.09,
+				bottom: height * 0.08,
 				left: width * 0.08 // window.innerWidth * paddingCoef
 			},
 			boxSpacing: {
@@ -106,7 +106,7 @@
 		return calcWidth;
 	}
 	function resize() {
-		console.log('resize');
+		// console.log('resize');
 
 		paddingCoef = innerWidth / innerHeight > 1 ? 0.12 : 0.05;
 		// if (wWidth != window.innerWidth) {
@@ -149,7 +149,7 @@
 		// wHeight = window.innerHeight;
 
 		setLoy(gallery, innerWidth, innerHeight);
-		// onmm = true;
+		onmm = true;
 
 		gsap.set('.tt', {
 			delay: 0.5,
@@ -171,8 +171,8 @@
 <h1 class="main__head">
 	{gallery.Title}
 </h1>
-<p>{innerWidth} ww</p>
-<p>{innerHeight} hh</p>
+<!-- <p>{innerWidth} ww</p>
+<p>{innerHeight} hh</p> -->
 <div class="holder" style={`height: ${containerHeightLoy}`}>
 	{#each layoutData as photo, index (index)}
 		<div
@@ -196,10 +196,10 @@
 </div>
 
 <style>
-	:global(body) {
+	/* :global(body) {
 		margin: 0;
 		background-color: black;
-	}
+	} */
 	.tt {
 		/* display: none; */
 		border-radius: 5px;
@@ -211,7 +211,10 @@
 		width: 80vw;
 		opacity: 0;
 	}
-
+	.onmm {
+		display: block;
+		opacity: 1;
+	}
 	h1 {
 		color: white;
 		/* display: none; */
@@ -228,12 +231,12 @@
 		/* width: 80vw;
       margin: auto; */
 	}
-	.spic__holder {
+	/* .spic__holder {
 		position: absolute;
 		overflow: hidden;
 		border-radius: 4px;
 		transition: transform 0.5s;
-	}
+	} */
 	/* .wrapper {
 		justify-content: center;
 		width: 100%;
@@ -241,9 +244,7 @@
 		display: flex;
 		position: absolute;
 	} */
-	.onmm {
-		display: block;
-	}
+
 	.holder {
 		position: relative;
 		width: 100%;
@@ -269,22 +270,7 @@
 		color: #ffffff;
 		margin: 5vw;
 	}
-	.main__head {
-		/* opacity: 0; */
-		/* z-index: 3; */
-		white-space: pre;
-		/* transform: translate(0, -50%); */
-		/* position: absolute; */
-		/* top: calc((100vh - var(--plane__height)) / 4); */
-		left: 2vw;
-		display: block;
-		font-family: Cormorant Infant, sans-serif;
-		font-weight: 300;
-		color: rgb(255, 255, 255);
-		margin: 3vh;
-		font-size: clamp(36px, 6vw + 12px, 80px);
-		line-height: clamp(40px, 6.5vw + 12px, 90px);
-	}
+
 	.main__head2 {
 		/* opacity: 0; */
 		/* z-index: 3; */
