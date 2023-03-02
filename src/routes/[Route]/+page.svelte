@@ -118,8 +118,6 @@
 	onMount(() => {
 		setLoy(gallery, innerWidth, innerHeight);
 
-		// debugger;
-
 		initH = window.innerHeight;
 		initW = window.innerWidth;
 
@@ -167,13 +165,14 @@
 <h1 class="main__head">
 	{gallery.Title}
 </h1>
+
 <!-- <p>{innerWidth} ww</p>
 <p>{innerHeight} hh</p> -->
 <div class="holder" style={`height: ${containerHeightLoy}`}>
 	{#each layoutData as photo, index (index)}
 		<div
-			on:intersect={(e) => (elementEntries[index] = e.detail.isIntersecting)}
 			bind:this={observElements[index]}
+			on:intersect={(e) => (elementEntries[index] = e.detail.isIntersecting)}
 			class="tt"
 			class:onmm
 			style={photo.setStyle}
@@ -190,6 +189,37 @@
 		</div>
 	{/each}
 </div>
+<a href="/">
+	<svg
+		class="button reverse__button"
+		xmlns="http://www.w3.org/2000/svg"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		version="1.1"
+		x="0px"
+		y="0px"
+		viewBox="0 0 490.4 490.4"
+		xml:space="preserve"
+	>
+		<defs>
+			<linearGradient spreadMethod="pad" id="gradient" x1="80%" y1="116%" x2="0%" y2="0%">
+				<stop offset="0" style="stop-color:rgb(5, 0, 210);stop-opacity:1;" />
+				<stop offset="22%" style="stop-color:rgb(5, 0, 210);stop-opacity:1;" />
+				<stop offset="75%" style="stop-color:rgb(171, 0, 84);stop-opacity:1;" />
+				<stop offset="100%" style="stop-color:rgb(215, 106, 0);stop-opacity:1;" />
+			</linearGradient>
+		</defs>
+		<g>
+			<path
+				fill="url(#gradient)"
+				d="M490.4,245.2C490.4,110,380.4,0,245.2,0S0,110,0,245.2s110,245.2,245.2,245.2S490.4,380.4,490.4,245.2z M24.5,245.2    c0-121.7,99-220.7,220.7-220.7s220.7,99,220.7,220.7s-99,220.7-220.7,220.7S24.5,366.9,24.5,245.2z"
+			/>
+			<path
+				fill="white"
+				d="M253.9,360.4l68.9-68.9c4.8-4.8,4.8-12.5,0-17.3s-12.5-4.8-17.3,0l-48,48V138.7c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v183.4l-48-48c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l68.9,68.9c2.4,2.4,5.5,3.6,8.7,3.6    S251.5,362.8,253.9,360.4z"
+			/>
+		</g>
+	</svg>
+</a>
 
 <style>
 	/* :global(body) {
@@ -284,5 +314,17 @@
 	}
 	p {
 		color: aliceblue;
+	}
+	.button {
+		position: fixed;
+		top: 20px;
+		right: 20px;
+		width: 40px;
+		height: 40px;
+		/* fill: white; */
+		cursor: pointer;
+	}
+	.reverse__button {
+		transform: rotate(90deg);
 	}
 </style>
