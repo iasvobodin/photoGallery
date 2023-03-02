@@ -6,23 +6,39 @@
 	import justifiedLayout from 'justified-layout';
 	import { gsap } from 'gsap';
 	import { browser } from '$app/environment';
+	import { allPhotoseries } from '$lib/store.js';
+	import { getStores, navigating, page, updated } from '$app/stores';
+	import {
+		afterNavigate,
+		beforeNavigate,
+		disableScrollHandling,
+		goto,
+		invalidate,
+		invalidateAll,
+		preloadCode,
+		preloadData
+	} from '$app/navigation';
+
+	// console.log($allPhotoseries);
 
 	export let data;
-	const gallery = data;
+	// console.log(data);
+
+	$: gallery = data;
 
 	let paddingCoef, initH: number, initW: number;
 	let setOpacity = false;
 	let observer: IntersectionObserver;
 	let layout,
-		observElements: Array<HTMLElement> = [],
+		// observElements: Array<HTMLElement> = [],
 		elementEntries: Array<Boolean> = [],
 		containerHeightLoy: String,
 		layoutData;
 
 	let innerWidth: number, innerHeight: number; //BINDING SVELTE:WINDOW
-
+	$: observElements = [];
 	// NEED TO DEL COLOR FROM DB
-	layoutData = gallery.Spec.map((el, i) => {
+	layoutData = data.Spec.map((el, i) => {
 		return {
 			setStyle: `box-shadow: inset 0px 0px 0px 2px rgb(${el.Colors.color[0]});background-image: radial-gradient(circle at bottom center, rgb(${el.Colors.color[0]}),rgb(${el.Colors.color[1]}));`
 		};
@@ -98,7 +114,7 @@
 				: 2560;
 		return calcWidth;
 	}
-	function initObserver() {
+	function initObserver(observElements: Array<HTMLElement>) {
 		const options: IntersectionObserverInit = {
 			rootMargin: '0px 0px 200px 0px'
 		};
@@ -119,13 +135,54 @@
 			return;
 		}
 
-		setLoy(gallery, innerWidth, innerHeight);
+		setLoy(data, innerWidth, innerHeight);
 		initH = innerHeight;
 	}
-	onMount(() => {
-		initObserver();
+	function navigateNext() {
+		// console.log($allPhotoseries[0].Id);
+		// if ($allPhotoseries.length === gallery.id + 1) {
+		goto(`/${$allPhotoseries[gallery.id].Route}`);
 
-		setLoy(gallery, innerWidth, innerHeight);
+		// } else {
+		// 	goto(`/${$allPhotoseries[gallery.id + 1].Route}`);
+		// }
+		// $allPhotoseries.find((e) => e.id === gallery.id + 1)
+		// console.log($allPhotoseries[0]);
+	}
+
+	function changeData(data) {
+		// console.log('changeData', data);
+		onMount(() => {
+			setLoy(data, innerWidth, innerHeight);
+			initObserver(observElements);
+		});
+		afterNavigate(() => {
+			// console.log('afterNavigate', data);
+			setLoy(data, innerWidth, innerHeight);
+			initObserver(observElements);
+		});
+		// if (browser) {
+		// 	setLoy(data, innerWidth, innerHeight);
+		// 	initObserver();
+		// }
+	}
+
+	$: changeData(data);
+
+	// afterNavigate(() => {
+	// 	if (browser) {
+	// 		console.log('browser', data, observElements.length1);
+
+	// 		initObserver();
+
+	// 		setLoy(data, innerWidth, innerHeight);
+	// 	}
+	// });
+
+	onMount(() => {
+		// initObserver();
+
+		// setLoy(gallery, innerWidth, innerHeight);
 		//SAVE INIT DEMENTIONS
 		initH = window.innerHeight;
 		initW = window.innerWidth;
@@ -180,8 +237,39 @@
 		</div>
 	{/each}
 </div>
+<div class="navigstion">
+	<a href={`/${$allPhotoseries[2].Route}`}><p class="naviganion__next">Следующая фотосерия</p></a>
+</div>
 
 <style>
+	.navigstion {
+		display: grid;
+		margin: auto;
+		height: 40px;
+		width: min(80vw, 400px);
+		border-radius: 20px;
+		background-color: gray;
+		border: 1px solid white;
+	}
+
+	.naviganion__next {
+		/* white-space: pre-wrap; */
+		/* grid-area: 1/1; */
+		/* align-self: start;
+		justify-self: center; */
+		cursor: pointer;
+		font-family: Cormorant Infant;
+		/* padding: 5px; */
+		margin: 0;
+		text-align: center;
+		font-size: calc(20px + 1vw);
+		line-height: calc(20px + 1.2vw);
+		font-weight: 300;
+		color: #ffffff;
+		vertical-align: middle;
+		margin: 0;
+		place-self: center;
+	}
 	.tt {
 		/* display: none; */
 		border-radius: 5px;

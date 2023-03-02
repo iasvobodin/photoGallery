@@ -18,3 +18,4 @@ export const paddingCoef = writable(0.12);
 export const titleIndex = writable(0);
 export const wWidth = writable(1111)
 export const wHeight = writable(777)
+export const allPhotoseries = writable([])
