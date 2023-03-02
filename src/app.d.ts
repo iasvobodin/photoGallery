@@ -11,7 +11,7 @@ declare global {
 }
 declare namespace svelteHTML {
 	interface HTMLAttributes<T> {
-		'on:intersect'?: (event: CustomEvent) => void;
+		'on:viewportEnter'?: (event: CustomEvent) => void;
 	}
 }
 export { };

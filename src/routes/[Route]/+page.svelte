@@ -6,29 +6,21 @@
 	import justifiedLayout from 'justified-layout';
 	import { gsap } from 'gsap';
 	import { browser } from '$app/environment';
+
+	export let data;
+	const gallery = data;
+
 	let paddingCoef, initH: number, initW: number;
-	$: galleryParams = {};
 	let setOpacity = false;
 	let observer: IntersectionObserver;
 	let layout,
 		observElements: Array<HTMLElement> = [],
 		elementEntries: Array<Boolean> = [],
 		containerHeightLoy: String,
-		height: number,
-		wWidth = 500,
-		wHeight = 500,
-		opacity = 0,
-		layoutData,
-		// gallery = {},
-		width: number;
-	$: galleryHeight = 0;
+		layoutData;
 
-	let innerWidth: number;
-	let innerHeight: number;
-	export let data;
-	// console.log(data.data);
+	let innerWidth: number, innerHeight: number; //BINDING SVELTE:WINDOW
 
-	const gallery = data;
 	// NEED TO DEL COLOR FROM DB
 	layoutData = gallery.Spec.map((el, i) => {
 		return {
@@ -41,7 +33,7 @@
 
 		layout = justifiedLayout([...galleryData.Aspect], {
 			fullWidthBreakoutRowCadence: 3,
-			// showWidows: false,
+			// showWidows: false, //CUT SOME PICTURES IN THE END
 			targetRowHeight: height * 0.57,
 			containerWidth: width, //* 2,
 			containerPadding: {
@@ -106,6 +98,20 @@
 				: 2560;
 		return calcWidth;
 	}
+	function initObserver() {
+		const options: IntersectionObserverInit = {
+			rootMargin: '0px 0px 200px 0px'
+		};
+		const callback: IntersectionObserverCallback = (entries, observer) => {
+			entries.forEach((entry) => {
+				const customEventName = entry.isIntersecting ? 'viewportEnter' : 'viewportExit';
+				entry.target.dispatchEvent(new CustomEvent(customEventName));
+			});
+		};
+
+		observer = new IntersectionObserver(callback, options);
+		observElements.forEach((element) => observer.observe(element));
+	}
 	function resize() {
 		paddingCoef = innerWidth / innerHeight > 1 ? 0.12 : 0.05;
 
@@ -117,34 +123,12 @@
 		initH = innerHeight;
 	}
 	onMount(() => {
-		setLoy(gallery, innerWidth, innerHeight);
+		initObserver();
 
+		setLoy(gallery, innerWidth, innerHeight);
+		//SAVE INIT DEMENTIONS
 		initH = window.innerHeight;
 		initW = window.innerWidth;
-
-		if (typeof IntersectionObserver !== 'undefined') {
-			const options: IntersectionObserverInit | undefined = {
-				rootMargin: '0px 0px 200px 0px'
-			};
-			const callback: IntersectionObserverCallback = (entries, observer) => {
-				entries.forEach((entry) => {
-					const customEventName = entry.isIntersecting ? 'viewportEnter' : 'viewportExit';
-					entry.target.dispatchEvent(new CustomEvent(customEventName));
-					// entry.target.dispatchEvent(
-					// 	new CustomEvent('intersect', { detail: { isIntersecting: entry.isIntersecting } })
-					// );
-					// if (entry.isIntersecting) {
-					// 	observer.unobserve(entry.target);
-					// }
-				});
-			};
-
-			observer = new IntersectionObserver(callback, options);
-			observElements.forEach((element) => observer.observe(element));
-		}
-		// console.log(observElements);
-		// wWidth = window.innerWidth;
-		// wHeight = window.innerHeight;
 
 		setOpacity = true; //SET OPACITY 1
 
@@ -175,9 +159,6 @@
 	{gallery.Title}
 </h1>
 
-<!-- <p>{innerWidth} ww</p>
-<p>{innerHeight} hh</p> -->
-<!-- on:intersect={(e) => (elementEntries[index] = e.detail.isIntersecting)} -->
 <div class="holder" style={`height: ${containerHeightLoy}`}>
 	{#each layoutData as photo, index (index)}
 		<div
@@ -201,10 +182,6 @@
 </div>
 
 <style>
-	/* :global(body) {
-		margin: 0;
-		background-color: black;
-	} */
 	.tt {
 		/* display: none; */
 		border-radius: 5px;
@@ -217,12 +194,10 @@
 		opacity: 0;
 	}
 	.setOpacity {
-		display: block;
 		opacity: 1;
 	}
 	h1 {
 		color: white;
-		/* display: none; */
 	}
 	.gallery {
 		pointer-events: none;

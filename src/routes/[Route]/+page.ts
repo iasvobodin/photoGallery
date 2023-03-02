@@ -1,4 +1,4 @@
-import type { PageLoad } from './$types';
+// import type { PageLoad } from './$types';
 export const prerender = true;
 export async function load({ fetch, params }) {
     const res = await fetch(`/db/${params.Route}.json`);
