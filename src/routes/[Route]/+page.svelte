@@ -2,13 +2,14 @@
 	import { fade } from 'svelte/transition';
 	import type { PageData } from './$types';
 	import debounce from 'lodash.debounce';
-	import { onMount, tick } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import justifiedLayout from 'justified-layout';
 	import { gsap } from 'gsap';
-
+	import { browser } from '$app/environment';
 	let paddingCoef, initH: number, initW: number;
 	$: galleryParams = {};
 	let setOpacity = false;
+	let observer: IntersectionObserver;
 	let layout,
 		observElements: Array<HTMLElement> = [],
 		elementEntries: Array<Boolean> = [],
@@ -123,20 +124,22 @@
 
 		if (typeof IntersectionObserver !== 'undefined') {
 			const options: IntersectionObserverInit | undefined = {
-				rootMargin: '0px 0px 0px 0px'
+				rootMargin: '0px 0px 200px 0px'
 			};
 			const callback: IntersectionObserverCallback = (entries, observer) => {
 				entries.forEach((entry) => {
-					entry.target.dispatchEvent(
-						new CustomEvent('intersect', { detail: { isIntersecting: entry.isIntersecting } })
-					);
-					if (entry.isIntersecting) {
-						observer.unobserve(entry.target);
-					}
+					const customEventName = entry.isIntersecting ? 'viewportEnter' : 'viewportExit';
+					entry.target.dispatchEvent(new CustomEvent(customEventName));
+					// entry.target.dispatchEvent(
+					// 	new CustomEvent('intersect', { detail: { isIntersecting: entry.isIntersecting } })
+					// );
+					// if (entry.isIntersecting) {
+					// 	observer.unobserve(entry.target);
+					// }
 				});
 			};
 
-			const observer = new IntersectionObserver(callback, options);
+			observer = new IntersectionObserver(callback, options);
 			observElements.forEach((element) => observer.observe(element));
 		}
 		// console.log(observElements);
@@ -153,6 +156,13 @@
 		});
 		window.addEventListener('resize', debounce(resize, 400));
 	});
+
+	onDestroy(() => {
+		if (browser) {
+			observer.disconnect();
+			window.removeEventListener('resize', resize);
+		}
+	});
 </script>
 
 <svelte:head>
@@ -167,11 +177,12 @@
 
 <!-- <p>{innerWidth} ww</p>
 <p>{innerHeight} hh</p> -->
+<!-- on:intersect={(e) => (elementEntries[index] = e.detail.isIntersecting)} -->
 <div class="holder" style={`height: ${containerHeightLoy}`}>
 	{#each layoutData as photo, index (index)}
 		<div
 			bind:this={observElements[index]}
-			on:intersect={(e) => (elementEntries[index] = e.detail.isIntersecting)}
+			on:viewportEnter={() => (elementEntries[index] = true)}
 			class="tt"
 			class:setOpacity
 			style={photo.setStyle}

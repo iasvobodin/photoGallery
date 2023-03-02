@@ -15,11 +15,11 @@
 
 <style>
 	.main {
-		padding-top: 65px;
+		/* padding-top: 65px; */
 		padding-bottom: 10vh;
 	}
 	.header {
-		background-color: black;
+		/* background-color: black; */
 		width: 100%;
 		height: 65px;
 		position: fixed;
