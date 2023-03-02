@@ -8,7 +8,7 @@
 
 	let paddingCoef, initH: number, initW: number;
 	$: galleryParams = {};
-	let onmm = false;
+	let setOpacity = false;
 	let layout,
 		observElements: Array<HTMLElement> = [],
 		elementEntries: Array<Boolean> = [],
@@ -28,10 +28,10 @@
 	// console.log(data.data);
 
 	const gallery = data;
-
+	// NEED TO DEL COLOR FROM DB
 	layoutData = gallery.Spec.map((el, i) => {
 		return {
-			setStyle: `box-shadow: inset 0px 0px 0px 2px rgb(${el.Color});background-image: radial-gradient(circle at bottom center, rgb(${el.Colors.color[0]}),rgb(${el.Colors.color[1]}));`
+			setStyle: `box-shadow: inset 0px 0px 0px 2px rgb(${el.Colors.color[0]});background-image: radial-gradient(circle at bottom center, rgb(${el.Colors.color[0]}),rgb(${el.Colors.color[1]}));`
 		};
 	});
 
@@ -143,14 +143,13 @@
 		// wWidth = window.innerWidth;
 		// wHeight = window.innerHeight;
 
-		onmm = true; //opaciti 1
+		setOpacity = true; //SET OPACITY 1
 
 		gsap.set('.tt', {
 			delay: 0.5,
+			duration: 0.8,
 			x: `+=random(${-innerWidth * 0.04}, ${innerWidth * 0.04}, 5)`,
-			y: `+=random(${-innerHeight * 0.045}, ${innerHeight * 0.045}, 5)`,
-			// opacity: 1,
-			duration: 0.8
+			y: `+=random(${-innerHeight * 0.045}, ${innerHeight * 0.045}, 5)`
 		});
 		window.addEventListener('resize', debounce(resize, 400));
 	});
@@ -174,13 +173,13 @@
 			bind:this={observElements[index]}
 			on:intersect={(e) => (elementEntries[index] = e.detail.isIntersecting)}
 			class="tt"
-			class:onmm
+			class:setOpacity
 			style={photo.setStyle}
 		>
 			{#if elementEntries[index]}
 				<img
 					decoding="async"
-					transition:fade={{ delay: 200 }}
+					in:fade={{ delay: 200 }}
 					draggable="false"
 					src={photo.imageSrc}
 					alt="SvobodinaPhoto"
@@ -237,7 +236,7 @@
 		width: 80vw;
 		opacity: 0;
 	}
-	.onmm {
+	.setOpacity {
 		display: block;
 		opacity: 1;
 	}
