@@ -19,35 +19,42 @@
 		preloadData
 	} from '$app/navigation';
 
-	// console.log($allPhotoseries);
+	type LoyData = {
+		setStyle: string;
+		imageSrc?: string;
+	};
 
-	export let data;
-	// console.log(data);
+	export let data: PageData;
 
-	$: gallery = data;
+	console.log(data);
+	// $: ({ photoSeries, allph } = data);
+
+	let photoSeries = data.photoSeries;
+	let allph = data.allph;
 
 	let paddingCoef, initH: number, initW: number;
 	let setOpacity = false;
 	let observer: IntersectionObserver;
-	let layout,
-		// observElements: Array<HTMLElement> = [],
+	let observElements: Array<HTMLElement> = [],
 		elementEntries: Array<Boolean> = [],
 		containerHeightLoy: String,
-		layoutData;
+		layoutData: Array<LoyData> = [];
 
 	let innerWidth: number, innerHeight: number; //BINDING SVELTE:WINDOW
 	$: observElements = [];
 	// NEED TO DEL COLOR FROM DB
-	layoutData = data.Spec.map((el, i) => {
-		return {
-			setStyle: `box-shadow: inset 0px 0px 0px 2px rgb(${el.Colors.color[0]});background-image: radial-gradient(circle at bottom center, rgb(${el.Colors.color[0]}),rgb(${el.Colors.color[1]}));`
-		};
-	});
+	if (photoSeries) {
+		layoutData = photoSeries.Spec.map((el, i) => {
+			return {
+				setStyle: `box-shadow: inset 0px 0px 0px 2px rgb(${el.Colors.color[0]});background-image: radial-gradient(circle at bottom center, rgb(${el.Colors.color[0]}),rgb(${el.Colors.color[1]}));`
+			};
+		});
+	}
 
-	function setLoy(galleryData, width: number, height: number) {
-		console.log(width, 'WW');
+	function setLoy(galleryData: PageData['photoSeries'], width: number, height: number) {
+		console.log('setloy');
 
-		layout = justifiedLayout([...galleryData.Aspect], {
+		const layout = justifiedLayout([...galleryData!.Aspect], {
 			fullWidthBreakoutRowCadence: 3,
 			// showWidows: false, //CUT SOME PICTURES IN THE END
 			targetRowHeight: height * 0.57,
@@ -64,23 +71,24 @@
 			}
 		});
 		containerHeightLoy = `${layout.containerHeight}px`;
+
 		layoutData = layout.boxes.map((el, i) => {
 			return {
 				boxes: el,
 				imageSrc: `https://ik.imagekit.io/svobodinaphoto/tr:w-${imageWidth(el.width)}/${
-					galleryData.ImageName[i]
+					galleryData!.ImageName[i]
 				}.jpg`,
 				setStyle: `
 				position: absolute;
 				margin:0;
 				left:${Math.floor(el.left)}px;
 				top:${Math.floor(el.top)}px;
-					box-shadow: inset 0px 0px 0px 2px rgb(${galleryData.Spec[i].Color});
+					box-shadow: inset 0px 0px 0px 2px rgb(${galleryData!.Spec[i].Color});
 					width: ${Math.floor(el.width)}px;
 					height: ${Math.floor(el.height)}px;
 					background-image: radial-gradient(circle at bottom center, 
-					rgb(${galleryData.Spec[i].Colors.color[0]}),
-					rgb(${galleryData.Spec[i].Colors.color[1]}));
+					rgb(${galleryData!.Spec[i].Colors.color[0]}),
+					rgb(${galleryData!.Spec[i].Colors.color[1]}));
 					`
 				// position: absolute;
 				// transform: translateX(${Math.floor(
@@ -135,41 +143,51 @@
 			return;
 		}
 
-		setLoy(data, innerWidth, innerHeight);
+		setLoy(photoSeries, innerWidth, innerHeight);
 		initH = innerHeight;
 	}
 	function navigateNext() {
-		// console.log($allPhotoseries[0].Id);
-		// if ($allPhotoseries.length === gallery.id + 1) {
-		goto(`/${$allPhotoseries[gallery.id].Route}`);
-
-		// } else {
-		// 	goto(`/${$allPhotoseries[gallery.id + 1].Route}`);
-		// }
-		// $allPhotoseries.find((e) => e.id === gallery.id + 1)
-		// console.log($allPhotoseries[0]);
+		if (+photoSeries!.id + 1 === allph!.length) {
+			return allph![0].Route; //go to start
+		} else {
+			return allph!.find((e) => +e.Id === +photoSeries!.id + 1)?.Route;
+		}
 	}
 
-	function changeData(data) {
-		// console.log('changeData', data);
+	// console.log(allph!.find((e) => +e.Id === +photoSeries!.id + 1)?.Route);
+
+	function gsapRandomShift() {
+		gsap.set('.tt', {
+			delay: 0.5,
+			duration: 0.8,
+			x: `+=random(${-innerWidth * 0.04}, ${innerWidth * 0.04}, 5)`,
+			y: `+=random(${-innerHeight * 0.045}, ${innerHeight * 0.045}, 5)`
+		});
+	}
+	function changeData(photoSeries: PageData['photoSeries']) {
 		onMount(() => {
-			setLoy(data, innerWidth, innerHeight);
+			console.log('onmountVhangeData');
+
+			setLoy(photoSeries, innerWidth, innerHeight);
+			gsap.set('.tt', {
+				delay: 0.5,
+				duration: 0.8,
+				x: `+=random(${-innerWidth * 0.04}, ${innerWidth * 0.04}, 5)`,
+				y: `+=random(${-innerHeight * 0.045}, ${innerHeight * 0.045}, 5)`
+			});
 			initObserver(observElements);
 		});
 		afterNavigate(() => {
-			// console.log('afterNavigate', data);
-			setLoy(data, innerWidth, innerHeight);
+			setLoy(photoSeries, innerWidth, innerHeight);
 			initObserver(observElements);
 		});
-		// if (browser) {
-		// 	setLoy(data, innerWidth, innerHeight);
-		// 	initObserver();
-		// }
 	}
 
-	$: changeData(data);
+	// $: changeData(photoSeries);
 
-	// afterNavigate(() => {
+	afterNavigate(() => {
+		invalidateAll();
+	});
 	// 	if (browser) {
 	// 		console.log('browser', data, observElements.length1);
 
@@ -180,21 +198,16 @@
 	// });
 
 	onMount(() => {
-		// initObserver();
+		initObserver(observElements);
+		setLoy(photoSeries, innerWidth, innerHeight);
+		gsapRandomShift();
 
-		// setLoy(gallery, innerWidth, innerHeight);
 		//SAVE INIT DEMENTIONS
 		initH = window.innerHeight;
 		initW = window.innerWidth;
 
 		setOpacity = true; //SET OPACITY 1
 
-		gsap.set('.tt', {
-			delay: 0.5,
-			duration: 0.8,
-			x: `+=random(${-innerWidth * 0.04}, ${innerWidth * 0.04}, 5)`,
-			y: `+=random(${-innerHeight * 0.045}, ${innerHeight * 0.045}, 5)`
-		});
 		window.addEventListener('resize', debounce(resize, 400));
 	});
 
@@ -204,18 +217,19 @@
 			window.removeEventListener('resize', resize);
 		}
 	});
+	const nextRoute = () => {};
 </script>
 
+<svelte:window bind:innerWidth bind:innerHeight />
 <svelte:head>
-	<title>{gallery.Title}</title>
+	<title>{photoSeries && photoSeries.Title}</title>
 </svelte:head>
 
-<svelte:window bind:innerWidth bind:innerHeight />
-
-<h1 class="main__head">
-	{gallery.Title}
-</h1>
-
+{#if photoSeries}
+	<h1 class="main__head">
+		{photoSeries.Title}
+	</h1>
+{/if}
 <div class="holder" style={`height: ${containerHeightLoy}`}>
 	{#each layoutData as photo, index (index)}
 		<div
@@ -237,10 +251,11 @@
 		</div>
 	{/each}
 </div>
-<div class="navigstion">
-	<a href={`/${$allPhotoseries[2].Route}`}><p class="naviganion__next">Следующая фотосерия</p></a>
-</div>
+<!-- data-sveltekit-reload -->
 
+<!-- <div class="navigstion">
+	<a href={`/${navigateNext()}`}><p class="naviganion__next">Следующая фотосерия</p></a>
+</div> -->
 <style>
 	.navigstion {
 		display: grid;
