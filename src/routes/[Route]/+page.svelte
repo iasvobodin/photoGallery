@@ -147,14 +147,15 @@
 		initH = innerHeight;
 	}
 	function navigateNext() {
+		// console.log(+photoSeries!.id + 1 === allph!.length);
+
 		if (+photoSeries!.id + 1 === allph!.length) {
-			return allph![0].Route; //go to start
+			return allph![allph!.length - 1].Route.toLowerCase(); //go to start
 		} else {
-			return allph!.find((e) => +e.Id === +photoSeries!.id + 1)?.Route;
+			return allph!.find((e) => +e.Id === +photoSeries!.id + 1)?.Route.toLowerCase();
 		}
 	}
-
-	// console.log(allph!.find((e) => +e.Id === +photoSeries!.id + 1)?.Route);
+	// const nextRoute = console.log(navigateNext(), 'next');
 
 	function gsapRandomShift() {
 		gsap.set('.tt', {
@@ -185,9 +186,9 @@
 
 	// $: changeData(photoSeries);
 
-	afterNavigate(() => {
-		invalidateAll();
-	});
+	// afterNavigate(() => {
+	// 	invalidateAll();
+	// });
 	// 	if (browser) {
 	// 		console.log('browser', data, observElements.length1);
 
@@ -253,9 +254,12 @@
 </div>
 <!-- data-sveltekit-reload -->
 
-<!-- <div class="navigstion">
-	<a href={`/${navigateNext()}`}><p class="naviganion__next">Следующая фотосерия</p></a>
-</div> -->
+<div class="navigstion">
+	<a data-sveltekit-reload href={`/${navigateNext()}/`}
+		><p class="naviganion__next">Следующая фотосерия</p></a
+	>
+</div>
+
 <style>
 	.navigstion {
 		display: grid;
