@@ -258,12 +258,19 @@
 <!-- data-sveltekit-reload -->
 
 <div class="navigstion">
+	<img class="navigstion__top" src="/icons/top.svg" alt="" />
 	<a class="contact__link" data-sveltekit-reload href={`/${navigateNext()}`}
 		><p class="naviganion__next">Следующая фотосерия</p></a
 	>
 </div>
 
 <style>
+	.navigstion__top {
+		cursor: pointer;
+		place-self: center;
+		height: 25px;
+		width: 25px;
+	}
 	.contact__link {
 		position: relative;
 		text-decoration: none;
@@ -281,10 +288,12 @@
 	}
 	.navigstion {
 		display: grid;
+		grid-auto-flow: column;
+		grid-template-columns: 40px auto;
 		margin: auto;
 		height: 40px;
 		width: min(80vw, 400px);
-		border-radius: 20px;
+		border-radius: 10px;
 		background-color: #303030;
 		border: 1px solid white;
 	}
@@ -300,6 +309,7 @@
 		margin: 0;
 		text-align: center;
 		font-size: calc(20px + 1vw);
+		line-height: 40px;
 		/* line-height: calc(20px + 1.2vw); */
 		font-weight: 300;
 		color: #ffffff;

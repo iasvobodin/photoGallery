@@ -1,0 +1,13 @@
+<svg id="Слой_1" enable-background="new 0 0 4000 4000" height="512" viewBox="0 0 4000 4000" width="512"
+    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="1360.813" x2="2639.188" y1="1920.813"
+        y2="3199.188">
+        <stop offset="0" stop-color="#57ebdb" />
+        <stop offset="1" stop-color="#ffffff" />
+    </linearGradient>
+    <g>
+        <path
+            d="m3120 2672c-28.656 0-57.312-10.938-79.188-32.812l-1040.812-1040.813-1040.812 1040.813c-43.75 43.75-114.625 43.75-158.375 0s-43.75-114.625 0-158.375l1120-1120c43.75-43.75 114.625-43.75 158.375 0l1120 1120c43.75 43.75 43.75 114.625 0 158.375-21.876 21.874-50.532 32.812-79.188 32.812z"
+            fill="url(#SVGID_1_)" />
+    </g>
+</svg>
