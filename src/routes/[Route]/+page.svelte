@@ -308,7 +308,7 @@
 		/* padding: 5px; */
 		margin: 0;
 		text-align: center;
-		font-size: calc(20px + 1vw);
+		font-size: 25px;
 		line-height: 40px;
 		/* line-height: calc(20px + 1.2vw); */
 		font-weight: 300;
