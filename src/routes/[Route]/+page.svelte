@@ -26,7 +26,7 @@
 
 	export let data: PageData;
 
-	console.log(data);
+	// console.log(data);
 	// $: ({ photoSeries, allph } = data);
 
 	let photoSeries = data.photoSeries;
@@ -148,11 +148,14 @@
 	}
 	function navigateNext() {
 		// console.log(+photoSeries!.id + 1 === allph!.length);
-
-		if (+photoSeries!.id + 1 === allph!.length) {
-			return allph![allph!.length - 1].Route.toLowerCase(); //go to start
+		if (photoSeries && allph) {
+			if (+photoSeries.id + 1 === allph.length) {
+				return allph[allph.length - 1].Route.toLowerCase(); //go to start
+			} else {
+				return allph.find((e) => +e.Id === +photoSeries!.id + 1)?.Route.toLowerCase();
+			}
 		} else {
-			return allph!.find((e) => +e.Id === +photoSeries!.id + 1)?.Route.toLowerCase();
+			return '/';
 		}
 	}
 	// const nextRoute = console.log(navigateNext(), 'next');
@@ -255,19 +258,34 @@
 <!-- data-sveltekit-reload -->
 
 <div class="navigstion">
-	<a data-sveltekit-reload href={`/${navigateNext()}/`}
+	<a class="contact__link" data-sveltekit-reload href={`/${navigateNext()}`}
 		><p class="naviganion__next">Следующая фотосерия</p></a
 	>
 </div>
 
 <style>
+	.contact__link {
+		position: relative;
+		text-decoration: none;
+		text-decoration-line: none;
+		text-decoration-color: white;
+		color: white;
+		/* padding: 1vh; */
+		justify-self: center;
+		align-self: stretch;
+		font-size: max(1.2vw, 20px);
+		/* border-radius: 5px; */
+		/* background-color: black; */
+		width: fit-content;
+		text-align: center;
+	}
 	.navigstion {
 		display: grid;
 		margin: auto;
 		height: 40px;
 		width: min(80vw, 400px);
 		border-radius: 20px;
-		background-color: gray;
+		background-color: #303030;
 		border: 1px solid white;
 	}
 
@@ -282,7 +300,7 @@
 		margin: 0;
 		text-align: center;
 		font-size: calc(20px + 1vw);
-		line-height: calc(20px + 1.2vw);
+		/* line-height: calc(20px + 1.2vw); */
 		font-weight: 300;
 		color: #ffffff;
 		vertical-align: middle;
