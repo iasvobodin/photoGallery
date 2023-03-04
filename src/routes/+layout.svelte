@@ -17,6 +17,7 @@
 	.main {
 		/* padding-top: 65px; */
 		padding-bottom: 10vh;
+		position: relative;
 	}
 	.header {
 		/* background-color: black; */

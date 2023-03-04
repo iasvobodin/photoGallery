@@ -28,6 +28,8 @@
 
 	// console.log(data);
 	// $: ({ photoSeries, allph } = data);
+	let menuIsOpen = false,
+		showSubMenu = false;
 
 	let photoSeries = data.photoSeries;
 	let allph = data.allph;
@@ -37,6 +39,7 @@
 	let observer: IntersectionObserver;
 	let observElements: Array<HTMLElement> = [],
 		elementEntries: Array<Boolean> = [],
+		menuAnimation: gsap.core.Tween,
 		containerHeightLoy: String,
 		layoutData: Array<LoyData> = [];
 
@@ -200,7 +203,6 @@
 	// 		setLoy(data, innerWidth, innerHeight);
 	// 	}
 	// });
-
 	onMount(() => {
 		initObserver(observElements);
 		setLoy(photoSeries, innerWidth, innerHeight);
@@ -212,6 +214,20 @@
 
 		setOpacity = true; //SET OPACITY 1
 
+		menuAnimation = gsap.to('.navigation__main', {
+			duration: 0.3,
+			height: '+=500px',
+			// y: '-=500px',
+			ease: 'none',
+			onReverseComplete: () => {
+				showSubMenu = !showSubMenu;
+			},
+			onComplete: () => {
+				showSubMenu = !showSubMenu;
+			},
+			paused: true
+		});
+
 		window.addEventListener('resize', debounce(resize, 400));
 	});
 
@@ -221,7 +237,14 @@
 			window.removeEventListener('resize', resize);
 		}
 	});
-	const nextRoute = () => {};
+	const toogleMenu = () => {
+		if (menuIsOpen) {
+			menuAnimation.reverse();
+		} else {
+			menuAnimation.play();
+		}
+		menuIsOpen = !menuIsOpen;
+	};
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -256,18 +279,61 @@
 	{/each}
 </div>
 <!-- data-sveltekit-reload -->
-
-<div class="navigstion">
-	<img class="navigstion__top" src="/icons/top.svg" alt="" />
-	<a class="contact__link" data-sveltekit-reload href={`/${navigateNext()}`}
-		><p class="naviganion__next">Следующая фотосерия</p></a
-	>
+<div class="navigation__main">
+	{#if showSubMenu && allph}
+		<div class="holder__photoserieslink">
+			{#each allph as item}
+				<a
+					class="contact__link"
+					data-sveltekit-reload
+					href={allph ? `/${item.Route.toLowerCase()}` : '/'}
+					><p class="naviganion__next">{item.Title}</p></a
+				>
+			{/each}
+		</div>
+	{/if}
+	<div class="navigstion">
+		<img class="navigstion__top" src="/icons/menu.svg" alt="" />
+		<a class="contact__link" data-sveltekit-reload href={`/${navigateNext()}`}
+			><p class="naviganion__next">Следующая фотосерия</p></a
+		>
+		<img
+			class:reverse__button={menuIsOpen}
+			on:click={toogleMenu}
+			class="navigstion__top"
+			src="/icons/top.svg"
+			alt=""
+		/>
+	</div>
 </div>
 
 <style>
+	.navigation__main {
+		margin: auto;
+		position: absolute;
+		left: 0;
+		bottom: 40px;
+		right: 0;
+		bottom: 30px;
+		border-radius: 10px;
+		background-color: #303030;
+		border: 1px solid white;
+		height: 40px;
+		width: min(80vw, 400px);
+	}
+	.holder__photoserieslink {
+		overflow-y: scroll;
+		/* position: absolute; */
+		height: 500px;
+	}
+	.reverse__button {
+		rotate: 180;
+	}
 	.navigstion__top {
 		cursor: pointer;
-		place-self: center;
+		/* place-self: center; */
+		align-self: end;
+		margin-bottom: 7px;
 		height: 25px;
 		width: 25px;
 	}
@@ -279,7 +345,7 @@
 		color: white;
 		/* padding: 1vh; */
 		justify-self: center;
-		align-self: stretch;
+		align-self: end;
 		font-size: max(1.2vw, 20px);
 		/* border-radius: 5px; */
 		/* background-color: black; */
@@ -289,13 +355,15 @@
 	.navigstion {
 		display: grid;
 		grid-auto-flow: column;
-		grid-template-columns: 40px auto;
+		grid-template-columns: 40px auto 40px;
 		margin: auto;
 		height: 40px;
 		width: min(80vw, 400px);
-		border-radius: 10px;
+		position: absolute;
+		bottom: 0;
+		/* border-radius: 10px;
 		background-color: #303030;
-		border: 1px solid white;
+		border: 1px solid white; */
 	}
 
 	.naviganion__next {
@@ -308,14 +376,15 @@
 		/* padding: 5px; */
 		margin: 0;
 		text-align: center;
-		font-size: 25px;
-		/* line-height: calc(20px + 1.2vw); */
+		font-size: 20px;
+		line-height: 40px;
 		font-weight: 300;
 		color: #ffffff;
 		vertical-align: middle;
 		margin: 0;
 		place-self: center;
 	}
+
 	.tt {
 		/* display: none; */
 		border-radius: 5px;
