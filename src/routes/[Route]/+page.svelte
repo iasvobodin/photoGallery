@@ -39,7 +39,8 @@
 	let observer: IntersectionObserver;
 	let observElements: Array<HTMLElement> = [],
 		elementEntries: Array<Boolean> = [],
-		menuAnimation: gsap.core.Tween,
+		menuAnimationOpen: gsap.core.Tween,
+		menuAnimationClose: gsap.core.Tween,
 		containerHeightLoy: String,
 		layoutData: Array<LoyData> = [];
 
@@ -214,9 +215,37 @@
 
 		setOpacity = true; //SET OPACITY 1
 
-		menuAnimation = gsap.to('.navigation__main', {
+		menuAnimationOpen = gsap.to('.navigation__main', {
 			duration: 0.3,
 			height: '+=500px',
+			reversed: true,
+			// yoyo: true,
+			// y: '-=500px',
+			ease: 'none',
+			onReverseComplete: () => {
+				// showSubMenu = !showSubMenu;
+				console.log('onReverseComplete');
+				menuIsOpen = !menuIsOpen;
+			},
+			onComplete: () => {
+				showSubMenu = true;
+				console.log('onComplete');
+			},
+			onStart: () => {
+				console.log('onStart');
+				menuIsOpen = !menuIsOpen;
+			},
+			onRepeat: () => {
+				console.log('onRepeat');
+			},
+
+			paused: true
+			// repeat: -1
+		});
+
+		menuAnimationClose = gsap.to('.navigation__main', {
+			duration: 0.3,
+			height: '-=500px',
 			// y: '-=500px',
 			ease: 'none',
 			onReverseComplete: () => {
@@ -226,6 +255,7 @@
 				showSubMenu = !showSubMenu;
 			},
 			paused: true
+			// repeat: -1
 		});
 
 		window.addEventListener('resize', debounce(resize, 400));
@@ -238,12 +268,8 @@
 		}
 	});
 	const toogleMenu = () => {
-		if (menuIsOpen) {
-			menuAnimation.reverse();
-		} else {
-			menuAnimation.play();
-		}
-		menuIsOpen = !menuIsOpen;
+		menuAnimationOpen.reversed() ? menuAnimationOpen.play() : menuAnimationOpen.reverse();
+		menuIsOpen && (showSubMenu = false);
 	};
 </script>
 
