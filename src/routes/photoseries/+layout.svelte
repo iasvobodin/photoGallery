@@ -76,9 +76,9 @@
 </script>
 
 <div class="main">
-	<a href={$page.params.Route ? '/photoseries' : '/'}>
+	<!-- <a href={'/'}>
 		<img class="button back" src="/icons/back.svg" alt="" />
-	</a>
+	</a> -->
 	<slot />
 </div>
 

@@ -278,7 +278,9 @@
 <svelte:head>
 	<title>{photoSeries && photoSeries.Title}</title>
 </svelte:head>
-
+<a href={'/photoseries'}>
+	<img class="back" src="/icons/back.svg" alt="" />
+</a>
 {#if photoSeries}
 	<h1 class="main__head">
 		{photoSeries.Title}
@@ -338,6 +340,16 @@
 {/if}
 
 <style>
+	.back {
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+		position: absolute;
+		top: 20px;
+		left: 20px;
+		border: 1.5px solid rgb(0, 183, 255);
+		border-radius: 50%;
+	}
 	.navigation__main {
 		margin: auto;
 		position: absolute;
