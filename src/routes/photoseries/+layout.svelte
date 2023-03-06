@@ -4,6 +4,9 @@
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
 	import { clickOutside } from '$lib/assets/clickOutside';
+	import { getStores, navigating, page, updated } from '$app/stores';
+
+	console.log($page);
 
 	let tl: gsap.core.Timeline;
 	let menuAnimationOpen: gsap.core.Tween, menuAnimationClose: gsap.core.Tween;
@@ -72,7 +75,12 @@
 	});
 </script>
 
-<div class="main"><slot /></div>
+<div class="main">
+	<a href={$page.params.Route ? '/photoseries' : '/'}>
+		<img class="button back" src="/icons/back.svg" alt="" />
+	</a>
+	<slot />
+</div>
 
 <div use:clickOutside on:click_outside={handleClickOutside} class="header">
 	<div class="menu">
@@ -82,9 +90,6 @@
 		<img on:click={activeMenu} class="button degr" src="/icons/plus.svg" alt="" />
 	</div>
 	<!-- <div class="dumm" /> -->
-	<!-- <a href="/">
-		<img class="button back" src="/icons/back.svg" alt="" />
-	</a> -->
 </div>
 
 <style>
@@ -126,10 +131,10 @@
 	}
 	.header {
 		/* background-color: black; */
-		width: 100%;
+		/* width: 100%;
 		height: 65px;
 		position: fixed;
-		top: 0;
+		top: 0; */
 	}
 	.button {
 		width: 37px;
@@ -137,6 +142,10 @@
 		cursor: pointer;
 	}
 	.back {
-		right: 70px;
+		position: absolute;
+		top: 20px;
+		left: 20px;
+		border: 1.5px solid rgb(0, 183, 255);
+		border-radius: 50%;
 	}
 </style>
