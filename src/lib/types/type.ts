@@ -1,0 +1,1 @@
+export type AllPhoto = { Id: string; Route: string; Title: string }

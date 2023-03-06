@@ -23,10 +23,11 @@ import type { PageLoad } from './$types';
 
 
 import allPhotoseries from "$lib/db/all.json";
+import type { AllPhoto } from "$lib/types/type";
 export const prerender = true;
 
 
-interface AllPhoto { Id: string; Route: string; Title: string }
+// type AllPhoto = { Id: string; Route: string; Title: string }
 
 export const load = (({ params }) => {
 

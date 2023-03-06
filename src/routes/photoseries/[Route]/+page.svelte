@@ -8,6 +8,7 @@
 	import { browser } from '$app/environment';
 	import { allPhotoseries } from '$lib/store.js';
 	import { getStores, navigating, page, updated } from '$app/stores';
+	import Navigation from '$lib/components/navigation.svelte';
 	import {
 		afterNavigate,
 		beforeNavigate,
@@ -305,7 +306,7 @@
 	{/each}
 </div>
 <!-- data-sveltekit-reload -->
-<div class="navigation__main">
+<!-- <div class="navigation__main">
 	{#if showSubMenu && allph}
 		<div class="holder__photoserieslink">
 			{#each allph as item}
@@ -331,7 +332,10 @@
 			alt=""
 		/>
 	</div>
-</div>
+</div> -->
+{#if allph && photoSeries}
+	<Navigation photoseriesList={allph} id={+photoSeries.id} />
+{/if}
 
 <style>
 	.navigation__main {
