@@ -27,30 +27,13 @@
 				console.log('onComplete');
 			},
 			onStart: () => {
-				console.log('onStart');
 				menuIsOpen = !menuIsOpen;
+				console.log('onStart', menuIsOpen);
 			},
 			onRepeat: () => {
 				console.log('onRepeat');
 			},
-
 			paused: true
-			// repeat: -1
-		});
-
-		menuAnimationClose = gsap.to('.navigation__main', {
-			duration: 0.3,
-			height: '-=500px',
-			// y: '-=500px',
-			ease: 'none',
-			onReverseComplete: () => {
-				showSubMenu = !showSubMenu;
-			},
-			onComplete: () => {
-				showSubMenu = !showSubMenu;
-			},
-			paused: true
-			// repeat: -1
 		});
 	});
 
@@ -121,7 +104,7 @@
 		height: 500px;
 	}
 	.reverse__button {
-		rotate: 180;
+		rotate: 180deg;
 	}
 	.navigstion__top {
 		cursor: pointer;

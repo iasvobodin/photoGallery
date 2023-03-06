@@ -24,6 +24,7 @@ h3,
 h4,
 h5,
 h6 {
+	font-family: Cormorant Infant;
 	margin: 0;
 	font-weight: 400;
 	line-height: 1.2;
@@ -31,6 +32,16 @@ h6 {
 
 h1 {
 	font-size: 2em;
+}
+
+h3 {
+	font-size: calc(20px + 1vw);
+	line-height: 1;
+}
+
+h4 {
+	font-size: calc(16px + 1vw);
+	line-height: 1;
 }
 
 a {
@@ -54,4 +65,15 @@ code {
 	background-color: #f0f0f0;
 	padding: 0.2em 0.4em;
 	border-radius: 2px;
+}
+
+.back__button {
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	border: 1.5px solid rgb(0, 183, 255);
+	border-radius: 50%;
 }

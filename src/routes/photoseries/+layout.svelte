@@ -4,14 +4,18 @@
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
 	import { clickOutside } from '$lib/assets/clickOutside';
-	import { getStores, navigating, page, updated } from '$app/stores';
-
-	console.log($page);
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	// console.log($page);
 
 	let tl: gsap.core.Timeline;
 	let menuAnimationOpen: gsap.core.Tween, menuAnimationClose: gsap.core.Tween;
 	let menuIsOpen = false,
 		showSubMenu = false;
+
+	const goSomeWhereBack = () => {
+		goto($page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/')));
+	};
 
 	const activeMenu = () => {
 		console.log(tl.reversed(), 'click');
@@ -76,9 +80,9 @@
 </script>
 
 <div class="main">
-	<!-- <a href={'/'}>
-		<img class="button back" src="/icons/back.svg" alt="" />
-	</a> -->
+	<!-- <a href={goSomeWhereBack()}> -->
+	<!-- <img on:click={goSomeWhereBack} class="button back" src="/icons/back.svg" alt="" /> -->
+	<!-- </a> -->
 	<slot />
 </div>
 

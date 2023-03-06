@@ -278,9 +278,7 @@
 <svelte:head>
 	<title>{photoSeries && photoSeries.Title}</title>
 </svelte:head>
-<a href={'/photoseries'}>
-	<img class="back" src="/icons/back.svg" alt="" />
-</a>
+
 {#if photoSeries}
 	<h1 class="main__head">
 		{photoSeries.Title}
