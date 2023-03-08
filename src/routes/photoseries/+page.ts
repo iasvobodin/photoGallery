@@ -9,7 +9,7 @@ export const prerender = true;
 data.sort((a, b) => (a.Name.toLowerCase() < b.Name.toLowerCase() ? -1 : 1));
 
 const phcover = data.filter((image) => image.Keywords.includes(`phcover`))
-
+phcover.sort((a, b) => (a.Name.toLowerCase() < b.Name.toLowerCase() ? 1 : -1));
 
 const photoseries = {
     Route: phcover.map((image) => image.Keywords.filter(e => e.startsWith('ph__'))[0].slice(4)),

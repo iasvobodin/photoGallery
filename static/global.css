@@ -50,10 +50,11 @@ a {
 
 .main__head {
 	text-align: end;
-	white-space: pre;
+	white-space: pre-wrap;
 	font-family: Cormorant Infant, sans-serif;
 	font-weight: 300;
 	padding: 2vh;
+	padding-left: 20vw;
 	font-size: clamp(36px, 6vw + 12px, 80px);
 	line-height: clamp(40px, 6.5vw + 12px, 90px);
 }
