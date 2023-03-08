@@ -31,9 +31,29 @@ const photoseries = unicRoute.map((el, i) => {
 })
 photoseries.sort((a, b) => (a.cover.toLowerCase() < b.cover.toLowerCase() ? 1 : -1));
 
+
+const photoSeriesLoy = {
+    Route: data
+        .filter((image) => image.Keywords?.includes(`phcover`))
+        .map((image) => image.Keywords?.filter(e => e.startsWith('ph__'))[0].slice(4)),
+    ImageName: data
+        .filter((image) => image.Keywords?.includes(`phcover`))
+        .map((image) => image.Name),
+    Aspect: data
+        .filter((image) => image.Keywords?.includes(`phcover`))
+        .map((image) => image.Aspect),
+    Colors: data
+        .filter((image) => image.Keywords?.includes(`phcover`))
+        .map((image) => image.Colors),
+    Title: data
+        .filter((image) => image.Keywords?.includes(`phcover`))
+        .map((image) => image.Keywords?.filter(e => e.startsWith('name__'))[0].slice(6).replaceAll('_', ' ')),
+}
+console.log(photoSeriesLoy);
+
 export const load = (() => {
 
-    return { photoseries }
+    return { photoseries, photoSeriesLoy }
 
 }) satisfies PageLoad
 

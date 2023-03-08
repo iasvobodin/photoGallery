@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
+	console.log(data);
+
 	// font-size: clamp(14px, 2vw + 12px, 40px);
 	// 	line-height: clamp(18px, 2.5vw + 12px, 40px);
 </script>
