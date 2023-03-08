@@ -8,21 +8,15 @@ export const prerender = true;
 
 data.sort((a, b) => (a.Name.toLowerCase() < b.Name.toLowerCase() ? -1 : 1));
 
-const Route = data.filter((image) => image.Keywords !== undefined) as AllData
-const phcover = Route.filter((image) => image.Keywords.includes(`phcover`))
+const phcover = data.filter((image) => image.Keywords.includes(`phcover`))
 
 
 const photoseries = {
-    Route: phcover
-        .map((image) => image.Keywords.filter(e => e.startsWith('ph__'))[0].slice(4)),
-    ImageName: phcover
-        .map((image) => image.Name),
-    Aspect: phcover
-        .map((image) => image.Aspect),
-    Colors: phcover
-        .map((image) => image.Colors),
-    Title: phcover
-        .map((image) => image.Keywords.filter(e => e.startsWith('name__'))[0].slice(6).replaceAll('_', ' ')),
+    Route: phcover.map((image) => image.Keywords.filter(e => e.startsWith('ph__'))[0].slice(4)),
+    ImageName: phcover.map((image) => image.Name),
+    Aspect: phcover.map((image) => image.Aspect),
+    Colors: phcover.map((image) => image.Colors),
+    Title: phcover.map((image) => image.Keywords.filter(e => e.startsWith('name__'))[0].slice(6).replaceAll('_', ' ')),
 }
 
 export const load = (() => {

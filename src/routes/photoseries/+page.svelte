@@ -6,63 +6,41 @@
 	import justifiedLayout from 'justified-layout';
 	import { gsap } from 'gsap';
 	import { browser } from '$app/environment';
-	import { allPhotoseries } from '$lib/store.js';
-	import { getStores, navigating, page, updated } from '$app/stores';
-	import Navigation from '$lib/components/navigation.svelte';
-	import {
-		afterNavigate,
-		beforeNavigate,
-		disableScrollHandling,
-		goto,
-		invalidate,
-		invalidateAll,
-		preloadCode,
-		preloadData
-	} from '$app/navigation';
 
 	type LoyData = {
-		Title?: string;
-		Route?: string;
-		setStyle: string;
+		Title: string;
+		Route: string;
 		imageSrc?: string;
-	};
+		setStyle: string;
+	}[];
 
 	export let data: PageData;
 
-	// console.log(data);
-	// $: ({ photoSeries, allph } = data);
-	let menuIsOpen = false,
-		showSubMenu = false;
-
-	let photoSeries = data.photoseries;
-	// let allph = data.allph;
-	console.log(photoSeries);
-
-	let paddingCoef, initH: number, initW: number;
-	let setOpacity = false;
-	let observer: IntersectionObserver;
-	let observElements: Array<HTMLElement> = [],
+	let photoseries = data.photoseries,
+		paddingCoef,
+		initH: number,
+		initW: number,
+		setOpacity = false,
+		observer: IntersectionObserver,
+		observElements: Array<HTMLElement> = [],
 		elementEntries: Array<Boolean> = [],
-		menuAnimationOpen: gsap.core.Tween,
-		menuAnimationClose: gsap.core.Tween,
 		containerHeightLoy: String,
-		layoutData: Array<LoyData> = [];
-
-	let innerWidth: number, innerHeight: number; //BINDING SVELTE:WINDOW
-	$: observElements = [];
-	// NEED TO DEL COLOR FROM DB
-	if (photoSeries) {
-		layoutData = photoSeries.Colors.map((el, i) => {
+		innerWidth: number,
+		innerHeight: number,
+		layoutData: LoyData = photoseries.Colors.map((el, i) => {
 			return {
-				setStyle: `box-shadow: inset 0px 0px 0px 2px rgb(${el[0]});background-image: radial-gradient(circle at bottom center, rgb(${el[0]}),rgb(${el[1]}));`
+				Route: photoseries.Route[i],
+				Title: photoseries.Title[i],
+				setStyle: `
+			box-shadow: inset 0px 0px 0px 2px ${el[0]};
+			background-image: radial-gradient(circle at bottom center, ${el[0]},${el[1]});`
 			};
 		});
-	}
 
 	function setLoy(galleryData: PageData['photoseries'], width: number, height: number) {
 		console.log('setloy');
 
-		const layout = justifiedLayout([...galleryData!.Aspect], {
+		const layout = justifiedLayout([...galleryData.Aspect], {
 			// fullWidthBreakoutRowCadence: 4,
 			// showWidows: false, //CUT SOME PICTURES IN THE END
 			targetRowHeight: height * 0.57,
@@ -92,12 +70,12 @@
 				margin:0;
 				left:${Math.floor(el.left)}px;
 				top:${Math.floor(el.top)}px;
-					box-shadow: inset 0px 0px 0px 2px ${galleryData!.Colors[i][0]};
-					width: ${Math.floor(el.width)}px;
-					height: ${Math.floor(el.height)}px;
-					background-image: radial-gradient(circle at bottom center, 
-					${galleryData!.Colors[i][0]},
-					${galleryData!.Colors[i][1]});
+				width: ${Math.floor(el.width)}px;
+				height: ${Math.floor(el.height)}px;
+				box-shadow: inset 0px 0px 0px 2px ${galleryData.Colors[i][0]};
+				background-image: radial-gradient(circle at bottom center,
+				${galleryData.Colors[i][0]},
+				${galleryData.Colors[i][1]});
 					`
 			};
 		});
@@ -144,7 +122,7 @@
 			return;
 		}
 
-		setLoy(photoSeries, innerWidth, innerHeight);
+		setLoy(photoseries, innerWidth, innerHeight);
 		initH = innerHeight;
 	}
 
@@ -156,44 +134,10 @@
 			y: `+=random(${-innerHeight * 0.01}, ${innerHeight * 0.01}, 5)`
 		});
 	}
-	function changeData(photoSeries: PageData['photoseries']) {
-		onMount(() => {
-			console.log('onmountVhangeData');
 
-			setLoy(photoSeries, innerWidth, innerHeight);
-
-			gsap.set('.tt', {
-				delay: 0.5,
-				duration: 0.8,
-				x: `+=random(${-innerWidth * 0.01}, ${innerWidth * 0.01}, 5)`,
-				y: `+=random(${-innerHeight * 0.01}, ${innerHeight * 0.01}, 5)`
-			});
-			initObserver(observElements);
-		});
-		afterNavigate(() => {
-			setLoy(photoSeries, innerWidth, innerHeight);
-			initObserver(observElements);
-		});
-	}
-
-	// $: changeData(photoSeries);
-
-	// afterNavigate(() => {
-	// 	invalidateAll();
-	// });
-	// 	if (browser) {
-	// 		console.log('browser', data, observElements.length1);
-
-	// 		initObserver();
-
-	// 		setLoy(data, innerWidth, innerHeight);
-	// 	}
-	// });
 	onMount(() => {
 		initObserver(observElements);
-		setLoy(photoSeries, innerWidth, innerHeight);
-		console.log(layoutData);
-
+		setLoy(photoseries, innerWidth, innerHeight);
 		gsapRandomShift();
 
 		//SAVE INIT DEMENTIONS
@@ -201,49 +145,6 @@
 		initW = window.innerWidth;
 
 		setOpacity = true; //SET OPACITY 1
-
-		menuAnimationOpen = gsap.to('.navigation__main', {
-			duration: 0.3,
-			height: '+=500px',
-			reversed: true,
-			// yoyo: true,
-			// y: '-=500px',
-			ease: 'none',
-			onReverseComplete: () => {
-				// showSubMenu = !showSubMenu;
-				console.log('onReverseComplete');
-				menuIsOpen = !menuIsOpen;
-			},
-			onComplete: () => {
-				showSubMenu = true;
-				console.log('onComplete');
-			},
-			onStart: () => {
-				console.log('onStart');
-				menuIsOpen = !menuIsOpen;
-			},
-			onRepeat: () => {
-				console.log('onRepeat');
-			},
-
-			paused: true
-			// repeat: -1
-		});
-
-		menuAnimationClose = gsap.to('.navigation__main', {
-			duration: 0.3,
-			height: '-=500px',
-			// y: '-=500px',
-			ease: 'none',
-			onReverseComplete: () => {
-				showSubMenu = !showSubMenu;
-			},
-			onComplete: () => {
-				showSubMenu = !showSubMenu;
-			},
-			paused: true
-			// repeat: -1
-		});
 
 		window.addEventListener('resize', debounce(resize, 400));
 	});
@@ -254,15 +155,11 @@
 			window.removeEventListener('resize', resize);
 		}
 	});
-	const toogleMenu = () => {
-		menuAnimationOpen.reversed() ? menuAnimationOpen.play() : menuAnimationOpen.reverse();
-		menuIsOpen && (showSubMenu = false);
-	};
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
 <svelte:head>
-	<title>{photoSeries && photoSeries.Title}</title>
+	<title>{photoseries.Title}</title>
 </svelte:head>
 <!-- on:click={goto(`/photoseries/${photo.Route}`)} -->
 
@@ -277,17 +174,17 @@
 			style={photo.setStyle}
 		>
 			<h3 class="ph__Title">{photo.Title}</h3>
-			{#if elementEntries[index]}
-				<a href={`/photoseries/${photo.Route}`}>
+			<a href={`/photoseries/${photo.Route}`}>
+				{#if elementEntries[index]}
 					<img
 						decoding="async"
 						in:fade={{ delay: 200 }}
 						draggable="false"
 						src={photo.imageSrc}
 						alt="SvobodinaPhoto"
-					/></a
-				>
-			{/if}
+					/>
+				{/if}
+			</a>
 		</div>
 	{/each}
 </div>

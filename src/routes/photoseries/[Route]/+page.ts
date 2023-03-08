@@ -33,8 +33,8 @@ data.sort((a, b) => (a.Name.toLowerCase() < b.Name.toLowerCase() ? -1 : 1));
 
 const unicRoute = <string[]>[...data.reduce(
     (acc, el) => {
-        const f = el.Keywords?.filter(e => e.startsWith('ph__'))
-        if (f) {
+        const f = el.Keywords.filter(e => e.startsWith('ph__'))
+        if (f.length !== 0) {
             return acc.add(f[0])
         } return acc
     },
@@ -52,16 +52,16 @@ export const load = (({ params }) => {
     const photoSeries = {
         Route: params.Route,
         ImageName: data
-            .filter((image) => image.Keywords?.includes(`ph__${params.Route}`))
+            .filter((image) => image.Keywords.includes(`ph__${params.Route}`))
             .map((image) => image.Name),
         Aspect: data
-            .filter((image) => image.Keywords?.includes(`ph__${params.Route}`))
+            .filter((image) => image.Keywords.includes(`ph__${params.Route}`))
             .map((image) => image.Aspect),
         Colors: data
-            .filter((image) => image.Keywords?.includes(`ph__${params.Route}`))
+            .filter((image) => image.Keywords.includes(`ph__${params.Route}`))
             .map((image) => image.Colors),
         Title: data
-            .filter((image) => image.Keywords?.includes(`ph__${params.Route}`))[0]
+            .filter((image) => image.Keywords.includes(`ph__${params.Route}`))[0]
             .Keywords?.filter(e => e.startsWith('name__'))[0].slice(6).replaceAll('_', ' '),
     }
 

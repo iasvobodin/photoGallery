@@ -13,7 +13,7 @@
 	onMount(() => {
 		menuAnimationOpen = gsap.to('.navigation__main', {
 			duration: 0.3,
-			height: '+=500px',
+			height: '+=360px',
 			reversed: true,
 			// yoyo: true,
 			// y: '-=500px',
@@ -74,7 +74,7 @@
 		</div>
 	{/if}
 	<div class="navigstion">
-		<img class="navigstion__top" src="/icons/menu.svg" alt="" />
+		<!-- <img class="navigstion__top" src="/icons/menu.svg" alt="" /> -->
 		<a class="contact__link" data-sveltekit-reload href={`/photoseries/${navigateNext()}`}
 			><p class="naviganion__next next__link">Следующая фотосерия</p></a
 		>
@@ -100,12 +100,12 @@
 		background-color: #141414;
 		border: 1px solid rgb(0, 183, 255);
 		height: 40px;
-		width: min(80vw, 255px);
+		width: min(80vw, 240px);
 	}
 	.holder__photoserieslink {
 		overflow-y: scroll;
 		/* position: absolute; */
-		height: 500px;
+		height: 360px;
 	}
 	.reverse__button {
 		rotate: 180deg;
@@ -140,7 +140,7 @@
 		/* grid-template-columns: auto 40px; */
 		margin: auto;
 		height: 40px;
-		width: min(80vw, 255px);
+		width: min(80vw, 240px);
 		position: absolute;
 		bottom: 0;
 		justify-content: center;

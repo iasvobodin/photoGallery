@@ -331,93 +331,6 @@
 {/if}
 
 <style>
-	.back {
-		width: 40px;
-		height: 40px;
-		cursor: pointer;
-		position: absolute;
-		top: 20px;
-		left: 20px;
-		border: 1.5px solid rgb(0, 183, 255);
-		border-radius: 50%;
-	}
-	.navigation__main {
-		margin: auto;
-		position: absolute;
-		left: 0;
-		bottom: 40px;
-		right: 0;
-		bottom: 30px;
-		border-radius: 10px;
-		background-color: #303030;
-		border: 1px solid white;
-		height: 40px;
-		width: min(80vw, 400px);
-	}
-	.holder__photoserieslink {
-		overflow-y: scroll;
-		/* position: absolute; */
-		height: 500px;
-	}
-	.reverse__button {
-		rotate: 180;
-	}
-	.navigstion__top {
-		cursor: pointer;
-		/* place-self: center; */
-		align-self: end;
-		margin-bottom: 7px;
-		height: 25px;
-		width: 25px;
-	}
-	.contact__link {
-		position: relative;
-		text-decoration: none;
-		text-decoration-line: none;
-		text-decoration-color: white;
-		color: white;
-		/* padding: 1vh; */
-		justify-self: center;
-		align-self: end;
-		font-size: max(1.2vw, 20px);
-		/* border-radius: 5px; */
-		/* background-color: black; */
-		width: fit-content;
-		text-align: center;
-	}
-	.navigstion {
-		display: grid;
-		grid-auto-flow: column;
-		grid-template-columns: 40px auto 40px;
-		margin: auto;
-		height: 40px;
-		width: min(80vw, 400px);
-		position: absolute;
-		bottom: 0;
-		/* border-radius: 10px;
-		background-color: #303030;
-		border: 1px solid white; */
-	}
-
-	.naviganion__next {
-		/* white-space: pre-wrap; */
-		/* grid-area: 1/1; */
-		/* align-self: start;
-		justify-self: center; */
-		cursor: pointer;
-		font-family: Cormorant Infant;
-		/* padding: 5px; */
-		margin: 0;
-		text-align: center;
-		font-size: 20px;
-		line-height: 40px;
-		font-weight: 300;
-		color: #ffffff;
-		vertical-align: middle;
-		margin: 0;
-		place-self: center;
-	}
-
 	.tt {
 		/* display: none; */
 		border-radius: 5px;
@@ -435,18 +348,7 @@
 	h1 {
 		color: white;
 	}
-	.gallery {
-		pointer-events: none;
-		width: calc(200% + 100px);
-		/* overflow: hidden; */
-		position: relative;
 
-		/* color:rgb(110, 110, 30); */
-
-		/* max-width: 95vw; */
-		/* width: 80vw;
-      margin: auto; */
-	}
 	/* .spic__holder {
 		position: absolute;
 		overflow: hidden;
@@ -477,44 +379,5 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-	}
-	.review__title {
-		font-family: Cormorant Infant;
-		font-size: max(36px, 5.8vw);
-		line-height: max(40px, 5.8vw);
-		font-weight: 300;
-		color: #ffffff;
-		margin: 5vw;
-	}
-
-	.main__head2 {
-		/* opacity: 0; */
-		/* z-index: 3; */
-		white-space: pre;
-		/* transform: translate(0, -50%); */
-		/* position: absolute; */
-		/* top: calc((100vh - var(--plane__height)) / 4); */
-		/* left: 1vw; */
-		font-family: Cormorant Infant, sans-serif;
-		font-weight: 300;
-		color: rgb(255, 255, 255);
-		margin: 0;
-		font-size: clamp(14px, 2vw + 12px, 40px);
-		line-height: clamp(18px, 2.5vw + 12px, 40px);
-	}
-	p {
-		color: aliceblue;
-	}
-	.button {
-		position: fixed;
-		top: 10px;
-		right: 70px;
-		width: 45px;
-		height: 45px;
-		/* fill: white; */
-		cursor: pointer;
-	}
-	.reverse__button {
-		transform: rotate(180deg);
 	}
 </style>
