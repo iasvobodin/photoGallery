@@ -24,7 +24,7 @@ import type { PageLoad } from './$types';
 
 import allPhotoseries from "$lib/db/all.json";
 import data from "$lib/db/lightData3.json";
-import type { AllPhoto } from "$lib/types/type";
+// import type { AllPhoto } from "$lib/types/type";
 export const prerender = true;
 
 
@@ -50,6 +50,7 @@ export const load = (({ params }) => {
     // const photoSeries = allPhotoseries.find((e) => e.Name.toLowerCase() === params.Route)
 
     const photoSeries = {
+        Route: params.Route,
         ImageName: data
             .filter((image) => image.Keywords?.includes(`ph__${params.Route}`))
             .map((image) => image.Name),

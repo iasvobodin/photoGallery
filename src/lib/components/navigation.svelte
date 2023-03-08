@@ -2,9 +2,10 @@
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
 	import type { AllPhoto } from '$lib/types/type';
+	import { photoseries } from '$lib/store';
 
-	export let photoseriesList: Array<AllPhoto>;
-	export let id: number;
+	export let photoseriesList: AllPhoto;
+	export let Route: string;
 
 	let menuAnimationOpen: gsap.core.Tween, menuAnimationClose: gsap.core.Tween;
 	let menuIsOpen = false,
@@ -38,12 +39,15 @@
 	});
 
 	function navigateNext() {
+		photoseriesList.findIndex((e) => e.Route === Route);
 		// console.log(+photoSeries!.id + 1 === photoseriesList!.length);
 		// if (photoSeries && photoseriesList) {
-		if (id + 1 === photoseriesList.length) {
-			return photoseriesList[photoseriesList.length - 1].Route.toLowerCase(); //go to start
+		if (photoseriesList.findIndex((e) => e.Route === Route) + 1 === photoseriesList.length) {
+			return photoseriesList[0].Route;
 		} else {
-			return photoseriesList.find((e) => +e.Id === id + 1)?.Route.toLowerCase();
+			return photoseriesList[
+				photoseriesList.findIndex((e) => e.Route === Route) + 1
+			]?.Route.toLowerCase();
 		}
 		// } else {
 		// 	return '/';
@@ -70,10 +74,10 @@
 		</div>
 	{/if}
 	<div class="navigstion">
-		<!-- <img class="navigstion__top" src="/icons/menu.svg" alt="" /> -->
-		<!-- <a class="contact__link" data-sveltekit-reload href={`/photoseries/${navigateNext()}`}
+		<img class="navigstion__top" src="/icons/menu.svg" alt="" />
+		<a class="contact__link" data-sveltekit-reload href={`/photoseries/${navigateNext()}`}
 			><p class="naviganion__next next__link">Следующая фотосерия</p></a
-		> -->
+		>
 		<img
 			class:reverse__button={menuIsOpen}
 			on:click={toogleMenu}

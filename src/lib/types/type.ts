@@ -1,1 +1,5 @@
-export type AllPhoto = { Id: string; Route: string; Title: string }
+export type AllPhoto = {
+    Id: number;
+    Route: string;
+    Title: string | undefined;
+}[]

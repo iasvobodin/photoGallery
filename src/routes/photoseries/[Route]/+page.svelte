@@ -327,7 +327,7 @@
 	</div>
 </div> -->
 {#if allph && photoSeries}
-	<Navigation photoseriesList={allph} id={+photoSeries.id} />
+	<Navigation photoseriesList={allph} Route={photoSeries.Route} />
 {/if}
 
 <style>

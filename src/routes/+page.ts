@@ -8,7 +8,7 @@ data.sort((a, b) => (a.Name.toLowerCase() < b.Name.toLowerCase() ? -1 : 1));
 const unicRoute = <string[]>[...data.reduce(
     (acc, el) => {
         const f = el.Keywords?.filter(e => e.startsWith('ph__'))
-        const n = el.Keywords?.filter(e => e.startsWith('name__'))
+        // const n = el.Keywords?.filter(e => e.startsWith('name__'))
         if (f) {
             return acc.add(f[0])
         } return acc
