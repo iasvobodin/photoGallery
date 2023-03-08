@@ -1,6 +1,6 @@
-<script>
-	// import reviews from '../../static/db/reviews.json';
-	export let data;
+<script lang="ts">
+	import type { PageData } from './$types';
+	export let data: PageData;
 	let reviewsSlice = data.reviews.slice(0, 2);
 	let toogleButton = true;
 </script>

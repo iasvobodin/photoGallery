@@ -1,5 +1,6 @@
-<script>
-	export let data;
+<script lang="ts">
+	import type { PageData } from './$types';
+	export let data: PageData;
 	// font-size: clamp(14px, 2vw + 12px, 40px);
 	// 	line-height: clamp(18px, 2.5vw + 12px, 40px);
 </script>
@@ -17,12 +18,12 @@
 						crossorigin="anonimous"
 						decoding="async"
 						draggable="false"
-						src="https://ik.imagekit.io/svobodinaphoto/tr:w-720/{seriya.LandscapeFileName}.jpg"
+						src="https://ik.imagekit.io/svobodinaphoto/tr:w-720/{seriya.cover}.jpg"
 					/>
 				</a>
 			</picture>
 			<h3 class="photoseries__head">
-				{seriya?.Title}
+				{seriya?.Name}
 			</h3>
 		</div>
 	{/each}

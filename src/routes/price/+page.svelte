@@ -1,6 +1,6 @@
-<script>
-	// import pricedata from "../../static/db/price.json";
-	export let data;
+<script lang="ts">
+	import type { PageData } from './$types';
+	export let data: PageData;
 </script>
 
 <h1 class="main__head">Цены</h1>

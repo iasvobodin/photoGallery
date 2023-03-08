@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import type { PageData } from './$types';
+	// import type { PageData } from './$types';
 	import debounce from 'lodash.debounce';
 	import { onMount, onDestroy } from 'svelte';
 	import justifiedLayout from 'justified-layout';
@@ -25,8 +25,7 @@
 		imageSrc?: string;
 	};
 
-	export let data: PageData;
-
+	export let data;
 	// console.log(data);
 	// $: ({ photoSeries, allph } = data);
 	let menuIsOpen = false,
@@ -34,7 +33,6 @@
 
 	let photoSeries = data.photoSeries;
 	let allph = data.allph;
-	console.log(photoSeries);
 
 	let paddingCoef, initH: number, initW: number;
 	let setOpacity = false;
@@ -50,9 +48,9 @@
 	$: observElements = [];
 	// NEED TO DEL COLOR FROM DB
 	if (photoSeries) {
-		layoutData = photoSeries.Colors.map((el, i) => {
+		layoutData = photoSeries.Spec.map((el, i) => {
 			return {
-				setStyle: `box-shadow: inset 0px 0px 0px 2px rgb(${el[0]});background-image: radial-gradient(circle at bottom center, rgb(${el[0]}),rgb(${el[1]}));`
+				setStyle: `box-shadow: inset 0px 0px 0px 2px rgb(${el.Colors.color[0]});background-image: radial-gradient(circle at bottom center, rgb(${el.Colors.color[0]}),rgb(${el.Colors.color[1]}));`
 			};
 		});
 	}
@@ -89,13 +87,21 @@
 				margin:0;
 				left:${Math.floor(el.left)}px;
 				top:${Math.floor(el.top)}px;
-					box-shadow: inset 0px 0px 0px 2px ${galleryData!.Colors[i][0]};
+					box-shadow: inset 0px 0px 0px 2px rgb(${galleryData!.Spec[i].Color});
 					width: ${Math.floor(el.width)}px;
 					height: ${Math.floor(el.height)}px;
 					background-image: radial-gradient(circle at bottom center, 
-					${galleryData!.Colors[i][0]},
-					${galleryData!.Colors[i][1]});
+					rgb(${galleryData!.Spec[i].Colors.color[0]}),
+					rgb(${galleryData!.Spec[i].Colors.color[1]}));
 					`
+				// position: absolute;
+				// transform: translateX(${Math.floor(
+				// 	el.left
+				// 	// + gsap.utils.random(-width * 0.04, width * 0.04)
+				// )}px) translateY(${Math.floor(
+				// 	el.top
+				// 	//  + gsap.utils.random(-height * 0.045, height * 0.045)
+				// )}px);
 			};
 		});
 	}

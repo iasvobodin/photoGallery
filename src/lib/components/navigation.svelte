@@ -71,9 +71,9 @@
 	{/if}
 	<div class="navigstion">
 		<!-- <img class="navigstion__top" src="/icons/menu.svg" alt="" /> -->
-		<a class="contact__link" data-sveltekit-reload href={`/photoseries/${navigateNext()}`}
+		<!-- <a class="contact__link" data-sveltekit-reload href={`/photoseries/${navigateNext()}`}
 			><p class="naviganion__next next__link">Следующая фотосерия</p></a
-		>
+		> -->
 		<img
 			class:reverse__button={menuIsOpen}
 			on:click={toogleMenu}
