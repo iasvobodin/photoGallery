@@ -47,7 +47,7 @@ const photoseries = unicRoute.map((el, i) => {
     //   .map((image) => image.Params)
 })
 
-console.log(photoseries);
+// console.log(photoseries);
 
 
 export const load = (() => {

@@ -21,6 +21,8 @@
 	} from '$app/navigation';
 
 	type LoyData = {
+		Title?: string;
+		Route?: string;
 		setStyle: string;
 		imageSrc?: string;
 	};
@@ -57,7 +59,7 @@
 		});
 	}
 
-	function setLoy(galleryData: PageData['photoSeries'], width: number, height: number) {
+	function setLoy(galleryData: PageData['photoseries'], width: number, height: number) {
 		console.log('setloy');
 
 		const layout = justifiedLayout([...galleryData!.Aspect], {
@@ -145,29 +147,16 @@
 		setLoy(photoSeries, innerWidth, innerHeight);
 		initH = innerHeight;
 	}
-	function navigateNext() {
-		// console.log(+photoSeries!.id + 1 === allph!.length);
-		if (photoSeries && allph) {
-			if (+photoSeries.id + 1 === allph.length) {
-				return allph[allph.length - 1].Route.toLowerCase(); //go to start
-			} else {
-				return allph.find((e) => +e.Id === +photoSeries!.id + 1)?.Route.toLowerCase();
-			}
-		} else {
-			return '/';
-		}
-	}
-	// const nextRoute = console.log(navigateNext(), 'next');
 
 	function gsapRandomShift() {
 		gsap.set('.tt', {
 			delay: 0.5,
 			duration: 0.8,
-			x: `+=random(${-innerWidth * 0.015}, ${innerWidth * 0.015}, 5)`,
-			y: `+=random(${-innerHeight * 0.015}, ${innerHeight * 0.015}, 5)`
+			x: `+=random(${-innerWidth * 0.01}, ${innerWidth * 0.01}, 5)`,
+			y: `+=random(${-innerHeight * 0.01}, ${innerHeight * 0.01}, 5)`
 		});
 	}
-	function changeData(photoSeries: PageData['photoSeries']) {
+	function changeData(photoSeries: PageData['photoseries']) {
 		onMount(() => {
 			console.log('onmountVhangeData');
 
@@ -176,8 +165,8 @@
 			gsap.set('.tt', {
 				delay: 0.5,
 				duration: 0.8,
-				x: `+=random(${-innerWidth * 0.04}, ${innerWidth * 0.04}, 5)`,
-				y: `+=random(${-innerHeight * 0.045}, ${innerHeight * 0.045}, 5)`
+				x: `+=random(${-innerWidth * 0.01}, ${innerWidth * 0.01}, 5)`,
+				y: `+=random(${-innerHeight * 0.01}, ${innerHeight * 0.01}, 5)`
 			});
 			initObserver(observElements);
 		});
@@ -275,12 +264,12 @@
 <svelte:head>
 	<title>{photoSeries && photoSeries.Title}</title>
 </svelte:head>
+<!-- on:click={goto(`/photoseries/${photo.Route}`)} -->
 
 <h1 class="main__head">Фотосерии</h1>
 <div class="holder" style={`height: ${containerHeightLoy}`}>
 	{#each layoutData as photo, index (index)}
 		<div
-			on:click={goto(`/photoseries2/${photo.Route}`)}
 			bind:this={observElements[index]}
 			on:viewportEnter={() => (elementEntries[index] = true)}
 			class="tt"
@@ -289,136 +278,21 @@
 		>
 			<h3 class="ph__Title">{photo.Title}</h3>
 			{#if elementEntries[index]}
-				<img
-					decoding="async"
-					in:fade={{ delay: 200 }}
-					draggable="false"
-					src={photo.imageSrc}
-					alt="SvobodinaPhoto"
-				/>
+				<a href={`/photoseries/${photo.Route}`}>
+					<img
+						decoding="async"
+						in:fade={{ delay: 200 }}
+						draggable="false"
+						src={photo.imageSrc}
+						alt="SvobodinaPhoto"
+					/></a
+				>
 			{/if}
 		</div>
 	{/each}
 </div>
-<!-- data-sveltekit-reload -->
-<!-- <div class="navigation__main">
-	{#if showSubMenu && allph}
-		<div class="holder__photoserieslink">
-			{#each allph as item}
-				<a
-					class="contact__link"
-					data-sveltekit-reload
-					href={allph ? `/${item.Route.toLowerCase()}` : '/'}
-					><p class="naviganion__next">{item.Title}</p></a
-				>
-			{/each}
-		</div>
-	{/if}
-	<div class="navigstion">
-		<img class="navigstion__top" src="/icons/menu.svg" alt="" />
-		<a class="contact__link" data-sveltekit-reload href={`/${navigateNext()}`}
-			><p class="naviganion__next">Следующая фотосерия</p></a
-		>
-		<img
-			class:reverse__button={menuIsOpen}
-			on:click={toogleMenu}
-			class="navigstion__top"
-			src="/icons/top.svg"
-			alt=""
-		/>
-	</div>
-</div> -->
 
-<!-- {#if allph && photoSeries}
-	<Navigation photoseriesList={allph} Route={photoSeries.Route} />
-{/if} -->
 <style>
-	.back {
-		width: 40px;
-		height: 40px;
-		cursor: pointer;
-		position: absolute;
-		top: 20px;
-		left: 20px;
-		border: 1.5px solid rgb(0, 183, 255);
-		border-radius: 50%;
-	}
-	.navigation__main {
-		margin: auto;
-		position: absolute;
-		left: 0;
-		bottom: 40px;
-		right: 0;
-		bottom: 30px;
-		border-radius: 10px;
-		background-color: #303030;
-		border: 1px solid white;
-		height: 40px;
-		width: min(80vw, 400px);
-	}
-	.holder__photoserieslink {
-		overflow-y: scroll;
-		/* position: absolute; */
-		height: 500px;
-	}
-	.reverse__button {
-		rotate: 180;
-	}
-	.navigstion__top {
-		cursor: pointer;
-		/* place-self: center; */
-		align-self: end;
-		margin-bottom: 7px;
-		height: 25px;
-		width: 25px;
-	}
-	.contact__link {
-		position: relative;
-		text-decoration: none;
-		text-decoration-line: none;
-		text-decoration-color: white;
-		color: white;
-		/* padding: 1vh; */
-		justify-self: center;
-		align-self: end;
-		font-size: max(1.2vw, 20px);
-		/* border-radius: 5px; */
-		/* background-color: black; */
-		width: fit-content;
-		text-align: center;
-	}
-	.navigstion {
-		display: grid;
-		grid-auto-flow: column;
-		grid-template-columns: 40px auto 40px;
-		margin: auto;
-		height: 40px;
-		width: min(80vw, 400px);
-		position: absolute;
-		bottom: 0;
-		/* border-radius: 10px;
-		background-color: #303030;
-		border: 1px solid white; */
-	}
-
-	.naviganion__next {
-		/* white-space: pre-wrap; */
-		/* grid-area: 1/1; */
-		/* align-self: start;
-		justify-self: center; */
-		cursor: pointer;
-		font-family: Cormorant Infant;
-		/* padding: 5px; */
-		margin: 0;
-		text-align: center;
-		font-size: 20px;
-		line-height: 40px;
-		font-weight: 300;
-		color: #ffffff;
-		vertical-align: middle;
-		margin: 0;
-		place-self: center;
-	}
 	.ph__Title {
 		position: absolute;
 		bottom: 0px;
@@ -441,31 +315,6 @@
 	h1 {
 		color: white;
 	}
-	.gallery {
-		pointer-events: none;
-		width: calc(200% + 100px);
-		/* overflow: hidden; */
-		position: relative;
-
-		/* color:rgb(110, 110, 30); */
-
-		/* max-width: 95vw; */
-		/* width: 80vw;
-      margin: auto; */
-	}
-	/* .spic__holder {
-		position: absolute;
-		overflow: hidden;
-		border-radius: 4px;
-		transition: transform 0.5s;
-	} */
-	/* .wrapper {
-		justify-content: center;
-		width: 100%;
-		height: 100vh;
-		display: flex;
-		position: absolute;
-	} */
 
 	.holder {
 		position: relative;
@@ -484,43 +333,8 @@
 		height: 100%;
 		object-fit: cover;
 	}
-	.review__title {
-		font-family: Cormorant Infant;
-		font-size: max(36px, 5.8vw);
-		line-height: max(40px, 5.8vw);
-		font-weight: 300;
-		color: #ffffff;
-		margin: 5vw;
-	}
 
-	.main__head2 {
-		/* opacity: 0; */
-		/* z-index: 3; */
-		white-space: pre;
-		/* transform: translate(0, -50%); */
-		/* position: absolute; */
-		/* top: calc((100vh - var(--plane__height)) / 4); */
-		/* left: 1vw; */
-		font-family: Cormorant Infant, sans-serif;
-		font-weight: 300;
-		color: rgb(255, 255, 255);
-		margin: 0;
-		font-size: clamp(14px, 2vw + 12px, 40px);
-		line-height: clamp(18px, 2.5vw + 12px, 40px);
-	}
 	p {
 		color: aliceblue;
-	}
-	.button {
-		position: fixed;
-		top: 10px;
-		right: 70px;
-		width: 45px;
-		height: 45px;
-		/* fill: white; */
-		cursor: pointer;
-	}
-	.reverse__button {
-		transform: rotate(180deg);
 	}
 </style>
