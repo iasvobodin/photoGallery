@@ -61,19 +61,19 @@
 		console.log('setloy');
 
 		const layout = justifiedLayout([...galleryData!.Aspect], {
-			fullWidthBreakoutRowCadence: 3,
+			fullWidthBreakoutRowCadence: 2,
 			// showWidows: false, //CUT SOME PICTURES IN THE END
 			targetRowHeight: height * 0.57,
 			containerWidth: width, //* 2,
 			containerPadding: {
 				top: height * 0.08,
-				right: width * 0.08, // window.innerWidth * paddingCoef,
+				right: width * 0.04, // window.innerWidth * paddingCoef,
 				bottom: height * 0.08,
-				left: width * 0.08 // window.innerWidth * paddingCoef
+				left: width * 0.04 // window.innerWidth * paddingCoef
 			},
 			boxSpacing: {
-				horizontal: width * 0.11,
-				vertical: height * 0.11
+				horizontal: width * 0.06,
+				vertical: height * 0.06
 			}
 		});
 		containerHeightLoy = `${layout.containerHeight}px`;
@@ -162,8 +162,8 @@
 		gsap.set('.tt', {
 			delay: 0.5,
 			duration: 0.8,
-			x: `+=random(${-innerWidth * 0.04}, ${innerWidth * 0.04}, 5)`,
-			y: `+=random(${-innerHeight * 0.045}, ${innerHeight * 0.045}, 5)`
+			x: `+=random(${-innerWidth * 0.02}, ${innerWidth * 0.02}, 5)`,
+			y: `+=random(${-innerHeight * 0.02}, ${innerHeight * 0.02}, 5)`
 		});
 	}
 	function changeData(photoSeries: PageData['photoSeries']) {

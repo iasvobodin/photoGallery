@@ -156,6 +156,7 @@
 		height: auto;
 		margin: auto;
 		/* margin: 7vh; */
+		padding-bottom: 7vh;
 	}
 	.cont {
 		display: grid;
@@ -172,16 +173,18 @@
 		display: grid;
 		grid-template-columns: minmax(30px, 200px) minmax(250px, 120ch);
 	}
+	/* <stop offset="0" stop-color="#57ebdb" />
+        <stop offset="1" stop-color="#403ddb" /> */
 	.review__body:before {
 		content: '';
 		z-index: -1;
 		border-radius: 5px;
-		background: linear-gradient(120deg, #8d3b00, #5c0101 41.07%, #070047 76.05%);
+		background: linear-gradient(120deg, #57ebdb, #403ddb 41.07%, #070047 76.05%);
 		position: absolute;
-		top: -3px;
-		left: -3px;
-		width: calc(100% + 6px);
-		height: calc(100% + 6px);
+		top: -2px;
+		left: -2px;
+		width: calc(100% + 4px);
+		height: calc(100% + 4px);
 	}
 	.review__decription {
 		position: relative;

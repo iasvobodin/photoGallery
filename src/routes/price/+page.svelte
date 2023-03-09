@@ -35,6 +35,7 @@
 		column-gap: 2vw;
 		width: 90vw;
 		margin: auto;
+		padding-bottom: 7vh;
 	}
 	.price__image {
 		width: 100%;
