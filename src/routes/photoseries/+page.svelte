@@ -11,7 +11,8 @@
 		Title: string;
 		Route: string;
 		imageSrc?: string;
-		setStyle: string;
+		boxStyle: string;
+		titleStyle?: string;
 	}[];
 
 	export let data: PageData;
@@ -31,7 +32,7 @@
 			return {
 				Route: photoseries.Route[i],
 				Title: photoseries.Title[i],
-				setStyle: `
+				boxStyle: `
 			box-shadow: inset 0px 0px 0px 2px ${el[0]};
 			background-image: radial-gradient(circle at bottom center, ${el[0]},${el[1]});`
 			};
@@ -62,10 +63,11 @@
 			return {
 				Route: galleryData!.Route[i],
 				Title: galleryData!.Title[i],
+				titleStyle: `font-size:calc(16px + ${Math.floor(el.width) / 40}px)`,
 				imageSrc: `https://ik.imagekit.io/svobodinaphoto/tr:w-${imageWidth(el.width)}/${
 					galleryData!.ImageName[i]
 				}.jpg`,
-				setStyle: `
+				boxStyle: `
 				position: absolute;
 				margin:0;
 				left:${Math.floor(el.left)}px;
@@ -171,9 +173,8 @@
 			on:viewportEnter={() => (elementEntries[index] = true)}
 			class="tt"
 			class:setOpacity
-			style={photo.setStyle}
+			style={photo.boxStyle}
 		>
-			<h3 class="ph__Title">{photo.Title}</h3>
 			<a href={`/photoseries/${photo.Route}`}>
 				{#if elementEntries[index]}
 					<img
@@ -185,6 +186,7 @@
 					/>
 				{/if}
 			</a>
+			<h3 class="ph__Title" style={photo.titleStyle}>{photo.Title}</h3>
 		</div>
 	{/each}
 </div>
@@ -193,6 +195,8 @@
 	.ph__Title {
 		position: absolute;
 		bottom: 0px;
+		line-height: 1.5;
+		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
 	}
 	.tt {
 		cursor: pointer;
@@ -205,6 +209,31 @@
 		height: 70vh;
 		width: 80vw;
 		opacity: 0;
+	}
+	.tt:before {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		width: 100%;
+		min-height: 20%;
+		/* other styles (left, top, right, and padding) */
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+		background-image: linear-gradient(
+			180deg,
+			hsla(0, 0%, 35.29%, 0) 0%,
+			hsla(0, 0%, 34.53%, 0.034375) 16.36%,
+			hsla(0, 0%, 32.42%, 0.125) 33.34%,
+			hsla(0, 0%, 29.18%, 0.253125) 50.1%,
+			hsla(0, 0%, 24.96%, 0.4) 65.75%,
+			hsla(0, 0%, 19.85%, 0.546875) 79.43%,
+			hsla(0, 0%, 13.95%, 0.675) 90.28%,
+			hsla(0, 0%, 7.32%, 0.765625) 97.43%,
+			hsla(0, 0%, 0%, 0.8) 100%
+		);
 	}
 	.setOpacity {
 		opacity: 1;
