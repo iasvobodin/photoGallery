@@ -1,9 +1,6 @@
 <script>
 	import { gsap } from 'gsap';
 	import { onMount } from 'svelte';
-	import Splitting from 'splitting';
-	import 'splitting/dist/splitting.css';
-	import 'splitting/dist/splitting-cells.css';
 	let menuIsOpen = false;
 	const anim = () => {
 		gsap
@@ -48,9 +45,7 @@
 	};
 
 	let isAnimating = true;
-	onMount(() => {
-		// Splitting();
-	});
+	onMount(() => {});
 </script>
 
 <h1 class="main__title main">SVOBODINA</h1>
