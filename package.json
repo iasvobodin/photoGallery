@@ -19,6 +19,7 @@
 		"@types/justified-layout": "^4.1.0",
 		"@types/lodash-es": "^4.17.6",
 		"@types/lodash.debounce": "^4.0.7",
+		"@types/splitting": "^1.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.49.0",
 		"@typescript-eslint/parser": "^5.49.0",
 		"eslint": "^8.32.0",
@@ -39,6 +40,7 @@
 		"imagekit-javascript": "^1.5.4",
 		"justified-layout": "^4.1.0",
 		"lodash-es": "^4.17.21",
-		"lodash.debounce": "^4.0.8"
+		"lodash.debounce": "^4.0.8",
+		"splitting": "^1.0.6"
 	}
 }

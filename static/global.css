@@ -54,7 +54,7 @@ a {
 	font-family: Cormorant Infant, sans-serif;
 	font-weight: 300;
 	padding: 2vh;
-	padding-left: 20vw;
+	padding-left: 80px;
 	font-size: clamp(36px, 6vw + 12px, 80px);
 	line-height: clamp(40px, 6.5vw + 12px, 90px);
 }
