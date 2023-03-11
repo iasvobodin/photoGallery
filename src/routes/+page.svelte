@@ -74,8 +74,8 @@
 				'.menu__title__ver',
 				{
 					duration: 0.3,
-					width: '100%',
-					background: 'linear-gradient(to left, rgba(0, 0, 0, 1), transparent)'
+					width: '10.5ch',
+					backgroundColor: 'grey'
 				},
 				0
 			)
