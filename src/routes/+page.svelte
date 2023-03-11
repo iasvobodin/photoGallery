@@ -132,9 +132,30 @@
 	</div>
 </div>
 <div class="slider font__prop">
-	<img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/23-01-24-14-38-44.jpg" alt="" />
-	<img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-30-16-27-21.jpg" alt="" />
-	<img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg" alt="" />
+	<div
+		style="background-image:url(https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg)"
+		class="slide__holder"
+	>
+		<!-- <img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg" alt="" /> -->
+	</div>
+	<div
+		style="background-image:url(https://ik.imagekit.io/svobodinaphoto/tr:w-1680/23-01-24-14-38-44.jpg)"
+		class="slide__holder"
+	>
+		<!-- <img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/23-01-24-14-38-44.jpg" alt="" /> -->
+	</div>
+	<div
+		style="background-image:url(https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-30-16-27-21.jpg)"
+		class="slide__holder"
+	>
+		<!-- <img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-30-16-27-21.jpg" alt="" /> -->
+	</div>
+	<div
+		style="background-image:url(https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg)"
+		class="slide__holder"
+	>
+		<!-- <img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg" alt="" /> -->
+	</div>
 </div>
 
 <!-- <svg class="overlay" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -146,10 +167,15 @@
 </svg> -->
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+	:root {
+		--font-size: clamp(36px, 6vw + 12px, 80px);
+		--slider-height: calc(max(100vh, 500px) - var(--font-size) * 2);
+		--slide-width: calc(var(--slider-height) * 0.66);
+	}
 	.font__prop {
 		font-family: 'Roboto Mono', monospace;
 		font-weight: 100;
-		font-size: clamp(36px, 6vw + 12px, 80px);
+		font-size: var(--font-size);
 		line-height: 1;
 	}
 	.menu {
@@ -165,6 +191,8 @@
 		display: grid;
 		justify-content: end;
 		right: 0.5ch;
+		/* height: calc(100vh - var(--font-size));
+		align-content: space-around; */
 	}
 
 	.ph__char {
@@ -178,9 +206,10 @@
 		right: 0.5ch;
 		width: 1ch;
 		height: 1ch;
+		transform: scale(2);
 	}
 	.close {
-		rotate: 45deg;
+		/* rotate: 45deg; */
 	}
 	.menu__items {
 		position: absolute;
@@ -188,9 +217,11 @@
 		justify-content: end;
 		right: 0.5ch;
 		display: none;
+		/* height: calc(100vh - var(--font-size));
+		align-content: space-around; */
 	}
 	.menu__item {
-		height: clamp(36px, 6vw + 12px, 80px);
+		height: var(--font-size);
 		width: 100%;
 		text-decoration: none;
 		text-decoration-line: none;
@@ -209,19 +240,31 @@
 	}
 	.slider {
 		display: grid;
-		column-gap: 1vw;
-		padding-left: 1vw;
+		grid-template-columns: repeat(
+			auto-fill,
+			minmax(max(calc(var(--slide-width) - 400px), var(--slide-width)), 1fr)
+		);
+		/* column-gap: 2vw;
+		padding-left: 1vw; */
 		grid-auto-flow: column;
 		width: calc((100vw - 2ch));
-		height: calc(100vh - clamp(36px, 6vw + 12px, 80px) * 2);
+		/* min-height: 20vh; */
+		/* height: var(--slider-height); */
 	}
-	.slider img {
-		aspect-ratio: 3/2;
+	.slide__holder {
+		height: 80vh;
+		overflow: hidden;
+		background-size: cover;
+		background-position: center;
+		/* margin-left: 3vw; */
+		/* width: var(--slide-width); */
+	}
+	/* .slider img {
 		width: 100%;
 		height: 100%;
-		object-fit: contain;
-		object-position: top right;
-	}
+		object-fit: cover;
+		object-position: center;
+	} */
 
 	.overlay {
 		/* grid-area: 1 / 1 / 2 / 2; */
@@ -240,14 +283,21 @@
 	.main {
 	}
 
-	@media (max-width: 1500px) {
-		.slider img:nth-child(1) {
-			display: none;
+	@media (max-width: 500px) {
+		.slider {
+			display: grid;
+			grid-template-columns: 1fr;
+			/* column-gap: 1vw; */
+			/* padding-left: 1vw; */
+			grid-auto-flow: column;
+			width: calc((100vw - 2ch));
+			/* min-height: 20vh; */
+			/* height: var(--slider-height); */
 		}
 	}
-	@media (max-width: 1000px) {
+	/* @media (max-width: 1000px) {
 		.slider img:nth-child(2) {
 			display: none;
 		}
-	}
+	} */
 </style>
