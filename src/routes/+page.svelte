@@ -252,10 +252,11 @@
 		/* height: var(--slider-height); */
 	}
 	.slide__holder {
-		height: 80vh;
+		height: var(--slider-height);
 		overflow: hidden;
-		background-size: cover;
+		background-size: contain;
 		background-position: center;
+		background-repeat: no-repeat;
 		/* margin-left: 3vw; */
 		/* width: var(--slide-width); */
 	}
@@ -294,7 +295,17 @@
 			/* min-height: 20vh; */
 			/* height: var(--slider-height); */
 		}
+		.slide__holder {
+			height: var(--slider-height);
+			overflow: hidden;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			/* margin-left: 3vw; */
+			/* width: var(--slide-width); */
+		}
 	}
+
 	/* @media (max-width: 1000px) {
 		.slider img:nth-child(2) {
 			display: none;
