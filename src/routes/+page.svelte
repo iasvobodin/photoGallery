@@ -74,8 +74,8 @@
 				'.menu__title__ver',
 				{
 					duration: 0.3,
-					width: '10.5ch',
-					backgroundColor: 'grey'
+					width: '100%',
+					backgroundColor: 'black'
 				},
 				0
 			)
@@ -121,7 +121,7 @@
 
 	<div class="menu__items font__prop">
 		{#each navigation as item, i (i)}
-			<a href={item.route} class="font__prop menu__item">
+			<a data-title={item.name} href={item.route} class="font__prop menu__item">
 				{#each item.name as el, j (j)}
 					<div class="char__holder">
 						<span class="char">{el}</span>
@@ -206,12 +206,33 @@
 		align-content: space-around; */
 	}
 	.menu__item {
+		position: relative;
+		--clipPath: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
+		-webkit-text-stroke: 1px rgb(255, 255, 255);
+		color: transparent;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
 		height: var(--font-size);
 		width: 100%;
 		text-decoration: none;
 		text-decoration-line: none;
 		text-decoration-color: white;
 		justify-self: end;
+	}
+	.menu__item:after {
+		user-select: none;
+		position: absolute;
+		content: attr(data-title);
+		/* width: 100%; */
+		height: 100%;
+		top: 0;
+		right: 0;
+		color: rgb(255, 255, 255);
+		clip-path: polygon(0 0, 0% 0%, 0% 100%, 0 100%);
+		transition: clip-path 0.5s ease-in;
+	}
+	.menu__item:hover:after {
+		clip-path: var(--clipPath);
 	}
 	.char__holder {
 		display: inline-block;
@@ -260,11 +281,21 @@
 		fill: white;
 	}
 
-	span .main__title {
-		display: block;
-		width: 100%;
-	}
-	.main {
+	.slide__item-title {
+		--clipPath: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
+		font-size: clamp(36px, 6vw + 12px, 80px);
+		line-height: 1;
+		box-sizing: border-box;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+		position: relative;
+		-webkit-text-stroke: 1px rgb(255, 255, 255);
+		color: transparent;
+		user-select: none;
+		width: fit-content;
+		cursor: pointer;
+		margin: auto;
+		justify-self: end;
 	}
 
 	@media (max-width: 500px) {

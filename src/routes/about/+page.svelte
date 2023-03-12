@@ -47,6 +47,8 @@
 
 <style>
 	.menu-wrap {
+		width: 100%;
+		overflow: hidden;
 		grid-area: 1 / 1 / 2 / 2;
 		display: grid;
 		grid-template-columns: 100%;
@@ -59,12 +61,12 @@
 		position: absolute;
 		left: 50%;
 		top: 50%;
-		height: 150vh;
+		height: 170vh;
 		display: flex;
-		opacity: 0.5;
+		opacity: 0.7;
 		flex-direction: column;
 		justify-content: center;
-		transform: translate3d(-50%, -50%, 0) rotate(22.5deg);
+		transform: translate3d(-50%, -50%, 0) rotate(15deg);
 	}
 
 	.tiles__line {
@@ -90,15 +92,15 @@
 		--tile-margin: 3vw;
 		flex: none;
 		width: 30vh;
-		height: 30vh;
+		height: calc(30vh * 1.5);
 		margin: var(--tile-margin);
 		background-size: cover;
 		background-position: 50% 50%;
-		border-radius: 50%;
+		border-radius: 5px;
 	}
 
 	.tiles__line-img--large {
-		width: 100vh;
-		border-radius: 20vh;
+		width: 80vh;
+		border-radius: 10px;
 	}
 </style>
