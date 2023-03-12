@@ -132,29 +132,14 @@
 	</div>
 </div>
 <div class="slider font__prop">
-	<div
-		style="background-image:url(https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg)"
-		class="slide__holder"
-	>
-		<!-- <img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg" alt="" /> -->
+	<div class="slide__holder">
+		<img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg" alt="" />
 	</div>
-	<div
-		style="background-image:url(https://ik.imagekit.io/svobodinaphoto/tr:w-1680/23-01-24-14-38-44.jpg)"
-		class="slide__holder"
-	>
-		<!-- <img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/23-01-24-14-38-44.jpg" alt="" /> -->
+	<div class="slide__holder">
+		<img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/23-01-24-14-38-44.jpg" alt="" />
 	</div>
-	<div
-		style="background-image:url(https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-30-16-27-21.jpg)"
-		class="slide__holder"
-	>
-		<!-- <img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-30-16-27-21.jpg" alt="" /> -->
-	</div>
-	<div
-		style="background-image:url(https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg)"
-		class="slide__holder"
-	>
-		<!-- <img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg" alt="" /> -->
+	<div class="slide__holder">
+		<img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-30-16-27-21.jpg" alt="" />
 	</div>
 </div>
 
@@ -244,12 +229,11 @@
 			auto-fill,
 			minmax(max(calc(var(--slide-width) - 400px), var(--slide-width)), 1fr)
 		);
-		/* column-gap: 2vw;
-		padding-left: 1vw; */
-		grid-auto-flow: column;
+		column-gap: 2vw;
+		/* grid-auto-flow: column; */
 		width: calc((100vw - 2ch));
-		/* min-height: 20vh; */
-		/* height: var(--slider-height); */
+		height: var(--slider-height);
+		overflow: hidden;
 	}
 	.slide__holder {
 		height: var(--slider-height);
@@ -257,15 +241,14 @@
 		background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
-		/* margin-left: 3vw; */
-		/* width: var(--slide-width); */
+		border-radius: 5px;
 	}
-	/* .slider img {
+	.slider img {
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
+		object-fit: contain;
 		object-position: center;
-	} */
+	}
 
 	.overlay {
 		/* grid-area: 1 / 1 / 2 / 2; */
@@ -290,22 +273,34 @@
 			grid-template-columns: 1fr;
 			/* column-gap: 1vw; */
 			/* padding-left: 1vw; */
-			grid-auto-flow: column;
+			/* grid-auto-flow: column; */
 			width: calc((100vw - 2ch));
 			/* min-height: 20vh; */
-			/* height: var(--slider-height); */
+			/* height: calc(var(--slider-height) -4ch); */
+		}
+		.slider img {
+			width: 100%;
+			height: 90%;
+			margin-top: 10%;
+			object-fit: cover;
+			object-position: center;
 		}
 		.slide__holder {
 			height: var(--slider-height);
 			overflow: hidden;
-			background-size: cover;
+			/* background-size: cover;
 			background-position: center;
-			background-repeat: no-repeat;
+			background-repeat: no-repeat; */
 			/* margin-left: 3vw; */
 			/* width: var(--slide-width); */
 		}
 	}
-
+	/* .slide__holder::nth-child(3) {
+		background-position: top right;
+	}
+	.slide__holder:first-child {
+		background-position: bottom left;
+	} */
 	/* @media (max-width: 1000px) {
 		.slider img:nth-child(2) {
 			display: none;
