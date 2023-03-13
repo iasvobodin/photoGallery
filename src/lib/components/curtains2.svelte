@@ -203,13 +203,7 @@
 <div on:click={act} bind:this={planeElement} class="plane">
 	<img data-sampler="texture0" id="texture0" src="/img/rev/8.jpg" crossorigin="anonymous" alt="" />
 	<img data-sampler="texture1" id="texture1" src="/img/rev/9.jpg" crossorigin="anonymous" alt="" />
-	<img
-		data-sampler="map"
-		id="map"
-		src="/img/rev/displacement2.jpeg"
-		crossorigin="anonymous"
-		alt=""
-	/>
+	<img data-sampler="map" id="map" src="/img/rev/dis.jpeg" crossorigin="anonymous" alt="" />
 </div>
 
 <div bind:this={canvas} id="canvas" />

@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
+		"postinstall": "patch-package",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -42,6 +43,7 @@
 		"justified-layout": "^4.1.0",
 		"lodash-es": "^4.17.21",
 		"lodash.debounce": "^4.0.8",
+		"patch-package": "^6.5.1",
 		"splitting": "^1.0.6"
 	}
 }
