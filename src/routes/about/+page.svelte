@@ -3,51 +3,50 @@
 		<div class="tiles__line">
 			<div
 				class="tiles__line-img tiles__line-img--large"
-				style="background-image:url(img/rev/4.jpg)"
+				style="background-image:url(img/slide/1.png)"
 			/>
-			<div class="tiles__line-img" style="background-image:url(img/rev/5.jpg)" />
-			<div class="tiles__line-img" style="background-image:url(img/rev/6.jpg)" />
+			<div class="tiles__line-img" style="background-image:url(img/slide/2.png)" />
+			<div class="tiles__line-img" style="background-image:url(img/slide/3.png)" />
 			<div
 				class="tiles__line-img tiles__line-img--large"
-				style="background-image:url(img/rev/4.jpg)"
+				style="background-image:url(img/slide/1.png)"
 			/>
-			<div class="tiles__line-img" style="background-image:url(img/rev/5.jpg)" />
-			<div class="tiles__line-img" style="background-image:url(img/rev/6.jpg)" />
+			<div class="tiles__line-img" style="background-image:url(img/slide/2.png)" />
+			<div class="tiles__line-img" style="background-image:url(img/slide/3.png)" />
 		</div>
 		<div class="tiles__line">
-			<div class="tiles__line-img" style="background-image:url(img/rev/1.jpg)" />
-			<div class="tiles__line-img" style="background-image:url(img/rev/2.jpg)" />
+			<div class="tiles__line-img" style="background-image:url(img/slide/2.png)" />
+			<div class="tiles__line-img" style="background-image:url(img/slide/3.png)" />
 			<div
 				class="tiles__line-img tiles__line-img--large"
-				style="background-image:url(img/rev/14.jpg)"
+				style="background-image:url(img/slide/1.png)"
 			/>
-			<div class="tiles__line-img" style="background-image:url(img/rev/1.jpg)" />
-			<div class="tiles__line-img" style="background-image:url(img/rev/2.jpg)" />
+			<div class="tiles__line-img" style="background-image:url(img/slide/2.png)" />
+			<div class="tiles__line-img" style="background-image:url(img/slide/3.png)" />
 			<div
 				class="tiles__line-img tiles__line-img--large"
-				style="background-image:url(img/rev/14.jpg)"
+				style="background-image:url(img/slide/1.png)"
 			/>
 		</div>
 		<div class="tiles__line">
-			<div class="tiles__line-img" style="background-image:url(img/rev/7.jpg)" />
+			<div class="tiles__line-img" style="background-image:url(img/slide/3.png)" />
 			<div
 				class="tiles__line-img tiles__line-img--large"
-				style="background-image:url(img/rev/8.jpg)"
+				style="background-image:url(img/slide/4.png)"
 			/>
-			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
-			<div class="tiles__line-img" style="background-image:url(img/rev/7.jpg)" />
+			<div class="tiles__line-img" style="background-image:url(img/slide/2.png)" />
+			<div class="tiles__line-img" style="background-image:url(img/slide/3.png)" />
 			<div
 				class="tiles__line-img tiles__line-img--large"
-				style="background-image:url(img/rev/8.jpg)"
+				style="background-image:url(img/slide/4.png)"
 			/>
-			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
+			<div class="tiles__line-img" style="background-image:url(img/slide/2.png)" />
 		</div>
 	</div>
 </div>
 
 <style>
 	.menu-wrap {
-		width: 100%;
 		overflow: hidden;
 		grid-area: 1 / 1 / 2 / 2;
 		display: grid;
@@ -66,21 +65,21 @@
 		opacity: 0.7;
 		flex-direction: column;
 		justify-content: center;
-		transform: translate3d(-50%, -50%, 0) rotate(15deg);
+		transform: translate3d(-50%, -50%, 0) rotate(25deg);
 	}
 
 	.tiles__line {
 		display: flex;
 		transform: translateX(25%);
-		animation: runner 10s linear infinite;
+		animation: runner 15s linear infinite;
 	}
 
 	.tiles__line:nth-child(2) {
-		animation-duration: 16s;
+		animation-duration: 25s;
 	}
 
 	.tiles__line:nth-child(3) {
-		animation-duration: 22s;
+		animation-duration: 30s;
 	}
 
 	@keyframes runner {
@@ -89,10 +88,10 @@
 		}
 	}
 	.tiles__line-img {
-		--tile-margin: 3vw;
+		--tile-margin: 0px;
 		flex: none;
 		width: 30vh;
-		height: calc(30vh * 1.5);
+		height: 55vh;
 		margin: var(--tile-margin);
 		background-size: cover;
 		background-position: 50% 50%;
@@ -100,7 +99,7 @@
 	}
 
 	.tiles__line-img--large {
-		width: 80vh;
+		width: 150vh;
 		border-radius: 10px;
 	}
 </style>

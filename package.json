@@ -36,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"curtainsjs": "^8.1.4",
 		"gsap": "^3.11.4",
 		"imagekit-javascript": "^1.5.4",
 		"justified-layout": "^4.1.0",
