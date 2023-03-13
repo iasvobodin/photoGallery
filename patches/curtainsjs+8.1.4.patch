@@ -1,3 +1,15 @@
+diff --git a/node_modules/curtainsjs/package.json b/node_modules/curtainsjs/package.json
+index 576a36b..856c30d 100644
+--- a/node_modules/curtainsjs/package.json
++++ b/node_modules/curtainsjs/package.json
+@@ -23,6 +23,7 @@
+     "type": "git",
+     "url": "https://github.com/martinlaxenaire/curtainsjs.git"
+   },
++  "type": "module",
+   "license": "MIT",
+   "devDependencies": {
+     "@babel/core": "^7.15.5",
 diff --git a/node_modules/curtainsjs/src/core/Curtains.js b/node_modules/curtainsjs/src/core/Curtains.js
 index 8b06f21..fffdf32 100644
 --- a/node_modules/curtainsjs/src/core/Curtains.js
