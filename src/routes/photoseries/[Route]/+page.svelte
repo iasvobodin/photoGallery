@@ -34,7 +34,7 @@
 
 	let photoSeries = data.photoSeries;
 	let allph = data.allph;
-	console.log(photoSeries);
+	// console.log(photoSeries);
 
 	let paddingCoef, initH: number, initW: number;
 	let setOpacity = false;
@@ -144,18 +144,18 @@
 		setLoy(photoSeries, innerWidth, innerHeight);
 		initH = innerHeight;
 	}
-	function navigateNext() {
-		// console.log(+photoSeries!.id + 1 === allph!.length);
-		if (photoSeries && allph) {
-			if (+photoSeries.id + 1 === allph.length) {
-				return allph[allph.length - 1].Route.toLowerCase(); //go to start
-			} else {
-				return allph.find((e) => +e.Id === +photoSeries!.id + 1)?.Route.toLowerCase();
-			}
-		} else {
-			return '/';
-		}
-	}
+	// function navigateNext() {
+	// 	// console.log(+photoSeries!.id + 1 === allph!.length);
+	// 	if (photoSeries && allph) {
+	// 		if (+photoSeries.id + 1 === allph.length) {
+	// 			return allph[allph.length - 1].Route.toLowerCase(); //go to start
+	// 		} else {
+	// 			return allph.find((e) => +e.Id === +photoSeries!.id + 1)?.Route.toLowerCase();
+	// 		}
+	// 	} else {
+	// 		return '/';
+	// 	}
+	// }
 	// const nextRoute = console.log(navigateNext(), 'next');
 
 	function gsapRandomShift() {
@@ -298,34 +298,7 @@
 		</div>
 	{/each}
 </div>
-<!-- data-sveltekit-reload -->
-<!-- <div class="navigation__main">
-	{#if showSubMenu && allph}
-		<div class="holder__photoserieslink">
-			{#each allph as item}
-				<a
-					class="contact__link"
-					data-sveltekit-reload
-					href={allph ? `/${item.Route.toLowerCase()}` : '/'}
-					><p class="naviganion__next">{item.Title}</p></a
-				>
-			{/each}
-		</div>
-	{/if}
-	<div class="navigstion">
-		<img class="navigstion__top" src="/icons/menu.svg" alt="" />
-		<a class="contact__link" data-sveltekit-reload href={`/${navigateNext()}`}
-			><p class="naviganion__next">Следующая фотосерия</p></a
-		>
-		<img
-			class:reverse__button={menuIsOpen}
-			on:click={toogleMenu}
-			class="navigstion__top"
-			src="/icons/top.svg"
-			alt=""
-		/>
-	</div>
-</div> -->
+
 {#if allph && photoSeries}
 	<Navigation photoseriesList={allph} Route={photoSeries.Route} />
 {/if}

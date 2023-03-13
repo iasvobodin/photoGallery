@@ -1,12 +1,11 @@
 <script>
 	//@ts-nocheck
 	import { onMount } from 'svelte';
-	import { Curtains, Plane } from 'curtainsjs/src/index.mjs';
+	import { Curtains, Plane } from 'curtainsjs';
 	import { gsap } from 'gsap';
 	// import { Curtains } from 'curtainsjs/src/core/Curtains.js';
 	// import { Plane } from 'curtainsjs/src/core/Plane.js';
 	// const { Curtains, Plane } = pkg;
-	let actt = true;
 	const vs = `
 	#ifdef GL_ES
   precision mediump float;
@@ -123,8 +122,8 @@
   }`;
 
 	let canvas,
-		plane,
-		planeElement,
+		planes = [],
+		planeElement = [],
 		webGLCurtain,
 		innerWidth,
 		innerHeight,
@@ -156,17 +155,22 @@
 				}
 			}
 		};
-
+	let actt = true,
+		uppr;
 	const act = () => {
 		actt = !actt;
 		!actt &&
-			gsap.to(plane.uniforms.progress, 0.8, {
-				value: 1
-			});
+			planes.forEach((plane) =>
+				gsap.to(plane.uniforms.progress, {
+					value: 1
+				})
+			);
 		actt &&
-			gsap.to(plane.uniforms.progress, 0.8, {
-				value: 0
-			});
+			planes.forEach((plane) =>
+				gsap.to(plane.uniforms.progress, {
+					value: 0
+				})
+			);
 	};
 	onMount(() => {
 		webGLCurtain = new Curtains({
@@ -174,23 +178,19 @@
 			watchScroll: false,
 			pixelRatio: Math.min(1.5, window.devicePixelRatio)
 		});
-
-		plane = new Plane(webGLCurtain, planeElement, params);
-
-		if (plane) {
-			plane.onReady(() => {
-				plane.onRender(() => {
-					plane.uniforms.time.value += 0.01;
-					plane.uniforms.resolution.value = [innerWidth, innerHeight];
+		planeElement.forEach((el) => {
+			const plane = new Plane(webGLCurtain, el, params);
+			if (plane) {
+				plane.onReady(() => {
+					plane.onRender(() => {
+						plane.uniforms.time.value += 0.01;
+						plane.uniforms.resolution.value = [innerWidth, innerHeight];
+					});
+					planes.push(plane);
 				});
-				// gsap.to(plane.uniforms.progress, 0.8, {
-				// 	value: 1
-				// });
-				// gsap.to(plane.uniforms.progress, 0.8, {
-				// 	value: 0
-				// });
-			});
-		}
+			}
+		});
+
 		// webgl = new WebglHover({
 		// 	canvas,
 		// 	plane
@@ -200,10 +200,42 @@
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
-<div on:click={act} bind:this={planeElement} class="plane">
-	<img data-sampler="texture0" id="texture0" src="/img/rev/8.jpg" crossorigin="anonymous" alt="" />
-	<img data-sampler="texture1" id="texture1" src="/img/rev/9.jpg" crossorigin="anonymous" alt="" />
-	<img data-sampler="map" id="map" src="/img/rev/dis.jpeg" crossorigin="anonymous" alt="" />
+<div class="planes__holder">
+	<div on:click={act} bind:this={planeElement[0]} class="plane">
+		<img
+			data-sampler="texture0"
+			id="texture0"
+			src="/img/rev/8.jpg"
+			crossorigin="anonymous"
+			alt=""
+		/>
+		<img
+			data-sampler="texture1"
+			id="texture1"
+			src="/img/rev/9.jpg"
+			crossorigin="anonymous"
+			alt=""
+		/>
+		<img data-sampler="map" id="map" src="/img/rev/dis2.jpeg" crossorigin="anonymous" alt="" />
+	</div>
+
+	<div on:click={act} bind:this={planeElement[1]} class="plane">
+		<img
+			data-sampler="texture0"
+			id="texture0"
+			src="/img/rev/10.jpg"
+			crossorigin="anonymous"
+			alt=""
+		/>
+		<img
+			data-sampler="texture1"
+			id="texture1"
+			src="/img/rev/12.jpg"
+			crossorigin="anonymous"
+			alt=""
+		/>
+		<img data-sampler="map" id="map" src="/img/rev/dis2.jpeg" crossorigin="anonymous" alt="" />
+	</div>
 </div>
 
 <div bind:this={canvas} id="canvas" />
@@ -219,6 +251,10 @@
 		display: block;
 		width: 100%;
 		height: 100vh;
+	}
+	.planes__holder {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 	}
 	.plane {
 		position: relative;

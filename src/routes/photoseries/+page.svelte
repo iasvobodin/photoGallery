@@ -260,7 +260,7 @@
 		object-fit: cover;
 	}
 
-	p {
+	/* p {
 		color: aliceblue;
-	}
+	} */
 </style>

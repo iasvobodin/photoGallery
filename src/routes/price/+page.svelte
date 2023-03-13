@@ -109,12 +109,12 @@
     height: calc(100% + 6px);
     z-index: 2;
   } */
-	.price__title {
+	/* .price__title {
 		font-family: Cormorant Infant;
 		font-size: max(36px, 5.8vw);
 		line-height: max(40px, 5.8vw);
 		font-weight: 300;
 		color: #ffffff;
 		margin: 5vw;
-	}
+	} */
 </style>

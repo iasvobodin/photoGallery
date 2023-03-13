@@ -2,6 +2,8 @@
 	import { gsap } from 'gsap';
 	import { onMount } from 'svelte';
 	let menuIsOpen = false;
+	let ss = 0;
+
 	const navigation = [
 		{ name: '    ДОМОЙ', route: '/' },
 		{ name: 'ФОТОСЕРИИ', route: '/photoseries' },
@@ -51,8 +53,24 @@
 				attr: { d: 'M 0 0 V 0 Q 50 0 100 0 V 0 z' }
 			});
 	};
-	let st;
-
+	let st: gsap.core.Timeline;
+	let sliderData = [
+		[
+			'https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg',
+			'https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-30-16-27-21.jpg',
+			'https://ik.imagekit.io/svobodinaphoto/tr:w-1680/23-01-24-14-38-44.jpg'
+		],
+		[
+			'https://ik.imagekit.io/svobodinaphoto/tr:w-1680/23-01-24-14-38-44.jpg',
+			'https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg',
+			'https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-30-16-27-21.jpg'
+		],
+		[
+			'https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-30-16-27-21.jpg',
+			'https://ik.imagekit.io/svobodinaphoto/tr:w-1680/23-01-24-14-38-44.jpg',
+			'https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg'
+		]
+	];
 	const stag = () => {
 		menuIsOpen = !menuIsOpen;
 		st.reversed() ? st.play() : st.reverse();
@@ -60,6 +78,11 @@
 	};
 	let isAnimating = true;
 	onMount(() => {
+		let i = 3;
+		setInterval(() => {
+			i++;
+			ss = i % 3;
+		}, 2500);
 		// CSSRulePlugin.getRule("#t1:after")
 		// console.log(staggerItem);
 		st = gsap
@@ -104,12 +127,7 @@
 
 <div class="menu">
 	<h1 class="menu__title__hor font__prop">SVOBODINA</h1>
-	{#if !menuIsOpen}
-		<img on:click={stag} class="menu__button font__prop" src="/icons/menu.svg" alt="" />
-	{:else}
-		<img on:click={stag} class="menu__button close font__prop" src="/icons/plus.svg" alt="" />
-	{/if}
-	<!-- {#if !menuIsOpen} -->
+	<button type="button" on:click={stag} class="menu__button font__prop" class:menuIsOpen />
 	<div class="menu__title__ver font__prop">
 		{#each 'PHOTO' as item}
 			<div class="char__holder">
@@ -117,7 +135,6 @@
 			</div>
 		{/each}
 	</div>
-	<!-- {/if} -->
 
 	<div class="menu__items font__prop">
 		{#each navigation as item, i (i)}
@@ -132,15 +149,11 @@
 	</div>
 </div>
 <div class="slider font__prop">
-	<div class="slide__holder">
-		<img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg" alt="" />
-	</div>
-	<div class="slide__holder">
-		<img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/23-01-24-14-38-44.jpg" alt="" />
-	</div>
-	<div class="slide__holder">
-		<img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-30-16-27-21.jpg" alt="" />
-	</div>
+	{#each sliderData as item}
+		<div class="slide__holder">
+			<img src={item[ss]} alt="" />
+		</div>
+	{/each}
 </div>
 
 <!-- <svg class="overlay" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -157,6 +170,7 @@
 		--slider-height: calc(max(100vh, 500px) - var(--font-size) * 2);
 		--slide-width: calc(var(--slider-height) * 0.66);
 	}
+
 	.font__prop {
 		font-family: 'Roboto Mono', monospace;
 		font-weight: 100;
@@ -185,6 +199,7 @@
 		height: inherit;
 	}
 	.menu__button {
+		background-image: url('/icons/menu.svg');
 		position: absolute;
 		cursor: pointer;
 		top: 0.36ch;
@@ -193,9 +208,12 @@
 		height: 1ch;
 		transform: scale(2);
 	}
-	.close {
-		/* rotate: 45deg; */
+	.menuIsOpen {
+		background-image: url('/icons/plus.svg');
 	}
+
+	/* .close {
+	} */
 	.menu__items {
 		position: absolute;
 		display: grid;
@@ -271,17 +289,16 @@
 		object-position: center;
 	}
 
-	.overlay {
-		/* grid-area: 1 / 1 / 2 / 2; */
+	/* .overlay {
 		position: relative;
 		z-index: 1000;
 		pointer-events: none;
 		width: 100%;
 		height: 100%;
 		fill: white;
-	}
+	} */
 
-	.slide__item-title {
+	/* .slide__item-title {
 		--clipPath: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
 		font-size: clamp(36px, 6vw + 12px, 80px);
 		line-height: 1;
@@ -296,7 +313,7 @@
 		cursor: pointer;
 		margin: auto;
 		justify-self: end;
-	}
+	} */
 
 	@media (max-width: 500px) {
 		.slider {

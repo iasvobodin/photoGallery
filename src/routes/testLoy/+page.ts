@@ -22,7 +22,7 @@ import type { PageLoad } from './$types';
 // }
 
 
-import allPhotoseries from "$lib/db/all.json";
+// import allPhotoseries from "$lib/db/all.json";
 import data from "$lib/db/lightData3.json";
 // import type { AllPhoto } from "$lib/types/type";
 export const prerender = true;

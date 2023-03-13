@@ -48,6 +48,13 @@ a {
 	color: inherit;
 }
 
+button {
+	all: unset;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
 .main__head {
 	text-align: end;
 	white-space: pre-wrap;

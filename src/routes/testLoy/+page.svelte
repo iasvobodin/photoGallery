@@ -34,7 +34,7 @@
 
 	let photoSeries = data.photoSeries;
 	// let allph = data.allph;
-	console.log(photoSeries);
+	// console.log(photoSeries);
 
 	let paddingCoef, initH: number, initW: number;
 	let setOpacity = false;
