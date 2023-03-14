@@ -2,6 +2,8 @@
 	import { fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { gsap } from 'gsap';
+	import { onMount } from 'svelte';
 	// console.log($page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/')));
 	const goSomeWhereBack = () => {
 		goto(
@@ -11,17 +13,79 @@
 		);
 	};
 	let y: number;
+	let st: gsap.core.Timeline;
+	let overlay: gsap.core.Tween;
 	const scrollTop = () => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	};
+	const navigation = [
+		{ name: '    ДОМОЙ', route: '/' },
+		{ name: 'ФОТОСЕРИИ', route: '/photoseries' },
+		{ name: '   ОТЗЫВЫ', route: '/reviews' },
+		{ name: '     ЦЕНЫ', route: '/price' },
+		{ name: '   О СЕБЕ', route: '/about' }
+	];
+	let menuIsOpen = false;
+	const stag = () => {
+		menuIsOpen = !menuIsOpen;
+		st.reversed() ? st.play() : st.reverse();
+		overlay.reversed() ? overlay.play() : overlay.reverse();
+		// st.play();
+	};
+	onMount(() => {
+		overlay = gsap.to('html', {
+			paused: true,
+			reversed: true,
+			duration: 0.2,
+			'--clip': '100%'
+		});
+		st = gsap
+			.timeline({
+				paused: true,
+				reversed: true
+			})
+			// .to(
+			// 	'html',
+			// 	{
+			// 		duration: 0.2,
+			// 		'--clip': '100%'
+			// 	},
+			// 	0
+			// )
+			.set('.menu__items', {
+				display: 'grid'
+			})
+
+			.to('.ph__char', {
+				duration: 0.3,
+				x: '100%',
+				ease: 'none'
+			})
+			.to(
+				'.char',
+				{
+					duration: 0.3,
+					x: '0',
+					ease: 'none',
+					stagger: {
+						each: 0.08,
+						grid: [5, 9],
+						from: 'end',
+						axis: 'x'
+					}
+				},
+				'-=0.22'
+			);
+	});
 </script>
 
 <svelte:window bind:scrollY={y} />
-
-<slot />
+<section class="main">
+	<slot />
+</section>
 {#if $page.url.pathname !== '/'}
 	<button
-		style="background-image: url('/icons/arrow.svg');"
+		style="background-image: url('/icons/back2.svg');"
 		on:click={goSomeWhereBack}
 		type="button"
 		class="menu__back unbutton"
@@ -35,23 +99,185 @@
 		class="scroll__top"
 	/>
 {/if}
+<div class="menu">
+	<h1 class="menu__title__hor font__prop" class:hide__svph={$page.url.pathname !== '/'}>
+		SVOBODINA
+	</h1>
+	<button type="button" on:click={stag} class="menu__button font__prop" class:menuIsOpen />
+	<div class="menu__title__ver font__prop" class:hide__svph={$page.url.pathname !== '/'}>
+		{#each 'PHOTO' as item}
+			<div class="char__holder">
+				<span class="ph__char">{item}</span>
+			</div>
+		{/each}
+	</div>
+	<div class="menu__items font__prop">
+		{#each navigation as item, i (i)}
+			<a
+				on:click={stag}
+				data-title={item.name}
+				href={item.route}
+				class="font__prop menu__item"
+				class:menu__item__active={menuIsOpen}
+			>
+				{#each item.name as el, j (j)}
+					<div class="char__holder">
+						<span class="char">{el}</span>
+					</div>
+				{/each}
+			</a>
+		{/each}
+	</div>
+</div>
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+
+	:root {
+		--clip: 0%;
+		--font-size: clamp(36px, 6vw + 12px, 80px);
+		--slider-height: calc(max(100vh, 500px) - var(--font-size) * 2);
+		--slide-width: calc(var(--slider-height) * 0.66);
+	}
+	.hide__svph {
+		opacity: 0;
+	}
+	section {
+		all: unset;
+		height: 100vh;
+		display: block;
+	}
 	.menu__back {
-		width: calc(clamp(40px, 6.5vw + 12px, 90px) + 4vh);
-		height: calc(clamp(40px, 6.5vw + 12px, 90px) + 4vh);
+		width: calc((clamp(40px, 6.5vw + 12px, 90px) + 4vh) / 1.5);
+		height: calc((clamp(40px, 6.5vw + 12px, 90px) + 4vh) / 1.5);
 		cursor: pointer;
 		position: absolute;
 		top: 0;
-		left: 10px;
+		left: 0;
+		transform: scaleX(-1);
 	}
 	/* linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent), */
 	.scroll__top {
-		background-image: url('/icons/scroll.svg');
+		background-image: url('/icons/scroll2.svg');
 		position: fixed;
 		bottom: 10px;
 		right: 10px;
-		width: calc(clamp(40px, 6.5vw + 12px, 90px) + 4vh);
-		height: calc(clamp(40px, 6.5vw + 12px, 90px) + 4vh);
+		width: calc(clamp(40px, 6.5vw + 12px, 90px));
+		height: calc(clamp(40px, 6.5vw + 12px, 90px));
+	}
+
+	.font__prop {
+		font-family: 'Roboto Mono', monospace;
+		font-weight: 100;
+		font-size: var(--font-size);
+		line-height: 1;
+	}
+	.menu {
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		height: 100vh;
+		right: 0;
+		width: 100%;
+		overflow: hidden;
+	}
+	.menu__title__hor {
+		pointer-events: none;
+		text-align: end;
+		padding: 0;
+		padding-right: 2ch;
+	}
+	.menu__title__ver {
+		position: absolute;
+		display: grid;
+		justify-content: end;
+		right: 0.5ch;
+		/* height: calc(100vh - var(--font-size));
+		align-content: space-around; */
+	}
+
+	.ph__char {
+		display: inline-block;
+		height: inherit;
+	}
+	.menu__button {
+		pointer-events: all;
+		background-image: url('/icons/menu2.svg');
+		position: absolute;
+		cursor: pointer;
+		top: 0.36ch;
+		right: 0.5ch;
+		width: 1ch;
+		height: 1ch;
+		transform: scale(1.7);
+	}
+	.menu::before {
+		content: '';
+		clip-path: circle(var(--clip));
+		transition: clip-path 1s;
+		position: absolute;
+		top: -100vh;
+		left: 0;
+		width: 200%;
+		height: 200%;
+		background-color: black;
+		/* transform: translate(50%, -50%); */
+	}
+	/* .menu::before {
+		clip-path: circle(100%);
+	} */
+
+	.menuIsOpen {
+		background-image: url('/icons/plus.svg');
+	}
+
+	.menu__items {
+		pointer-events: all;
+		position: absolute;
+		display: grid;
+		justify-content: end;
+		right: 0.5ch;
+		display: none;
+		/* height: calc(100vh - var(--font-size));
+		align-content: space-around; */
+	}
+	.menu__item {
+		--clipPath: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
+		position: relative;
+		-webkit-text-stroke: 1px rgb(255, 255, 255);
+		color: transparent;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+		height: var(--font-size);
+		width: 100%;
+		text-decoration: none;
+		text-decoration-line: none;
+		text-decoration-color: white;
+		justify-self: end;
+	}
+	.menu__item__active:after {
+		user-select: none;
+		position: absolute;
+		content: attr(data-title);
+		height: 100%;
+		top: 0;
+		right: 0;
+		color: rgb(255, 255, 255);
+		clip-path: polygon(0 0, 0% 0%, 0% 100%, 0 100%);
+		transition: clip-path 0.5s ease-in;
+	}
+	.menu__item__active:hover:after {
+		clip-path: var(--clipPath);
+	}
+
+	.char__holder {
+		display: inline-block;
+		width: 1ch;
+		overflow: hidden;
+	}
+	.char {
+		display: inline-block;
+		height: inherit;
+		transform: translateX(-100%);
 	}
 </style>

@@ -165,6 +165,9 @@
 </svelte:head>
 <!-- on:click={goto(`/photoseries/${photo.Route}`)} -->
 
+<!-- <div class="review__image">
+	<img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1000/ph.jpg" alt="" />
+</div> -->
 <h1 class="main__head">Фотосерии</h1>
 <div class="holder" style={`height: ${containerHeightLoy}`}>
 	{#each layoutData as photo, index (index)}
@@ -192,6 +195,17 @@
 </div>
 
 <style>
+	.review__image {
+		width: 100%;
+		height: 50vh;
+		margin-bottom: 5vh;
+	}
+	.review__image > img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 90%;
+	}
 	.ph__Title {
 		position: absolute;
 		bottom: 0px;

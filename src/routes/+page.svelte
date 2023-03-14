@@ -126,7 +126,7 @@
 	});
 </script>
 
-<div class="menu">
+<!-- <div class="menu">
 	<h1 class="menu__title__hor font__prop">SVOBODINA</h1>
 	<button type="button" on:click={stag} class="menu__button font__prop" class:menuIsOpen />
 	<div class="menu__title__ver font__prop">
@@ -148,7 +148,7 @@
 			</a>
 		{/each}
 	</div>
-</div>
+</div> -->
 <div class="slider font__prop">
 	{#each sliderData as item}
 		<div class="slide__holder">
@@ -207,8 +207,32 @@
 		right: 0.5ch;
 		width: 1ch;
 		height: 1ch;
-		transform: scale(1.4);
+		transform: scale(1.7);
 	}
+	.menu__button::before {
+		content: '';
+		clip-path: circle(10%);
+		transition: clip-path 1s;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: aqua;
+	}
+	.menu__button:hover::before {
+		clip-path: circle(100%);
+	}
+	/* 
+.box {
+  clip-path: circle(75%);
+  transition: clip-path 1s;
+}
+
+.box:hover {
+  clip-path: circle(25%);
+} */
+
 	.menuIsOpen {
 		background-image: url('/icons/plus.svg');
 	}
@@ -264,6 +288,8 @@
 		transform: translateX(-100%);
 	}
 	.slider {
+		position: relative;
+		top: var(--font-size);
 		display: grid;
 		grid-template-columns: repeat(
 			auto-fill,

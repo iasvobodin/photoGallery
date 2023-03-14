@@ -6,7 +6,7 @@
 </script>
 
 <div class="reviews__holder">
-	<h1 class="main__head">Отзывы</h1>
+	<h1 class="main__head rotate">Отзывы</h1>
 	<div class="review__image">
 		<img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1000/20-07-03-19-19-22.jpg" alt="" />
 	</div>
@@ -29,6 +29,12 @@
 	:root {
 		--card__height: 350px;
 	}
+	/* .rotate {
+		transform: translateX(-100%) rotate(-90deg);
+		transform-origin: right top;
+		width: 70vh;
+		text-align: center;
+	} */
 	.review__image {
 		width: 100%;
 		height: 50vh;
