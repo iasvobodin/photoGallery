@@ -8,10 +8,7 @@
 <div class="reviews__holder">
 	<h1 class="main__head">Отзывы</h1>
 	<div class="review__image">
-		<img
-			src="https://raw.githubusercontent.com/iasvobodin/svs/images/static/image/webp/1440/20-07-03-19-19-22.webp"
-			alt=""
-		/>
+		<img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1000/20-07-03-19-19-22.jpg" alt="" />
 	</div>
 	<div class="cont">
 		{#each reviewsSlice as review}

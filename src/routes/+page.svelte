@@ -199,14 +199,14 @@
 		height: inherit;
 	}
 	.menu__button {
-		background-image: url('/icons/menu.svg');
+		background-image: url('/icons/menu2.svg');
 		position: absolute;
 		cursor: pointer;
 		top: 0.36ch;
 		right: 0.5ch;
 		width: 1ch;
 		height: 1ch;
-		transform: scale(2);
+		transform: scale(1.4);
 	}
 	.menuIsOpen {
 		background-image: url('/icons/plus.svg');
