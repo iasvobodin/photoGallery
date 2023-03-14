@@ -2,7 +2,8 @@
 	import { gsap } from 'gsap';
 	import { onMount } from 'svelte';
 	let menuIsOpen = false;
-	let ss = 0;
+	let ss = 0,
+		y: number;
 
 	const navigation = [
 		{ name: '    ДОМОЙ', route: '/' },
