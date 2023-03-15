@@ -63,8 +63,7 @@
 			auto-fill,
 			minmax(max(calc(var(--slide-width) - 400px), var(--slide-width)), 1fr)
 		);
-		column-gap: 2vw;
-		/* grid-auto-flow: column; */
+		column-gap: 1vw;
 		width: calc((100vw - 2ch));
 		height: var(--slider-height);
 		overflow: hidden;
@@ -72,14 +71,17 @@
 	.slide__holder {
 		height: var(--slider-height);
 		overflow: hidden;
-		background-size: contain;
+		display: grid;
+		/* background-size: contain;
 		background-position: center;
-		background-repeat: no-repeat;
+		background-repeat: no-repeat; */
 		border-radius: 5px;
 	}
 	.slider img {
-		width: 100%;
-		height: 100%;
+		place-self: center;
+		width: 90%;
+		height: 90%;
+		margin: auto;
 		object-fit: contain;
 		object-position: center;
 	}

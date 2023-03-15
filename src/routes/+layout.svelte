@@ -165,15 +165,10 @@
 		</div>
 	{/if}
 	{#if menuIsOpen}
+		<!-- class:menu__item__active={menuIsOpen} -->
 		<div class="menu__items font__prop">
 			{#each navigation as item, i (i)}
-				<a
-					on:click={stag}
-					data-title={item.name}
-					href={item.route}
-					class="font__prop menu__item"
-					class:menu__item__active={menuIsOpen}
-				>
+				<a on:click={stag} data-title={item.name} href={item.route} class="font__prop menu__item">
 					{#each item.name as el, j}
 						<div class="char__holder">
 							<span
