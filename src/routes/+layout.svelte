@@ -80,12 +80,22 @@
 </script>
 
 <svelte:window bind:scrollY={y} />
+<svelte:head>
+	<link
+		rel="preload"
+		href="/fonts/cormorant-infant-v10-latin_cyrillic-regular.woff2"
+		as="font"
+		crossOrigin="anonymous"
+	/>
+</svelte:head>
 <section class="main">
 	<slot />
 </section>
 {#if $page.url.pathname !== '/'}
 	<button
-		style="background-image: url('/icons/back2.svg');"
+		id="bb"
+		aria-label="Back Button"
+		style="background-image: url('/icons/back3.svg');"
 		on:click={goSomeWhereBack}
 		type="button"
 		class="menu__back unbutton"
@@ -103,7 +113,14 @@
 	<h1 class="menu__title__hor font__prop" class:hide__svph={$page.url.pathname !== '/'}>
 		SVOBODINA
 	</h1>
-	<button type="button" on:click={stag} class="menu__button font__prop" class:menuIsOpen />
+	<button
+		id="mb"
+		aria-label="Menu Button"
+		type="button"
+		on:click={stag}
+		class="menu__button font__prop"
+		class:menuIsOpen
+	/>
 	<div class="menu__title__ver font__prop" class:hide__svph={$page.url.pathname !== '/'}>
 		{#each 'PHOTO' as item}
 			<div class="char__holder">
@@ -131,11 +148,11 @@
 </div>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+	/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap'); */
 
 	:root {
 		--clip: 0%;
-		--font-size: clamp(36px, 6vw + 12px, 80px);
+		/* --font-size: var(--font-size); */
 		--slider-height: calc(max(100vh, 500px) - var(--font-size) * 2);
 		--slide-width: calc(var(--slider-height) * 0.66);
 	}
@@ -158,7 +175,7 @@
 	}
 	/* linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent), */
 	.scroll__top {
-		background-image: url('/icons/scroll2.svg');
+		background-image: url('/icons/scroll.svg');
 		position: fixed;
 		bottom: 10px;
 		right: 10px;

@@ -1,11 +1,14 @@
 @font-face {
+  font-display: swap;
   font-family: 'Roboto Slab';
   display: 'swap';
   src: url('./fonts/RobotoSlab-VariableFont_wght.ttf') format('truetype');
   font-weight: 100 900;
 }
 
+
 @font-face {
+  font-display: swap;
   font-family: 'Roboto Mono';
   display: 'swap';
   src: url('./fonts/RobotoMono-VariableFont_wght.ttf') format('truetype');
@@ -14,6 +17,7 @@
 
 /* caveat-regular - cyrillic */
 @font-face {
+  font-display: swap;
   font-family: 'Caveat';
   font-style: normal;
   font-weight: 400;
@@ -25,6 +29,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: 'Comfortaa';
   display: 'swap';
   src: url('./fonts/Comfortaa-VariableFont_wght.ttf') format('truetype');
@@ -33,6 +38,7 @@
 
 /* cormorant-infant-regular - latin_cyrillic */
 @font-face {
+  font-display: swap;
   font-family: 'Cormorant Infant';
   font-style: normal;
   font-weight: 400;
@@ -45,6 +51,7 @@
 
 /* cormorant-infant-600 - latin_cyrillic */
 @font-face {
+  font-display: swap;
   font-family: 'Cormorant Infant';
   font-style: normal;
   font-weight: 600;
@@ -58,6 +65,7 @@
 /* cormorant-unicase-regular - latin_cyrillic */
 /* cormorant-unicase-300 - latin_cyrillic */
 @font-face {
+  font-display: swap;
   font-family: 'Cormorant Unicase';
   font-style: normal;
   font-weight: 300;
@@ -70,6 +78,7 @@
 
 /* cormorant-unicase-regular - latin_cyrillic */
 @font-face {
+  font-display: swap;
   font-family: 'Cormorant Unicase';
   font-style: normal;
   font-weight: 400;
@@ -82,6 +91,7 @@
 
 /* cormorant-infant-300italic - latin_cyrillic */
 @font-face {
+  font-display: swap;
   font-family: 'Cormorant Infant';
   font-style: italic;
   font-weight: 300;

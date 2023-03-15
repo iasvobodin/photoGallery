@@ -106,6 +106,10 @@
 		overflow-y: scroll;
 		/* position: absolute; */
 		height: 360px;
+		scrollbar-width: none;
+	}
+	.holder__photoserieslink::-webkit-scrollbar {
+		display: none;
 	}
 	.reverse__button {
 		rotate: 180deg;

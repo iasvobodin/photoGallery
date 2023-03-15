@@ -79,11 +79,11 @@
 	};
 	let isAnimating = true;
 	onMount(() => {
-		let i = 3;
-		setInterval(() => {
-			i++;
-			ss = i % 3;
-		}, 2500);
+		// let i = 3;
+		// setInterval(() => {
+		// 	i++;
+		// 	ss = i % 3;
+		// }, 2500);
 		// CSSRulePlugin.getRule("#t1:after")
 		// console.log(staggerItem);
 		st = gsap
@@ -165,9 +165,9 @@
 	/>
 </svg> -->
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+	/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap'); */
 	:root {
-		--font-size: clamp(36px, 6vw + 12px, 80px);
+		/* --font-size: var(--font-size); */
 		--slider-height: calc(max(100vh, 500px) - var(--font-size) * 2);
 		--slide-width: calc(var(--slider-height) * 0.66);
 	}
@@ -327,7 +327,7 @@
 
 	/* .slide__item-title {
 		--clipPath: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
-		font-size: clamp(36px, 6vw + 12px, 80px);
+		font-size: var(--font-size);
 		line-height: 1;
 		box-sizing: border-box;
 		text-rendering: optimizeLegibility;
