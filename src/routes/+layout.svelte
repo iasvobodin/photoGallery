@@ -281,6 +281,7 @@
 		clip-path: circle(100%);
 		transition: clip-path 1s;
 		position: absolute;
+		top: calc(var(--vh, 1vh) * -100);
 		top: -100vh;
 		left: 0;
 		width: 200%;
