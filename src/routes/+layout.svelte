@@ -204,6 +204,7 @@
 	section {
 		all: unset;
 		height: 100vh;
+		height: calc(var(--vh, 1vh) * 100);
 		display: block;
 	}
 	.disable__scroll {
@@ -239,6 +240,7 @@
 		position: absolute;
 		top: 0;
 		height: 100vh;
+		height: calc(var(--vh, 1vh) * 100);
 		right: 0;
 		width: 100%;
 		overflow: hidden;
