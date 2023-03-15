@@ -35,7 +35,8 @@
 				: '/'
 		);
 	};
-	let y: number;
+	let y: number, x: number;
+
 	let st: gsap.core.Timeline;
 	// let overlay: gsap.core.Tween;
 	const scrollTop = () => {
@@ -54,6 +55,8 @@
 		// st.reversed() ? st.play() : st.reverse();
 		// overlay.reversed() ? overlay.play() : overlay.reverse();
 	};
+	$: console.log(menuIsOpen);
+
 	onMount(() => {
 		// overlay = gsap.to('html', {
 		// 	paused: true,
@@ -101,7 +104,7 @@
 	});
 </script>
 
-<svelte:window bind:scrollY={y} />
+<svelte:window bind:scrollY={y} bind:scrollX={x} />
 <svelte:head>
 	<link
 		rel="preload"
@@ -110,7 +113,7 @@
 		crossOrigin="anonymous"
 	/>
 </svelte:head>
-<section class="main">
+<section class="main" class:disable__scroll={menuIsOpen}>
 	<slot />
 </section>
 {#if $page.url.pathname !== '/'}
@@ -133,7 +136,9 @@
 {/if}
 <div class="menu">
 	{#if menuIsOpen}
-		<div out:overlay={{ duration: 600 }} in:overlay={{ duration: 600 }} class="overlay" />
+		<div out:overlay={{ duration: 600 }} in:overlay={{ duration: 600 }} class="overlay">
+			<img class="logo" src="/icons/logo.svg" alt="logo" />
+		</div>
 	{/if}
 	<h1 class="menu__title__hor font__prop" class:hide__svph={$page.url.pathname !== '/'}>
 		SVOBODINA
@@ -151,8 +156,8 @@
 			{#each 'PHOTO' as item, i}
 				<div class="char__holder">
 					<span
-						out:spin={{ duration: 300, delay: 0 }}
-						in:spin={{ duration: 300, delay: 640 }}
+						out:spin={{ duration: 600, delay: 0 }}
+						in:spin={{ duration: 600, delay: 100 }}
 						class="ph__char">{item}</span
 					>
 				</div>
@@ -172,8 +177,8 @@
 					{#each item.name as el, j}
 						<div class="char__holder">
 							<span
-								in:spin2={{ duration: 300, delay: (item.name.length + 2 - j) * 80 }}
-								out:spin2={{ duration: 300, delay: j * 80 }}
+								in:spin2={{ duration: 600, delay: (item.name.length + 2 - j) * 20 }}
+								out:spin2={{ duration: 600, delay: j * 20 }}
 								class="char">{el}</span
 							>
 						</div>
@@ -200,6 +205,9 @@
 		all: unset;
 		height: 100vh;
 		display: block;
+	}
+	.disable__scroll {
+		overflow-y: hidden;
 	}
 	.menu__back {
 		width: calc((clamp(40px, 6.5vw + 12px, 90px) + 4vh) / 1.5);
@@ -266,7 +274,8 @@
 		transform: scale(1.7);
 	}
 	.overlay {
-		content: '';
+		display: grid;
+		pointer-events: all;
 		clip-path: circle(100%);
 		transition: clip-path 1s;
 		position: absolute;
@@ -275,6 +284,12 @@
 		width: 200%;
 		height: 200%;
 		background-color: black;
+	}
+	.logo {
+		width: 15vh;
+		height: 15vh;
+		place-self: end start;
+		margin: 3vw;
 	}
 	/* .menu::before {
 		clip-path: circle(100%);
