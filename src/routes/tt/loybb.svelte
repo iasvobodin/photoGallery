@@ -4,29 +4,6 @@
 	import { page } from '$app/stores';
 	import { gsap } from 'gsap';
 	import { onMount } from 'svelte';
-	import { elasticOut } from 'svelte/easing';
-
-	function overlay(node, { duration }) {
-		return {
-			duration,
-			css: (t, u) => `clip-path: circle(${100 * t}%)`
-		};
-	}
-
-	function spin(node, { duration, delay }) {
-		return {
-			delay,
-			duration,
-			css: (t, u) => `transform: translateX(${-100 * u}%)`
-		};
-	}
-	function spin2(node, { duration, delay }) {
-		return {
-			duration,
-			delay,
-			css: (t, u) => `transform: translateX(${100 * u}%)`
-		};
-	}
 	// console.log($page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/')));
 	const goSomeWhereBack = () => {
 		goto(
@@ -37,7 +14,7 @@
 	};
 	let y: number;
 	let st: gsap.core.Timeline;
-	// let overlay: gsap.core.Tween;
+	let overlay: gsap.core.Tween;
 	const scrollTop = () => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	};
@@ -51,16 +28,16 @@
 	let menuIsOpen = false;
 	const stag = () => {
 		menuIsOpen = !menuIsOpen;
-		// st.reversed() ? st.play() : st.reverse();
-		// overlay.reversed() ? overlay.play() : overlay.reverse();
+		st.reversed() ? st.play() : st.reverse();
+		overlay.reversed() ? overlay.play() : overlay.reverse();
 	};
 	onMount(() => {
-		// overlay = gsap.to('html', {
-		// 	paused: true,
-		// 	reversed: true,
-		// 	duration: 0.2,
-		// 	'--clip': '100%'
-		// });
+		overlay = gsap.to('html', {
+			paused: true,
+			reversed: true,
+			duration: 0.2,
+			'--clip': '100%'
+		});
 		st = gsap
 			.timeline({
 				paused: true,
@@ -132,9 +109,6 @@
 	/>
 {/if}
 <div class="menu">
-	{#if menuIsOpen}
-		<div out:overlay={{ duration: 600 }} in:overlay={{ duration: 600 }} class="overlay" />
-	{/if}
 	<h1 class="menu__title__hor font__prop" class:hide__svph={$page.url.pathname !== '/'}>
 		SVOBODINA
 	</h1>
@@ -146,42 +120,30 @@
 		class="menu__button font__prop"
 		class:menuIsOpen
 	/>
-	{#if !menuIsOpen}
-		<div class="menu__title__ver font__prop" class:hide__svph={$page.url.pathname !== '/'}>
-			{#each 'PHOTO' as item, i}
-				<div class="char__holder">
-					<span
-						out:spin={{ duration: 300, delay: 0 }}
-						in:spin={{ duration: 300, delay: 640 }}
-						class="ph__char">{item}</span
-					>
-				</div>
-			{/each}
-		</div>
-	{/if}
-	{#if menuIsOpen}
-		<div class="menu__items font__prop">
-			{#each navigation as item, i (i)}
-				<a
-					on:click={stag}
-					data-title={item.name}
-					href={item.route}
-					class="font__prop menu__item"
-					class:menu__item__active={menuIsOpen}
-				>
-					{#each item.name as el, j}
-						<div class="char__holder">
-							<span
-								in:spin2={{ duration: 300, delay: (item.name.length + 2 - j) * 80 }}
-								out:spin2={{ duration: 300, delay: j * 80 }}
-								class="char">{el}</span
-							>
-						</div>
-					{/each}
-				</a>
-			{/each}
-		</div>
-	{/if}
+	<div class="menu__title__ver font__prop" class:hide__svph={$page.url.pathname !== '/'}>
+		{#each 'PHOTO' as item}
+			<div class="char__holder">
+				<span class="ph__char">{item}</span>
+			</div>
+		{/each}
+	</div>
+	<div class="menu__items font__prop">
+		{#each navigation as item, i (i)}
+			<a
+				on:click={stag}
+				data-title={item.name}
+				href={item.route}
+				class="font__prop menu__item"
+				class:menu__item__active={menuIsOpen}
+			>
+				{#each item.name as el, j (j)}
+					<div class="char__holder">
+						<span class="char">{el}</span>
+					</div>
+				{/each}
+			</a>
+		{/each}
+	</div>
 </div>
 
 <style>
@@ -265,9 +227,9 @@
 		height: 1ch;
 		transform: scale(1.7);
 	}
-	.overlay {
+	.menu::before {
 		content: '';
-		clip-path: circle(100%);
+		clip-path: circle(var(--clip));
 		transition: clip-path 1s;
 		position: absolute;
 		top: -100vh;
@@ -275,6 +237,7 @@
 		width: 200%;
 		height: 200%;
 		background-color: black;
+		/* transform: translate(50%, -50%); */
 	}
 	/* .menu::before {
 		clip-path: circle(100%);
@@ -290,7 +253,7 @@
 		display: grid;
 		justify-content: end;
 		right: 0.5ch;
-		display: grid;
+		display: none;
 		/* height: calc(100vh - var(--font-size));
 		align-content: space-around; */
 	}
@@ -331,6 +294,6 @@
 	.char {
 		display: inline-block;
 		height: inherit;
-		/* transform: translateX(-100%); */
+		transform: translateX(-100%);
 	}
 </style>

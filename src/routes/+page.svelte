@@ -1,60 +1,6 @@
 <script lang="ts">
-	import { gsap } from 'gsap';
 	import { onMount } from 'svelte';
-	let menuIsOpen = false;
-	let ss = 0,
-		y: number;
-
-	const navigation = [
-		{ name: '    ДОМОЙ', route: '/' },
-		{ name: 'ФОТОСЕРИИ', route: '/photoseries' },
-		{ name: '   ОТЗЫВЫ', route: '/reviews' },
-		{ name: '     ЦЕНЫ', route: '/price' },
-		{ name: '   О СЕБЕ', route: '/about' }
-	];
-	let staggerItem: Array<Array<HTMLSpanElement>> = [[]];
-	const anim = () => {
-		gsap
-			.timeline({
-				// onComplete: () => (isAnimating = false)
-			})
-			.set('.overlay__path', {
-				attr: { d: 'M 0 100 V 100 Q 50 100 100 100 V 100 z' }
-			})
-			.to(
-				'.overlay__path',
-				{
-					duration: 0.8,
-					ease: 'power4.in',
-					attr: { d: 'M 0 100 V 50 Q 50 0 100 50 V 100 z' }
-				},
-				0
-			)
-			.to('.overlay__path', {
-				duration: 0.3,
-				ease: 'power2',
-				attr: { d: 'M 0 100 V 0 Q 50 0 100 0 V 100 z' },
-				onComplete: () => {
-					console.log('aaaa');
-					// frame.classList.add('frame--menu-open');
-					// menuWrap.classList.add('menu-wrap--open');
-				}
-			})
-			.set('.overlay__path', {
-				attr: { d: 'M 0 0 V 100 Q 50 100 100 100 V 0 z' }
-			})
-			.to('.overlay__path', {
-				duration: 0.3,
-				ease: 'power2.in',
-				attr: { d: 'M 0 0 V 50 Q 50 0 100 50 V 0 z' }
-			})
-			.to('.overlay__path', {
-				duration: 0.8,
-				ease: 'power4',
-				attr: { d: 'M 0 0 V 0 Q 50 0 100 0 V 0 z' }
-			});
-	};
-	let st: gsap.core.Timeline;
+	let ss = 0;
 	let sliderData = [
 		[
 			'https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg',
@@ -72,83 +18,23 @@
 			'https://ik.imagekit.io/svobodinaphoto/tr:w-1680/22-07-16-15-09-54.jpg'
 		]
 	];
-	const stag = () => {
-		menuIsOpen = !menuIsOpen;
-		st.reversed() ? st.play() : st.reverse();
-		// st.play();
-	};
-	let isAnimating = true;
 	onMount(() => {
 		// let i = 3;
 		// setInterval(() => {
 		// 	i++;
 		// 	ss = i % 3;
 		// }, 2500);
-		// CSSRulePlugin.getRule("#t1:after")
-		// console.log(staggerItem);
-		st = gsap
-			.timeline({
-				paused: true,
-				reversed: true
-			})
-			.set('.menu__items', {
-				display: 'grid'
-			})
-			.to(
-				'.menu__title__ver',
-				{
-					duration: 0.3,
-					width: '100%',
-					backgroundColor: 'black'
-				},
-				0
-			)
-			.to('.ph__char', {
-				duration: 0.3,
-				x: '100%',
-				ease: 'none'
-			})
-			.to(
-				'.char',
-				{
-					duration: 0.3,
-					x: '0',
-					ease: 'none',
-					stagger: {
-						each: 0.08,
-						grid: [5, 9],
-						from: 'end',
-						axis: 'x'
-					}
-				},
-				'-=0.22'
-			);
 	});
 </script>
 
-<!-- <div class="menu">
-	<h1 class="menu__title__hor font__prop">SVOBODINA</h1>
-	<button type="button" on:click={stag} class="menu__button font__prop" class:menuIsOpen />
-	<div class="menu__title__ver font__prop">
-		{#each 'PHOTO' as item}
-			<div class="char__holder">
-				<span class="ph__char">{item}</span>
-			</div>
-		{/each}
-	</div>
-
-	<div class="menu__items font__prop">
-		{#each navigation as item, i (i)}
-			<a data-title={item.name} href={item.route} class="font__prop menu__item">
-				{#each item.name as el, j (j)}
-					<div class="char__holder">
-						<span class="char">{el}</span>
-					</div>
-				{/each}
-			</a>
-		{/each}
-	</div>
-</div> -->
+<svelte:head>
+	<link
+		rel="preload"
+		href="/fonts/RobotoMono-VariableFont_wght.ttf"
+		as="font"
+		crossOrigin="anonymous"
+	/>
+</svelte:head>
 <div class="slider font__prop">
 	{#each sliderData as item}
 		<div class="slide__holder">
@@ -157,17 +43,8 @@
 	{/each}
 </div>
 
-<!-- <svg class="overlay" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-	<path
-		class="overlay__path"
-		vector-effect="non-scaling-stroke"
-		d="M 0 100 V 100 Q 50 100 100 100 V 100 z"
-	/>
-</svg> -->
 <style>
-	/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap'); */
 	:root {
-		/* --font-size: var(--font-size); */
 		--slider-height: calc(max(100vh, 500px) - var(--font-size) * 2);
 		--slide-width: calc(var(--slider-height) * 0.66);
 	}
@@ -177,115 +54,6 @@
 		font-weight: 100;
 		font-size: var(--font-size);
 		line-height: 1;
-	}
-	.menu {
-		position: relative;
-	}
-	.menu__title__hor {
-		text-align: end;
-		padding: 0;
-		padding-right: 2ch;
-	}
-	.menu__title__ver {
-		position: absolute;
-		display: grid;
-		justify-content: end;
-		right: 0.5ch;
-		/* height: calc(100vh - var(--font-size));
-		align-content: space-around; */
-	}
-
-	.ph__char {
-		display: inline-block;
-		height: inherit;
-	}
-	.menu__button {
-		background-image: url('/icons/menu2.svg');
-		position: absolute;
-		cursor: pointer;
-		top: 0.36ch;
-		right: 0.5ch;
-		width: 1ch;
-		height: 1ch;
-		transform: scale(1.7);
-	}
-	.menu__button::before {
-		content: '';
-		clip-path: circle(10%);
-		transition: clip-path 1s;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: aqua;
-	}
-	.menu__button:hover::before {
-		clip-path: circle(100%);
-	}
-	/* 
-.box {
-  clip-path: circle(75%);
-  transition: clip-path 1s;
-}
-
-.box:hover {
-  clip-path: circle(25%);
-} */
-
-	.menuIsOpen {
-		background-image: url('/icons/plus.svg');
-	}
-
-	/* .close {
-	} */
-	.menu__items {
-		position: absolute;
-		display: grid;
-		justify-content: end;
-		right: 0.5ch;
-		display: none;
-		/* height: calc(100vh - var(--font-size));
-		align-content: space-around; */
-	}
-	.menu__item {
-		position: relative;
-		--clipPath: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
-		-webkit-text-stroke: 1px rgb(255, 255, 255);
-		color: transparent;
-		text-rendering: optimizeLegibility;
-		-webkit-font-smoothing: antialiased;
-		height: var(--font-size);
-		width: 100%;
-		text-decoration: none;
-		text-decoration-line: none;
-		text-decoration-color: white;
-		justify-self: end;
-	}
-	.menu__item:after {
-		user-select: none;
-		position: absolute;
-		content: attr(data-title);
-		/* width: 100%; */
-		height: 100%;
-		top: 0;
-		right: 0;
-		color: rgb(255, 255, 255);
-		clip-path: polygon(0 0, 0% 0%, 0% 100%, 0 100%);
-		transition: clip-path 0.5s ease-in;
-	}
-	.menu__item:hover:after {
-		clip-path: var(--clipPath);
-	}
-	.char__holder {
-		display: inline-block;
-		width: 1ch;
-		overflow: hidden;
-	}
-	.char {
-		display: inline-block;
-		height: inherit;
-		transform: translateX(-100%);
 	}
 	.slider {
 		position: relative;
@@ -316,42 +84,10 @@
 		object-position: center;
 	}
 
-	/* .overlay {
-		position: relative;
-		z-index: 1000;
-		pointer-events: none;
-		width: 100%;
-		height: 100%;
-		fill: white;
-	} */
-
-	/* .slide__item-title {
-		--clipPath: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
-		font-size: var(--font-size);
-		line-height: 1;
-		box-sizing: border-box;
-		text-rendering: optimizeLegibility;
-		-webkit-font-smoothing: antialiased;
-		position: relative;
-		-webkit-text-stroke: 1px rgb(255, 255, 255);
-		color: transparent;
-		user-select: none;
-		width: fit-content;
-		cursor: pointer;
-		margin: auto;
-		justify-self: end;
-	} */
-
 	@media (max-width: 500px) {
 		.slider {
 			display: grid;
-			grid-template-columns: 1fr;
-			/* column-gap: 1vw; */
-			/* padding-left: 1vw; */
-			/* grid-auto-flow: column; */
 			width: calc((100vw - 2ch));
-			/* min-height: 20vh; */
-			/* height: calc(var(--slider-height) -4ch); */
 		}
 		.slider img {
 			width: 100%;
@@ -363,22 +99,6 @@
 		.slide__holder {
 			height: var(--slider-height);
 			overflow: hidden;
-			/* background-size: cover;
-			background-position: center;
-			background-repeat: no-repeat; */
-			/* margin-left: 3vw; */
-			/* width: var(--slide-width); */
 		}
 	}
-	/* .slide__holder::nth-child(3) {
-		background-position: top right;
-	}
-	.slide__holder:first-child {
-		background-position: bottom left;
-	} */
-	/* @media (max-width: 1000px) {
-		.slider img:nth-child(2) {
-			display: none;
-		}
-	} */
 </style>
