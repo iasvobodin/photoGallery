@@ -3,45 +3,45 @@
 		<div class="tiles__line">
 			<div
 				class="tiles__line-img tiles__line-img--large"
-				style="background-image:url(img/slide/1.png)"
+				style="background-image:url(img/rev/9.jpg)"
 			/>
-			<div class="tiles__line-img" style="background-image:url(img/slide/2.png)" />
-			<div class="tiles__line-img" style="background-image:url(img/slide/3.png)" />
+			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
+			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
 			<div
 				class="tiles__line-img tiles__line-img--large"
-				style="background-image:url(img/slide/1.png)"
+				style="background-image:url(img/rev/9.jpg)"
 			/>
-			<div class="tiles__line-img" style="background-image:url(img/slide/2.png)" />
-			<div class="tiles__line-img" style="background-image:url(img/slide/3.png)" />
+			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
+			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
 		</div>
 		<div class="tiles__line">
-			<div class="tiles__line-img" style="background-image:url(img/slide/2.png)" />
-			<div class="tiles__line-img" style="background-image:url(img/slide/3.png)" />
+			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
+			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
 			<div
 				class="tiles__line-img tiles__line-img--large"
-				style="background-image:url(img/slide/1.png)"
+				style="background-image:url(img/rev/9.jpg)"
 			/>
-			<div class="tiles__line-img" style="background-image:url(img/slide/2.png)" />
-			<div class="tiles__line-img" style="background-image:url(img/slide/3.png)" />
+			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
+			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
 			<div
 				class="tiles__line-img tiles__line-img--large"
-				style="background-image:url(img/slide/1.png)"
+				style="background-image:url(img/rev/9.jpg)"
 			/>
 		</div>
-		<div class="tiles__line">
-			<div class="tiles__line-img" style="background-image:url(img/slide/3.png)" />
+		<!-- <div class="tiles__line">
+			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
 			<div
 				class="tiles__line-img tiles__line-img--large"
-				style="background-image:url(img/slide/4.png)"
+				style="background-image:url(img/rev/9.jpg)"
 			/>
-			<div class="tiles__line-img" style="background-image:url(img/slide/2.png)" />
-			<div class="tiles__line-img" style="background-image:url(img/slide/3.png)" />
+			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
+			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
 			<div
 				class="tiles__line-img tiles__line-img--large"
-				style="background-image:url(img/slide/4.png)"
+				style="background-image:url(img/rev/9.jpg)"
 			/>
-			<div class="tiles__line-img" style="background-image:url(img/slide/2.png)" />
-		</div>
+			<div class="tiles__line-img" style="background-image:url(img/rev/9.jpg)" />
+		</div> -->
 	</div>
 </div>
 
@@ -56,7 +56,7 @@
 		background: var(--color-bg-menu);
 		pointer-events: none;
 	}
-	.tiles {
+	/* .tiles {
 		position: absolute;
 		left: 50%;
 		top: 50%;
@@ -65,12 +65,33 @@
 		opacity: 0.7;
 		flex-direction: column;
 		justify-content: center;
-		transform: translate3d(-50%, -50%, 0) rotate(25deg);
-	}
+		transform: translate3d(-50%, -50%, 0) rotate(20deg);
+	} */
 
-	.tiles__line {
+	/* .tiles__line {
 		display: flex;
 		transform: translateX(25%);
+		animation: runner 15s linear infinite;
+	} */
+	.tiles {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		height: 300vh;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		column-gap: 2vw;
+		opacity: 0.7;
+		/* flex-direction: column; */
+		justify-content: center;
+		transform: translate3d(-50%, -50%, 0) rotate(320deg);
+	}
+	.tiles__line {
+		display: grid;
+		grid-auto-flow: row;
+		grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+		/* width: 30vw; */
+		transform: translateY(-25%);
 		animation: runner 15s linear infinite;
 	}
 
@@ -84,22 +105,24 @@
 
 	@keyframes runner {
 		to {
-			transform: translateX(-25%);
+			transform: translateY(25%);
 		}
 	}
 	.tiles__line-img {
 		--tile-margin: 0px;
 		flex: none;
-		width: 30vh;
-		height: 55vh;
+		width: 35vw;
+		height: calc(35vw * 1.5);
 		margin: var(--tile-margin);
 		background-size: cover;
 		background-position: 50% 50%;
 		border-radius: 5px;
+		/* transform: rotate(-90deg); */
 	}
 
 	.tiles__line-img--large {
-		width: 150vh;
+		/* width: 50vh; */
 		border-radius: 10px;
+		/* transform: rotate(270deg); */
 	}
 </style>

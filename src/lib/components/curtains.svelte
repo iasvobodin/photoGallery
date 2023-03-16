@@ -179,6 +179,11 @@
 		}
 	};
 	onMount(() => {
+		setInterval(() => {
+			slideshowState.maxTextures++;
+			ss = slideshowState.maxTextures % 3;
+		}, 2500);
+
 		// set up our WebGL context and append the canvas to our wrapper
 		curtains = new Curtains({
 			container: webgl,
