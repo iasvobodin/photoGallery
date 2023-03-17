@@ -55,7 +55,7 @@
 		// st.reversed() ? st.play() : st.reverse();
 		// overlay.reversed() ? overlay.play() : overlay.reverse();
 	};
-	$: console.log(menuIsOpen);
+	// $: console.log(menuIsOpen);
 
 	onMount(() => {
 		// overlay = gsap.to('html', {

@@ -14,14 +14,14 @@
 	let slideshowState = {
 		activeTextureIndex: 1,
 		nextTextureIndex: 2, // does not care for now
-		maxTextures: 3, // planeElements[0].querySelectorAll('img').length - 1, // -1 because displacement image does not count
+		maxTextures: 7, // planeElements[0].querySelectorAll('img').length - 1, // -1 because displacement image does not count
 
 		isChanging: false,
 		transitionTimer: 0
 	};
 	let canvas,
-		activeTex = [],
-		nextTex = [],
+		activeTex,
+		nextTex,
 		planes = [],
 		planeElement = [],
 		curtains,
@@ -30,8 +30,8 @@
 		params = {
 			vertexShader: vertex,
 			fragmentShader: fragment,
-			widthSegments: 40,
-			heightSegments: 40, // 40*40*6 = 9600 vertices
+			widthSegments: 32,
+			heightSegments: 32, // 40*40*6 = 9600 vertices
 			uniforms: {
 				resolution: {
 					name: 'uReso',
@@ -111,11 +111,14 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 <div class="planes__holder">
 	<div on:click={act} bind:this={planeElement[0]} class="plane">
+		<img data-sampler="map" id="map" src="/img/rev/dis3.jpeg" crossorigin="anonymous" alt="" />
 		<img src="/img/rev/8.jpg" crossorigin="anonymous" alt="" />
 		<img src="/img/rev/9.jpg" crossorigin="anonymous" alt="" />
 		<img src="/img/rev/12.jpg" crossorigin="anonymous" alt="" />
 		<img src="/img/rev/17.jpg" crossorigin="anonymous" alt="" />
-		<img data-sampler="map" id="map" src="/img/rev/dis3.jpeg" crossorigin="anonymous" alt="" />
+		<img src="/img/rev/18.jpg" crossorigin="anonymous" alt="" />
+		<img src="/img/rev/2.jpg" crossorigin="anonymous" alt="" />
+		<img src="/img/rev/19.jpg" crossorigin="anonymous" alt="" />
 	</div>
 
 	<!-- <div on:click={act} bind:this={planeElement[1]} class="plane">
