@@ -9,6 +9,22 @@
 	import justifiedLayout from 'justified-layout';
 	let w;
 	let h;
+	let col = [1, 2, 3];
+	const columnResult = (w: 1920, h: 1080) => {
+		console.log(w / (h * 0.66));
+
+		if (Math.floor(w / (h * 0.66)) === 3) {
+			col = [1, 2, 3];
+		}
+		if (Math.floor(w / (h * 0.66)) === 2) {
+			col = [1, 2];
+		}
+		if (Math.floor(w / (h * 0.66)) === 1) {
+			col = [1];
+		}
+	};
+	$: columnResult(w, h);
+
 	//SLIDER VARIABLES
 	let progress = tweened(0, {
 		duration: 1000,
@@ -89,7 +105,7 @@
 			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/22-10-03-12-17-08.jpg'
 		],
 		[
-			'/img/rev/dis3.jpeg',
+			'/img/rev/dis.jpeg',
 			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/22-06-02-11-39-41.jpg',
 			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/22-11-30-11-53-38.jpg',
 			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/21-12-18-15-12-08.jpg',
@@ -159,42 +175,45 @@
 		});
 	};
 	onMount(() => {
+		console.log(planeElements);
+
 		initCurtains(canvas);
 		initPlanes(planeElements);
+		// curtains.disableDrawing();
 		setInterval(() => {
 			act();
 			// slideshowState.maxTextures++;
 			// slideshowState.activeTextureIndex = slideshowState.maxTextures % 3;
 		}, 6000);
 
-		const layout = justifiedLayout([0.66, 0.66, 0.66], {
-			// fullWidthBreakoutRowCadence: 4,
-			// showWidows: false, //CUT SOME PICTURES IN THE END
-			targetRowHeight: innerHeight * 0.8,
-			containerWidth: innerWidth * 0.8, //* 2,
-			// containerPadding: {
-			// 	top: innerHeight * 0.1,
-			// 	right: 0, // innerWidth * 0.1, // window.innerinnerWidth * paddingCoef,
-			// 	bottom: innerHeight * 0.15,
-			// 	left: 0 //innerWidth * 0.1 // window.innerinnerWidth * paddingCoef
-			// },
-			boxSpacing: {
-				horizontal: innerWidth * 0.03,
-				vertical: innerHeight * 0.03
-			}
-		});
-		layoutData = layout.boxes.map((el, i) => {
-			return {
-				boxStyle: `
-				position: absolute;
-				margin:0;
-				left:${Math.floor(el.left)}px;
-				top:${Math.floor(el.top)}px;
-				width: ${Math.floor(el.width)}px;
-				height: ${Math.floor(el.height)}px;
-					`
-			};
-		});
+		// const layout = justifiedLayout([0.66, 0.66, 0.66], {
+		// 	// fullWidthBreakoutRowCadence: 4,
+		// 	// showWidows: false, //CUT SOME PICTURES IN THE END
+		// 	targetRowHeight: h,
+		// 	containerWidth: w, //* 2,
+		// 	containerPadding: {
+		// 		top: 0,
+		// 		right: 0, // innerWidth * 0.1, // window.innerinnerWidth * paddingCoef,
+		// 		bottom: 0,
+		// 		left: 0 //innerWidth * 0.1 // window.innerinnerWidth * paddingCoef
+		// 	},
+		// 	boxSpacing: {
+		// 		horizontal: 10,
+		// 		vertical: 50
+		// 	}
+		// });
+		// layoutData = layout.boxes.map((el, i) => {
+		// 	return {
+		// 		boxStyle: `
+		// 		position: absolute;
+		// 		margin:0;
+		// 		left:${Math.floor(el.left)}px;
+		// 		top:${Math.floor(el.top)}px;
+		// 		width: ${Math.floor(el.width)}px;
+		// 		height: ${Math.floor(el.height)}px;
+		// 			`
+		// 	};
+		// });
 	});
 </script>
 
@@ -207,16 +226,16 @@
 		crossOrigin="anonymous"
 	/>
 </svelte:head>
+<!-- <p style="background-color: black;">size: {w}px x {h}px {Math.floor(w / (h * 0.66))}</p> -->
 <!-- <div bind:clientWidth={w} bind:clientHeight={h} class="test">
-	<p style="background-color: black;">size: {w}px x {h}px {Math.floor(w / (h * 0.66))}</p>
-	{#each layoutData as item}
-		<div style={item.boxStyle} class="block" />
+	{#each col as item}
+		<div class="block" />
 	{/each}
 </div> -->
-<div class="slider font__prop">
-	{#each sliderData as item, i}
+<div bind:clientWidth={w} bind:clientHeight={h} class="slider font__prop">
+	{#each col as item, i}
 		<div bind:this={planeElements[i]} class="slide__holder">
-			{#each item as img}
+			{#each sliderData[i] as img}
 				<img decoding="async" src={img} alt="svph" crossorigin="anonymous" />
 			{/each}
 		</div>
@@ -226,24 +245,35 @@
 <div bind:this={canvas} id="canvas" />
 
 <style>
-	.test {
-		position: fixed;
-		z-index: 99;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		width: 90vw;
-		height: 80vh;
-		margin: auto;
-		border: 1px solid green;
-	}
-	.block {
-		border: 1px solid red;
-	}
 	:root {
 		--slider-height: calc(max(100vh, 500px) - var(--font-size) * 2);
 		--slide-width: calc(var(--slider-height) * 0.66);
+		--test-container-height: calc(100vh - var(--font-size) * 2);
+		--test-container-gap: var(--font-size);
+		--test-holder-width: calc(var(--test-container-height) * 0.66);
+	}
+
+	.slider {
+		position: fixed;
+		/* z-index: 99; */
+		display: grid;
+		/* overflow: hidden; */
+		grid-auto-flow: column;
+		/* grid-template-columns: repeat(auto-fill, minmax(var(--test-holder-width), 1fr)); */
+		top: var(--font-size);
+		left: calc(var(--font-size) * 2);
+		right: calc(var(--font-size) * 2);
+		bottom: var(--font-size);
+		/* width: calc(100vw - var(--font-size) * 2); */
+		height: var(--test-container-height);
+		justify-content: space-around;
+		/* column-gap: max(2vw, 5px); */
+		margin: auto;
+		/* border: 1px solid green; */
+	}
+	.block {
+		border: 1px solid red;
+		width: var(--test-holder-width);
 	}
 
 	.font__prop {
@@ -252,7 +282,7 @@
 		font-size: var(--font-size);
 		line-height: 1;
 	}
-	.slider {
+	/* .slider {
 		position: relative;
 		top: var(--font-size);
 		display: grid;
@@ -265,16 +295,15 @@
 		width: calc((100vw - 2ch));
 		height: var(--slider-height);
 		overflow: hidden;
-	}
+	} */
 	.slide__holder {
-		height: 90%;
+		border: 1px solid red;
+		width: var(--test-holder-width);
+		height: var(--slider-height);
 		overflow: hidden;
 		display: grid;
-		width: 90%;
+		/* width: 90%; */
 		place-self: center;
-		/* background-size: contain;
-		background-position: center;
-		background-repeat: no-repeat; */
 		border-radius: 5px;
 	}
 	.slider img {
