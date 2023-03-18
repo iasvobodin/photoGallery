@@ -168,6 +168,7 @@
 	.text {
 		grid-area: 2/7/4/9;
 		place-self: center;
+		align-self: flex-start;
 	}
 	.hor {
 		grid-area: 3/2/8/8;
