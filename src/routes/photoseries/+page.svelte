@@ -66,7 +66,7 @@
 				titleStyle: `font-size:calc(16px + ${Math.floor(el.width) / 40}px)`,
 				imageSrc: `https://photoday.svobodinaphoto.store/${imageWidth(el.width)}_${
 					galleryData!.ImageName[i]
-				}.jpg`,
+				}`,
 				boxStyle: `
 				position: absolute;
 				margin:0;
@@ -180,13 +180,20 @@
 		>
 			<a href={`/photoseries/${photo.Route}`}>
 				{#if elementEntries[index]}
-					<img
+				<picture>
+ <source srcSet="{photo.imageSrc}.avif" type="image/avif" />
+ <source srcSet="{photo.imageSrc}.webp" type="image/webp" />
+ <img
+decoding="async" loading="lazy"
+ src="{photo.imageSrc}.jpg" alt="SvobodinaPhot" />
+</picture>
+				<!-- 	<img
 						decoding="async"
 						in:fade={{ delay: 200 }}
 						draggable="false"
 						src={photo.imageSrc}
 						alt="SvobodinaPhoto"
-					/>
+					/> -->
 				{/if}
 			</a>
 			<h3 class="ph__Title" style={photo.titleStyle}>{photo.Title}</h3>
