@@ -81,7 +81,7 @@
 		layoutData = layout.boxes.map((el, i) => {
 			return {
 				boxes: el,
-				imageSrc: `https://ik.imagekit.io/svobodinaphoto/tr:w-${imageWidth(el.width)}/${
+				imageSrc: `https://photoday.svobodinaphoto.store/${imageWidth(el.width)}_${
 					galleryData!.ImageName[i]
 				}.jpg`,
 				setStyle: `
