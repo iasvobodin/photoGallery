@@ -83,7 +83,7 @@
 				boxes: el,
 				imageSrc: `https://photoday.svobodinaphoto.store/${imageWidth(el.width)}_${
 					galleryData!.ImageName[i]
-				}.jpg`,
+				}`,
 				setStyle: `
 				position: absolute;
 				margin:0;
@@ -287,13 +287,21 @@
 			style={photo.setStyle}
 		>
 			{#if elementEntries[index]}
-				<img
-					decoding="async"
-					in:fade={{ delay: 200 }}
-					draggable="false"
-					src={photo.imageSrc}
-					alt="SvobodinaPhoto"
-				/>
+							<picture>
+ <source srcSet="{photo.imageSrc}.avif" type="image/avif" />
+ <source srcSet="{photo.imageSrc}.webp" type="image/webp" />
+ <img
+decoding="async" loading="lazy" in:fade={{ delay: 200 }}
+						draggable="false"
+ src="{photo.imageSrc}.jpg" alt="SvobodinaPhot" />
+</picture>
+			<!-- 	<img
+						decoding="async"
+						in:fade={{ delay: 200 }}
+						draggable="false"
+						src={photo.imageSrc}
+						alt="SvobodinaPhoto"
+					/> -->
 			{/if}
 		</div>
 	{/each}
