@@ -229,6 +229,7 @@
 					<source srcSet="{img}.avif" type="image/avif" />
 					<source srcSet="{img}.webp" type="image/webp" />
 					<img
+					crossorigin=""
 						decoding="async"
 						loading="lazy"
 						draggable="false"
