@@ -1,299 +1,318 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
-	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
-	import { gsap } from 'gsap';
+	//@ts-nocheck
 	import { onMount } from 'svelte';
-	// console.log($page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/')));
-	const goSomeWhereBack = () => {
-		goto(
-			$page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'))
-				? $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'))
-				: '/'
-		);
+	import { Curtains, Plane } from 'curtainsjs';
+	import fragment from '$lib/assets/sv.frag?raw';
+	import vertex from '$lib/assets/sv.vert?raw';
+	import { tweened } from 'svelte/motion';
+	import { cubicOut } from 'svelte/easing';
+	import justifiedLayout from 'justified-layout';
+	let w;
+	let h;
+
+	//SLIDER VARIABLES
+	let progress = tweened(0, {
+		duration: 1000,
+		easing: cubicOut
+	});
+	let slideshowState = {
+		activeTextureIndex: 1,
+		nextTextureIndex: 2, // does not care for now
+		maxTextures: 8, // planeElements[0].querySelectorAll('img').length - 1, // -1 because displacement image does not count
+		isChanging: false
 	};
-	let y: number;
-	let st: gsap.core.Timeline;
-	let overlay: gsap.core.Tween;
-	const scrollTop = () => {
-		window.scrollTo({ top: 0, behavior: 'smooth' });
+	let canvas,
+		activeTex = [],
+		nextTex = [],
+		planes = [],
+		planeElements = [],
+		curtains,
+		innerWidth,
+		innerHeight,
+		params = {
+			vertexShader: vertex,
+			fragmentShader: fragment,
+			widthSegments: 32,
+			heightSegments: 32, // 40*40*6 = 9600 vertices
+			uniforms: {
+				resolution: {
+					name: 'uReso',
+					type: '2f',
+					value: [innerWidth, innerHeight]
+				},
+				progress: {
+					name: 'uProgress',
+					type: '1f',
+					value: 0
+				}
+			}
+		};
+	let actt = true,
+		layoutData = [];
+
+	//SLIDER FUNCTIONS
+	const act = () => {
+		actt = !actt;
+		// console.log(planes);
+
+		if (slideshowState.activeTextureIndex < slideshowState.maxTextures) {
+			slideshowState.nextTextureIndex = slideshowState.activeTextureIndex + 1;
+		} else {
+			slideshowState.nextTextureIndex = 1;
+		}
+		nextTex[0].setSource(planes[0].images[slideshowState.nextTextureIndex]);
+		nextTex[1].setSource(planes[1].images[slideshowState.nextTextureIndex]);
+		nextTex[2].setSource(planes[2].images[slideshowState.nextTextureIndex]);
+
+		progress.set(1).then(() => {
+			slideshowState.activeTextureIndex = slideshowState.nextTextureIndex;
+			activeTex[0].setSource(planes[0].images[slideshowState.activeTextureIndex]);
+			activeTex[1].setSource(planes[1].images[slideshowState.activeTextureIndex]);
+			activeTex[2].setSource(planes[2].images[slideshowState.activeTextureIndex]);
+			progress = tweened(0, {
+				duration: 1000,
+				easing: cubicOut
+			});
+		});
 	};
-	const navigation = [
-		{ name: '    ДОМОЙ', route: '/' },
-		{ name: 'ФОТОСЕРИИ', route: '/photoseries' },
-		{ name: '   ОТЗЫВЫ', route: '/reviews' },
-		{ name: '     ЦЕНЫ', route: '/price' },
-		{ name: '   О СЕБЕ', route: '/about' }
+
+	let ss = 0;
+	let sliderData = [
+		[
+			'/img/rev/480_dis3',
+			'https://photoday.svobodinaphoto.store/720_21-10-27-11-49-02',
+			'https://photoday.svobodinaphoto.store/720_23-01-21-14-13-57',
+			'https://photoday.svobodinaphoto.store/720_21-01-04-12-10-19',
+			'https://photoday.svobodinaphoto.store/720_21-01-06-13-39-15',
+			'https://photoday.svobodinaphoto.store/720_22-07-16-15-12-14',
+			'https://photoday.svobodinaphoto.store/720_21-01-04-12-42-47',
+			'https://photoday.svobodinaphoto.store/720_22-11-07-13-40-04',
+			'https://photoday.svobodinaphoto.store/720_22-10-03-12-17-08'
+		],
+		[
+			'/img/rev/480_dis',
+			'https://photoday.svobodinaphoto.store/720_22-06-02-11-39-41',
+			'https://photoday.svobodinaphoto.store/720_22-11-30-11-53-38',
+			'https://photoday.svobodinaphoto.store/720_21-12-18-15-12-08',
+			'https://photoday.svobodinaphoto.store/720_22-06-02-11-10-36',
+			'https://photoday.svobodinaphoto.store/720_21-05-08-18-58-57',
+			'https://photoday.svobodinaphoto.store/720_21-03-09-11-42-38',
+			'https://photoday.svobodinaphoto.store/720_23-01-24-15-21-37',
+			'https://photoday.svobodinaphoto.store/720_22-07-16-16-39-20'
+		],
+		[
+			'/img/rev/480_dis3',
+			'https://photoday.svobodinaphoto.store/720_22-11-07-13-26-35',
+			'https://photoday.svobodinaphoto.store/720_21-10-03-12-39-01',
+			'https://photoday.svobodinaphoto.store/720_23-01-24-14-31-57',
+			'https://photoday.svobodinaphoto.store/720_23-01-24-15-12-57',
+			'https://photoday.svobodinaphoto.store/720_20-07-03-17-25-34',
+			'https://photoday.svobodinaphoto.store/720_23-01-21-14-29-41',
+			'https://photoday.svobodinaphoto.store/720_23-02-05-12-37-35',
+			'https://photoday.svobodinaphoto.store/720_22-07-16-15-00-46'
+		]
 	];
-	let menuIsOpen = false;
-	const stag = () => {
-		menuIsOpen = !menuIsOpen;
-		st.reversed() ? st.play() : st.reverse();
-		overlay.reversed() ? overlay.play() : overlay.reverse();
+	// onMount(() => {
+	// 	// let i = 3;
+	// 	// setInterval(() => {
+	// 	// 	i++;
+	// 	// 	ss = i % 3;
+	// 	// }, 2500);
+	// });
+	const initCurtains = (container) => {
+		curtains = new Curtains({
+			container: container,
+			watchScroll: false,
+			pixelRatio: Math.min(1.5, window.devicePixelRatio)
+		});
+	};
+	const initPlanes = (htmlEl) => {
+		htmlEl.forEach((el, i) => {
+			const plane = new Plane(curtains, el, params);
+			if (plane) {
+				plane
+					.onLoading((texture) => {
+						texture.setMinFilter(curtains.gl.LINEAR_MIPMAP_NEAREST);
+					})
+					.onReady(() => {
+						plane.createTexture({
+							sampler: 'map',
+							fromTexture: plane.textures[0]
+						});
+
+						activeTex[i] = plane.createTexture({
+							sampler: 'activeTex',
+							fromTexture: plane.textures[slideshowState.activeTextureIndex]
+						});
+
+						nextTex[i] = plane.createTexture({
+							sampler: 'nextTex',
+							fromTexture: plane.textures[slideshowState.nextTextureIndex]
+						});
+						planes.push(plane);
+					})
+					// .onReady(() => {
+					// })
+					.onRender(() => {
+						plane.uniforms.progress.value = $progress;
+					});
+			}
+		});
 	};
 	onMount(() => {
-		overlay = gsap.to('html', {
-			paused: true,
-			reversed: true,
-			duration: 0.2,
-			'--clip': '100%'
-		});
-		st = gsap
-			.timeline({
-				paused: true,
-				reversed: true
-			})
-			// .to(
-			// 	'html',
-			// 	{
-			// 		duration: 0.2,
-			// 		'--clip': '100%'
-			// 	},
-			// 	0
-			// )
-			.set('.menu__items', {
-				display: 'grid'
-			})
+		console.log(planeElements);
 
-			.to('.ph__char', {
-				duration: 0.3,
-				x: '100%',
-				ease: 'none'
-			})
-			.to(
-				'.char',
-				{
-					duration: 0.3,
-					x: '0',
-					ease: 'none',
-					stagger: {
-						each: 0.08,
-						grid: [5, 9],
-						from: 'end',
-						axis: 'x'
-					}
-				},
-				'-=0.22'
-			);
+		initCurtains(canvas);
+		initPlanes(planeElements);
+		// curtains.disableDrawing();
+		setInterval(() => {
+			act();
+			// slideshowState.maxTextures++;
+			// slideshowState.activeTextureIndex = slideshowState.maxTextures % 3;
+		}, 6000);
 	});
 </script>
 
-<svelte:window bind:scrollY={y} />
+<svelte:window bind:innerWidth bind:innerHeight />
 <svelte:head>
 	<link
 		rel="preload"
-		href="/fonts/cormorant-infant-v10-latin_cyrillic-regular.woff2"
+		href="/fonts/RobotoMono-VariableFont_wght.ttf"
 		as="font"
 		crossOrigin="anonymous"
 	/>
 </svelte:head>
-<section class="main">
-	<slot />
-</section>
-{#if $page.url.pathname !== '/'}
-	<button
-		id="bb"
-		aria-label="Back Button"
-		style="background-image: url('/icons/back3.svg');"
-		on:click={goSomeWhereBack}
-		type="button"
-		class="menu__back unbutton"
-	/>
-{/if}
-{#if y >= 150}
-	<button
-		transition:fly={{ y: 200, duration: 1500 }}
-		on:click={scrollTop}
-		type="button"
-		class="scroll__top"
-	/>
-{/if}
-<div class="menu">
-	<h1 class="menu__title__hor font__prop" class:hide__svph={$page.url.pathname !== '/'}>
-		SVOBODINA
-	</h1>
-	<button
-		id="mb"
-		aria-label="Menu Button"
-		type="button"
-		on:click={stag}
-		class="menu__button font__prop"
-		class:menuIsOpen
-	/>
-	<div class="menu__title__ver font__prop" class:hide__svph={$page.url.pathname !== '/'}>
-		{#each 'PHOTO' as item}
-			<div class="char__holder">
-				<span class="ph__char">{item}</span>
-			</div>
-		{/each}
-	</div>
-	<div class="menu__items font__prop">
-		{#each navigation as item, i (i)}
-			<a
-				on:click={stag}
-				data-title={item.name}
-				href={item.route}
-				class="font__prop menu__item"
-				class:menu__item__active={menuIsOpen}
-			>
-				{#each item.name as el, j (j)}
-					<div class="char__holder">
-						<span class="char">{el}</span>
-					</div>
-				{/each}
-			</a>
-		{/each}
-	</div>
+<!-- <p style="background-color: black;">size: {w}px x {h}px {Math.floor(w / (h * 0.66))}</p> -->
+<!-- <div bind:clientWidth={w} bind:clientHeight={h} class="test">
+	{#each col as item}
+		<div class="block" />
+	{/each}
+</div> -->
+<!-- crossorigin="anonymous" -->
+<!--  -->
+<div bind:clientWidth={w} bind:clientHeight={h} class="slider font__prop">
+	{#each sliderData as item, i}
+		<div bind:this={planeElements[i]} class="slide__holder">
+			{#each item as img}
+				<picture>
+					<source srcSet="{img}.avif" type="image/avif" />
+					<source srcSet="{img}.webp" type="image/webp" />
+					<img
+						crossorigin="anonymous"
+						decoding="async"
+						draggable="false"
+						src="{img}.jpg"
+						alt="SvobodinaPhot"
+					/>
+				</picture>
+			{/each}
+		</div>
+	{/each}
 </div>
 
-<style>
-	/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap'); */
+<div bind:this={canvas} id="canvas" />
 
+<style>
 	:root {
-		--clip: 0%;
-		/* --font-size: var(--font-size); */
-		--slider-height: calc(max(100vh, 500px) - var(--font-size) * 2);
+		--font-size-main: clamp(40px, 8vw + 10px, 90px);
+		--font-size: clamp(40px, 8vw + 10px, 100px);
+		--slider-height: calc(max(100vh, 500px) - var(--font-size-main) * 2.1);
 		--slide-width: calc(var(--slider-height) * 0.66);
-	}
-	.hide__svph {
-		opacity: 0;
-	}
-	section {
-		all: unset;
-		height: 100vh;
-		display: block;
-	}
-	.menu__back {
-		width: calc((clamp(40px, 6.5vw + 12px, 90px) + 4vh) / 1.5);
-		height: calc((clamp(40px, 6.5vw + 12px, 90px) + 4vh) / 1.5);
-		cursor: pointer;
-		position: absolute;
-		top: 0;
-		left: 0;
-		transform: scaleX(-1);
-	}
-	/* linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent), */
-	.scroll__top {
-		background-image: url('/icons/scroll.svg');
-		position: fixed;
-		bottom: 10px;
-		right: 10px;
-		width: calc(clamp(40px, 6.5vw + 12px, 90px));
-		height: calc(clamp(40px, 6.5vw + 12px, 90px));
+		--test-container-height: calc(100vh - var(--font-size-main) * 2);
+		--test-container-gap: var(--font-size-main);
+		--test-holder-width: calc(var(--test-container-height) * 0.66);
 	}
 
 	.font__prop {
 		font-family: 'Roboto Mono', monospace;
 		font-weight: 100;
-		font-size: var(--font-size);
+		font-size: var(--font-size-main);
 		line-height: 1;
 	}
-	.menu {
-		pointer-events: none;
-		position: absolute;
-		top: 0;
-		height: 100vh;
-		right: 0;
-		width: 100%;
+	.slider {
+		max-width: calc(var(--slide-width) * 4);
+		justify-content: space-around;
+		margin: auto;
+		position: relative;
+		top: var(--font-size-main);
+		display: grid;
+		grid-template-columns: repeat(
+			auto-fill,
+			minmax(max(calc(var(--slide-width) - 400px), var(--slide-width)), 1fr)
+		);
+		/* padding: 0 1vw; */
+		column-gap: 1vw;
+		row-gap: var(--font-size-main);
+		width: calc((100vw - 2ch));
+		height: var(--slider-height);
 		overflow: hidden;
 	}
-	.menu__title__hor {
-		pointer-events: none;
-		text-align: end;
-		padding: 0;
-		padding-right: 2ch;
-	}
-	.menu__title__ver {
-		position: absolute;
+	.slide__holder {
+		/* border: 1px solid red; */
+		width: var(--test-holder-width);
+		height: var(--slider-height);
+		overflow: hidden;
 		display: grid;
-		justify-content: end;
-		right: 0.5ch;
-		/* height: calc(100vh - var(--font-size));
-		align-content: space-around; */
+		/* width: 90%; */
+		place-self: center;
+		border-radius: 5px;
 	}
-
-	.ph__char {
-		display: inline-block;
-		height: inherit;
-	}
-	.menu__button {
-		pointer-events: all;
-		background-image: url('/icons/menu2.svg');
-		position: absolute;
-		cursor: pointer;
-		top: 0.36ch;
-		right: 0.5ch;
-		width: 1ch;
-		height: 1ch;
-		transform: scale(1.7);
-	}
-	.menu::before {
-		content: '';
-		clip-path: circle(var(--clip));
-		transition: clip-path 1s;
-		position: absolute;
-		top: -100vh;
-		left: 0;
-		width: 200%;
-		height: 200%;
-		background-color: black;
-		/* transform: translate(50%, -50%); */
-	}
-	/* .menu::before {
-		clip-path: circle(100%);
+	/* .slider img {
+		display: none;
+		place-self: center;
+		width: 100%;
+		height: 100%;
+		margin: auto;
+		object-fit: contain;
+		object-position: center;
 	} */
 
-	.menuIsOpen {
-		background-image: url('/icons/plus.svg');
+	.slide__holder > picture {
+		place-self: center;
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		/* margin: auto;
+		object-fit: contain;
+		object-position: center; */
+	}
+	.slide__holder > picture > img {
+		display: none;
+		width: 100%;
+		height: 100%;
+		margin: auto;
+		object-fit: contain;
+		object-position: center;
 	}
 
-	.menu__items {
-		pointer-events: all;
-		position: absolute;
-		display: grid;
-		justify-content: end;
-		right: 0.5ch;
-		display: none;
-		/* height: calc(100vh - var(--font-size));
-		align-content: space-around; */
-	}
-	.menu__item {
-		--clipPath: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
-		position: relative;
-		-webkit-text-stroke: 1px rgb(255, 255, 255);
-		color: transparent;
-		text-rendering: optimizeLegibility;
-		-webkit-font-smoothing: antialiased;
-		height: var(--font-size);
-		width: 100%;
-		text-decoration: none;
-		text-decoration-line: none;
-		text-decoration-color: white;
-		justify-self: end;
-	}
-	.menu__item__active:after {
-		user-select: none;
-		position: absolute;
-		content: attr(data-title);
-		height: 100%;
+	#canvas {
+		pointer-events: none;
+		position: fixed;
 		top: 0;
 		right: 0;
-		color: rgb(255, 255, 255);
-		clip-path: polygon(0 0, 0% 0%, 0% 100%, 0 100%);
-		transition: clip-path 0.5s ease-in;
-	}
-	.menu__item__active:hover:after {
-		clip-path: var(--clipPath);
+		left: 0;
+		bottom: 0;
+		display: block;
+		/* width: 100%;
+		height: 100vh; */
 	}
 
-	.char__holder {
-		display: inline-block;
-		width: 1ch;
-		overflow: hidden;
-	}
-	.char {
-		display: inline-block;
-		height: inherit;
-		transform: translateX(-100%);
+	@media (max-width: 500px) {
+		.slider {
+			display: grid;
+			width: calc((100vw - 2ch));
+		}
+		.slider img {
+			width: 100%;
+			height: 90%;
+			margin-top: 10%;
+			object-fit: cover;
+			object-position: center;
+		}
+		.slide__holder {
+			height: var(--slider-height);
+			overflow: hidden;
+		}
 	}
 </style>

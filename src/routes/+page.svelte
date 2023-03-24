@@ -9,21 +9,6 @@
 	import justifiedLayout from 'justified-layout';
 	let w;
 	let h;
-	let col = [1, 2, 3];
-	const columnResult = (w: 1920, h: 1080) => {
-		console.log(w / (h * 0.66));
-
-		if (Math.floor(w / (h * 0.66)) === 3) {
-			col = [1, 2, 3];
-		}
-		if (Math.floor(w / (h * 0.66)) === 2) {
-			col = [1, 2];
-		}
-		if (Math.floor(w / (h * 0.66)) === 1) {
-			col = [1];
-		}
-	};
-	$: columnResult(w, h);
 
 	//SLIDER VARIABLES
 	let progress = tweened(0, {
@@ -186,24 +171,6 @@
 			// slideshowState.activeTextureIndex = slideshowState.maxTextures % 3;
 		}, 6000);
 	});
-	// .slider {
-	// 	position: fixed;
-	// 	/* z-index: 99; */
-	// 	display: grid;
-	// 	/* overflow: hidden; */
-	// 	grid-auto-flow: column;
-	// 	/* grid-template-columns: repeat(auto-fill, minmax(var(--test-holder-width), 1fr)); */
-	// 	top: var(--font-size-main);
-	// 	left: calc(var(--font-size-main) * 2);
-	// 	right: calc(var(--font-size-main) * 2);
-	// 	bottom: var(--font-size-main);
-	// 	/* width: calc(100vw - var(--font-size-main) * 2); */
-	// 	height: var(--test-container-height);
-	// 	justify-content: space-around;
-	// 	/* column-gap: max(2vw, 5px); */
-	// 	margin: auto;
-	// 	/* border: 1px solid green; */
-	// }
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -215,32 +182,55 @@
 		crossOrigin="anonymous"
 	/>
 </svelte:head>
-<!-- <p style="background-color: black;">size: {w}px x {h}px {Math.floor(w / (h * 0.66))}</p> -->
-<!-- <div bind:clientWidth={w} bind:clientHeight={h} class="test">
-	{#each col as item}
-		<div class="block" />
-	{/each}
-</div> -->
-<!-- crossorigin="anonymous" -->
-<!--  -->
-<div bind:clientWidth={w} bind:clientHeight={h} class="slider font__prop">
-	{#each sliderData as item, i}
-		<div bind:this={planeElements[i]} class="slide__holder">
-			{#each item as img}
-				<picture>
-					<source srcSet="{img}.avif" type="image/avif" />
-					<source srcSet="{img}.webp" type="image/webp" />
-					<img
-						crossorigin="anonymous"
-						decoding="async"
-						draggable="false"
-						src="{img}.jpg"
-						alt="SvobodinaPhot"
-					/>
-				</picture>
-			{/each}
-		</div>
-	{/each}
+<!-- bind:clientWidth={w} bind:clientHeight={h} -->
+<div class="slider font__prop">
+	<div bind:this={planeElements[0]} class="slide__holder">
+		{#each sliderData[0] as img}
+			<picture>
+				<source srcSet="{img}.avif" type="image/avif" />
+				<source srcSet="{img}.webp" type="image/webp" />
+				<img
+					crossorigin="anonymous"
+					decoding="async"
+					draggable="false"
+					src="{img}.jpg"
+					alt="SvobodinaPhot"
+				/>
+			</picture>
+		{/each}
+	</div>
+
+	<div bind:this={planeElements[1]} class="slide__holder">
+		{#each sliderData[1] as img}
+			<picture>
+				<source srcSet="{img}.avif" type="image/avif" />
+				<source srcSet="{img}.webp" type="image/webp" />
+				<img
+					crossorigin="anonymous"
+					decoding="async"
+					draggable="false"
+					src="{img}.jpg"
+					alt="SvobodinaPhot"
+				/>
+			</picture>
+		{/each}
+	</div>
+
+	<div bind:this={planeElements[2]} class="slide__holder">
+		{#each sliderData[2] as img}
+			<picture>
+				<source srcSet="{img}.avif" type="image/avif" />
+				<source srcSet="{img}.webp" type="image/webp" />
+				<img
+					crossorigin="anonymous"
+					decoding="async"
+					draggable="false"
+					src="{img}.jpg"
+					alt="SvobodinaPhot"
+				/>
+			</picture>
+		{/each}
+	</div>
 </div>
 
 <div bind:this={canvas} id="canvas" />
@@ -256,18 +246,13 @@
 		--test-holder-width: calc(var(--test-container-height) * 0.66);
 	}
 
-	.block {
-		border: 1px solid red;
-		width: var(--test-holder-width);
-	}
-
 	.font__prop {
 		font-family: 'Roboto Mono', monospace;
 		font-weight: 100;
 		font-size: var(--font-size-main);
 		line-height: 1;
 	}
-	.slider {
+	/* .slider {
 		max-width: calc(var(--slide-width) * 4);
 		justify-content: space-around;
 		margin: auto;
@@ -278,42 +263,43 @@
 			auto-fill,
 			minmax(max(calc(var(--slide-width) - 400px), var(--slide-width)), 1fr)
 		);
-		padding: 0 1vw;
 		column-gap: 1vw;
 		row-gap: var(--font-size-main);
 		width: calc((100vw - 2ch));
 		height: var(--slider-height);
 		overflow: hidden;
+	} */
+	.slider {
+		position: relative;
+		top: var(--font-size-main);
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: 3vw;
+		height: var(--slider-height);
+		overflow: hidden;
+		row-gap: var(--font-size-main);
+		justify-content: center;
 	}
 	.slide__holder {
 		/* border: 1px solid red; */
 		width: var(--test-holder-width);
 		height: var(--slider-height);
 		overflow: hidden;
-		display: grid;
-		/* width: 90%; */
+		position: relative;
 		place-self: center;
 		border-radius: 5px;
 	}
-	/* .slider img {
-		display: none;
-		place-self: center;
-		width: 100%;
-		height: 100%;
-		margin: auto;
-		object-fit: contain;
-		object-position: center;
-	} */
 
 	.slide__holder > picture {
 		place-self: center;
 		display: block;
 		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 		width: 100%;
 		height: 100%;
-		/* margin: auto;
-		object-fit: contain;
-		object-position: center; */
 	}
 	.slide__holder > picture > img {
 		display: none;
@@ -332,6 +318,8 @@
 		left: 0;
 		bottom: 0;
 		display: block;
+		/* display: none; */
+
 		/* width: 100%;
 		height: 100vh; */
 	}
