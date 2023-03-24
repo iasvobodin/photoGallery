@@ -94,7 +94,7 @@
 	let ss = 0;
 	let sliderData = [
 		[
-			'/img/rev/dis3',
+			'/img/rev/480_dis3',
 			'https://photoday.svobodinaphoto.store/720_21-10-27-11-49-02',
 			'https://photoday.svobodinaphoto.store/720_23-01-21-14-13-57',
 			'https://photoday.svobodinaphoto.store/720_21-01-04-12-10-19',
@@ -105,7 +105,7 @@
 			'https://photoday.svobodinaphoto.store/720_22-10-03-12-17-08'
 		],
 		[
-			'/img/rev/dis',
+			'/img/rev/480_dis',
 			'https://photoday.svobodinaphoto.store/720_22-06-02-11-39-41',
 			'https://photoday.svobodinaphoto.store/720_22-11-30-11-53-38',
 			'https://photoday.svobodinaphoto.store/720_21-12-18-15-12-08',
@@ -116,7 +116,7 @@
 			'https://photoday.svobodinaphoto.store/720_22-07-16-16-39-20'
 		],
 		[
-			'/img/rev/dis3',
+			'/img/rev/480_dis3',
 			'https://photoday.svobodinaphoto.store/720_22-11-07-13-26-35',
 			'https://photoday.svobodinaphoto.store/720_21-10-03-12-39-01',
 			'https://photoday.svobodinaphoto.store/720_23-01-24-14-31-57',
