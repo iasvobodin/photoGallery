@@ -1,15 +1,15 @@
 <script lang="ts">
 	//@ts-nocheck
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { Curtains, Plane } from 'curtainsjs';
 	import fragment from '$lib/assets/sv.frag?raw';
 	import vertex from '$lib/assets/sv.vert?raw';
 	import { tweened } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
-	import justifiedLayout from 'justified-layout';
+	import { fade } from 'svelte/transition';
 	let w;
 	let h;
-
+	let planesLoaded = false;
 	//SLIDER VARIABLES
 	let progress = tweened(0, {
 		duration: 1000,
@@ -126,51 +126,59 @@
 			pixelRatio: Math.min(1.5, window.devicePixelRatio)
 		});
 	};
+	function handlePlanes(plane) {
+		plane
+			.onLoading((texture) => {
+				texture.setMinFilter(curtains.gl.LINEAR_MIPMAP_NEAREST);
+			})
+			.onReady(() => {
+				if (plane.index === planes.length - 1) {
+					planesLoaded = true;
+					// document.body.classList.add('planes-loaded');
+					console.log('planes loaded');
+				}
+				plane.createTexture({
+					sampler: 'map',
+					fromTexture: plane.textures[0]
+				});
+
+				activeTex[plane.index] = plane.createTexture({
+					sampler: 'activeTex',
+					fromTexture: plane.textures[slideshowState.activeTextureIndex]
+				});
+
+				nextTex[plane.index] = plane.createTexture({
+					sampler: 'nextTex',
+					fromTexture: plane.textures[slideshowState.nextTextureIndex]
+				});
+				// planes.push(plane);
+			})
+			.onRender(() => {
+				plane.uniforms.progress.value = $progress;
+			});
+	}
 	const initPlanes = (htmlEl) => {
 		htmlEl.forEach((el, i) => {
 			const plane = new Plane(curtains, el, params);
-			if (plane) {
-				plane
-					.onLoading((texture) => {
-						texture.setMinFilter(curtains.gl.LINEAR_MIPMAP_NEAREST);
-					})
-					.onReady(() => {
-						plane.createTexture({
-							sampler: 'map',
-							fromTexture: plane.textures[0]
-						});
-
-						activeTex[i] = plane.createTexture({
-							sampler: 'activeTex',
-							fromTexture: plane.textures[slideshowState.activeTextureIndex]
-						});
-
-						nextTex[i] = plane.createTexture({
-							sampler: 'nextTex',
-							fromTexture: plane.textures[slideshowState.nextTextureIndex]
-						});
-						planes.push(plane);
-					})
-					// .onReady(() => {
-					// })
-					.onRender(() => {
-						plane.uniforms.progress.value = $progress;
-					});
-			}
+			planes.push(plane);
+			handlePlanes(plane);
+			// if (plane) {
+			// 	plane.onLoading((texture) => {
+			// 		texture.setMinFilter(curtains.gl.LINEAR_MIPMAP_NEAREST);
+			// 	});
+			// }
 		});
 	};
+	let intervalId;
 	onMount(() => {
-		console.log(planeElements);
-
 		initCurtains(canvas);
 		initPlanes(planeElements);
-		// curtains.disableDrawing();
-		setInterval(() => {
-			act();
-			// slideshowState.maxTextures++;
-			// slideshowState.activeTextureIndex = slideshowState.maxTextures % 3;
+
+		intervalId = setInterval(() => {
+			planesLoaded && act();
 		}, 6000);
 	});
+	onDestroy(() => clearInterval(intervalId));
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -214,17 +222,19 @@
 				/>
 			</picture>
 		{/each}
-		<div class="text">
-			<div class="text_anim">
-				<p>Super puper photographer ever!</p>
+		{#if planesLoaded}
+			<div transition:fade class="text">
+				<div class="text_anim">
+					<p>Super puper photographer ever!</p>
+				</div>
+				<div class="text_anim">
+					<p>Super puper photographer ever!</p>
+				</div>
+				<div class="text_anim">
+					<p>Super puper photographer ever!</p>
+				</div>
 			</div>
-			<div class="text_anim">
-				<p>Super puper photographer ever!</p>
-			</div>
-			<div class="text_anim">
-				<p>Super puper photographer ever!</p>
-			</div>
-		</div>
+		{/if}
 	</div>
 
 	<div bind:this={planeElements[2]} class="slide__holder">
@@ -244,7 +254,7 @@
 	</div>
 </div>
 
-<div bind:this={canvas} id="canvas" />
+<div bind:this={canvas} class="canvas" class:curtains-ready={planesLoaded} />
 
 <style>
 	:root {
@@ -262,6 +272,25 @@
 		font-weight: 100;
 		font-size: var(--font-size-main);
 		line-height: 1;
+	}
+	.canvas {
+		pointer-events: none;
+		position: fixed;
+		top: 0;
+		right: 0;
+		left: 0;
+		bottom: 0;
+		display: block;
+		opacity: 0;
+		transition: opacity 2s;
+		/* display: none; */
+
+		/* width: 100%;
+		height: 100vh; */
+	}
+
+	.curtains-ready {
+		opacity: 1;
 	}
 	/* .slider {
 		max-width: calc(var(--slide-width) * 4);
@@ -356,20 +385,6 @@
 		margin: auto;
 		object-fit: cover;
 		object-position: center;
-	}
-
-	#canvas {
-		pointer-events: none;
-		position: fixed;
-		top: 0;
-		right: 0;
-		left: 0;
-		bottom: 0;
-		display: block;
-		/* display: none; */
-
-		/* width: 100%;
-		height: 100vh; */
 	}
 
 	@media (max-width: 500px) {

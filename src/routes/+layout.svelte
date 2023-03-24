@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 	import { elasticOut } from 'svelte/easing';
 
-	let numbers = [];
+	let numbers: Array<number> = [];
 	const stileRandom = (i: number) => {
 		const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 		const randomX = Math.floor(Math.random() * window.innerWidth * 0.85);
@@ -17,12 +17,16 @@
 
 		return `fill: ${randomColor};transform: translate(${randomX}px, -${randomY}px) rotate(${randomDeg}deg) scale(${randomScale})`;
 	};
+	let way = true;
 	function addNumber() {
-		if (numbers.length >= 50) {
-			numbers = [];
-			return;
+		if (numbers.length >= 25) {
+			way = false;
 		}
-		numbers = [...numbers, numbers.length + 1];
+		if (numbers.length === 0) {
+			way = true;
+		}
+		way && (numbers = [...numbers, numbers.length + 1]);
+		!way && (numbers = numbers.slice(1));
 	}
 
 	function overlay(node, { duration }) {
@@ -56,8 +60,6 @@
 	};
 	let y: number, x: number;
 
-	// let st: gsap.core.Timeline;
-	// let overlay: gsap.core.Tween;
 	const scrollTop = () => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	};
@@ -71,12 +73,7 @@
 	let menuIsOpen = false;
 	const stag = () => {
 		menuIsOpen = !menuIsOpen;
-		// st.reversed() ? st.play() : st.reverse();
-		// overlay.reversed() ? overlay.play() : overlay.reverse();
 	};
-	// $: console.log(menuIsOpen);
-
-	onMount(() => {});
 </script>
 
 <svelte:window bind:scrollY={y} bind:scrollX={x} />
