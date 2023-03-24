@@ -332,8 +332,8 @@
 		font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
 			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
 			Segoe UI Symbol;
-		font-size: clamp(14px, 0.7rem + 0.35vw, 24px);
-		line-height: clamp(20px, 1.2rem + 0.45vw, 32px);
+		font-size: clamp(14px, 1rem + 0.6vw, 32px);
+		line-height: clamp(20px, 1.2rem + 0.7vw, 44px);
 		font-weight: 150;
 		margin-right: 2ch;
 	}
