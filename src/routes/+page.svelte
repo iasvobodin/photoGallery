@@ -214,6 +214,17 @@
 				/>
 			</picture>
 		{/each}
+		<div class="text">
+			<div class="text_anim">
+				<p>Super puper photographer ever!</p>
+			</div>
+			<div class="text_anim">
+				<p>Super puper photographer ever!</p>
+			</div>
+			<div class="text_anim">
+				<p>Super puper photographer ever!</p>
+			</div>
+		</div>
 	</div>
 
 	<div bind:this={planeElements[2]} class="slide__holder">
@@ -284,20 +295,57 @@
 		/* border: 1px solid red; */
 		width: var(--test-holder-width);
 		height: var(--slider-height);
-		overflow: hidden;
+		/* overflow: hidden; */
 		position: relative;
 		place-self: center;
 		border-radius: 5px;
+	}
+	.text {
+		position: absolute;
+		bottom: 0;
+		transform: rotate(270deg);
+		transform-origin: bottom left;
+		display: flex;
+		flex-wrap: nowrap;
+		white-space: nowrap;
+		min-width: var(--slider-height);
+	}
+	.text_anim {
+		display: flex;
+		flex-shrink: 0;
+		height: 3vw;
+		align-items: center;
+		animation: slide-left 10s linear infinite;
+	}
+	@keyframes slide-left {
+		from {
+			-webkit-transform: translateX(0);
+			transform: translateX(0);
+		}
+		to {
+			-webkit-transform: translateX(-100%);
+			transform: translateX(-100%);
+		}
+	}
+	.text_anim > p {
+		margin: 0;
+		font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
+			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+			Segoe UI Symbol;
+		font-size: clamp(14px, 0.7rem + 0.35vw, 24px);
+		line-height: clamp(20px, 1.2rem + 0.45vw, 32px);
+		font-weight: 150;
+		margin-right: 2ch;
 	}
 
 	.slide__holder > picture {
 		place-self: center;
 		display: block;
 		position: absolute;
-		top: 0;
+		/*top: 0;
 		left: 0;
 		right: 0;
-		bottom: 0;
+		bottom: 0; */
 		width: 100%;
 		height: 100%;
 	}
@@ -306,7 +354,7 @@
 		width: 100%;
 		height: 100%;
 		margin: auto;
-		object-fit: contain;
+		object-fit: cover;
 		object-position: center;
 	}
 
