@@ -287,21 +287,18 @@
 			style={photo.setStyle}
 		>
 			{#if elementEntries[index]}
-							<picture>
- <source srcSet="{photo.imageSrc}.avif" type="image/avif" />
- <source srcSet="{photo.imageSrc}.webp" type="image/webp" />
- <img
-decoding="async" loading="lazy" in:fade={{ delay: 200 }}
-						draggable="false"
- src="{photo.imageSrc}.jpg" alt="SvobodinaPhot" />
-</picture>
-			<!-- 	<img
+				<picture>
+					<source srcSet="{photo.imageSrc}.avif" type="image/avif" />
+					<source srcSet="{photo.imageSrc}.webp" type="image/webp" />
+					<img
 						decoding="async"
+						loading="lazy"
 						in:fade={{ delay: 200 }}
 						draggable="false"
-						src={photo.imageSrc}
-						alt="SvobodinaPhoto"
-					/> -->
+						src="{photo.imageSrc}.jpg"
+						alt="SvobodinaPhot"
+					/>
+				</picture>
 			{/if}
 		</div>
 	{/each}

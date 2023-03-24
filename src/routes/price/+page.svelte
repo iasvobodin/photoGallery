@@ -5,10 +5,23 @@
 
 <h1 class="main__head">Цены</h1>
 <div class="price__image">
-	<img
-		src="https://raw.githubusercontent.com/iasvobodin/svs/images/static/image/webp/1024/19-03-02-20-58-27.webp"
-		alt=""
-	/>
+	<picture>
+		<source
+			srcSet="https://photoday.svobodinaphoto.store/1024_19-03-02-20-58-27.avif"
+			type="image/avif"
+		/>
+		<source
+			srcSet="https://photoday.svobodinaphoto.store/1024_19-03-02-20-58-27.webp"
+			type="image/webp"
+		/>
+		<img
+			decoding="async"
+			loading="lazy"
+			draggable="false"
+			src="https://photoday.svobodinaphoto.store/1024_19-03-02-20-58-27.jpg"
+			alt="SvobodinaPhot"
+		/>
+	</picture>
 </div>
 <div class="price__holder">
 	{#each data.pricedata as el}
@@ -16,7 +29,7 @@
 			<h3>{el.title}</h3>
 			<ul style="align-self: stretch;">
 				{#each el.body as element}
-					<li>{element}</li>
+					<li class="price__body">{element}</li>
 				{/each}
 			</ul>
 			<h4 style="align-self: end;justify-self: center;">
@@ -42,7 +55,7 @@
 		height: 50vh;
 		margin-bottom: 5vh;
 	}
-	.price__image > img {
+	.price__image > picture > img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
@@ -101,20 +114,25 @@
 		margin-top: 5vh;
 		margin-bottom: 5vh;
 	}
-	/* .price__tarif::before {
-    content: "";
-    background: white;
-    position: relative;
-    width: calc(100% + 6px);
-    height: calc(100% + 6px);
-    z-index: 2;
-  } */
-	/* .price__title {
-		font-family: Cormorant Infant;
-		font-size: max(36px, 5.8vw);
-		line-height: max(40px, 5.8vw);
+	.price__tarif::before {
+		content: '';
+		z-index: -1;
+		border-radius: 5px;
+		background: linear-gradient(120deg, #57ebdb, #403ddb 41.07%, #070047 76.05%);
+		position: absolute;
+		top: -2px;
+		left: -2px;
+		width: calc(100% + 4px);
+		height: calc(100% + 4px);
+	}
+	.price__body {
+		font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
+			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+			Segoe UI Symbol;
+		font-size: clamp(12px, calc(0.7rem + 0.25vw), 24px);
+		line-height: clamp(18px, calc(1.2rem + 0.35vw), 32px);
 		font-weight: 300;
 		color: #ffffff;
-		margin: 5vw;
-	} */
+		/* margin: 5vw; */
+	}
 </style>

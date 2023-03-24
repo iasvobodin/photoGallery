@@ -188,8 +188,9 @@
 
 	:root {
 		--clip: 0%;
-		/* --font-size: var(--font-size); */
-		--slider-height: calc(max(100vh, 500px) - var(--font-size) * 2);
+		--font-size-main: clamp(40px, 8vw + 10px, 90px);
+		/* --font-size-main: var(--font-size-main); */
+		--slider-height: calc(max(100vh, 500px) - var(--font-size-main) * 2);
 		--slide-width: calc(var(--slider-height) * 0.66);
 	}
 	.hide__svph {
@@ -226,7 +227,7 @@
 	.font__prop {
 		font-family: 'Roboto Mono', monospace;
 		font-weight: 100;
-		font-size: var(--font-size);
+		font-size: var(--font-size-main);
 		line-height: 1;
 	}
 	.menu {
@@ -250,7 +251,7 @@
 		display: grid;
 		justify-content: end;
 		right: 0.5ch;
-		/* height: calc(100vh - var(--font-size));
+		/* height: calc(100vh - var(--font-size-main));
 		align-content: space-around; */
 	}
 
@@ -260,7 +261,7 @@
 	}
 	.menu__button {
 		pointer-events: all;
-		background-image: url('/icons/menu2.svg');
+		background-image: url('/icons/menu3.svg');
 		position: absolute;
 		cursor: pointer;
 		top: 0.36ch;
@@ -303,7 +304,7 @@
 		justify-content: end;
 		right: 0.5ch;
 		display: grid;
-		/* height: calc(100vh - var(--font-size));
+		/* height: calc(100vh - var(--font-size-main));
 		align-content: space-around; */
 	}
 	.menu__item {
@@ -313,7 +314,7 @@
 		color: transparent;
 		text-rendering: optimizeLegibility;
 		-webkit-font-smoothing: antialiased;
-		height: var(--font-size);
+		height: var(--font-size-main);
 		width: 100%;
 		text-decoration: none;
 		text-decoration-line: none;

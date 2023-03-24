@@ -8,7 +8,24 @@
 <div class="reviews__holder">
 	<h1 class="main__head rotate">Отзывы</h1>
 	<div class="review__image">
-		<img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1000/20-07-03-19-19-22.jpg" alt="" />
+		<picture>
+			<source
+				srcSet="https://photoday.svobodinaphoto.store/1024_20-07-03-19-19-22.avif"
+				type="image/avif"
+			/>
+			<source
+				srcSet="https://photoday.svobodinaphoto.store/1024_20-07-03-19-19-22.webp"
+				type="image/webp"
+			/>
+			<img
+				decoding="async"
+				loading="lazy"
+				draggable="false"
+				src="https://photoday.svobodinaphoto.store/1024_20-07-03-19-19-22.jpg"
+				alt="SvobodinaPhot"
+			/>
+		</picture>
+		<!-- <img src="https://ik.imagekit.io/svobodinaphoto/tr:w-1000/20-07-03-19-19-22.jpg" alt="" /> -->
 	</div>
 	<div class="cont">
 		{#each reviewsSlice as review}
@@ -40,7 +57,7 @@
 		height: 50vh;
 		margin-bottom: 5vh;
 	}
-	.review__image > img {
+	.review__image > picture > img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
@@ -128,25 +145,17 @@
 		width: 25px;
 	} */
 	.review__body {
-		/* justify-self: end; */
-		/* width: 75%; */
 		place-self: stretch;
 		margin: 0;
 		padding: 1vw;
-		/* display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden; */
 		font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
 			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
 			Segoe UI Symbol;
-		font-weight: 150;
-		/* font-family: Comfortaa; */
-		color: white;
 		font-size: clamp(12px, calc(0.7rem + 0.25vw), 24px);
 		line-height: clamp(18px, calc(1.2rem + 0.35vw), 32px);
+		font-weight: 150;
+		color: white;
 		white-space: pre-wrap;
-		/* padding: 10px; */
 	}
 	@media (max-width: 1200px) {
 		.ava {

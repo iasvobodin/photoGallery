@@ -94,37 +94,37 @@
 	let ss = 0;
 	let sliderData = [
 		[
-			'/img/rev/dis3.jpeg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/21-10-27-11-49-02.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/23-01-21-14-13-57.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/21-01-04-12-10-19.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/21-01-06-13-39-15.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/22-07-16-15-12-14.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/21-01-04-12-42-47.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/22-11-07-13-40-04.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/22-10-03-12-17-08.jpg'
+			'/img/rev/dis3',
+			'https://photoday.svobodinaphoto.store/720_21-10-27-11-49-02',
+			'https://photoday.svobodinaphoto.store/720_23-01-21-14-13-57',
+			'https://photoday.svobodinaphoto.store/720_21-01-04-12-10-19',
+			'https://photoday.svobodinaphoto.store/720_21-01-06-13-39-15',
+			'https://photoday.svobodinaphoto.store/720_22-07-16-15-12-14',
+			'https://photoday.svobodinaphoto.store/720_21-01-04-12-42-47',
+			'https://photoday.svobodinaphoto.store/720_22-11-07-13-40-04',
+			'https://photoday.svobodinaphoto.store/720_22-10-03-12-17-08'
 		],
 		[
-			'/img/rev/dis.jpeg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/22-06-02-11-39-41.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/22-11-30-11-53-38.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/21-12-18-15-12-08.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/22-06-02-11-10-36.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/21-05-08-18-58-57.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/21-03-09-11-42-38.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/23-01-24-15-21-37.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/22-07-16-16-39-20.jpg'
+			'/img/rev/dis',
+			'https://photoday.svobodinaphoto.store/720_22-06-02-11-39-41',
+			'https://photoday.svobodinaphoto.store/720_22-11-30-11-53-38',
+			'https://photoday.svobodinaphoto.store/720_21-12-18-15-12-08',
+			'https://photoday.svobodinaphoto.store/720_22-06-02-11-10-36',
+			'https://photoday.svobodinaphoto.store/720_21-05-08-18-58-57',
+			'https://photoday.svobodinaphoto.store/720_21-03-09-11-42-38',
+			'https://photoday.svobodinaphoto.store/720_23-01-24-15-21-37',
+			'https://photoday.svobodinaphoto.store/720_22-07-16-16-39-20'
 		],
 		[
-			'/img/rev/dis3.jpeg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/22-11-07-13-26-35.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/21-10-03-12-39-01.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/23-01-24-14-31-57.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/23-01-24-15-12-57.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/20-07-03-17-25-34.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/23-01-21-14-29-41.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/23-02-05-12-37-35.jpg',
-			'https://ik.imagekit.io/svobodinaphoto/tr:w-480/22-07-16-15-00-46.jpg'
+			'/img/rev/dis3',
+			'https://photoday.svobodinaphoto.store/720_22-11-07-13-26-35',
+			'https://photoday.svobodinaphoto.store/720_21-10-03-12-39-01',
+			'https://photoday.svobodinaphoto.store/720_23-01-24-14-31-57',
+			'https://photoday.svobodinaphoto.store/720_23-01-24-15-12-57',
+			'https://photoday.svobodinaphoto.store/720_20-07-03-17-25-34',
+			'https://photoday.svobodinaphoto.store/720_23-01-21-14-29-41',
+			'https://photoday.svobodinaphoto.store/720_23-02-05-12-37-35',
+			'https://photoday.svobodinaphoto.store/720_22-07-16-15-00-46'
 		]
 	];
 	// onMount(() => {
@@ -185,36 +185,25 @@
 			// slideshowState.maxTextures++;
 			// slideshowState.activeTextureIndex = slideshowState.maxTextures % 3;
 		}, 6000);
-
-		// const layout = justifiedLayout([0.66, 0.66, 0.66], {
-		// 	// fullWidthBreakoutRowCadence: 4,
-		// 	// showWidows: false, //CUT SOME PICTURES IN THE END
-		// 	targetRowHeight: h,
-		// 	containerWidth: w, //* 2,
-		// 	containerPadding: {
-		// 		top: 0,
-		// 		right: 0, // innerWidth * 0.1, // window.innerinnerWidth * paddingCoef,
-		// 		bottom: 0,
-		// 		left: 0 //innerWidth * 0.1 // window.innerinnerWidth * paddingCoef
-		// 	},
-		// 	boxSpacing: {
-		// 		horizontal: 10,
-		// 		vertical: 50
-		// 	}
-		// });
-		// layoutData = layout.boxes.map((el, i) => {
-		// 	return {
-		// 		boxStyle: `
-		// 		position: absolute;
-		// 		margin:0;
-		// 		left:${Math.floor(el.left)}px;
-		// 		top:${Math.floor(el.top)}px;
-		// 		width: ${Math.floor(el.width)}px;
-		// 		height: ${Math.floor(el.height)}px;
-		// 			`
-		// 	};
-		// });
 	});
+	// .slider {
+	// 	position: fixed;
+	// 	/* z-index: 99; */
+	// 	display: grid;
+	// 	/* overflow: hidden; */
+	// 	grid-auto-flow: column;
+	// 	/* grid-template-columns: repeat(auto-fill, minmax(var(--test-holder-width), 1fr)); */
+	// 	top: var(--font-size-main);
+	// 	left: calc(var(--font-size-main) * 2);
+	// 	right: calc(var(--font-size-main) * 2);
+	// 	bottom: var(--font-size-main);
+	// 	/* width: calc(100vw - var(--font-size-main) * 2); */
+	// 	height: var(--test-container-height);
+	// 	justify-content: space-around;
+	// 	/* column-gap: max(2vw, 5px); */
+	// 	margin: auto;
+	// 	/* border: 1px solid green; */
+	// }
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -233,10 +222,20 @@
 	{/each}
 </div> -->
 <div bind:clientWidth={w} bind:clientHeight={h} class="slider font__prop">
-	{#each col as item, i}
+	{#each sliderData as item, i}
 		<div bind:this={planeElements[i]} class="slide__holder">
-			{#each sliderData[i] as img}
-				<img decoding="async" src={img} alt="svph" crossorigin="anonymous" />
+			{#each item as img}
+				<picture>
+					<source srcSet="{img}.avif" type="image/avif" />
+					<source srcSet="{img}.webp" type="image/webp" />
+					<img
+						decoding="async"
+						loading="lazy"
+						draggable="false"
+						src="{img}.jpg"
+						alt="SvobodinaPhot"
+					/>
+				</picture>
 			{/each}
 		</div>
 	{/each}
@@ -246,31 +245,15 @@
 
 <style>
 	:root {
-		--slider-height: calc(max(100vh, 500px) - var(--font-size) * 2);
+		--font-size-main: clamp(40px, 8vw + 10px, 90px);
+		--font-size: clamp(40px, 8vw + 10px, 100px);
+		--slider-height: calc(max(100vh, 500px) - var(--font-size-main) * 2);
 		--slide-width: calc(var(--slider-height) * 0.66);
-		--test-container-height: calc(100vh - var(--font-size) * 2);
-		--test-container-gap: var(--font-size);
+		--test-container-height: calc(100vh - var(--font-size-main) * 2);
+		--test-container-gap: var(--font-size-main);
 		--test-holder-width: calc(var(--test-container-height) * 0.66);
 	}
 
-	.slider {
-		position: fixed;
-		/* z-index: 99; */
-		display: grid;
-		/* overflow: hidden; */
-		grid-auto-flow: column;
-		/* grid-template-columns: repeat(auto-fill, minmax(var(--test-holder-width), 1fr)); */
-		top: var(--font-size);
-		left: calc(var(--font-size) * 2);
-		right: calc(var(--font-size) * 2);
-		bottom: var(--font-size);
-		/* width: calc(100vw - var(--font-size) * 2); */
-		height: var(--test-container-height);
-		justify-content: space-around;
-		/* column-gap: max(2vw, 5px); */
-		margin: auto;
-		/* border: 1px solid green; */
-	}
 	.block {
 		border: 1px solid red;
 		width: var(--test-holder-width);
@@ -279,25 +262,29 @@
 	.font__prop {
 		font-family: 'Roboto Mono', monospace;
 		font-weight: 100;
-		font-size: var(--font-size);
+		font-size: var(--font-size-main);
 		line-height: 1;
 	}
-	/* .slider {
+	.slider {
+		max-width: calc(var(--slide-width) * 4);
+		justify-content: space-around;
+		margin: auto;
 		position: relative;
-		top: var(--font-size);
+		top: var(--font-size-main);
 		display: grid;
 		grid-template-columns: repeat(
 			auto-fill,
 			minmax(max(calc(var(--slide-width) - 400px), var(--slide-width)), 1fr)
 		);
+		padding: 0 1vw;
 		column-gap: 1vw;
-		row-gap: 10vh;
+		row-gap: var(--font-size-main);
 		width: calc((100vw - 2ch));
 		height: var(--slider-height);
 		overflow: hidden;
-	} */
+	}
 	.slide__holder {
-		border: 1px solid red;
+		/* border: 1px solid red; */
 		width: var(--test-holder-width);
 		height: var(--slider-height);
 		overflow: hidden;

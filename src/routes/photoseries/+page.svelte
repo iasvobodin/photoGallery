@@ -180,21 +180,18 @@
 		>
 			<a href={`/photoseries/${photo.Route}`}>
 				{#if elementEntries[index]}
-				<picture>
- <source srcSet="{photo.imageSrc}.avif" type="image/avif" />
- <source srcSet="{photo.imageSrc}.webp" type="image/webp" />
- <img
-decoding="async" loading="lazy" in:fade={{ delay: 200 }}
-						draggable="false"
- src="{photo.imageSrc}.jpg" alt="SvobodinaPhot" />
-</picture>
-				<!-- 	<img
-						decoding="async"
-						in:fade={{ delay: 200 }}
-						draggable="false"
-						src={photo.imageSrc}
-						alt="SvobodinaPhoto"
-					/> -->
+					<picture>
+						<source srcSet="{photo.imageSrc}.avif" type="image/avif" />
+						<source srcSet="{photo.imageSrc}.webp" type="image/webp" />
+						<img
+							decoding="async"
+							loading="lazy"
+							in:fade={{ delay: 200 }}
+							draggable="false"
+							src="{photo.imageSrc}.jpg"
+							alt="SvobodinaPhot"
+						/>
+					</picture>
 				{/if}
 			</a>
 			<h3 class="ph__Title" style={photo.titleStyle}>{photo.Title}</h3>
