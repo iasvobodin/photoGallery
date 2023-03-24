@@ -2,13 +2,26 @@
 	import { fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import Logo from '$lib/components/logo.svelte';
 	// import { gsap } from 'gsap';
 	import { onMount } from 'svelte';
 	import { elasticOut } from 'svelte/easing';
 
-	let numbers = [1];
+	let numbers = [];
+	const stileRandom = (i: number) => {
+		const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+		const randomX = Math.floor(Math.random() * window.innerWidth * 0.85);
+		const randomY = Math.floor(Math.random() * window.innerHeight * 0.85);
+		const randomDeg = Math.floor(Math.random() * window.innerHeight * 0.85);
+		const randomScale = Math.random() + 0.85;
 
+		return `fill: ${randomColor};transform: translate(${randomX}px, -${randomY}px) rotate(${randomDeg}deg) scale(${randomScale})`;
+	};
 	function addNumber() {
+		if (numbers.length >= 50) {
+			numbers = [];
+			return;
+		}
 		numbers = [...numbers, numbers.length + 1];
 	}
 
@@ -63,50 +76,7 @@
 	};
 	// $: console.log(menuIsOpen);
 
-	onMount(() => {
-		// overlay = gsap.to('html', {
-		// 	paused: true,
-		// 	reversed: true,
-		// 	duration: 0.2,
-		// 	'--clip': '100%'
-		// });
-		// st = gsap
-		// 	.timeline({
-		// 		paused: true,
-		// 		reversed: true
-		// 	})
-		// 	// .to(
-		// 	// 	'html',
-		// 	// 	{
-		// 	// 		duration: 0.2,
-		// 	// 		'--clip': '100%'
-		// 	// 	},
-		// 	// 	0
-		// 	// )
-		// 	.set('.menu__items', {
-		// 		display: 'grid'
-		// 	})
-		// 	.to('.ph__char', {
-		// 		duration: 0.3,
-		// 		x: '100%',
-		// 		ease: 'none'
-		// 	})
-		// 	.to(
-		// 		'.char',
-		// 		{
-		// 			duration: 0.3,
-		// 			x: '0',
-		// 			ease: 'none',
-		// 			stagger: {
-		// 				each: 0.08,
-		// 				grid: [5, 9],
-		// 				from: 'end',
-		// 				axis: 'x'
-		// 			}
-		// 		},
-		// 		'-=0.22'
-		// 	);
-	});
+	onMount(() => {});
 </script>
 
 <svelte:window bind:scrollY={y} bind:scrollX={x} />
@@ -142,8 +112,13 @@
 <div class="menu">
 	{#if menuIsOpen}
 		<div out:overlay={{ duration: 600 }} in:overlay={{ duration: 600 }} class="overlay">
-			{#each numbers as item}
-				<img on:click={addNumber} class="logo" src="/icons/logo.svg" alt="logo" />
+			<img on:click={addNumber} class="logo" src="/icons/logo.svg" alt="logo" />
+			{#each numbers as item, i}
+				<div style={stileRandom(i)} class="logo-fake">
+					<Logo color={`#${Math.floor(Math.random() * 16777215).toString(16)}`} />
+				</div>
+
+				<!-- <img style={stileRandom(i)} class="logo-fake" src="/icons/logo.svg" alt="logo" /> -->
 			{/each}
 		</div>
 	{/if}
@@ -292,10 +267,25 @@
 		background-color: black;
 	}
 	.logo {
+		position: absolute;
+		cursor: pointer;
 		width: 15vh;
 		height: 15vh;
 		place-self: end start;
 		margin: 3vw;
+	}
+	.logo-fake {
+		position: absolute;
+		pointer-events: none;
+		width: 15vh;
+		height: 15vh;
+		place-self: end start;
+		margin: 3vw;
+	}
+	.logo-fake > svg {
+		display: block;
+		width: 15vh;
+		height: 15vh;
 	}
 	/* .menu::before {
 		clip-path: circle(100%);
