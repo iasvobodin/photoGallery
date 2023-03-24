@@ -6,6 +6,12 @@
 	import { onMount } from 'svelte';
 	import { elasticOut } from 'svelte/easing';
 
+	let numbers = [1];
+
+	function addNumber() {
+		numbers = [...numbers, numbers.length + 1];
+	}
+
 	function overlay(node, { duration }) {
 		return {
 			duration,
@@ -136,7 +142,9 @@
 <div class="menu">
 	{#if menuIsOpen}
 		<div out:overlay={{ duration: 600 }} in:overlay={{ duration: 600 }} class="overlay">
-			<img class="logo" src="/icons/logo.svg" alt="logo" />
+			{#each numbers as item}
+				<img on:click={addNumber} class="logo" src="/icons/logo.svg" alt="logo" />
+			{/each}
 		</div>
 	{/if}
 	<h1 class="menu__title__hor font__prop" class:hide__svph={$page.url.pathname !== '/'}>

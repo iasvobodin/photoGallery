@@ -221,6 +221,8 @@
 		<div class="block" />
 	{/each}
 </div> -->
+<!-- crossorigin="anonymous" -->
+<!--  -->
 <div bind:clientWidth={w} bind:clientHeight={h} class="slider font__prop">
 	{#each sliderData as item, i}
 		<div bind:this={planeElements[i]} class="slide__holder">
@@ -229,9 +231,8 @@
 					<source srcSet="{img}.avif" type="image/avif" />
 					<source srcSet="{img}.webp" type="image/webp" />
 					<img
-					crossorigin=""
+						crossorigin="anonymous"
 						decoding="async"
-						loading="lazy"
 						draggable="false"
 						src="{img}.jpg"
 						alt="SvobodinaPhot"
@@ -294,9 +295,28 @@
 		place-self: center;
 		border-radius: 5px;
 	}
-	.slider img {
+	/* .slider img {
 		display: none;
 		place-self: center;
+		width: 100%;
+		height: 100%;
+		margin: auto;
+		object-fit: contain;
+		object-position: center;
+	} */
+
+	.slide__holder > picture {
+		place-self: center;
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		/* margin: auto;
+		object-fit: contain;
+		object-position: center; */
+	}
+	.slide__holder > picture > img {
+		display: none;
 		width: 100%;
 		height: 100%;
 		margin: auto;
