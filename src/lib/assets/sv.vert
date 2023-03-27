@@ -12,13 +12,13 @@
 
   uniform mat4 activeTexMatrix;
   uniform mat4 nextTexMatrix;
-  uniform mat4 mapMatrix;
+  // uniform mat4 mapMatrix;
 
   // if you want to pass your vertex and texture coords to the fragment shader
   varying vec3 vVertexPosition;
   varying vec2 vActiveTextureCoord;
   varying vec2 vNextTextureCoord;
-  varying vec2 vTextureCoordMap;
+  // varying vec2 vTextureCoordMap;
 
   void main() {
     vec3 vertexPosition = aVertexPosition;
@@ -28,6 +28,6 @@
     // set the varyings
     vActiveTextureCoord = (activeTexMatrix * vec4(aTextureCoord, 0.0, 1.0)).xy;
     vNextTextureCoord = (nextTexMatrix * vec4(aTextureCoord, 0.0, 1.0)).xy;
-    vTextureCoordMap = (mapMatrix * vec4(aTextureCoord, 0., 1.)).xy;
+    // vTextureCoordMap = (mapMatrix * vec4(aTextureCoord, 0., 1.)).xy;
     vVertexPosition = vertexPosition;
   }

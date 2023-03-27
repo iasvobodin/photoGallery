@@ -11,15 +11,49 @@
 	let h;
 	let planesLoaded = false;
 	//SLIDER VARIABLES
-	let progress = tweened(0, {
-		duration: 1000,
-		easing: cubicOut
-	});
+	let transitionDuration = 1500,
+		progress = tweened(0, {
+			duration: transitionDuration,
+			easing: cubicOut
+		});
+	let sliderData = [
+		[
+			'https://photoday.svobodinaphoto.store/480_21-10-27-11-49-02',
+			'https://photoday.svobodinaphoto.store/480_23-01-21-14-13-57',
+			'https://photoday.svobodinaphoto.store/480_21-01-04-12-10-19',
+			'https://photoday.svobodinaphoto.store/480_21-01-06-13-39-15',
+			'https://photoday.svobodinaphoto.store/480_22-07-16-15-12-14',
+			'https://photoday.svobodinaphoto.store/480_21-01-04-12-42-47',
+			'https://photoday.svobodinaphoto.store/480_22-11-07-13-40-04',
+			'https://photoday.svobodinaphoto.store/480_22-10-03-12-17-08'
+		],
+		[
+			'https://photoday.svobodinaphoto.store/480_22-06-02-11-39-41',
+			'https://photoday.svobodinaphoto.store/480_22-11-30-11-53-38',
+			'https://photoday.svobodinaphoto.store/480_21-12-18-15-12-08',
+			'https://photoday.svobodinaphoto.store/480_22-06-02-11-10-36',
+			'https://photoday.svobodinaphoto.store/480_21-05-08-18-58-57',
+			'https://photoday.svobodinaphoto.store/480_21-03-09-11-42-38',
+			'https://photoday.svobodinaphoto.store/480_23-01-24-15-21-37',
+			'https://photoday.svobodinaphoto.store/480_22-07-16-16-39-20'
+		],
+		[
+			'https://photoday.svobodinaphoto.store/480_22-11-07-13-26-35',
+			'https://photoday.svobodinaphoto.store/480_21-10-03-12-39-01',
+			'https://photoday.svobodinaphoto.store/480_23-01-24-14-31-57',
+			'https://photoday.svobodinaphoto.store/480_23-01-24-15-12-57',
+			'https://photoday.svobodinaphoto.store/480_20-07-03-17-25-34',
+			'https://photoday.svobodinaphoto.store/480_23-01-21-14-29-41',
+			'https://photoday.svobodinaphoto.store/480_23-02-05-12-37-35',
+			'https://photoday.svobodinaphoto.store/480_22-07-16-15-00-46'
+		]
+	];
 	let slideshowState = {
-		activeTextureIndex: 1,
-		nextTextureIndex: 2, // does not care for now
-		maxTextures: 8, // planeElements[0].querySelectorAll('img').length - 1, // -1 because displacement image does not count
-		isChanging: false
+		activeTextureIndex: 0,
+		nextTextureIndex: 1, // does not care for now
+		maxTextures: sliderData[0].length, // planeElements[0].querySelectorAll('img').length - 1, // -1 because displacement image does not count
+		isChanging: false,
+		slideDuration: 3000
 	};
 	let canvas,
 		activeTex = [],
@@ -29,6 +63,7 @@
 		curtains,
 		innerWidth,
 		innerHeight,
+		columtQty = 7,
 		params = {
 			vertexShader: vertex,
 			fragmentShader: fragment,
@@ -44,81 +79,38 @@
 					name: 'uProgress',
 					type: '1f',
 					value: 0
+				},
+				intensiv: {
+					name: 'uIntensiv',
+					type: '1f',
+					value: columtQty
 				}
 			}
 		};
-	let actt = true,
-		layoutData = [];
 
 	//SLIDER FUNCTIONS
 	const act = () => {
-		actt = !actt;
-		// console.log(planes);
+		slideshowState.maxTextures++;
+		slideshowState.nextTextureIndex = slideshowState.maxTextures % sliderData[0].length;
 
-		if (slideshowState.activeTextureIndex < slideshowState.maxTextures) {
-			slideshowState.nextTextureIndex = slideshowState.activeTextureIndex + 1;
-		} else {
-			slideshowState.nextTextureIndex = 1;
-		}
-		nextTex[0].setSource(planes[0].images[slideshowState.nextTextureIndex]);
-		nextTex[1].setSource(planes[1].images[slideshowState.nextTextureIndex]);
-		nextTex[2].setSource(planes[2].images[slideshowState.nextTextureIndex]);
+		planes.forEach((plane, i) => {
+			nextTex[i].setSource(plane.images[slideshowState.nextTextureIndex]);
+		});
 
 		progress.set(1).then(() => {
 			slideshowState.activeTextureIndex = slideshowState.nextTextureIndex;
-			activeTex[0].setSource(planes[0].images[slideshowState.activeTextureIndex]);
-			activeTex[1].setSource(planes[1].images[slideshowState.activeTextureIndex]);
-			activeTex[2].setSource(planes[2].images[slideshowState.activeTextureIndex]);
+
+			planes.forEach((plane, i) => {
+				activeTex[i].setSource(plane.images[slideshowState.activeTextureIndex]);
+			});
+			//RESET
 			progress = tweened(0, {
-				duration: 1000,
+				duration: transitionDuration,
 				easing: cubicOut
 			});
 		});
 	};
 
-	let ss = 0;
-	let sliderData = [
-		[
-			'/img/rev/480_dis3',
-			'https://photoday.svobodinaphoto.store/720_21-10-27-11-49-02',
-			'https://photoday.svobodinaphoto.store/720_23-01-21-14-13-57',
-			'https://photoday.svobodinaphoto.store/720_21-01-04-12-10-19',
-			'https://photoday.svobodinaphoto.store/720_21-01-06-13-39-15',
-			'https://photoday.svobodinaphoto.store/720_22-07-16-15-12-14',
-			'https://photoday.svobodinaphoto.store/720_21-01-04-12-42-47',
-			'https://photoday.svobodinaphoto.store/720_22-11-07-13-40-04',
-			'https://photoday.svobodinaphoto.store/720_22-10-03-12-17-08'
-		],
-		[
-			'/img/rev/480_dis',
-			'https://photoday.svobodinaphoto.store/720_22-06-02-11-39-41',
-			'https://photoday.svobodinaphoto.store/720_22-11-30-11-53-38',
-			'https://photoday.svobodinaphoto.store/720_21-12-18-15-12-08',
-			'https://photoday.svobodinaphoto.store/720_22-06-02-11-10-36',
-			'https://photoday.svobodinaphoto.store/720_21-05-08-18-58-57',
-			'https://photoday.svobodinaphoto.store/720_21-03-09-11-42-38',
-			'https://photoday.svobodinaphoto.store/720_23-01-24-15-21-37',
-			'https://photoday.svobodinaphoto.store/720_22-07-16-16-39-20'
-		],
-		[
-			'/img/rev/480_dis3',
-			'https://photoday.svobodinaphoto.store/720_22-11-07-13-26-35',
-			'https://photoday.svobodinaphoto.store/720_21-10-03-12-39-01',
-			'https://photoday.svobodinaphoto.store/720_23-01-24-14-31-57',
-			'https://photoday.svobodinaphoto.store/720_23-01-24-15-12-57',
-			'https://photoday.svobodinaphoto.store/720_20-07-03-17-25-34',
-			'https://photoday.svobodinaphoto.store/720_23-01-21-14-29-41',
-			'https://photoday.svobodinaphoto.store/720_23-02-05-12-37-35',
-			'https://photoday.svobodinaphoto.store/720_22-07-16-15-00-46'
-		]
-	];
-	// onMount(() => {
-	// 	// let i = 3;
-	// 	// setInterval(() => {
-	// 	// 	i++;
-	// 	// 	ss = i % 3;
-	// 	// }, 2500);
-	// });
 	const initCurtains = (container) => {
 		curtains = new Curtains({
 			container: container,
@@ -134,13 +126,7 @@
 			.onReady(() => {
 				if (plane.index === planes.length - 1) {
 					planesLoaded = true;
-					// document.body.classList.add('planes-loaded');
-					console.log('planes loaded');
 				}
-				plane.createTexture({
-					sampler: 'map',
-					fromTexture: plane.textures[0]
-				});
 
 				activeTex[plane.index] = plane.createTexture({
 					sampler: 'activeTex',
@@ -151,7 +137,6 @@
 					sampler: 'nextTex',
 					fromTexture: plane.textures[slideshowState.nextTextureIndex]
 				});
-				// planes.push(plane);
 			})
 			.onRender(() => {
 				plane.uniforms.progress.value = $progress;
@@ -162,11 +147,6 @@
 			const plane = new Plane(curtains, el, params);
 			planes.push(plane);
 			handlePlanes(plane);
-			// if (plane) {
-			// 	plane.onLoading((texture) => {
-			// 		texture.setMinFilter(curtains.gl.LINEAR_MIPMAP_NEAREST);
-			// 	});
-			// }
 		});
 	};
 	let intervalId;
@@ -176,7 +156,7 @@
 
 		intervalId = setInterval(() => {
 			planesLoaded && act();
-		}, 6000);
+		}, slideshowState.slideDuration);
 	});
 	onDestroy(() => clearInterval(intervalId));
 </script>
