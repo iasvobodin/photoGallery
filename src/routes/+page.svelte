@@ -89,26 +89,30 @@
 		};
 
 	//SLIDER FUNCTIONS
-	const act = () => {
+	const animSlider = async () => {
 		slideshowState.maxTextures++;
 		slideshowState.nextTextureIndex = slideshowState.maxTextures % sliderData[0].length;
 
 		planes.forEach((plane, i) => {
 			nextTex[i].setSource(plane.images[slideshowState.nextTextureIndex]);
 		});
-
-		progress.set(1).then(() => {
+		try {
+			await progress.set(1);
 			slideshowState.activeTextureIndex = slideshowState.nextTextureIndex;
 
 			planes.forEach((plane, i) => {
 				activeTex[i].setSource(plane.images[slideshowState.activeTextureIndex]);
 			});
-			//RESET
+			//RESET TWEEN
 			progress = tweened(0, {
 				duration: transitionDuration,
 				easing: cubicOut
 			});
-		});
+		} catch (error) {
+			return function stop() {
+				console.log(error, 'Todos Store Stopped');
+			};
+		}
 	};
 
 	const initCurtains = (container) => {
@@ -155,7 +159,7 @@
 		initPlanes(planeElements);
 
 		intervalId = setInterval(() => {
-			planesLoaded && act();
+			planesLoaded && animSlider();
 		}, slideshowState.slideDuration);
 	});
 	onDestroy(() => clearInterval(intervalId));

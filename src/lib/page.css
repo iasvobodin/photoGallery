@@ -1,0 +1,12 @@
+.desc1 {
+    flex: 1 1 300px;
+    margin-top: -5vh;
+    margin-left: -15vw;
+}
+
+@container (min-width: 300px) {
+    .desc1 {
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+}
