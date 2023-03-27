@@ -16,14 +16,14 @@
   varying vec3 vVertexPosition;
   varying vec2 vActiveTextureCoord;
   varying vec2 vNextTextureCoord;
-  // varying vec2 vTextureCoordMap;
+  varying vec2 vMapTextureCoord;
 
   // the uniform we declared inside our javascript
 
   // our texture sampler (default name, to use a different name please refer to the documentation)
   uniform sampler2D activeTex;
   uniform sampler2D nextTex;
-  // uniform sampler2D map;
+  uniform sampler2D mapTex;
 
 
   // vec4 blur13(sampler2D image, vec2 uv, vec2 resolution, vec2 direction) {
@@ -48,7 +48,7 @@
   //   float progress0 = uProgress;
   //   float progress1 = 1. - uProgress;
 
-  //   vec4 map = blur13(map, vTextureCoordMap, uReso, vec2(2.)) + 0.5;
+  //   vec4 map = blur13(map, vMapTextureCoord, uReso, vec2(2.)) + 0.5;
 
   //   uv0.x += progress0 * map.r;
   //   uv1.x -= progress1 * map.r;
@@ -68,18 +68,33 @@
 			float c = cos(a);
 			return mat2(c, -s, s, c);
 		}
-		// const float PI = 3.1415;
-		// const float angle1 = PI *0.25;
-		// const float angle2 = -PI *0.75;
-		void main()	{
-			// vec2 newUV = (vUv - vec2(0.5))*resolution.zw + vec2(0.5);
 
-			vec2 uvDivided1 = fract(vActiveTextureCoord*vec2(uIntensiv,1.));
-      vec2 uvDivided2 = fract(vNextTextureCoord*vec2(uIntensiv,1.));
 
-			vec2 uvDisplaced1 = vActiveTextureCoord + rotate(3.1415926/4.)*uvDivided1*uProgress*0.1;
-			vec2 uvDisplaced2 = vNextTextureCoord + rotate(3.1415926/4.)*uvDivided2*(1. - uProgress)*0.1;
-			vec4 t1 = texture2D(activeTex,uvDisplaced1);
-			vec4 t2 = texture2D(nextTex,uvDisplaced2);
+		// void main()	{
+		// 	// vec2 newUV = (vUv - vec2(0.5))*resolution.zw + vec2(0.5);
+
+		// 	vec2 uvDivided1 = fract(vActiveTextureCoord*vec2(uIntensiv,1.));
+    //   vec2 uvDivided2 = fract(vNextTextureCoord*vec2(uIntensiv,1.));
+
+		// 	vec2 uvDisplaced1 = vActiveTextureCoord + rotate(3.1415926/4.)*uvDivided1*uProgress*0.1;
+		// 	vec2 uvDisplaced2 = vNextTextureCoord + rotate(3.1415926/4.)*uvDivided2*(1. - uProgress)*0.1;
+		// 	vec4 t1 = texture2D(activeTex,uvDisplaced1);
+		// 	vec4 t2 = texture2D(nextTex,uvDisplaced2);
+		// 	gl_FragColor = mix(t1, t2, uProgress);
+		// }
+    float angle1 = PI *0.25;
+    float angle2 = -PI *0.75;
+
+    void main()	{
+
+			vec4 disp = texture2D(mapTex, vMapTextureCoord);
+			vec2 dispVec = vec2(disp.r, disp.g);
+
+			vec2 distortedPosition1 = vActiveTextureCoord + rotate(angle1) * dispVec * uIntensiv * uProgress;
+			vec2 distortedPosition2 = vNextTextureCoord + rotate(angle2) * dispVec * uIntensiv * (1.0 - uProgress);
+
+			vec4 t1 = texture2D(activeTex, distortedPosition1);
+			vec4 t2 = texture2D(nextTex, distortedPosition2);
+
 			gl_FragColor = mix(t1, t2, uProgress);
 		}

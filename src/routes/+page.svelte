@@ -11,7 +11,7 @@
 	let h;
 	let planesLoaded = false;
 	//SLIDER VARIABLES
-	let transitionDuration = 1500,
+	let transitionDuration = 1000,
 		progress = tweened(0, {
 			duration: transitionDuration,
 			easing: cubicOut
@@ -25,7 +25,8 @@
 			'https://photoday.svobodinaphoto.store/480_22-07-16-15-12-14',
 			'https://photoday.svobodinaphoto.store/480_21-01-04-12-42-47',
 			'https://photoday.svobodinaphoto.store/480_22-11-07-13-40-04',
-			'https://photoday.svobodinaphoto.store/480_22-10-03-12-17-08'
+			'https://photoday.svobodinaphoto.store/480_22-10-03-12-17-08',
+			'/img/rev/480_dis3'
 		],
 		[
 			'https://photoday.svobodinaphoto.store/480_22-06-02-11-39-41',
@@ -35,7 +36,8 @@
 			'https://photoday.svobodinaphoto.store/480_21-05-08-18-58-57',
 			'https://photoday.svobodinaphoto.store/480_21-03-09-11-42-38',
 			'https://photoday.svobodinaphoto.store/480_23-01-24-15-21-37',
-			'https://photoday.svobodinaphoto.store/480_22-07-16-16-39-20'
+			'https://photoday.svobodinaphoto.store/480_22-07-16-16-39-20',
+			'/img/rev/480_dis3'
 		],
 		[
 			'https://photoday.svobodinaphoto.store/480_22-11-07-13-26-35',
@@ -45,13 +47,14 @@
 			'https://photoday.svobodinaphoto.store/480_20-07-03-17-25-34',
 			'https://photoday.svobodinaphoto.store/480_23-01-21-14-29-41',
 			'https://photoday.svobodinaphoto.store/480_23-02-05-12-37-35',
-			'https://photoday.svobodinaphoto.store/480_22-07-16-15-00-46'
+			'https://photoday.svobodinaphoto.store/480_22-07-16-15-00-46',
+			'/img/rev/480_dis3'
 		]
 	];
 	let slideshowState = {
 		activeTextureIndex: 0,
-		nextTextureIndex: 1, // does not care for now
-		maxTextures: sliderData[0].length, // planeElements[0].querySelectorAll('img').length - 1, // -1 because displacement image does not count
+		nextTextureIndex: 2, // does not care for now
+		maxTextures: sliderData[0].length - 1, // planeElements[0].querySelectorAll('img').length - 1, // -1 because displacement image does not count
 		isChanging: false,
 		slideDuration: 3000
 	};
@@ -63,7 +66,7 @@
 		curtains,
 		innerWidth,
 		innerHeight,
-		columtQty = 7,
+		intensiv = 0.3,
 		params = {
 			vertexShader: vertex,
 			fragmentShader: fragment,
@@ -83,7 +86,7 @@
 				intensiv: {
 					name: 'uIntensiv',
 					type: '1f',
-					value: columtQty
+					value: intensiv
 				}
 			}
 		};
@@ -91,7 +94,8 @@
 	//SLIDER FUNCTIONS
 	const animSlider = async () => {
 		slideshowState.maxTextures++;
-		slideshowState.nextTextureIndex = slideshowState.maxTextures % sliderData[0].length;
+		slideshowState.nextTextureIndex = slideshowState.maxTextures % (sliderData[0].length - 1);
+		console.log(slideshowState.nextTextureIndex);
 
 		planes.forEach((plane, i) => {
 			nextTex[i].setSource(plane.images[slideshowState.nextTextureIndex]);
@@ -131,6 +135,11 @@
 				if (plane.index === planes.length - 1) {
 					planesLoaded = true;
 				}
+
+				plane.createTexture({
+					sampler: 'mapTex',
+					fromTexture: plane.textures[8]
+				});
 
 				activeTex[plane.index] = plane.createTexture({
 					sampler: 'activeTex',
