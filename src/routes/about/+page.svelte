@@ -36,6 +36,9 @@
 	// import '$lib/page.css';
 </script>
 
+<svelte:head>
+	<title>О себе</title>
+</svelte:head>
 <h1 class="main__head rotate">О себе</h1>
 <div class="about-main">
 	<div class="part1">

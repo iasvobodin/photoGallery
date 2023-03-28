@@ -5,6 +5,9 @@
 	let toogleButton = true;
 </script>
 
+<svelte:head>
+	<title>Отзывы</title>
+</svelte:head>
 <div class="reviews__holder">
 	<h1 class="main__head rotate">Отзывы</h1>
 	<div class="review__image">

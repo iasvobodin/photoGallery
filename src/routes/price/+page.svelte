@@ -3,6 +3,9 @@
 	export let data: PageData;
 </script>
 
+<svelte:head>
+	<title>Цены</title>
+</svelte:head>
 <h1 class="main__head">Цены</h1>
 <div class="price__image">
 	<picture>

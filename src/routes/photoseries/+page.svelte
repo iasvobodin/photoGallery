@@ -161,7 +161,7 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 <svelte:head>
-	<title>{photoseries.Title}</title>
+	<title>{Фотосерии}</title>
 </svelte:head>
 <!-- on:click={goto(`/photoseries/${photo.Route}`)} -->
 
