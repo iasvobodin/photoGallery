@@ -111,10 +111,7 @@
 	.contact {
 		width: 98%;
 	}
-	.contact > p {
-		text-align: center;
-		font-size: max(16px, 1.35vw);
-	}
+
 	a {
 		text-decoration: none;
 		color: rgb(255, 255, 255);
@@ -148,7 +145,7 @@
 		margin: auto;
 	}
 	.part2 {
-		width: 90vw;
+		width: 96vw;
 		align-items: center;
 		display: flex;
 		column-gap: 2vw;
@@ -159,7 +156,7 @@
 	.desc21 {
 		font-size: clamp(16px, 16px + 0.8vw, 30px);
 		/* flex-shrink: 1; */
-		width: 29vw;
+		/* width: 30vw; */
 		flex: 1 1 300px;
 		/* margin-top: 2vw; */
 		/* align-self: start; */
@@ -168,10 +165,11 @@
 	.part21 {
 		/* flex-shrink: 1; */
 		/* flex: 1 1 600px; */
-		width: 59vw;
+		/* width: 62vw; */
 		flex-wrap: wrap;
+		column-gap: 2vw;
 		row-gap: 2vh;
-		flex: 1 2 600px;
+		flex: 2 1 600px;
 		align-items: center;
 		display: flex;
 		/* flex-wrap: wrap; */
@@ -179,20 +177,20 @@
 	}
 	.desc22 {
 		font-size: clamp(16px, 16px + 0.8vw, 30px);
-		width: 28vw;
-		flex: 1 1 200px;
+		/* width: 30vw; */
+		flex: 1 1 300px;
 		/* flex: 1 1 300px; */
 		/* margin-bottom: 2vw; */
 		/* align-self: end; */
 	}
 
 	.about-video2 {
-		/* width: 28vw; */
-		flex: 1 1 200px;
+		/* width: 30vw; */
+		flex: 1 1 300px;
 		align-self: center;
 		aspect-ratio: 0.5625;
 		overflow: hidden;
-		margin-left: 1vw;
+		/* margin-left: 1vw; */
 		/* margin-top: -10vh; */
 		border-radius: 5px;
 	}
