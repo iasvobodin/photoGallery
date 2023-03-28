@@ -1,12 +1,15 @@
 <script lang="ts">
 	//@ts-nocheck
 	import { onMount, onDestroy } from 'svelte';
-	import { Curtains, Plane } from 'curtainsjs';
+	import { Curtains, Plane, TextureLoader } from 'curtainsjs';
 	import fragment from '$lib/assets/sv.frag?raw';
 	import vertex from '$lib/assets/sv.vert?raw';
 	import { tweened } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
 	import { fade } from 'svelte/transition';
+	import { browser } from '$app/environment';
+	console.time('browser');
+	console.time('onMount');
 	let w;
 	let h;
 	let planesLoaded = false;
@@ -16,6 +19,34 @@
 			duration: transitionDuration,
 			easing: cubicOut
 		});
+
+	let images = [
+		'https://photoday.svobodinaphoto.store/480_21-10-27-11-49-02.jpg',
+		'https://photoday.svobodinaphoto.store/480_23-01-21-14-13-57.jpg',
+		'https://photoday.svobodinaphoto.store/480_21-01-04-12-10-19.jpg',
+		'https://photoday.svobodinaphoto.store/480_21-01-06-13-39-15.jpg',
+		'https://photoday.svobodinaphoto.store/480_22-07-16-15-12-14.jpg',
+		'https://photoday.svobodinaphoto.store/480_21-01-04-12-42-47.jpg',
+		'https://photoday.svobodinaphoto.store/480_22-11-07-13-40-04.jpg',
+		'https://photoday.svobodinaphoto.store/480_22-10-03-12-17-08.jpg',
+		'https://photoday.svobodinaphoto.store/480_22-06-02-11-39-41.jpg',
+		'https://photoday.svobodinaphoto.store/480_22-11-30-11-53-38.jpg',
+		'https://photoday.svobodinaphoto.store/480_21-12-18-15-12-08.jpg',
+		'https://photoday.svobodinaphoto.store/480_22-06-02-11-10-36.jpg',
+		'https://photoday.svobodinaphoto.store/480_21-05-08-18-58-57.jpg',
+		'https://photoday.svobodinaphoto.store/480_21-03-09-11-42-38.jpg',
+		'https://photoday.svobodinaphoto.store/480_23-01-24-15-21-37.jpg',
+		'https://photoday.svobodinaphoto.store/480_22-07-16-16-39-20.jpg',
+		'https://photoday.svobodinaphoto.store/480_22-11-07-13-26-35.jpg',
+		'https://photoday.svobodinaphoto.store/480_21-10-03-12-39-01.jpg',
+		'https://photoday.svobodinaphoto.store/480_23-01-24-14-31-57.jpg',
+		'https://photoday.svobodinaphoto.store/480_23-01-24-15-12-57.jpg',
+		'https://photoday.svobodinaphoto.store/480_20-07-03-17-25-34.jpg',
+		'https://photoday.svobodinaphoto.store/480_23-01-21-14-29-41.jpg',
+		'https://photoday.svobodinaphoto.store/480_23-02-05-12-37-35.jpg',
+		'https://photoday.svobodinaphoto.store/480_22-07-16-15-00-46.jpg',
+		'/img/rev/480_dis3.jpg'
+	];
 	let sliderData = [
 		[
 			'https://photoday.svobodinaphoto.store/480_21-10-27-11-49-02',
@@ -64,6 +95,8 @@
 		planes = [],
 		planeElements = [],
 		curtains,
+		loader,
+		mapTexture,
 		innerWidth,
 		innerHeight,
 		intensiv = 0.3,
@@ -90,12 +123,50 @@
 				}
 			}
 		};
+	let ccc,
+		canvas2,
+		textures = [],
+		percentLoaded = 0;
 
+	function preloadTextures() {
+		let percentLoaded = 0;
+
+		const loader = new TextureLoader(ccc);
+
+		loader.loadImages(
+			images,
+			{},
+			(texture) => {
+				textures.push(texture);
+
+				texture
+					.onSourceLoaded(() => {})
+					.onSourceUploaded(() => {
+						percentLoaded++;
+						if (percentLoaded === images.length) {
+							console.timeEnd('browser');
+						}
+					});
+			},
+			(image, error) => {
+				console.warn('there has been an error', error, ' while loading this image', image);
+			}
+		);
+	}
+
+	// $: if (browser) {
+	// 	ccc = new Curtains({
+	// 		container: 'canvas',
+	// 		pixelRatio: Math.min(1.5, window.devicePixelRatio)
+	// 	});
+
+	// 	preloadTextures();
+	// }
 	//SLIDER FUNCTIONS
 	const animSlider = async () => {
 		slideshowState.maxTextures++;
 		slideshowState.nextTextureIndex = slideshowState.maxTextures % (sliderData[0].length - 1);
-		console.log(slideshowState.nextTextureIndex);
+		// console.log(slideshowState.nextTextureIndex);
 
 		planes.forEach((plane, i) => {
 			nextTex[i].setSource(plane.images[slideshowState.nextTextureIndex]);
@@ -121,11 +192,39 @@
 
 	const initCurtains = (container) => {
 		curtains = new Curtains({
-			container: container,
 			watchScroll: false,
+			container: container,
 			pixelRatio: Math.min(1.5, window.devicePixelRatio)
 		});
 	};
+	// initCurtains();
+	function loadImage() {
+		loader = new TextureLoader(curtains);
+
+		// load an image with the loader
+		// const image = new Image();
+		// image.crossOrigin = 'anonymous';
+		// image.src = '/img/rev/480_dis3';
+		loader.loadImage(
+			'/img/rev/480_dis3.jpg',
+			{
+				// texture options (we're only setting its sampler name here)
+				sampler: 'mapTex'
+			},
+			(texture) => {
+				console.log('3st');
+				texture.onSourceLoaded(() => console.log('onSourceLoaded'));
+				texture.onSourceUploaded(() => console.log('onSourceUploaded'));
+				mapTexture = texture;
+				// texture has been successfully created, you can safely use it
+			},
+			(image, error) => {
+				console.log(error);
+
+				// there has been an error while loading the image
+			}
+		);
+	}
 	function handlePlanes(plane) {
 		plane
 			.onLoading((texture) => {
@@ -134,6 +233,7 @@
 			.onReady(() => {
 				if (plane.index === planes.length - 1) {
 					planesLoaded = true;
+					console.timeEnd('onMount');
 				}
 
 				plane.createTexture({
@@ -164,7 +264,12 @@
 	};
 	let intervalId;
 	onMount(() => {
+		// ccc.setContainer(canvas2);
+		// curtains.setPixelRatio(Math.min(1.5, window.devicePixelRatio));
+		// container: container,
+		// pixelRatio: Math.min(1.5, window.devicePixelRatio)
 		initCurtains(canvas);
+		// loadImage();
 		initPlanes(planeElements);
 
 		intervalId = setInterval(() => {
@@ -248,6 +353,7 @@
 </div>
 
 <div bind:this={canvas} class="canvas" class:curtains-ready={planesLoaded} />
+<div bind:this={canvas2} id="canvas" class="canvas" class:curtains-ready={planesLoaded} />
 
 <style>
 	:root {

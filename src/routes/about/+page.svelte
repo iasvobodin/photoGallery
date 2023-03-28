@@ -20,6 +20,19 @@
 	выбор!
 </p> -->
 <script>
+	let social = [
+			'instagram.com/svobodinaphoto',
+			'vk.com/svobodinaphoto',
+			't.me/svobodinaphoto',
+			'Позвонить'
+		],
+		count = 1,
+		link = [
+			'https://www.instagram.com/svobodinaphoto/',
+			'https://vk.com/svobodinaphoto',
+			'https://t.me/svobodinaphoto',
+			'tel:+79514616243'
+		];
 	// import '$lib/page.css';
 </script>
 
@@ -40,24 +53,26 @@
 		</div>
 	</div>
 	<div class="part2">
-		<div class="decs desc21">
+		<div class=" desc21">
 			<p>
 				Мой стиль фотографии основан на естественности, я стремлюсь отразить жизнь и эмоции в моих
 				фотографиях. Я люблю работать с людьми и понимать их потребности, чтобы создавать
 				индивидуальные и неповторимые фотографии.
 			</p>
 		</div>
-		<div class="decs desc22">
-			<p>
-				Я умею создавать атмосферу доверия и комфорта, чтобы люди чувствовали себя свободно перед
-				камерой. Я стараюсь отразить индивидуальность каждого человека, чтобы фотографии были
-				выразительными и запоминающимися.
-			</p>
-		</div>
-		<div class="about-video2">
-			<video autoplay muted loop crossorigin="anonimous" src="/2.MP4"
-				><track kind="captions" />
-			</video>
+		<div class="part21">
+			<div class=" desc22">
+				<p>
+					Я умею создавать атмосферу доверия и комфорта, чтобы люди чувствовали себя свободно перед
+					камерой. Я стараюсь отразить индивидуальность каждого человека, чтобы фотографии были
+					выразительными и запоминающимися.
+				</p>
+			</div>
+			<div class="about-video2">
+				<video autoplay muted loop crossorigin="anonimous" src="/2.MP4"
+					><track kind="captions" />
+				</video>
+			</div>
 		</div>
 	</div>
 	<div class="decs desc-middle">
@@ -80,15 +95,35 @@
 			</video>
 		</div>
 	</div>
-	<!-- <div class="desc2">
-		<p>
-			Моя любовь к фотографии началась еще в детстве, когда я получила свой первый фотоаппарат. С
-			тех пор я увлекаюсь фотографией и стремлюсь к постоянному развитию своих навыков и техники.
-		</p>
-	</div> -->
+	<div class="contact">
+		<!-- <h2 class="description date">Контакты</h2> -->
+		<a class="description3" href={link[count]} rel="noopener" target="_blank">
+			<p>{social[count]}</p>
+		</a>
+	</div>
 </div>
 
 <style>
+	.description3 {
+		font-size: max(24px, 5vw);
+		margin: 0;
+	}
+	.contact {
+		width: 98%;
+	}
+	.contact > p {
+		text-align: center;
+		font-size: max(16px, 1.35vw);
+	}
+	a {
+		text-decoration: none;
+		color: rgb(255, 255, 255);
+		width: 100%;
+		text-align: right;
+	}
+	a:hover {
+		color: rgb(165, 0, 165);
+	}
 	.decs {
 		font-size: clamp(16px, 16px + 0.8vw, 30px);
 		mix-blend-mode: difference;
@@ -96,7 +131,7 @@
 		padding: 0px 1vw;
 	}
 	.final {
-		padding-bottom: 10vw;
+		/* padding-bottom: 10vw; */
 	}
 	p {
 		text-indent: 3ch;
@@ -116,8 +151,61 @@
 		width: 90vw;
 		align-items: center;
 		display: flex;
-		flex-wrap: wrap;
+		column-gap: 2vw;
 		margin: auto;
+		/* flex-direction: row; */
+		flex-wrap: wrap;
+	}
+	.desc21 {
+		font-size: clamp(16px, 16px + 0.8vw, 30px);
+		/* flex-shrink: 1; */
+		width: 29vw;
+		flex: 1 1 300px;
+		/* margin-top: 2vw; */
+		/* align-self: start; */
+	}
+
+	.part21 {
+		/* flex-shrink: 1; */
+		/* flex: 1 1 600px; */
+		width: 59vw;
+		flex-wrap: wrap;
+		row-gap: 2vh;
+		flex: 1 2 600px;
+		align-items: center;
+		display: flex;
+		/* flex-wrap: wrap; */
+		margin: auto;
+	}
+	.desc22 {
+		font-size: clamp(16px, 16px + 0.8vw, 30px);
+		width: 28vw;
+		flex: 1 1 200px;
+		/* flex: 1 1 300px; */
+		/* margin-bottom: 2vw; */
+		/* align-self: end; */
+	}
+
+	.about-video2 {
+		/* width: 28vw; */
+		flex: 1 1 200px;
+		align-self: center;
+		aspect-ratio: 0.5625;
+		overflow: hidden;
+		margin-left: 1vw;
+		/* margin-top: -10vh; */
+		border-radius: 5px;
+	}
+
+	.about-video {
+		flex: 1 1 600px;
+		align-self: center;
+		width: 60vw;
+		aspect-ratio: 1.83;
+		overflow: hidden;
+		margin-left: 1vw;
+		/* margin-right: min(10px, -15vw); */
+		border-radius: 5px;
 	}
 	.desc1 {
 		flex: 1 1 30%;
@@ -125,58 +213,49 @@
 		/* margin-top: -5vh; */
 		/* margin-left: -15vw; */
 	}
-	.about-video {
-		flex: 1 1 60vw;
-		align-self: center;
-		/* width: 60vw; */
-		aspect-ratio: 1.83;
-		overflow: hidden;
-		margin-left: 1vw;
-		/* margin-right: min(10px, -15vw); */
-		border-radius: 5px;
-	}
 	/* @container (min-width: 300px) {
 		.desc1 {
 			margin-top: 0px;
 			margin-left: 0px;
 		}
 	} */
-	.desc21 {
-		flex: 1 1 30vw;
+	/* .desc21 {
+		flex: 1 1 300px;
 		margin-top: 2vw;
 		align-self: start;
 	}
 	.desc22 {
-		flex: 1 1 30vw;
+		flex: 1 1 300px;
 		margin-bottom: 2vw;
 		align-self: end;
-	}
+	} */
 	.desc-middle {
 		margin: 10vw auto;
-		width: min(90vw, 700px);
+		width: min(96vw, 700px);
 		font-size: clamp(16px, 16px + 1.5vw, 30px);
 	}
 	.desc3 {
 		place-self: center;
-		margin-right: -15vw;
+		/* margin-right: -15vw; */
+		flex: 1 1 300px;
 	}
 
 	.about-main {
 		width: 100%;
 		display: grid;
+		row-gap: 5vh;
 		/* grid-template-columns: 60vw 1fr; */
 	}
 
-	.about-video2 {
-		flex: 1 1 30%;
+	/* .about-video2 {
+		flex: 1 1 300px;
 		align-self: center;
 		width: 30vw;
 		aspect-ratio: 0.5625;
 		overflow: hidden;
 		margin-left: 1vw;
-		margin-top: -10vh;
 		border-radius: 5px;
-	}
+	} */
 	video {
 		margin-top: -2.5%;
 		width: 100%;
