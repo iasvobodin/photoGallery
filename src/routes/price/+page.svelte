@@ -26,13 +26,15 @@
 <div class="price__holder">
 	{#each data.pricedata as el}
 		<div class="price__tarif">
-			<h3>{el.title}</h3>
+			<h3 style="text-align: center">
+				{el.title}
+			</h3>
 			<ul style="align-self: stretch;">
 				{#each el.body as element}
 					<li class="price__body">{element}</li>
 				{/each}
 			</ul>
-			<h4 style="align-self: end;justify-self: center;">
+			<h4 style="line-height:1.2;   align-self: end;justify-self: center;">
 				Цена : {el.price}
 			</h4>
 		</div>
@@ -105,10 +107,12 @@
 		box-shadow: 100px 100px 1px -99px rgba(255, 255, 255, 0.171);
 	}
 	.price__tarif > h3 {
+		text-align: center;
 		align-self: start;
 		justify-self: center;
 		white-space: pre-wrap;
 	}
+
 	.price__tarif > ul {
 		align-self: stretch;
 		margin-top: 5vh;

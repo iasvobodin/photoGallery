@@ -77,6 +77,7 @@
 </script>
 
 <svelte:window bind:scrollY={y} bind:scrollX={x} />
+
 <svelte:head>
 	<link
 		rel="preload"
@@ -84,7 +85,32 @@
 		as="font"
 		crossOrigin="anonymous"
 	/>
+	<meta name="author" content="Anastasia Svobodina" />
+	<meta name="description" content="Site portfolio" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="og:title" content="SvobodinaPhoto" />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content="/icons/logo.svg" />
+	<meta property="og:image:type" content="image/svg" />
+	<meta property="og:image:width" content="300" />
+	<meta property="og:image:height" content="300" />
+	<meta property="og:url" content="https://svobodinaphoto.ru/" />
+	<meta property="og:locale" content="ru_RU" />
+	<meta property="og:description" content="The best photographer ever" />
+	<link rel="canonical" href="https://svobodinaphoto.ru/" />
+	<title>SvobodinaPhoto</title>
 </svelte:head>
+
+<!-- 
+<svelte:head>
+	<link
+		rel="preload"
+		href="/fonts/cormorant-infant-v10-latin_cyrillic-regular.woff2"
+		as="font"
+		crossOrigin="anonymous"
+	/>
+</svelte:head> -->
+
 <section class="main" class:disable__scroll={menuIsOpen}>
 	<slot />
 </section>
