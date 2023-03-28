@@ -287,6 +287,7 @@
 		as="font"
 		crossOrigin="anonymous"
 	/>
+	<title>Главная</title>
 </svelte:head>
 <!-- bind:clientWidth={w} bind:clientHeight={h} -->
 <div class="slider font__prop">

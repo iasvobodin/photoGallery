@@ -98,7 +98,6 @@
 	<meta property="og:locale" content="ru_RU" />
 	<meta property="og:description" content="The best photographer ever" />
 	<link rel="canonical" href="https://svobodinaphoto.ru/" />
-	<title>SvobodinaPhoto</title>
 </svelte:head>
 
 <!-- 
