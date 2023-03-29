@@ -43,7 +43,12 @@
 <div class="about-main">
 	<div class="part1">
 		<div class="about-video">
-			<video autoplay muted loop crossorigin="anonimous" src="/720.mp4"
+			<video
+				autoplay
+				muted
+				loop
+				crossorigin="anonimous"
+				src="https://photoday.svobodinaphoto.store/G1.mp4"
 				><track kind="captions" />
 			</video>
 		</div>
@@ -72,7 +77,12 @@
 				</p>
 			</div>
 			<div class="about-video2">
-				<video autoplay muted loop crossorigin="anonimous" src="/2.MP4"
+				<video
+					autoplay
+					muted
+					loop
+					crossorigin="anonimous"
+					src="https://photoday.svobodinaphoto.store/V1.mp4"
 					><track kind="captions" />
 				</video>
 			</div>
@@ -93,7 +103,12 @@
 			</p>
 		</div>
 		<div class="about-video">
-			<video autoplay muted loop crossorigin="anonimous" src="/720-2.mp4"
+			<video
+				autoplay
+				muted
+				loop
+				crossorigin="anonimous"
+				src="https://photoday.svobodinaphoto.store/G2.mp4"
 				><track kind="captions" />
 			</video>
 		</div>
@@ -199,7 +214,7 @@
 	}
 
 	.about-video {
-		flex: 1 1 600px;
+		flex: 3 1 650px;
 		align-self: center;
 		width: 60vw;
 		aspect-ratio: 1.83;
@@ -232,8 +247,8 @@
 	} */
 	.desc-middle {
 		margin: 10vw auto;
-		width: min(96vw, 700px);
-		font-size: clamp(16px, 16px + 1.5vw, 30px);
+		width: min(96vw, 900px);
+		font-size: clamp(20px, 20px + 1.5vw, 40px);
 	}
 	.desc3 {
 		place-self: center;

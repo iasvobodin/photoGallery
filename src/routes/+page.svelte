@@ -19,34 +19,7 @@
 			duration: transitionDuration,
 			easing: cubicOut
 		});
-
-	let images = [
-		'https://photoday.svobodinaphoto.store/480_21-10-27-11-49-02.jpg',
-		'https://photoday.svobodinaphoto.store/480_23-01-21-14-13-57.jpg',
-		'https://photoday.svobodinaphoto.store/480_21-01-04-12-10-19.jpg',
-		'https://photoday.svobodinaphoto.store/480_21-01-06-13-39-15.jpg',
-		'https://photoday.svobodinaphoto.store/480_22-07-16-15-12-14.jpg',
-		'https://photoday.svobodinaphoto.store/480_21-01-04-12-42-47.jpg',
-		'https://photoday.svobodinaphoto.store/480_22-11-07-13-40-04.jpg',
-		'https://photoday.svobodinaphoto.store/480_22-10-03-12-17-08.jpg',
-		'https://photoday.svobodinaphoto.store/480_22-06-02-11-39-41.jpg',
-		'https://photoday.svobodinaphoto.store/480_22-11-30-11-53-38.jpg',
-		'https://photoday.svobodinaphoto.store/480_21-12-18-15-12-08.jpg',
-		'https://photoday.svobodinaphoto.store/480_22-06-02-11-10-36.jpg',
-		'https://photoday.svobodinaphoto.store/480_21-05-08-18-58-57.jpg',
-		'https://photoday.svobodinaphoto.store/480_21-03-09-11-42-38.jpg',
-		'https://photoday.svobodinaphoto.store/480_23-01-24-15-21-37.jpg',
-		'https://photoday.svobodinaphoto.store/480_22-07-16-16-39-20.jpg',
-		'https://photoday.svobodinaphoto.store/480_22-11-07-13-26-35.jpg',
-		'https://photoday.svobodinaphoto.store/480_21-10-03-12-39-01.jpg',
-		'https://photoday.svobodinaphoto.store/480_23-01-24-14-31-57.jpg',
-		'https://photoday.svobodinaphoto.store/480_23-01-24-15-12-57.jpg',
-		'https://photoday.svobodinaphoto.store/480_20-07-03-17-25-34.jpg',
-		'https://photoday.svobodinaphoto.store/480_23-01-21-14-29-41.jpg',
-		'https://photoday.svobodinaphoto.store/480_23-02-05-12-37-35.jpg',
-		'https://photoday.svobodinaphoto.store/480_22-07-16-15-00-46.jpg',
-		'/img/rev/480_dis3.jpg'
-	];
+	let link = [1, 2];
 	let sliderData = [
 		[
 			'https://photoday.svobodinaphoto.store/480_21-10-27-11-49-02',
@@ -128,40 +101,6 @@
 		textures = [],
 		percentLoaded = 0;
 
-	function preloadTextures() {
-		let percentLoaded = 0;
-
-		const loader = new TextureLoader(ccc);
-
-		loader.loadImages(
-			images,
-			{},
-			(texture) => {
-				textures.push(texture);
-
-				texture
-					.onSourceLoaded(() => {})
-					.onSourceUploaded(() => {
-						percentLoaded++;
-						if (percentLoaded === images.length) {
-							console.timeEnd('browser');
-						}
-					});
-			},
-			(image, error) => {
-				console.warn('there has been an error', error, ' while loading this image', image);
-			}
-		);
-	}
-
-	// $: if (browser) {
-	// 	ccc = new Curtains({
-	// 		container: 'canvas',
-	// 		pixelRatio: Math.min(1.5, window.devicePixelRatio)
-	// 	});
-
-	// 	preloadTextures();
-	// }
 	//SLIDER FUNCTIONS
 	const animSlider = async () => {
 		slideshowState.maxTextures++;
@@ -323,7 +262,57 @@
 		{/each}
 		{#if planesLoaded}
 			<div transition:fade class="text">
-				<div class="text_anim">
+				{#each link as item}
+					<div class="text_anim">
+						<p>
+							<a
+								rel="noreferrer"
+								target="_blank"
+								class="contact__link"
+								href="https://vk.com/svobodinaphoto">Группа vk</a
+							>
+						</p>
+						<p>
+							<a
+								rel="noreferrer"
+								target="_blank"
+								class="contact__link"
+								href="https://vk.me/aasvobodina">Написать в Vk</a
+							>
+						</p>
+						<p>
+							<a
+								rel="noreferrer"
+								target="_blank"
+								class="contact__link"
+								href="https://t.me/svobodinaphoto">Написать в Telegram</a
+							>
+						</p>
+						<p>
+							<a
+								rel="noreferrer"
+								target="_blank"
+								class="contact__link"
+								href="https://wa.me/%2B79514616243">Написать в WhatsApp</a
+							>
+						</p>
+						<p>
+							<a
+								rel="noreferrer"
+								target="_blank"
+								class="contact__link"
+								href="viber://chat?number=79514616243">Написать в Viber</a
+							>
+						</p>
+						<p>
+							<a rel="noreferrer" target="_blank" class="contact__link" href="tel:+79514616243"
+								>Позвонить</a
+							>
+						</p>
+					</div>
+				{/each}
+
+				<!-- <div class="text_anim">
 					<p>Super puper photographer ever!</p>
 				</div>
 				<div class="text_anim">
@@ -332,6 +321,15 @@
 				<div class="text_anim">
 					<p>Super puper photographer ever!</p>
 				</div>
+				<div class="text_anim">
+					<p>Super puper photographer ever!</p>
+				</div>
+				<div class="text_anim">
+					<p>Super puper photographer ever!</p>
+				</div>
+				<div class="text_anim">
+					<p>Super puper photographer ever!</p>
+				</div> -->
 			</div>
 		{/if}
 	</div>
@@ -353,8 +351,7 @@
 	</div>
 </div>
 
-<div bind:this={canvas} class="canvas" class:curtains-ready={planesLoaded} />
-<div bind:this={canvas2} id="canvas" class="canvas" class:curtains-ready={planesLoaded} />
+<div bind:this={canvas} id="canvas" class="canvas" class:curtains-ready={planesLoaded} />
 
 <style>
 	:root {
@@ -365,6 +362,11 @@
 		--test-container-height: calc(100vh - var(--font-size-main) * 2);
 		--test-container-gap: var(--font-size-main);
 		--test-holder-width: calc(var(--test-container-height) * 0.66);
+	}
+	.contact__link {
+		text-decoration: none;
+		text-decoration-line: none;
+		text-decoration-color: white;
 	}
 
 	.font__prop {
@@ -444,7 +446,7 @@
 		flex-shrink: 0;
 		height: 3vw;
 		align-items: center;
-		animation: slide-left 10s linear infinite;
+		animation: slide-left 15s linear infinite;
 	}
 	@keyframes slide-left {
 		from {
@@ -488,20 +490,26 @@
 	}
 
 	@media (max-width: 500px) {
-		.slider {
+		/* .slider {
 			display: grid;
 			width: calc((100vw - 2ch));
-		}
-		.slider img {
+		} */
+		.slide__holder > picture > img {
+			display: none;
 			width: 100%;
-			height: 90%;
-			margin-top: 10%;
-			object-fit: cover;
+			height: 100%;
+			margin: auto;
+			object-fit: contain;
 			object-position: center;
 		}
 		.slide__holder {
-			height: var(--slider-height);
-			overflow: hidden;
+			width: 85vw;
+			aspect-ratio: 0.66;
+			/* height: var(--slider-height);
+			overflow: hidden; */
+		}
+		.text {
+			height: 5vw;
 		}
 	}
 </style>
