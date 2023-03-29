@@ -19,7 +19,7 @@
 			duration: transitionDuration,
 			easing: cubicOut
 		});
-	let link = [1, 2];
+	let link = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 	let sliderData = [
 		[
 			'https://photoday.svobodinaphoto.store/480_21-10-27-11-49-02',
@@ -269,7 +269,16 @@
 								rel="noreferrer"
 								target="_blank"
 								class="contact__link"
-								href="https://vk.com/svobodinaphoto">Группа vk</a
+								href="https://vk.com/svobodinaphoto">Группа VK&nbsp;&nbsp;&nbsp;</a
+							>
+						</p>
+
+						<p>
+							<a
+								rel="noreferrer"
+								target="_blank"
+								class="contact__link"
+								href="https://t.me/svobodinaphoto">Telegram&nbsp;&nbsp;&nbsp;</a
 							>
 						</p>
 						<p>
@@ -277,7 +286,7 @@
 								rel="noreferrer"
 								target="_blank"
 								class="contact__link"
-								href="https://vk.me/aasvobodina">Написать в Vk</a
+								href="https://vk.me/aasvobodina">VK&nbsp;&nbsp;&nbsp;</a
 							>
 						</p>
 						<p>
@@ -285,7 +294,7 @@
 								rel="noreferrer"
 								target="_blank"
 								class="contact__link"
-								href="https://t.me/svobodinaphoto">Написать в Telegram</a
+								href="https://wa.me/%2B79514616243">WhatsApp&nbsp;&nbsp;&nbsp;</a
 							>
 						</p>
 						<p>
@@ -293,20 +302,12 @@
 								rel="noreferrer"
 								target="_blank"
 								class="contact__link"
-								href="https://wa.me/%2B79514616243">Написать в WhatsApp</a
-							>
-						</p>
-						<p>
-							<a
-								rel="noreferrer"
-								target="_blank"
-								class="contact__link"
-								href="viber://chat?number=79514616243">Написать в Viber</a
+								href="viber://chat?number=79514616243">Viber&nbsp;&nbsp;&nbsp;</a
 							>
 						</p>
 						<p>
 							<a rel="noreferrer" target="_blank" class="contact__link" href="tel:+79514616243"
-								>Позвонить</a
+								>Позвонить&nbsp;&nbsp;&nbsp;</a
 							>
 						</p>
 					</div>

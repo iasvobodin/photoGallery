@@ -115,9 +115,9 @@
 	</div>
 	<div class="contact">
 		<!-- <h2 class="description date">Контакты</h2> -->
-		<a class="description3" href={link[count]} rel="noopener" target="_blank">
+		<!-- <a class="description3" href={link[count]} rel="noopener" target="_blank">
 			<p>{social[count]}</p>
-		</a>
+		</a> -->
 	</div>
 </div>
 
@@ -140,7 +140,7 @@
 		color: rgb(165, 0, 165);
 	}
 	.decs {
-		font-size: clamp(16px, 16px + 0.8vw, 30px);
+		font-size: clamp(18px, 18px + 0.8vw, 30px);
 		mix-blend-mode: difference;
 		width: max(30vw, 300px);
 		padding: 0px 1vw;
@@ -172,7 +172,7 @@
 		flex-wrap: wrap;
 	}
 	.desc21 {
-		font-size: clamp(16px, 16px + 0.8vw, 30px);
+		font-size: clamp(18px, 18px + 0.8vw, 30px);
 		/* flex-shrink: 1; */
 		/* width: 30vw; */
 		flex: 1 1 300px;
@@ -194,7 +194,7 @@
 		margin: auto;
 	}
 	.desc22 {
-		font-size: clamp(16px, 16px + 0.8vw, 30px);
+		font-size: clamp(18px, 18px + 0.8vw, 30px);
 		/* width: 30vw; */
 		flex: 1 1 300px;
 		/* flex: 1 1 300px; */
