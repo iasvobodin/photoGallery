@@ -9,6 +9,7 @@
 	import { allPhotoseries } from '$lib/store.js';
 	import { getStores, navigating, page, updated } from '$app/stores';
 	import Navigation from '$lib/components/navigation.svelte';
+	import Slider from '$lib/components/slider.svelte';
 	import {
 		afterNavigate,
 		beforeNavigate,
@@ -328,17 +329,21 @@
 		href={`/photoseries/${navigateNext(allph, photoSeries.Route)}`}
 		><p class="naviganion__next next__link">Следующая фотосерия</p></a
 	>
-	<div class="text">
-		{#each link as item}
-			<div class="text_anim">
-				{#each allph as item}
-					<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
-						<img src="https://photoday.svobodinaphoto.store/320_{item.Cover}.avif" alt="" />
-						<!-- <p class="naviganion__next">{item.Title}&nbsp;&nbsp;&nbsp;</p> -->
-					</a>
-				{/each}
+	<Slider>
+		<div class="text">
+			{#each link as item}
+				<div class="text_anim">
+					{#each allph as item}
+						<a
+							data-sveltekit-reload
+							href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}
+						>
+							<img src="https://photoday.svobodinaphoto.store/320_{item.Cover}.avif" alt="" />
+							<!-- <p class="naviganion__next">{item.Title}&nbsp;&nbsp;&nbsp;</p> -->
+						</a>
+					{/each}
 
-				<!-- <p>
+					<!-- <p>
 					<a
 						rel="noreferrer"
 						target="_blank"
@@ -381,9 +386,10 @@
 						>Позвонить&nbsp;&nbsp;&nbsp;</a
 					>
 				</p> -->
-			</div>
-		{/each}
-	</div>
+				</div>
+			{/each}
+		</div>
+	</Slider>
 {/if}
 
 <style>
