@@ -324,9 +324,9 @@
 	}
 
 	.text {
-		/* position: absolute; */
-		/* bottom: 0; */
-		/* transform: rotate(270deg); */
+		width: 98vw;
+		overflow: hidden;
+		margin: auto;
 		transform-origin: bottom left;
 		display: flex;
 		flex-wrap: nowrap;
