@@ -331,12 +331,11 @@
 		display: flex;
 		flex-wrap: nowrap;
 		white-space: nowrap;
-		min-width: var(--slider-height);
 	}
 	.text_anim {
 		display: flex;
 		flex-shrink: 0;
-		height: 3vw;
+		height: 5vh;
 		align-items: center;
 		animation: slide-left 15s linear infinite;
 	}
