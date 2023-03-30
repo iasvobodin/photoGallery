@@ -198,6 +198,21 @@
 	// 		setLoy(data, innerWidth, innerHeight);
 	// 	}
 	// });
+	function navigateNext(photoseriesList, Route) {
+		photoseriesList.findIndex((e) => e.Route === Route);
+		// console.log(+photoSeries!.id + 1 === photoseriesList!.length);
+		// if (photoSeries && photoseriesList) {
+		if (photoseriesList.findIndex((e) => e.Route === Route) + 1 === photoseriesList.length) {
+			return photoseriesList[0].Route;
+		} else {
+			return photoseriesList[
+				photoseriesList.findIndex((e) => e.Route === Route) + 1
+			]?.Route.toLowerCase();
+		}
+		// } else {
+		// 	return '/';
+		// }
+	}
 	onMount(() => {
 		initObserver(observElements);
 		setLoy(photoSeries, innerWidth, innerHeight);
@@ -265,6 +280,7 @@
 		menuAnimationOpen.reversed() ? menuAnimationOpen.play() : menuAnimationOpen.reverse();
 		menuIsOpen && (showSubMenu = false);
 	};
+	let link = [1, 2];
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -305,7 +321,69 @@
 </div>
 
 {#if allph && photoSeries}
-	<Navigation photoseriesList={allph} Route={photoSeries.Route} />
+	<!-- <Navigation photoseriesList={allph} Route={photoSeries.Route} /> -->
+	<a
+		class="contact__link"
+		data-sveltekit-reload
+		href={`/photoseries/${navigateNext(allph, photoSeries.Route)}`}
+		><p class="naviganion__next next__link">Следующая фотосерия</p></a
+	>
+	<div class="text">
+		{#each link as item}
+			<div class="text_anim">
+				{#each allph as item}
+					<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+						<img src="https://photoday.svobodinaphoto.store/320_{item.Cover}.avif" alt="" />
+						<!-- <p class="naviganion__next">{item.Title}&nbsp;&nbsp;&nbsp;</p> -->
+					</a>
+				{/each}
+
+				<!-- <p>
+					<a
+						rel="noreferrer"
+						target="_blank"
+						class="contact__link"
+						href="https://vk.com/svobodinaphoto">Группа VK&nbsp;&nbsp;&nbsp;</a
+					>
+				</p>
+
+				<p>
+					<a
+						rel="noreferrer"
+						target="_blank"
+						class="contact__link"
+						href="https://t.me/svobodinaphoto">Telegram&nbsp;&nbsp;&nbsp;</a
+					>
+				</p>
+				<p>
+					<a rel="noreferrer" target="_blank" class="contact__link" href="https://vk.me/aasvobodina"
+						>VK&nbsp;&nbsp;&nbsp;</a
+					>
+				</p>
+				<p>
+					<a
+						rel="noreferrer"
+						target="_blank"
+						class="contact__link"
+						href="https://wa.me/%2B79514616243">WhatsApp&nbsp;&nbsp;&nbsp;</a
+					>
+				</p>
+				<p>
+					<a
+						rel="noreferrer"
+						target="_blank"
+						class="contact__link"
+						href="https://t.me/SvobodinaPhoto_bot">Telegram bot&nbsp;&nbsp;&nbsp;</a
+					>
+				</p>
+				<p>
+					<a rel="noreferrer" target="_blank" class="contact__link" href="tel:+79514616243"
+						>Позвонить&nbsp;&nbsp;&nbsp;</a
+					>
+				</p> -->
+			</div>
+		{/each}
+	</div>
 {/if}
 
 <style>
@@ -357,5 +435,67 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+
+	.text {
+		width: 98vw;
+		overflow: hidden;
+		height: 199px;
+		display: flex;
+		flex-wrap: nowrap;
+		white-space: nowrap;
+		margin: auto;
+	}
+	.text_anim {
+		display: flex;
+		flex-shrink: 0;
+		height: 220px;
+		align-items: center;
+		animation: slide-left 100s linear infinite;
+	}
+	.text_anim > a > img {
+		width: 150px;
+		height: 150px;
+		object-fit: cover;
+		object-position: center;
+		margin: auto;
+		margin-right: 20px;
+		border-radius: 10px;
+	}
+	@keyframes slide-left {
+		from {
+			-webkit-transform: translateX(0);
+			transform: translateX(0);
+		}
+		to {
+			-webkit-transform: translateX(-100%);
+			transform: translateX(-100%);
+		}
+	}
+	a {
+		text-decoration: none;
+		color: rgb(255, 255, 255);
+		width: 100%;
+	}
+	a:hover {
+		color: rgb(165, 0, 165);
+	}
+	.contact__link {
+		white-space: pre-wrap;
+		text-align: center;
+		margin: 0;
+		font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
+			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+			Segoe UI Symbol;
+		font-size: clamp(14px, 1rem + 0.6vw, 32px);
+		line-height: clamp(20px, 1.2rem + 0.7vw, 44px);
+		font-weight: 150;
+		width: 150px;
+		/* margin-right: 2ch; */
+	}
+	.contact__link > p {
+		margin: 0;
+
+		/* margin-right: 2ch; */
 	}
 </style>

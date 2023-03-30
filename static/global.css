@@ -9,7 +9,7 @@ html {
 }
 
 :root {
-	--font-size: clamp(40px, 4vh + 12px, 80px);
+	--font-size: clamp(40px, 8vw + 10px, 90px);
 }
 
 h1,

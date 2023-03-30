@@ -113,11 +113,54 @@
 			</video>
 		</div>
 	</div>
-	<div class="contact">
-		<!-- <h2 class="description date">Контакты</h2> -->
-		<!-- <a class="description3" href={link[count]} rel="noopener" target="_blank">
-			<p>{social[count]}</p>
-		</a> -->
+	<div class="text">
+		{#each link as item}
+			<div class="text_anim">
+				<p>
+					<a
+						rel="noreferrer"
+						target="_blank"
+						class="contact__link"
+						href="https://vk.com/svobodinaphoto">Группа VK&nbsp;&nbsp;&nbsp;</a
+					>
+				</p>
+
+				<p>
+					<a
+						rel="noreferrer"
+						target="_blank"
+						class="contact__link"
+						href="https://t.me/svobodinaphoto">Telegram&nbsp;&nbsp;&nbsp;</a
+					>
+				</p>
+				<p>
+					<a rel="noreferrer" target="_blank" class="contact__link" href="https://vk.me/aasvobodina"
+						>VK&nbsp;&nbsp;&nbsp;</a
+					>
+				</p>
+				<p>
+					<a
+						rel="noreferrer"
+						target="_blank"
+						class="contact__link"
+						href="https://wa.me/%2B79514616243">WhatsApp&nbsp;&nbsp;&nbsp;</a
+					>
+				</p>
+				<p>
+					<a
+						rel="noreferrer"
+						target="_blank"
+						class="contact__link"
+						href="https://t.me/SvobodinaPhoto_bot">Telegram bot&nbsp;&nbsp;&nbsp;</a
+					>
+				</p>
+				<p>
+					<a rel="noreferrer" target="_blank" class="contact__link" href="tel:+79514616243"
+						>Позвонить&nbsp;&nbsp;&nbsp;</a
+					>
+				</p>
+			</div>
+		{/each}
 	</div>
 </div>
 
@@ -278,5 +321,43 @@
 		height: 110%;
 		object-fit: cover;
 		object-position: center;
+	}
+
+	.text {
+		/* position: absolute; */
+		/* bottom: 0; */
+		/* transform: rotate(270deg); */
+		transform-origin: bottom left;
+		display: flex;
+		flex-wrap: nowrap;
+		white-space: nowrap;
+		min-width: var(--slider-height);
+	}
+	.text_anim {
+		display: flex;
+		flex-shrink: 0;
+		height: 3vw;
+		align-items: center;
+		animation: slide-left 15s linear infinite;
+	}
+	@keyframes slide-left {
+		from {
+			-webkit-transform: translateX(0);
+			transform: translateX(0);
+		}
+		to {
+			-webkit-transform: translateX(-100%);
+			transform: translateX(-100%);
+		}
+	}
+	.text_anim > p {
+		margin: 0;
+		font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
+			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+			Segoe UI Symbol;
+		font-size: clamp(14px, 1rem + 0.6vw, 32px);
+		line-height: clamp(20px, 1.2rem + 0.7vw, 44px);
+		font-weight: 150;
+		margin-right: 2ch;
 	}
 </style>

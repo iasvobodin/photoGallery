@@ -42,6 +42,8 @@ export const load = (({ params }) => {
             Route: el.slice(4),
             Title: photos.filter((image) => image.Keywords?.includes(el))[0]
                 .Keywords?.filter(e => e.startsWith('name__'))[0].slice(6).replaceAll('_', ' '),
+            Cover: photos.filter((image) => image.Keywords?.includes(el))
+                .filter((image) => image.Keywords.includes(`phcover`))[0].Name
         }
     })
 

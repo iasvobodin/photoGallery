@@ -302,7 +302,7 @@
 								rel="noreferrer"
 								target="_blank"
 								class="contact__link"
-								href="viber://chat?number=79514616243">Viber&nbsp;&nbsp;&nbsp;</a
+								href="https://t.me/SvobodinaPhoto_bot">Telegram bot&nbsp;&nbsp;&nbsp;</a
 							>
 						</p>
 						<p>
@@ -357,7 +357,7 @@
 <style>
 	:root {
 		--font-size-main: clamp(40px, 8vw + 10px, 90px);
-		--font-size: clamp(40px, 8vw + 10px, 100px);
+		/* --font-size: clamp(40px, 8vw + 10px, 100px); */
 		--slider-height: calc(max(100vh, 500px) - var(--font-size-main) * 2);
 		--slide-width: calc(var(--slider-height) * 0.66);
 		--test-container-height: calc(100vh - var(--font-size-main) * 2);
