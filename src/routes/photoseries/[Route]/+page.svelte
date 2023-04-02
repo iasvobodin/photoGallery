@@ -82,7 +82,7 @@
 		layoutData = layout.boxes.map((el, i) => {
 			return {
 				boxes: el,
-				imageSrc: `https://photoday.svobodinaphoto.store/${imageWidth(el.width)}_${
+				imageSrc: `https://img.svobodinaphoto.ru/${imageWidth(el.width)}_${
 					galleryData!.ImageName[i]
 				}`,
 				setStyle: `
@@ -338,7 +338,7 @@
 							data-sveltekit-reload
 							href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}
 						>
-							<img src="https://photoday.svobodinaphoto.store/320_{item.Cover}.avif" alt="" />
+							<img src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif" alt="" />
 							<!-- <p class="naviganion__next">{item.Title}&nbsp;&nbsp;&nbsp;</p> -->
 						</a>
 					{/each}

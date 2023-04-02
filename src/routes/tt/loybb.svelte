@@ -80,36 +80,36 @@
 	let sliderData = [
 		[
 			'/img/rev/480_dis3',
-			'https://photoday.svobodinaphoto.store/720_21-10-27-11-49-02',
-			'https://photoday.svobodinaphoto.store/720_23-01-21-14-13-57',
-			'https://photoday.svobodinaphoto.store/720_21-01-04-12-10-19',
-			'https://photoday.svobodinaphoto.store/720_21-01-06-13-39-15',
-			'https://photoday.svobodinaphoto.store/720_22-07-16-15-12-14',
-			'https://photoday.svobodinaphoto.store/720_21-01-04-12-42-47',
-			'https://photoday.svobodinaphoto.store/720_22-11-07-13-40-04',
-			'https://photoday.svobodinaphoto.store/720_22-10-03-12-17-08'
+			'https://img.svobodinaphoto.ru/720_21-10-27-11-49-02',
+			'https://img.svobodinaphoto.ru/720_23-01-21-14-13-57',
+			'https://img.svobodinaphoto.ru/720_21-01-04-12-10-19',
+			'https://img.svobodinaphoto.ru/720_21-01-06-13-39-15',
+			'https://img.svobodinaphoto.ru/720_22-07-16-15-12-14',
+			'https://img.svobodinaphoto.ru/720_21-01-04-12-42-47',
+			'https://img.svobodinaphoto.ru/720_22-11-07-13-40-04',
+			'https://img.svobodinaphoto.ru/720_22-10-03-12-17-08'
 		],
 		[
 			'/img/rev/480_dis',
-			'https://photoday.svobodinaphoto.store/720_22-06-02-11-39-41',
-			'https://photoday.svobodinaphoto.store/720_22-11-30-11-53-38',
-			'https://photoday.svobodinaphoto.store/720_21-12-18-15-12-08',
-			'https://photoday.svobodinaphoto.store/720_22-06-02-11-10-36',
-			'https://photoday.svobodinaphoto.store/720_21-05-08-18-58-57',
-			'https://photoday.svobodinaphoto.store/720_21-03-09-11-42-38',
-			'https://photoday.svobodinaphoto.store/720_23-01-24-15-21-37',
-			'https://photoday.svobodinaphoto.store/720_22-07-16-16-39-20'
+			'https://img.svobodinaphoto.ru/720_22-06-02-11-39-41',
+			'https://img.svobodinaphoto.ru/720_22-11-30-11-53-38',
+			'https://img.svobodinaphoto.ru/720_21-12-18-15-12-08',
+			'https://img.svobodinaphoto.ru/720_22-06-02-11-10-36',
+			'https://img.svobodinaphoto.ru/720_21-05-08-18-58-57',
+			'https://img.svobodinaphoto.ru/720_21-03-09-11-42-38',
+			'https://img.svobodinaphoto.ru/720_23-01-24-15-21-37',
+			'https://img.svobodinaphoto.ru/720_22-07-16-16-39-20'
 		],
 		[
 			'/img/rev/480_dis3',
-			'https://photoday.svobodinaphoto.store/720_22-11-07-13-26-35',
-			'https://photoday.svobodinaphoto.store/720_21-10-03-12-39-01',
-			'https://photoday.svobodinaphoto.store/720_23-01-24-14-31-57',
-			'https://photoday.svobodinaphoto.store/720_23-01-24-15-12-57',
-			'https://photoday.svobodinaphoto.store/720_20-07-03-17-25-34',
-			'https://photoday.svobodinaphoto.store/720_23-01-21-14-29-41',
-			'https://photoday.svobodinaphoto.store/720_23-02-05-12-37-35',
-			'https://photoday.svobodinaphoto.store/720_22-07-16-15-00-46'
+			'https://img.svobodinaphoto.ru/720_22-11-07-13-26-35',
+			'https://img.svobodinaphoto.ru/720_21-10-03-12-39-01',
+			'https://img.svobodinaphoto.ru/720_23-01-24-14-31-57',
+			'https://img.svobodinaphoto.ru/720_23-01-24-15-12-57',
+			'https://img.svobodinaphoto.ru/720_20-07-03-17-25-34',
+			'https://img.svobodinaphoto.ru/720_23-01-21-14-29-41',
+			'https://img.svobodinaphoto.ru/720_23-02-05-12-37-35',
+			'https://img.svobodinaphoto.ru/720_22-07-16-15-00-46'
 		]
 	];
 	// onMount(() => {

@@ -13,18 +13,18 @@
 	<div class="review__image">
 		<picture>
 			<source
-				srcSet="https://photoday.svobodinaphoto.store/1024_20-07-03-19-19-22.avif"
+				srcSet="https://img.svobodinaphoto.ru/1024_20-07-03-19-19-22.avif"
 				type="image/avif"
 			/>
 			<source
-				srcSet="https://photoday.svobodinaphoto.store/1024_20-07-03-19-19-22.webp"
+				srcSet="https://img.svobodinaphoto.ru/1024_20-07-03-19-19-22.webp"
 				type="image/webp"
 			/>
 			<img
 				decoding="async"
 				loading="lazy"
 				draggable="false"
-				src="https://photoday.svobodinaphoto.store/1024_20-07-03-19-19-22.jpg"
+				src="https://img.svobodinaphoto.ru/1024_20-07-03-19-19-22.jpg"
 				alt="SvobodinaPhot"
 			/>
 		</picture>
