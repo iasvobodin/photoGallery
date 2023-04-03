@@ -85,6 +85,7 @@
 		as="font"
 		crossOrigin="anonymous"
 	/>
+	<meta name="yandex-verification" content="9cd2d955993a7f04" />
 	<meta name="author" content="Anastasia Svobodina" />
 	<meta name="description" content="Site portfolio" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
