@@ -127,7 +127,7 @@
 		lenis.on('scroll', ScrollTrigger.update);
 
 		lenis.on('scroll', (e) => {
-			frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 15));
+			frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 17));
 			// console.log(window.scrollY, e.scroll, e.targetScroll, e.animatedScroll, e.velocity);
 		});
 		// gsap.ticker.lagSmoothing(0);
@@ -148,17 +148,21 @@
 			opacity: 0,
 			ease: 'linear'
 		});
-		// gsap.to('.p1', {
-		// 	scrollTrigger: {
-		// 		trigger: '.about',
-		// 		scrub: 1.1,
-		// 		start: '50% top',
-		// 		end: '50% top'
-		// 		// markers: true
-		// 	},
-		// 	opacity: 1,
-		// 	ease: 'linear'
-		// });
+		gsap.to('.canva', {
+			scrollTrigger: {
+				trigger: '.about',
+				scrub: 1.1,
+				start: '80% top',
+				end: '100% top',
+				markers: true
+			},
+			// width: '70%',
+			// height: '50%',
+			scale: 0.55,
+			// xPercent: 50,
+			borderRadius: '20px',
+			ease: 'linear'
+		});
 		// gsap.to('.p2', {
 		// 	scrollTrigger: {
 		// 		trigger: '.about',
@@ -235,11 +239,15 @@
 		лучшие фотографии, которые будут радовать вас на протяжении всей жизни.
 	</p>
 </div>
-<div class="block2" />
+<div class="block2">
+	<h2>Свадебная</h2>
+	<img src="https://img.svobodinaphoto.ru/480_21-02-01-14-02-55.avif" alt="" />
+	<img src="https://img.svobodinaphoto.ru/480_20-07-03-17-25-34.avif" alt="" />
+</div>
 
 <style>
 	.holder {
-		height: calc(259px * 15);
+		height: calc(259px * 30);
 		background: #000;
 		position: relative;
 	}
@@ -269,20 +277,28 @@
 		height: 200vh;
 		position: absolute;
 		top: 150vh;
-		width: min(100%, 1000px);
+		width: min(95%, 1500px);
+		row-gap: 7vh;
+		margin: auto;
+		right: 0;
+		left: 0;
 	}
 	.about_desc {
 		font-family: 'Cormorant Infant', serif;
 		font-size: clamp(18px, 18px + 3vw, 50px);
 		line-height: 1.25;
 		margin: 0;
+		max-width: 1000px;
 		border-radius: 30px;
 		background-color: #0000004f;
 		/* opacity: 0; */
-		padding: 5vw;
+		padding: 4vw;
 		align-self: center;
 		text-indent: 2ch;
 		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+	}
+	.about_desc:nth-child(odd) {
+		justify-self: end;
 	}
 	.header {
 		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
@@ -304,6 +320,7 @@
 		object-fit: cover;
 		width: 100%;
 		height: 100%;
+		margin: auto;
 	}
 	.block2 {
 		height: 200vh;
