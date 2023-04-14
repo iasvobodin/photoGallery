@@ -38,6 +38,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@studio-freight/lenis": "^1.0.6",
+		"animejs": "^3.2.1",
 		"curtainsjs": "^8.1.4",
 		"gsap": "^3.11.4",
 		"justified-layout": "^4.1.0",

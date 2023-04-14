@@ -5,6 +5,7 @@ html {
 *,
 *:before,
 *:after {
+	text-wrap: balance;
 	box-sizing: border-box;
 }
 
