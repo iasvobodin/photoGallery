@@ -12,6 +12,7 @@
 		lenisScroll = 0,
 		targetScroll = 0,
 		videoCanvas,
+		frameIndex = 0,
 		maxlenisScroll,
 		y;
 
@@ -29,7 +30,9 @@
 	};
 
 	onMount(() => {
-		const lenis = new Lenis();
+		const lenis = new Lenis({
+			lerp: 0.08
+		});
 
 		// lenis.on('scroll', (e) => {
 		//   console.log(e)
@@ -97,7 +100,7 @@
 		const raf = (time) => {
 			lenis.raf(time);
 
-			const frameIndex = Math.min(frameQty - 1, Math.ceil(lenisScroll / 30));
+			// const frameIndex = Math.min(frameQty - 1, Math.ceil(lenisScroll / 15));
 
 			updateImage(frameIndex);
 
@@ -124,8 +127,8 @@
 		lenis.on('scroll', ScrollTrigger.update);
 
 		lenis.on('scroll', (e) => {
+			frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 15));
 			// console.log(window.scrollY, e.scroll, e.targetScroll, e.animatedScroll, e.velocity);
-			lenisScroll = e.scroll;
 		});
 		// gsap.ticker.lagSmoothing(0);
 		gsap.ticker.add((time) => {
@@ -136,7 +139,7 @@
 			scrollTrigger: {
 				trigger: '.hed',
 				scrub: 1.1,
-				start: 'top center',
+				start: 'top 30%',
 				end: 'bottom center'
 				// pin: true
 				// pinSpacing: false,
@@ -236,7 +239,7 @@
 
 <style>
 	.holder {
-		height: calc(259px * 30);
+		height: calc(259px * 15);
 		background: #000;
 		position: relative;
 	}
@@ -251,45 +254,48 @@
 
 	.hed {
 		/* mix-blend-mode: difference; */
-		font-family: 'Cormorant Infant', serif;
-		font-size: clamp(18px, 18px + 2vw, 50px);
+		font-family: 'Roboto Mono', monospace;
+		font-size: clamp(14px, 14px + 3.5vw, 80px);
+		font-weight: 700;
 		line-height: 1.3;
 		position: absolute;
-		top: 50vh;
-		width: min(100%, 650px);
+		top: 30vh;
+		width: min(100%, 1000px);
 	}
 	.about {
 		mix-blend-mode: luminosity;
 		display: grid;
 		align-content: space-evenly;
-		height: 100vh;
+		height: 200vh;
 		position: absolute;
-		top: 200vh;
-		width: min(100%, 750px);
+		top: 150vh;
+		width: min(100%, 1000px);
 	}
 	.about_desc {
 		font-family: 'Cormorant Infant', serif;
-		font-size: clamp(18px, 18px + 1vw, 35px);
-		line-height: 1.2;
+		font-size: clamp(18px, 18px + 3vw, 50px);
+		line-height: 1.25;
 		margin: 0;
+		border-radius: 30px;
+		background-color: #0000004f;
 		/* opacity: 0; */
-		padding-left: 1vw;
+		padding: 5vw;
 		align-self: center;
 		text-indent: 2ch;
 		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
 	}
 	.header {
-		/* text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3); */
+		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
 		font-size: inherit;
 		line-height: inherit;
 		text-align: center;
 		margin: 0;
 		text-indent: 2ch;
 		color: rgb(255, 255, 255);
-		background-color: #ffffff;
-		background-image: linear-gradient(180deg, #ffffff, #44c1ff);
+		/* background-color: #ffffff; */
+		/* background-image: linear-gradient(180deg, #ffffff, #44c1ff);
 		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
+		-webkit-text-fill-color: transparent; */
 	}
 
 	canvas {

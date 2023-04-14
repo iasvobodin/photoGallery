@@ -329,21 +329,18 @@
 		href={`/photoseries/${navigateNext(allph, photoSeries.Route)}`}
 		><p class="naviganion__next next__link">Следующая фотосерия</p></a
 	>
-	<Slider>
-		<div class="text">
-			{#each link as item}
-				<div class="text_anim">
-					{#each allph as item}
-						<a
-							data-sveltekit-reload
-							href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}
-						>
-							<img src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif" alt="" />
-							<!-- <p class="naviganion__next">{item.Title}&nbsp;&nbsp;&nbsp;</p> -->
-						</a>
-					{/each}
+	<!-- <Slider> -->
+	<div class="text">
+		{#each link as item}
+			<div class="text_anim">
+				{#each allph as item}
+					<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+						<img src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif" alt="" />
+						<!-- <p class="naviganion__next">{item.Title}&nbsp;&nbsp;&nbsp;</p> -->
+					</a>
+				{/each}
 
-					<!-- <p>
+				<!-- <p>
 					<a
 						rel="noreferrer"
 						target="_blank"
@@ -386,10 +383,10 @@
 						>Позвонить&nbsp;&nbsp;&nbsp;</a
 					>
 				</p> -->
-				</div>
-			{/each}
-		</div>
-	</Slider>
+			</div>
+		{/each}
+	</div>
+	<!-- </Slider> -->
 {/if}
 
 <style>
