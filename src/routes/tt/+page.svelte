@@ -159,22 +159,23 @@
 			// width: '70%',
 			// height: '50%',
 			scale: 0.55,
-			// xPercent: 50,
+			xPercent: -20,
+			yPercent: -20,
 			borderRadius: '20px',
 			ease: 'linear'
 		});
-		// gsap.to('.p2', {
-		// 	scrollTrigger: {
-		// 		trigger: '.about',
-		// 		scrub: 1.1,
-		// 		start: '150% top',
-		// 		end: '150% top'
-		// 		// markers: true
-		// 	},
-		// 	opacity: 1,
-		// 	// color: 'black',
-		// 	ease: 'linear'
-		// });
+		gsap.to('.sub_title', {
+			scrollTrigger: {
+				trigger: '.sub_title_container',
+				scrub: 1.1,
+				start: 'top top',
+				end: 'bottom top'
+				// markers: true
+			},
+			opacity: 1,
+			// color: 'black',
+			ease: 'linear'
+		});
 		// gsap.to('.p3', {
 		// 	scrollTrigger: {
 		// 		trigger: '.about',
@@ -211,7 +212,9 @@
 
 <div bind:clientHeight={maxlenisScroll} class="holder">
 	<div class="main__description">
-		<canvas bind:this={videoCanvas} class="canva" data-scroll id="hero-lightpass" />
+		<div class="canvas_holder">
+			<canvas bind:this={videoCanvas} class="canva" data-scroll id="hero-lightpass" />
+		</div>
 		<div class="hed">
 			<h1 class="header">
 				Красивые и неповторимые моменты на фото.<br />Фотосессии, которые сделают Ваше воспоминание
@@ -220,36 +223,56 @@
 		</div>
 	</div>
 </div>
-<div class="about">
-	<p class="about_desc p1">
-		Приветствую Вас, Меня зовут Настя, и я профессиональный фотограф, который ценит индивидуальность
-		и уникальность каждого клиента.
-	</p>
-	<p class="about_desc p2">
-		Я работаю не просто на получение красивых фотографий, а на создание неповторимых образов,
-		которые отражают вашу индивидуальность и красоту.
-	</p>
+<div class="main_holder">
+	<div class="about">
+		<p class="about_desc p1">
+			Приветствую Вас, Меня зовут Настя, и я профессиональный фотограф, который ценит
+			индивидуальность и уникальность каждого клиента.
+		</p>
+		<p class="about_desc p2">
+			Я работаю не просто на получение красивых фотографий, а на создание неповторимых образов,
+			которые отражают вашу индивидуальность и красоту.
+		</p>
 
-	<p class="about_desc p3">
-		Я умею создавать комфортную атмосферу на съемке, которая помогает клиентам чувствовать себя
-		уверенно и расслабленно.
-	</p>
-	<p class="about_desc p4">
-		Моя цель - не просто удовлетворить ваши требования, а превзойти их, чтобы вы получили самые
-		лучшие фотографии, которые будут радовать вас на протяжении всей жизни.
-	</p>
+		<p class="about_desc p3">
+			Я умею создавать комфортную атмосферу на съемке, которая помогает клиентам чувствовать себя
+			уверенно и расслабленно.
+		</p>
+		<p class="about_desc p4">
+			Моя цель - не просто удовлетворить ваши требования, а превзойти их, чтобы вы получили самые
+			лучшие фотографии, которые будут радовать вас на протяжении всей жизни.
+		</p>
+	</div>
+	<div class="block_wedding">
+		<!-- <div class="sub_title_container">
+			<h2 class="sub_title">Свадебная</h2>
+		</div> -->
+		<div class="img_block">
+			<img class="img1" src="https://img.svobodinaphoto.ru/480_21-02-01-14-02-55.avif" alt="" />
+		</div>
+
+		<!-- <div class="block3" /> -->
+	</div>
+	<div class="block3" />
 </div>
-<div class="block2">
-	<h2>Свадебная</h2>
-	<img src="https://img.svobodinaphoto.ru/480_21-02-01-14-02-55.avif" alt="" />
-	<img src="https://img.svobodinaphoto.ru/480_20-07-03-17-25-34.avif" alt="" />
+<div class="contt">
+	<div class="img_block2">
+		<img class="img2" src="https://img.svobodinaphoto.ru/480_20-07-03-17-25-34.avif" alt="" />
+	</div>
+	<div class="bb" />
 </div>
+<div class="block3" />
 
 <style>
 	.holder {
 		height: calc(259px * 30);
-		background: #000;
+		background: #ffffff;
 		position: relative;
+	}
+	.canvas_holder {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
 	}
 	.main__description {
 		width: 100%;
@@ -270,18 +293,20 @@
 		top: 30vh;
 		width: min(100%, 1000px);
 	}
+	.main_holder {
+		position: absolute;
+		width: 100%;
+		top: 150vh;
+	}
 	.about {
-		mix-blend-mode: luminosity;
 		display: grid;
 		align-content: space-evenly;
 		height: 200vh;
-		position: absolute;
-		top: 150vh;
 		width: min(95%, 1500px);
 		row-gap: 7vh;
 		margin: auto;
-		right: 0;
-		left: 0;
+		/* right: 0;
+		left: 0; */
 	}
 	.about_desc {
 		font-family: 'Cormorant Infant', serif;
@@ -299,6 +324,65 @@
 	}
 	.about_desc:nth-child(odd) {
 		justify-self: end;
+	}
+	.block_wedding {
+		position: sticky;
+		top: 0;
+		height: 300vh;
+		margin-top: 50vh;
+		/* position: relative; */
+	}
+	.contt {
+		position: absolute;
+		width: 100%;
+		top: 500vh;
+		height: 200vh;
+	}
+	.img_block {
+		/* position: sticky;
+		top: 0; */
+		height: 100vh;
+		width: 100%;
+		display: grid;
+		/* grid-template-rows: 1fr; */
+	}
+	.bb {
+		height: 10px;
+	}
+	.img_block2 {
+		position: sticky;
+		top: 0;
+		height: 100vh;
+		width: 100%;
+		display: grid;
+		/* grid-template-rows: 1fr; */
+	}
+	.img1 {
+		place-self: center;
+		grid-area: 1/1/2/2;
+	}
+	.img2 {
+		place-self: end;
+		grid-area: 1/1/2/2;
+	}
+	.img2,
+	.img1 {
+		width: 50vw;
+		height: 50vh;
+		object-fit: cover;
+		border-radius: 20px;
+	}
+	.sub_title_container {
+		position: absolute;
+		top: 0;
+	}
+	.sub_title {
+		opacity: 0;
+		/* position: sticky;
+		top: 2vh; */
+		display: inline-block;
+		color: black;
+		font-size: clamp(20px, 20px + 15vw, 120px);
 	}
 	.header {
 		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
@@ -322,7 +406,7 @@
 		height: 100%;
 		margin: auto;
 	}
-	.block2 {
+	.block3 {
 		height: 200vh;
 		background-color: #000000;
 	}
