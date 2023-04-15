@@ -4,8 +4,21 @@
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	import Lenis from '@studio-freight/lenis';
-
+	import ResPic from '$lib/components/resPic.svelte';
 	gsap.registerPlugin(ScrollTrigger);
+
+	export let data;
+
+	let allph = data.allph;
+
+	let allphHor = allph.filter((e) => e.Aspect > 1);
+	let allphVer = allph.filter((e) => e.Aspect < 1);
+
+	let allph1 = allphHor.slice(0, 12);
+	let allph2 = allphHor.slice(12, 18);
+	let allph3 = allphVer;
+
+	console.log(allphHor, allphVer);
 	// import LocomotiveScroll from 'locomotive-scroll';
 	let items = 'SvobodinaPhoto';
 	let holder,
@@ -107,23 +120,7 @@
 			requestAnimationFrame(raf);
 		};
 		raf();
-		// window.addEventListener('scroll', () => {
-		// 	//const
-		// 	lenisScroll = html.lenisScroll;
-		// 	console.log('lenisScroll', lenisScroll);
-		// 	// lettersMove.seek(lenisScroll * 2);
-		// 	// lettersMove.finished.then(() =>
-		// 	// );
-		// 	// lenisScroll > 500 && invis.seek(lenisScroll - 500);
 
-		// 	// const scrollFraction = lenisScroll / maxlenisScroll;
-		// 	// const frameIndex = Math.min(
-		// 	//   frameQty - 1,
-		// 	//   Math.ceil(scrollFraction * frameQty)
-		// 	// );
-
-		// 	// requestAnimationFrame(() => updateImage(frameIndex + 1));
-		// });
 		lenis.on('scroll', ScrollTrigger.update);
 
 		lenis.on('scroll', (e) => {
@@ -134,7 +131,13 @@
 		gsap.ticker.add((time) => {
 			lenis.raf(time * 1000);
 		});
-
+		ScrollTrigger.create({
+			trigger: '.holder',
+			pin: '.canva',
+			start: 'top top',
+			end: 'bottom top',
+			pinSpacing: false
+		});
 		gsap.to('.header', {
 			scrollTrigger: {
 				trigger: '.hed',
@@ -153,40 +156,83 @@
 				trigger: '.about',
 				scrub: 1.1,
 				start: '80% top',
-				end: '100% top',
-				markers: true
+				end: '100% top'
+				// markers: true
 			},
 			// width: '70%',
 			// height: '50%',
-			scale: 0.55,
-			xPercent: -20,
-			yPercent: -20,
+			scale: 0.46,
+			// xPercent: -25,
+			// yPercent: -25,
 			borderRadius: '20px',
 			ease: 'linear'
 		});
-		gsap.to('.sub_title', {
-			scrollTrigger: {
-				trigger: '.sub_title_container',
-				scrub: 1.1,
-				start: 'top top',
-				end: 'bottom top'
-				// markers: true
-			},
-			opacity: 1,
-			// color: 'black',
-			ease: 'linear'
-		});
-		// gsap.to('.p3', {
+		// gsap.to('.sub_title', {
 		// 	scrollTrigger: {
-		// 		trigger: '.about',
-		// 		scrub: 1.1,
-		// 		start: '250% top',
-		// 		end: '250% top'
+		// 		trigger: '.block_wedding',
+		// 		// scrub: 1.1,
+		// 		start: 'top top',
+		// 		end: 'bottom top',
+		// 		pin: '.sub_title',
+		// 		pinSpacing: false
 		// 		// markers: true
 		// 	},
 		// 	opacity: 1,
+		// 	// color: 'black',
 		// 	ease: 'linear'
 		// });
+		const tl = gsap.timeline({
+			ease: 'linear',
+			scrollTrigger: {
+				trigger: '.gallery_holder',
+				scrub: 1,
+				pin: '.gallery_holder',
+				pinSpacing: false,
+				// refreshPriority: -1,
+				start: 'top top',
+				end: '500% bottom',
+				markers: true
+			}
+		});
+
+		tl.to(
+			'.canva',
+			{
+				// opacity: 0,
+				x: -5400
+			},
+			0
+		);
+		tl.to(
+			'.gallery_middle',
+			{
+				xPercent: -150
+			},
+			0
+		);
+		tl.to(
+			['.gallery_top', '.gallery_bottom'],
+			{
+				xPercent: 155
+			},
+			0
+		);
+
+		// ScrollTrigger.create({
+		// 	trigger: '.img_block1',
+		// 	pin: '.img_block1',
+		// 	start: 'top top',
+		// 	end: '+200% top',
+		// 	pinSpacing: false
+		// });
+		// ScrollTrigger.create({
+		// 	trigger: '.img_block2',
+		// 	pin: '.img_block2',
+		// 	start: 'top top',
+		// 	end: '+100% top'
+		// 	// pinSpacing: false
+		// });
+
 		// gsap.to('.p4', {
 		// 	scrollTrigger: {
 		// 		trigger: '.about',
@@ -211,63 +257,147 @@
 <!-- <svelte:window bind:scrollY={y} on:scroll={checkScroll} /> -->
 
 <div bind:clientHeight={maxlenisScroll} class="holder">
-	<div class="main__description">
-		<div class="canvas_holder">
-			<canvas bind:this={videoCanvas} class="canva" data-scroll id="hero-lightpass" />
-		</div>
-		<div class="hed">
-			<h1 class="header">
-				Красивые и неповторимые моменты на фото.<br />Фотосессии, которые сделают Ваше воспоминание
-				незабываемым.
-			</h1>
-		</div>
+	<!-- <div class="main__description"> -->
+	<!-- <div class="canvas_holder"> -->
+	<canvas bind:this={videoCanvas} class="canva" data-scroll id="hero-lightpass" />
+	<!-- </div> -->
+	<div class="hed">
+		<h1 class="header">
+			Красивые и неповторимые моменты на фото.<br />Фотосессии, которые сделают Ваши воспоминания
+			незабываемыми.
+		</h1>
 	</div>
-</div>
-<div class="main_holder">
-	<div class="about">
-		<p class="about_desc p1">
-			Приветствую Вас, Меня зовут Настя, и я профессиональный фотограф, который ценит
-			индивидуальность и уникальность каждого клиента.
-		</p>
-		<p class="about_desc p2">
-			Я работаю не просто на получение красивых фотографий, а на создание неповторимых образов,
-			которые отражают вашу индивидуальность и красоту.
-		</p>
+	<!-- </div> -->
+	<div class="main_holder">
+		<div class="about">
+			<p class="about_desc p1">
+				Приветствую Вас, Меня зовут Настя, и я профессиональный фотограф, который ценит
+				индивидуальность и уникальность каждого клиента.
+			</p>
+			<p class="about_desc p2">
+				Я работаю не просто на получение красивых фотографий, а на создание неповторимых образов,
+				которые отражают вашу индивидуальность и красоту.
+			</p>
 
-		<p class="about_desc p3">
-			Я умею создавать комфортную атмосферу на съемке, которая помогает клиентам чувствовать себя
-			уверенно и расслабленно.
-		</p>
-		<p class="about_desc p4">
-			Моя цель - не просто удовлетворить ваши требования, а превзойти их, чтобы вы получили самые
-			лучшие фотографии, которые будут радовать вас на протяжении всей жизни.
-		</p>
-	</div>
-	<div class="block_wedding">
-		<!-- <div class="sub_title_container">
-			<h2 class="sub_title">Свадебная</h2>
+			<p class="about_desc p3">
+				Я умею создавать комфортную атмосферу на съемке, которая помогает клиентам чувствовать себя
+				уверенно и расслабленно.
+			</p>
+			<p class="about_desc p4">
+				Моя цель - не просто удовлетворить ваши требования, а превзойти их, чтобы вы получили самые
+				лучшие фотографии, которые будут радовать вас на протяжении всей жизни.
+			</p>
+		</div>
+
+		<!-- <div class="block_wedding">
+			<div class="sub_title_container">
+				<h2 class="sub_title">Свадебная</h2>
+			</div>
+			<div class="img_block1">
+				<ResPic
+					class="img1"
+					orintation={true}
+					imageH="22-07-16-16-20-35"
+					imageP="21-02-01-14-02-55"
+					size={720}
+				/>
+			</div>
+			<div class="img_block2">
+				<ResPic
+					class="img2"
+					orintation={true}
+					imageH="22-07-30-16-31-58"
+					imageP="20-07-03-17-25-34"
+					size={720}
+				/>
+			</div>
+		</div>
+		<div class="block_portait">
+			<div class="portrait portait_block1">
+				<ResPic
+					class="portrait_img"
+					orintation={true}
+					imageH="22-07-30-16-31-58"
+					imageP="20-07-03-17-25-34"
+					size={720}
+				/>
+			</div>
+			<div class="portrait portait_block2">
+				<ResPic
+					class="portrait_img"
+					orintation={true}
+					imageH="22-07-30-16-31-58"
+					imageP="20-07-03-17-25-34"
+					size={720}
+				/>
+			</div>
+			<div class="portrait portait_block3">
+				<ResPic
+					class="portrait_img"
+					orintation={true}
+					imageH="22-07-30-16-31-58"
+					imageP="20-07-03-17-25-34"
+					size={720}
+				/>
+			</div>
+			<div class="sub_title_portrait">
+				<h2 class="sub_title">Портретная</h2>
+			</div>
 		</div> -->
-		<div class="img_block">
-			<img class="img1" src="https://img.svobodinaphoto.ru/480_21-02-01-14-02-55.avif" alt="" />
-		</div>
 
-		<!-- <div class="block3" /> -->
+		<div class="gallery_holder">
+			<div class="gallery gallery_top">
+				{#each allph1 as item}
+					<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+						<img
+							style="aspect-ratio:{+item.Aspect};"
+							class="gallery_img"
+							src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
+							alt=""
+						/>
+					</a>
+				{/each}
+				<div class="sub_title_portrait">
+					<h2 class="sub_title">Фотосерии</h2>
+				</div>
+			</div>
+			<div class="gallery gallery_middle">
+				{#each allph2 as item}
+					<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+						<img
+							style="aspect-ratio:{+item.Aspect};"
+							class="gallery_img"
+							src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
+							alt=""
+						/>
+					</a>
+				{/each}
+			</div>
+			<div class="gallery gallery_bottom">
+				{#each allph3 as item}
+					<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+						<img
+							style="aspect-ratio:{+item.Aspect};"
+							class="gallery_img"
+							src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
+							alt=""
+						/>
+					</a>
+				{/each}
+			</div>
+			<!-- <div class="sub_title_portrait">
+				<h2 class="sub_title">Фотосерии</h2>
+			</div> -->
+		</div>
 	</div>
-	<div class="block3" />
 </div>
-<div class="contt">
-	<div class="img_block2">
-		<img class="img2" src="https://img.svobodinaphoto.ru/480_20-07-03-17-25-34.avif" alt="" />
-	</div>
-	<div class="bb" />
-</div>
-<div class="block3" />
 
 <style>
 	.holder {
 		height: calc(259px * 30);
 		background: #ffffff;
 		position: relative;
+		overflow: hidden;
 	}
 	.canvas_holder {
 		width: 100%;
@@ -276,9 +406,9 @@
 	}
 	.main__description {
 		width: 100%;
-		height: 100vh;
-		top: 0px;
-		position: sticky;
+		/* height: 100vh; */
+		/* top: 0px; */
+		/* position: sticky; */
 		/* grid-template-rows: 1fr 1fr 2fr 4fr 2.66fr 5.33fr 5.33fr 4.33fr 2.83fr 3.5fr 3.5fr 2.83fr 4.33fr 5.33fr 5.33fr 2.66fr 4fr 2fr 1fr 1fr; */
 		/* grid-template-columns: 1fr 1fr 2fr 4fr 2.66fr 5.33fr 5.33fr 4.33fr 2.83fr 3.5fr 3.5fr 2.83fr 4.33fr 5.33fr 5.33fr 2.66fr 4fr 2fr 1fr 1fr; */
 	}
@@ -296,94 +426,106 @@
 	.main_holder {
 		position: absolute;
 		width: 100%;
+		/* overflow: hidden; */
 		top: 150vh;
 	}
 	.about {
 		display: grid;
 		align-content: space-evenly;
-		height: 200vh;
+		/* height: 200vh; */
 		width: min(95%, 1500px);
-		row-gap: 7vh;
+		row-gap: 30vh;
 		margin: auto;
 		/* right: 0;
 		left: 0; */
 	}
 	.about_desc {
 		font-family: 'Cormorant Infant', serif;
-		font-size: clamp(18px, 18px + 3vw, 50px);
+		font-size: clamp(18px, 18px + 3vw, 36px);
 		line-height: 1.25;
 		margin: 0;
-		max-width: 1000px;
+		width: min(800px, 95%);
 		border-radius: 30px;
 		background-color: #0000004f;
-		/* opacity: 0; */
-		padding: 4vw;
+		padding: max(2vw, 30px);
 		align-self: center;
 		text-indent: 2ch;
-		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
 	}
 	.about_desc:nth-child(odd) {
 		justify-self: end;
 	}
 	.block_wedding {
-		position: sticky;
-		top: 0;
-		height: 300vh;
+		/* position: sticky; */
+		/* top: 0; */
+		/* height: 300vh; */
 		margin-top: 50vh;
 		/* position: relative; */
 	}
-	.contt {
-		position: absolute;
-		width: 100%;
-		top: 500vh;
-		height: 200vh;
-	}
-	.img_block {
-		/* position: sticky;
-		top: 0; */
-		height: 100vh;
-		width: 100%;
-		display: grid;
-		/* grid-template-rows: 1fr; */
-	}
-	.bb {
-		height: 10px;
-	}
+	.img_block1,
 	.img_block2 {
-		position: sticky;
-		top: 0;
 		height: 100vh;
 		width: 100%;
 		display: grid;
-		/* grid-template-rows: 1fr; */
 	}
-	.img1 {
+
+	.img_block2 {
+		/* padding-right: 2vw; */
+	}
+
+	.img_block1 :global(.img1) {
 		place-self: center;
 		grid-area: 1/1/2/2;
-	}
-	.img2 {
-		place-self: end;
-		grid-area: 1/1/2/2;
-	}
-	.img2,
-	.img1 {
 		width: 50vw;
 		height: 50vh;
-		object-fit: cover;
 		border-radius: 20px;
+		overflow: hidden;
+	}
+
+	.img_block2 :global(.img2) {
+		place-self: end;
+		grid-area: 1/1/2/2;
+		width: 50vw;
+		height: 50vh;
+		border-radius: 20px;
+		overflow: hidden;
+	}
+	.block_portait {
+		margin-top: -100vh;
+		transform: translateX(100%);
+		background-color: white;
+		height: 100vh;
+		width: 100%;
+		display: grid;
+		border: 1px solid green;
+	}
+	.portrait :global(.portrait_img) {
+		grid-area: 1/1/2/2;
+		display: block;
+		width: 50vw;
+		height: 50vh;
+		border-radius: 20px;
+		overflow: hidden;
+	}
+	.portrait {
+		grid-area: 1/1/2/2;
+		width: 50vw;
+		height: 50vh;
+	}
+
+	.portait_block1 {
+		place-self: start;
+	}
+	.portait_block2 {
+		place-self: center;
+	}
+	.portait_block3 {
+		place-self: end;
 	}
 	.sub_title_container {
-		position: absolute;
-		top: 0;
+		padding-right: 5vw;
 	}
-	.sub_title {
-		opacity: 0;
-		/* position: sticky;
-		top: 2vh; */
-		display: inline-block;
-		color: black;
-		font-size: clamp(20px, 20px + 15vw, 120px);
-	}
+
 	.header {
 		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
 		font-size: inherit;
@@ -398,16 +540,63 @@
 		-webkit-text-fill-color: transparent; */
 	}
 
-	canvas {
+	.canva {
 		display: block;
 		object-position: 65%;
 		object-fit: cover;
 		width: 100%;
-		height: 100%;
+		height: 100vh;
 		margin: auto;
 	}
 	.block3 {
 		height: 200vh;
 		background-color: #000000;
+	}
+	.gallery_holder {
+		position: relative;
+		overflow: hidden;
+		margin-top: 100vh;
+		/* z-index: -1; */
+		background: transparent;
+		background-color: transparent;
+	}
+	.gallery {
+		display: flex;
+		column-gap: 50px;
+		width: fit-content;
+		padding: 15px 0px;
+	}
+	.gallery_top,
+	.gallery_bottom {
+		height: 25vh;
+
+		transform: translateX(-100%);
+	}
+	.gallery_middle {
+		height: 50vh;
+		transform: translateX(75vw);
+	}
+	.gallery_img {
+		height: 100%;
+		object-fit: contain;
+		border-radius: 15px;
+	}
+	.gallery_img:hover {
+		transform: scale(1.05);
+		transition: transform 1s;
+	}
+	.sub_title_portrait {
+		/* mix-blend-mode: difference; */
+		pointer-events: none;
+		/* position: absolute; */
+		/* top: calc(25vh - 15px); */
+		width: fit-content;
+	}
+	.sub_title {
+		text-align: center;
+		color: black;
+		font-size: 20vh;
+		line-height: 23vh;
+		/* font-size: clamp(20px, 20px + 10vw, 80px); */
 	}
 </style>

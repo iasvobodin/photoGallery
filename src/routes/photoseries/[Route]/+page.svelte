@@ -336,53 +336,8 @@
 				{#each allph as item}
 					<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
 						<img src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif" alt="" />
-						<!-- <p class="naviganion__next">{item.Title}&nbsp;&nbsp;&nbsp;</p> -->
 					</a>
 				{/each}
-
-				<!-- <p>
-					<a
-						rel="noreferrer"
-						target="_blank"
-						class="contact__link"
-						href="https://vk.com/svobodinaphoto">Группа VK&nbsp;&nbsp;&nbsp;</a
-					>
-				</p>
-
-				<p>
-					<a
-						rel="noreferrer"
-						target="_blank"
-						class="contact__link"
-						href="https://t.me/svobodinaphoto">Telegram&nbsp;&nbsp;&nbsp;</a
-					>
-				</p>
-				<p>
-					<a rel="noreferrer" target="_blank" class="contact__link" href="https://vk.me/aasvobodina"
-						>VK&nbsp;&nbsp;&nbsp;</a
-					>
-				</p>
-				<p>
-					<a
-						rel="noreferrer"
-						target="_blank"
-						class="contact__link"
-						href="https://wa.me/%2B79514616243">WhatsApp&nbsp;&nbsp;&nbsp;</a
-					>
-				</p>
-				<p>
-					<a
-						rel="noreferrer"
-						target="_blank"
-						class="contact__link"
-						href="https://t.me/SvobodinaPhoto_bot">Telegram bot&nbsp;&nbsp;&nbsp;</a
-					>
-				</p>
-				<p>
-					<a rel="noreferrer" target="_blank" class="contact__link" href="tel:+79514616243"
-						>Позвонить&nbsp;&nbsp;&nbsp;</a
-					>
-				</p> -->
 			</div>
 		{/each}
 	</div>
