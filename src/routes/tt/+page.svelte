@@ -187,7 +187,7 @@
 				trigger: '.gallery_holder',
 				scrub: 1,
 				pin: '.gallery_holder',
-				pinSpacing: false,
+				// pinSpacing: false,
 				// refreshPriority: -1,
 				start: 'top top',
 				end: '500% bottom',
@@ -233,17 +233,20 @@
 		// 	// pinSpacing: false
 		// });
 
-		// gsap.to('.p4', {
-		// 	scrollTrigger: {
-		// 		trigger: '.about',
-		// 		scrub: 1.1,
-		// 		start: '350% top',
-		// 		end: '350% top'
-		// 		// markers: true
-		// 	},
-		// 	opacity: 1,
-		// 	ease: 'linear'
-		// });
+		gsap.to('.hero', {
+			scrollTrigger: {
+				trigger: '.hero_holder',
+				scrub: 1,
+				pin: true,
+				start: 'top top',
+				end: '350% top'
+				// markers: true
+			},
+			x: 0,
+			y: 0,
+			scale: 1,
+			ease: 'linear'
+		});
 	});
 </script>
 
@@ -390,6 +393,9 @@
 			</div> -->
 		</div>
 	</div>
+</div>
+<div class="hero_holder">
+	<img class="hero" src="/hero/hero.avif" alt="" />
 </div>
 
 <style>
@@ -579,7 +585,6 @@
 	.gallery_img {
 		height: 100%;
 		object-fit: contain;
-		border-radius: 15px;
 	}
 	.gallery_img:hover {
 		transform: scale(1.05);
@@ -598,5 +603,28 @@
 		font-size: 20vh;
 		line-height: 23vh;
 		/* font-size: clamp(20px, 20px + 10vw, 80px); */
+	}
+	a {
+		display: block;
+		overflow: hidden;
+		border-radius: 15px;
+	}
+	.hero_holder {
+		--heroW: min(500px, 100%);
+		/* margin-top: -100vh; */
+		/* width: calc(100vh * 0.66); */
+		height: calc(var(--heroW) * 1, 5);
+		width: var(--heroW);
+		overflow: hidden;
+	}
+	.hero {
+		/* width: 5381px;
+		height: 8072px; */
+		transform: translate3d(-644px, 1276px, 0px) scale(15);
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		/* object-position: -2671px -2749px; */
+		/* object-position: center; */
 	}
 </style>
