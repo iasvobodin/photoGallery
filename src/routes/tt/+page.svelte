@@ -1,6 +1,5 @@
 <script>
 	import { onMount } from 'svelte';
-	import anime from 'animejs';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	import Lenis from '@studio-freight/lenis';
@@ -138,19 +137,19 @@
 			end: 'bottom top',
 			pinSpacing: false
 		});
-		gsap.to('.header', {
-			scrollTrigger: {
-				trigger: '.hed',
-				scrub: 1.1,
-				start: 'top 30%',
-				end: 'bottom center'
-				// pin: true
-				// pinSpacing: false,
-				// markers: true
-			},
-			opacity: 0,
-			ease: 'linear'
-		});
+		// gsap.to('.header', {
+		// 	scrollTrigger: {
+		// 		trigger: '.hed',
+		// 		scrub: 1.1,
+		// 		start: 'top 30%',
+		// 		end: 'bottom center'
+		// 		// pin: true
+		// 		// pinSpacing: false,
+		// 		// markers: true
+		// 	},
+		// 	opacity: 0,
+		// 	ease: 'linear'
+		// });
 		gsap.to('.canva', {
 			scrollTrigger: {
 				trigger: '.about',
@@ -159,11 +158,7 @@
 				end: '100% top'
 				// markers: true
 			},
-			// width: '70%',
-			// height: '50%',
 			scale: 0.46,
-			// xPercent: -25,
-			// yPercent: -25,
 			borderRadius: '20px',
 			ease: 'linear'
 		});
@@ -187,7 +182,7 @@
 				trigger: '.gallery_holder',
 				scrub: 1,
 				pin: '.gallery_holder',
-				// pinSpacing: false,
+				pinSpacing: false,
 				// refreshPriority: -1,
 				start: 'top top',
 				end: '500% top',
@@ -198,7 +193,7 @@
 		tl.to(
 			'.canva',
 			{
-				// opacity: 0,
+				duration: 1.5,
 				x: -5400
 			},
 			0
@@ -207,6 +202,7 @@
 			'.gallery_middle',
 			{
 				xPercent: -150,
+				duration: 1.5,
 				onComplete: () => console.log('ffff')
 			},
 			0
@@ -214,7 +210,8 @@
 		tl.to(
 			['.gallery_top', '.gallery_bottom'],
 			{
-				xPercent: 155
+				xPercent: 155,
+				duration: 1.5
 			},
 			0
 		);
@@ -223,8 +220,35 @@
 			{
 				opacity: 1,
 				duration: 0
-			}
-			// '-=0.21'
+			},
+			1
+		);
+		tl.to(
+			'.dummy1',
+			{
+				yPercent: -100,
+				duration: 0.3
+			},
+			1
+		);
+		tl.to(
+			'.dummy2',
+			{
+				yPercent: 100,
+				duration: 0.3
+			},
+			1
+		);
+		tl.to(
+			'.hero',
+			{
+				width: '100%',
+				height: '100%',
+				// scale: 0.07,
+				x: 0,
+				y: 0
+			},
+			1.3
 		);
 
 		// ScrollTrigger.create({
@@ -269,159 +293,106 @@
 	/>
 </svelte:head>
 <!-- <svelte:window bind:scrollY={y} on:scroll={checkScroll} /> -->
-
+<!-- <ResPic
+		class="img1"
+		orintation={true}
+		imageH="22-07-16-16-20-35"
+		imageP="21-02-01-14-02-55"
+		size={720}
+	/> -->
 <div bind:clientHeight={maxlenisScroll} class="holder">
-	<!-- <div class="main__description"> -->
-	<!-- <div class="canvas_holder"> -->
 	<canvas bind:this={videoCanvas} class="canva" data-scroll id="hero-lightpass" />
-	<!-- </div> -->
 	<div class="hed">
-		<h1 class="header">
-			Красивые и неповторимые моменты на фото.<br />Фотосессии, которые сделают Ваши воспоминания
-			незабываемыми.
-		</h1>
+		<h1 class="header">Красивые и неповторимые моменты на фото.</h1>
+		<p class="header">Фотосессии, которые сделают Ваши воспоминания незабываемыми.</p>
 	</div>
-	<!-- </div> -->
-	<div class="main_holder">
-		<div class="about">
-			<p class="about_desc p1">
-				Приветствую Вас, Меня зовут Настя, и я профессиональный фотограф, который ценит
-				индивидуальность и уникальность каждого клиента.
-			</p>
-			<p class="about_desc p2">
-				Я работаю не просто на получение красивых фотографий, а на создание неповторимых образов,
-				которые отражают вашу индивидуальность и красоту.
-			</p>
+	<!-- <div class="main_holder"> -->
+	<div class="about">
+		<p class="about_desc p1">
+			Приветствую Вас, Меня зовут Настя, и я профессиональный фотограф, который ценит
+			индивидуальность и уникальность каждого клиента.
+		</p>
+		<p class="about_desc p2">
+			Я работаю не просто на получение красивых фотографий, а на создание неповторимых образов,
+			которые отражают вашу индивидуальность и красоту.
+		</p>
 
-			<p class="about_desc p3">
-				Я умею создавать комфортную атмосферу на съемке, которая помогает клиентам чувствовать себя
-				уверенно и расслабленно.
-			</p>
-			<p class="about_desc p4">
-				Моя цель - не просто удовлетворить ваши требования, а превзойти их, чтобы вы получили самые
-				лучшие фотографии, которые будут радовать вас на протяжении всей жизни.
-			</p>
-		</div>
+		<p class="about_desc p3">
+			Я умею создавать комфортную атмосферу на съемке, которая помогает клиентам чувствовать себя
+			уверенно и расслабленно.
+		</p>
+		<p class="about_desc p4">
+			Моя цель - не просто удовлетворить ваши требования, а превзойти их, чтобы вы получили самые
+			лучшие фотографии, которые будут радовать вас на протяжении всей жизни.
+		</p>
+	</div>
 
-		<!-- <div class="block_wedding">
-			<div class="sub_title_container">
-				<h2 class="sub_title">Свадебная</h2>
-			</div>
-			<div class="img_block1">
-				<ResPic
-					class="img1"
-					orintation={true}
-					imageH="22-07-16-16-20-35"
-					imageP="21-02-01-14-02-55"
-					size={720}
-				/>
-			</div>
-			<div class="img_block2">
-				<ResPic
-					class="img2"
-					orintation={true}
-					imageH="22-07-30-16-31-58"
-					imageP="20-07-03-17-25-34"
-					size={720}
-				/>
-			</div>
-		</div>
-		<div class="block_portait">
-			<div class="portrait portait_block1">
-				<ResPic
-					class="portrait_img"
-					orintation={true}
-					imageH="22-07-30-16-31-58"
-					imageP="20-07-03-17-25-34"
-					size={720}
-				/>
-			</div>
-			<div class="portrait portait_block2">
-				<ResPic
-					class="portrait_img"
-					orintation={true}
-					imageH="22-07-30-16-31-58"
-					imageP="20-07-03-17-25-34"
-					size={720}
-				/>
-			</div>
-			<div class="portrait portait_block3">
-				<ResPic
-					class="portrait_img"
-					orintation={true}
-					imageH="22-07-30-16-31-58"
-					imageP="20-07-03-17-25-34"
-					size={720}
-				/>
-			</div>
+	<div class="gallery_holder">
+		<div class="gallery gallery_top">
+			{#each allph1 as item}
+				<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+					<img
+						style="aspect-ratio:{+item.Aspect};"
+						class="gallery_img"
+						src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
+						alt=""
+					/>
+				</a>
+			{/each}
 			<div class="sub_title_portrait">
-				<h2 class="sub_title">Портретная</h2>
+				<h2 class="sub_title">Фотосерии</h2>
 			</div>
-		</div> -->
-
-		<div class="gallery_holder">
-			<div class="gallery gallery_top">
-				{#each allph1 as item}
-					<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
-						<img
-							style="aspect-ratio:{+item.Aspect};"
-							class="gallery_img"
-							src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
-							alt=""
-						/>
-					</a>
-				{/each}
-				<div class="sub_title_portrait">
-					<h2 class="sub_title">Фотосерии</h2>
-				</div>
-			</div>
-			<div class="gallery gallery_middle">
-				{#each allph2 as item}
-					<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
-						<img
-							style="aspect-ratio:{+item.Aspect};"
-							class="gallery_img"
-							src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
-							alt=""
-						/>
-					</a>
-				{/each}
-			</div>
-			<div class="gallery gallery_bottom">
-				{#each allph3 as item}
-					<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
-						<img
-							style="aspect-ratio:{+item.Aspect};"
-							class="gallery_img"
-							src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
-							alt=""
-						/>
-					</a>
-				{/each}
-			</div>
-			<div class="hero_holder">
-				<img class="hero" src="/hero/hero.avif" alt="" />
-				<div class="hero_desc">
-					<p class="hero_title">Профессиональное<br />оборудование.</p>
-					<p class="hero_title2">Качество в<br />мельчайших деталях.</p>
-					<div class="dummy1" />
-					<div class="dummy2" />
-				</div>
+		</div>
+		<div class="gallery gallery_middle">
+			{#each allph2 as item}
+				<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+					<img
+						style="aspect-ratio:{+item.Aspect};"
+						class="gallery_img"
+						src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
+						alt=""
+					/>
+				</a>
+			{/each}
+		</div>
+		<div class="gallery gallery_bottom">
+			{#each allph3 as item}
+				<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+					<img
+						style="aspect-ratio:{+item.Aspect};"
+						class="gallery_img"
+						src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
+						alt=""
+					/>
+				</a>
+			{/each}
+		</div>
+		<div class="hero_holder">
+			<img class="hero" src="/hero/hero.avif" alt="" />
+			<div class="hero_desc">
+				<p class="hero_title">Профессиональное<br />оборудование.</p>
+				<p class="hero_title2">Качество в<br />мельчайших деталях.</p>
+				<div class="dummy1" />
+				<div class="dummy2" />
 			</div>
 		</div>
 	</div>
-</div>
 
+	<!-- </div> -->
+</div>
 <div class="dummy" />
 
 <style>
+	:global(body) {
+		background-color: white;
+	}
 	.dummy {
 		height: 300vh;
-		background-color: tomato;
+		/* background-color: tomato; */
 	}
 	.holder {
 		height: calc(259px * 30);
-		background: #ffffff;
+		/* background: #ffffff; */
 		position: relative;
 		overflow: hidden;
 	}
@@ -441,13 +412,28 @@
 
 	.hed {
 		/* mix-blend-mode: difference; */
-		font-family: 'Roboto Mono', monospace;
-		font-size: clamp(14px, 14px + 3.5vw, 80px);
-		font-weight: 700;
-		line-height: 1.3;
+		display: grid;
+		height: 100vh;
 		position: absolute;
-		top: 30vh;
+		top: 0;
+		/* margin: -100vh; */
 		width: min(100%, 1000px);
+	}
+	.header {
+		place-self: center;
+		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+		/* font-family: 'Roboto Mono', monospace; */
+		font-size: clamp(14px, 14px + 3.5vw, 80px);
+		line-height: 1.3;
+		font-weight: 700;
+		text-align: center;
+		margin: 0;
+		text-indent: 2ch;
+		color: rgb(255, 255, 255);
+		/* background-color: #ffffff; */
+		/* background-image: linear-gradient(180deg, #ffffff, #44c1ff);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent; */
 	}
 	.main_holder {
 		position: absolute;
@@ -459,12 +445,10 @@
 	.about {
 		display: grid;
 		align-content: space-evenly;
-		/* height: 200vh; */
+		height: 300vh;
 		width: min(95%, 1500px);
 		row-gap: 30vh;
 		margin: auto;
-		/* right: 0;
-		left: 0; */
 	}
 	.about_desc {
 		font-family: 'Cormorant Infant', serif;
@@ -550,21 +534,8 @@
 		place-self: end;
 	}
 
-	.header {
-		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-		font-size: inherit;
-		line-height: inherit;
-		text-align: center;
-		margin: 0;
-		text-indent: 2ch;
-		color: rgb(255, 255, 255);
-		/* background-color: #ffffff; */
-		/* background-image: linear-gradient(180deg, #ffffff, #44c1ff);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent; */
-	}
-
 	.canva {
+		z-index: -1;
 		display: block;
 		object-position: 65%;
 		object-fit: cover;
@@ -631,13 +602,13 @@
 		opacity: 0;
 		position: absolute;
 		top: 0;
-		--heroW: min(500px, 90%);
+		/* --heroW: min(500px, 90%);
 		height: calc(var(--heroW) * 1.5);
-		width: var(--heroW);
+		width: var(--heroW); */
 		overflow: hidden;
 		width: 100%;
 		height: 100vh;
-		border-radius: 10px;
+		/* border-radius: 10px; */
 		margin: auto;
 		background-color: white;
 	}
@@ -685,11 +656,11 @@
 	.dummy1 {
 		grid-area: first;
 		background-color: white;
-		opacity: 0.2;
+		/* opacity: 0.2; */
 	}
 	.dummy2 {
 		grid-area: second;
 		background-color: white;
-		opacity: 0.2;
+		/* opacity: 0.2; */
 	}
 </style>
