@@ -18,7 +18,7 @@
 	let allph2 = allphHor.slice(12, 18);
 	let allph3 = allphVer;
 
-	console.log(allphHor, allphVer);
+	// console.log(allphHor, allphVer);
 	// import LocomotiveScroll from 'locomotive-scroll';
 	let items = 'SvobodinaPhoto';
 	let holder,
@@ -154,7 +154,7 @@
 		gsap.to('.canva', {
 			scrollTrigger: {
 				trigger: '.about',
-				scrub: 1.1,
+				scrub: 1,
 				start: '80% top',
 				end: '100% top'
 				// markers: true
@@ -190,7 +190,7 @@
 				// pinSpacing: false,
 				// refreshPriority: -1,
 				start: 'top top',
-				end: '500% bottom',
+				end: '500% top',
 				markers: true
 			}
 		});
@@ -206,7 +206,8 @@
 		tl.to(
 			'.gallery_middle',
 			{
-				xPercent: -150
+				xPercent: -150,
+				onComplete: () => console.log('ffff')
 			},
 			0
 		);
@@ -216,6 +217,14 @@
 				xPercent: 155
 			},
 			0
+		);
+		tl.to(
+			'.hero_holder',
+			{
+				opacity: 1,
+				duration: 0
+			}
+			// '-=0.21'
 		);
 
 		// ScrollTrigger.create({
@@ -233,20 +242,22 @@
 		// 	// pinSpacing: false
 		// });
 
-		gsap.to('.hero', {
-			scrollTrigger: {
-				trigger: '.hero_holder',
-				scrub: 1,
-				pin: true,
-				start: 'top top',
-				end: '350% top'
-				// markers: true
-			},
-			x: 0,
-			y: 0,
-			scale: 1,
-			ease: 'linear'
-		});
+		// gsap.to('.hero', {
+		// 	scrollTrigger: {
+		// 		trigger: '.hero_holder',
+		// 		scrub: 0.9,
+		// 		pin: true,
+		// 		start: 'top top',
+		// 		end: '250% top',
+		// 		markers: true
+		// 	},
+		// 	width: '100%',
+		// 	height: '100%',
+		// 	// scale: 0.07,
+		// 	x: 0,
+		// 	y: 0,
+		// 	ease: 'linear'
+		// });
 	});
 </script>
 
@@ -388,17 +399,26 @@
 					</a>
 				{/each}
 			</div>
-			<!-- <div class="sub_title_portrait">
-				<h2 class="sub_title">Фотосерии</h2>
-			</div> -->
+			<div class="hero_holder">
+				<img class="hero" src="/hero/hero.avif" alt="" />
+				<div class="hero_desc">
+					<p class="hero_title">Профессиональное<br />оборудование.</p>
+					<p class="hero_title2">Качество в<br />мельчайших деталях.</p>
+					<div class="dummy1" />
+					<div class="dummy2" />
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
-<div class="hero_holder">
-	<img class="hero" src="/hero/hero.avif" alt="" />
-</div>
+
+<div class="dummy" />
 
 <style>
+	.dummy {
+		height: 300vh;
+		background-color: tomato;
+	}
 	.holder {
 		height: calc(259px * 30);
 		background: #ffffff;
@@ -432,6 +452,7 @@
 	.main_holder {
 		position: absolute;
 		width: 100%;
+		height: 200vh;
 		/* overflow: hidden; */
 		top: 150vh;
 	}
@@ -528,9 +549,6 @@
 	.portait_block3 {
 		place-self: end;
 	}
-	.sub_title_container {
-		padding-right: 5vw;
-	}
 
 	.header {
 		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
@@ -610,21 +628,68 @@
 		border-radius: 15px;
 	}
 	.hero_holder {
-		--heroW: min(500px, 100%);
-		/* margin-top: -100vh; */
-		/* width: calc(100vh * 0.66); */
-		height: calc(var(--heroW) * 1, 5);
+		opacity: 0;
+		position: absolute;
+		top: 0;
+		--heroW: min(500px, 90%);
+		height: calc(var(--heroW) * 1.5);
 		width: var(--heroW);
 		overflow: hidden;
+		width: 100%;
+		height: 100vh;
+		border-radius: 10px;
+		margin: auto;
+		background-color: white;
 	}
 	.hero {
+		transform-origin: top left;
 		/* width: 5381px;
 		height: 8072px; */
-		transform: translate3d(-644px, 1276px, 0px) scale(15);
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+		transform: translate3d(-2364.12px, -2547.02px, 0px);
+
+		/* width: 100%;
+		height: 100%; */
+		object-fit: contain;
 		/* object-position: -2671px -2749px; */
 		/* object-position: center; */
+	}
+	.hero_desc {
+		grid-template-rows: 1fr 1fr;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		display: grid;
+		/* padding: 2vw; */
+		grid-template-rows: 1fr 1fr;
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			'first'
+			'second';
+	}
+	.hero_desc > p {
+		font-size: clamp(18px, 18px + 5vw, 70px);
+		color: black;
+		width: fit-content;
+		text-align: center;
+		padding: 0;
+		line-height: 1.2;
+	}
+	.hero_title2 {
+		place-self: end;
+		grid-area: second;
+	}
+	.hero_title {
+		grid-area: first;
+	}
+	.dummy1 {
+		grid-area: first;
+		background-color: white;
+		opacity: 0.2;
+	}
+	.dummy2 {
+		grid-area: second;
+		background-color: white;
+		opacity: 0.2;
 	}
 </style>
