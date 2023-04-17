@@ -131,10 +131,10 @@
 			lenis.raf(time * 1000);
 		});
 		ScrollTrigger.create({
-			trigger: '.holder',
-			pin: '.canva',
+			trigger: '.canva',
+			pin: true,
 			start: 'top top',
-			end: 'bottom top',
+			end: '+550% top',
 			pinSpacing: false
 		});
 		// gsap.to('.header', {
@@ -182,7 +182,7 @@
 				trigger: '.gallery_holder',
 				scrub: 1,
 				pin: '.gallery_holder',
-				pinSpacing: false,
+				// pinSpacing: false,
 				// refreshPriority: -1,
 				start: 'top top',
 				end: '500% top',
@@ -227,7 +227,7 @@
 			'.dummy1',
 			{
 				yPercent: -100,
-				duration: 0.3
+				duration: 0.7
 			},
 			1
 		);
@@ -235,7 +235,7 @@
 			'.dummy2',
 			{
 				yPercent: 100,
-				duration: 0.3
+				duration: 0.7
 			},
 			1
 		);
@@ -248,7 +248,7 @@
 				x: 0,
 				y: 0
 			},
-			1.3
+			1.6
 		);
 
 		// ScrollTrigger.create({
@@ -300,85 +300,88 @@
 		imageP="21-02-01-14-02-55"
 		size={720}
 	/> -->
-<div bind:clientHeight={maxlenisScroll} class="holder">
-	<canvas bind:this={videoCanvas} class="canva" data-scroll id="hero-lightpass" />
-	<div class="hed">
-		<h1 class="header">Красивые и неповторимые моменты на фото.</h1>
-		<p class="header">Фотосессии, которые сделают Ваши воспоминания незабываемыми.</p>
-	</div>
-	<!-- <div class="main_holder"> -->
-	<div class="about">
-		<p class="about_desc p1">
-			Приветствую Вас, Меня зовут Настя, и я профессиональный фотограф, который ценит
-			индивидуальность и уникальность каждого клиента.
-		</p>
-		<p class="about_desc p2">
-			Я работаю не просто на получение красивых фотографий, а на создание неповторимых образов,
-			которые отражают вашу индивидуальность и красоту.
-		</p>
+<!-- <div bind:clientHeight={maxlenisScroll} class="holder"> -->
+<canvas bind:this={videoCanvas} class="canva" data-scroll id="hero-lightpass" />
+<div class="hed">
+	<h1 class="header">Красивые и неповторимые моменты на фото.</h1>
+	<p class="header">Фотосессии, которые сделают Ваши воспоминания незабываемыми.</p>
+</div>
+<!-- <div class="main_holder"> -->
+<div class="about">
+	<p class="about_desc p1">
+		Приветствую Вас, Меня зовут Настя, и я профессиональный фотограф, который ценит индивидуальность
+		и уникальность каждого клиента.
+	</p>
+	<p class="about_desc p2">
+		Я работаю не просто на получение красивых фотографий, а на создание неповторимых образов,
+		которые отражают вашу индивидуальность и красоту.
+	</p>
 
-		<p class="about_desc p3">
-			Я умею создавать комфортную атмосферу на съемке, которая помогает клиентам чувствовать себя
-			уверенно и расслабленно.
-		</p>
-		<p class="about_desc p4">
-			Моя цель - не просто удовлетворить ваши требования, а превзойти их, чтобы вы получили самые
-			лучшие фотографии, которые будут радовать вас на протяжении всей жизни.
-		</p>
-	</div>
+	<p class="about_desc p3">
+		Я умею создавать комфортную атмосферу на съемке, которая помогает клиентам чувствовать себя
+		уверенно и расслабленно.
+	</p>
+	<p class="about_desc p4">
+		Моя цель - не просто удовлетворить ваши требования, а превзойти их, чтобы вы получили самые
+		лучшие фотографии, которые будут радовать вас на протяжении всей жизни.
+	</p>
+</div>
 
-	<div class="gallery_holder">
-		<div class="gallery gallery_top">
-			{#each allph1 as item}
-				<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
-					<img
-						style="aspect-ratio:{+item.Aspect};"
-						class="gallery_img"
-						src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
-						alt=""
-					/>
-				</a>
-			{/each}
-			<div class="sub_title_portrait">
-				<h2 class="sub_title">Фотосерии</h2>
-			</div>
-		</div>
-		<div class="gallery gallery_middle">
-			{#each allph2 as item}
-				<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
-					<img
-						style="aspect-ratio:{+item.Aspect};"
-						class="gallery_img"
-						src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
-						alt=""
-					/>
-				</a>
-			{/each}
-		</div>
-		<div class="gallery gallery_bottom">
-			{#each allph3 as item}
-				<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
-					<img
-						style="aspect-ratio:{+item.Aspect};"
-						class="gallery_img"
-						src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
-						alt=""
-					/>
-				</a>
-			{/each}
-		</div>
-		<div class="hero_holder">
-			<img class="hero" src="/hero/hero.avif" alt="" />
-			<div class="hero_desc">
-				<p class="hero_title">Профессиональное<br />оборудование.</p>
-				<p class="hero_title2">Качество в<br />мельчайших деталях.</p>
-				<div class="dummy1" />
-				<div class="dummy2" />
-			</div>
+<div class="gallery_holder">
+	<div class="gallery gallery_top">
+		{#each allph1 as item}
+			<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+				<img
+					style="aspect-ratio:{+item.Aspect};"
+					class="gallery_img"
+					src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
+					alt=""
+				/>
+			</a>
+		{/each}
+		<div class="sub_title_portrait">
+			<h2 class="sub_title">Фотосерии</h2>
 		</div>
 	</div>
+	<div class="gallery gallery_middle">
+		{#each allph2 as item}
+			<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+				<img
+					style="aspect-ratio:{+item.Aspect};"
+					class="gallery_img"
+					src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
+					alt=""
+				/>
+			</a>
+		{/each}
+	</div>
+	<div class="gallery gallery_bottom">
+		{#each allph3 as item}
+			<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+				<img
+					style="aspect-ratio:{+item.Aspect};"
+					class="gallery_img"
+					src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
+					alt=""
+				/>
+			</a>
+		{/each}
+	</div>
+	<div class="hero_holder">
+		<img class="hero" src="/hero/hero.avif" alt="" />
+		<div class="hero_desc">
+			<p class="hero_title">Профессиональное<br />оборудование.</p>
+			<p class="hero_title2">Качество в<br />мельчайших деталях.</p>
+			<div class="dummy1" />
+			<div class="dummy2" />
+		</div>
+	</div>
+</div>
 
-	<!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->
+<div class="reviews">
+	<p class="hero_title">Отзывы</p>
 </div>
 <div class="dummy" />
 
@@ -387,7 +390,7 @@
 		background-color: white;
 	}
 	.dummy {
-		height: 300vh;
+		height: 500vh;
 		/* background-color: tomato; */
 	}
 	.holder {
@@ -638,6 +641,8 @@
 			'first'
 			'second';
 	}
+
+	.reviews,
 	.hero_desc > p {
 		font-size: clamp(18px, 18px + 5vw, 70px);
 		color: black;
