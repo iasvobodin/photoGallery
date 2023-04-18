@@ -428,7 +428,7 @@
 		{/each}
 	</div>
 	<div class="hero_holder">
-		<img class="hero" src="/hero/hero.avif" alt="" />
+		<img class="hero" src="/hero/hero.webp" alt="" />
 		<div class="hero_desc">
 			<p class="hero_title">Профессиональное<br />оборудование.</p>
 			<p class="hero_title2">Качество в<br />мельчайших деталях.</p>
@@ -820,22 +820,20 @@
 		height: auto;
 		row-gap: 10vh;
 	}
-	.price_desc {
+	.price_desc,
+	.finish_desc {
 		border-left: 2px solid rgb(1, 175, 255);
-		padding-left: 1vw;
+		padding-left: 2vh;
 		color: black;
 		font-size: clamp(18px, 18px + 2vw, 36px);
-		width: min(850px, 95%);
+		width: min(850px, 100%);
 		text-indent: 2ch;
+	}
+
+	.price_desc {
 		place-self: center end;
 	}
 	.finish_desc {
-		border-left: 2px solid rgb(1, 175, 255);
-		padding-left: 1vw;
-		color: black;
-		font-size: clamp(18px, 18px + 2vw, 36px);
-		width: min(800px, 95%);
-		text-indent: 2ch;
 		place-self: center start;
 	}
 	.description3 {
