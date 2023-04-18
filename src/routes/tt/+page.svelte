@@ -4,6 +4,7 @@
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	import Lenis from '@studio-freight/lenis';
 	import ResPic from '$lib/components/resPic.svelte';
+	import Circl from '$lib/components/circl.svelte';
 	gsap.registerPlugin(ScrollTrigger);
 
 	export let data;
@@ -156,7 +157,7 @@
 			},
 			y: function (index, target, targets) {
 				//function-based value
-				return index * ((window.innerHeight - 350) / 6);
+				return index * ((window.innerHeight - window.innerHeight * 0.12 - 350) / 6);
 			}
 		});
 		// gsap.to('.header', {
@@ -273,7 +274,7 @@
 			1.6
 		);
 		tl.to(
-			['.hero_title', '.hero_title2'],
+			['.hero_title', '.hero_title2', '.hero_list_holder'],
 			{
 				opacity: 1,
 				duration: 0.1
@@ -286,15 +287,21 @@
 				trigger: '.reviews',
 				scrub: 1,
 				pin: true,
-				// snap: 1 / 7,
+				// snap: {
+				// 	snapTo: 1 / 7,
+				// 	duration: 0.001,
+				// 	delay: 0,
+				// 	ease: 'power4.in'
+				// },
 				start: 'top top',
-				end: '250% top',
+				end: '300% top',
 				markers: true
 			},
-			opacity: 1,
+			x: 0,
 			stagger: {
-				amount: 6,
-				each: 0
+				amount: 7,
+				each: 0.0001,
+				ease: 'linear'
 			},
 
 			ease: 'linear'
@@ -401,13 +408,18 @@
 	<div class="hero_holder">
 		<img class="hero" src="/hero/hero.avif" alt="" />
 		<div class="hero_desc">
-			<p class="hero_title">Качество в<br />мельчайших деталях.</p>
-			<p class="hero_title2">Профессиональное<br />оборудование.</p>
-			<!-- <ul class="hero_list">
-				<li class="price__body">Запасная камера</li>
-				<li class="price__body">Съемка на две флешкарты</li>
-				<li class="price__body">Резервная копия исходников</li>
-			</ul> -->
+			<p class="hero_title">Профессиональное<br />оборудование.</p>
+			<p class="hero_title2">Качество в<br />мельчайших деталях.</p>
+
+			<div class="hero_list_holder">
+				<q class="hero_list">
+					Я уверена, что лучшая фотосессия - это та, которая проходит гладко и без сбоев. Именно
+					поэтому я всегда имею при себе резервный комплект оборудования, чтобы независимо от того,
+					что произойдет, я смогу сохранить всё что нафоткано непосильным трудом. Вы можете быть
+					уверены, что я всегда буду готова к любым условиям!
+				</q>
+			</div>
+
 			<div class="dummy1" />
 			<div class="dummy2" />
 		</div>
@@ -431,6 +443,7 @@
 			</div>
 		</div>
 	{/each}
+	<a data-sveltekit-reload href="/reviews" class="reviews_link">Все отзывы</a>
 </div>
 <div class="dummy" />
 
@@ -671,13 +684,31 @@
 		transform-origin: 0px 0px;
 		/* width: 5381px;
 		height: 8072px; */
-		transform: translate3d(-2364.12px, -2547.02px, 0px);
+		transform: translate3d(-2050px, -2547.02px, 0px);
 
 		/* width: 100%;
 		height: 100%; */
 		object-fit: cover;
 		/* object-position: -2671px -2749px; */
 		object-position: center;
+	}
+	.hero_list_holder {
+		opacity: 0;
+		grid-area: 1/1/3/2;
+		align-self: center;
+		justify-self: end;
+		width: min(1000px, 100%);
+	}
+	.hero_list {
+		font-size: clamp(16px, 14px + 1.5vw, 24px);
+		color: rgb(0, 0, 0);
+		text-indent: 2ch;
+		margin: auto;
+		width: min(400px, 95%);
+		display: block;
+		border-radius: 10px;
+		/* border: 1px solid rgb(0, 140, 255); */
+		padding: 10px;
 	}
 	.hero_desc {
 		grid-template-rows: 1fr 1fr;
@@ -695,11 +726,7 @@
 			'first'
 			'second';
 	}
-	.hero_list {
-		grid-area: 1/1/3/2;
-		align-self: center;
-		justify-self: end;
-	}
+
 	.reviews,
 	.hero_desc > p {
 		font-size: clamp(16px, 16px + 4vw, 50px);
@@ -713,13 +740,13 @@
 	.hero_title2 {
 		opacity: 0;
 		width: min(1000px, 100%);
-		place-self: center end;
+		place-self: end end;
 		grid-area: second;
 	}
 	.hero_title {
 		opacity: 0;
 		width: min(1000px, 100%);
-		align-self: center;
+		align-self: start;
 		justify-self: end;
 		grid-area: first;
 	}
@@ -736,14 +763,35 @@
 	.reviews {
 		position: relative;
 		height: 100vh;
+		margin-top: 20vh;
+		padding-top: 6vh;
+		padding-bottom: 6vh;
 	}
 	.reviews_title {
 		position: absolute;
 		top: 0;
-		width: 100%;
-		text-align: right;
+		right: 0;
+		font-size: clamp(22px, 14px + 7vw, 70px);
+		margin: 0;
+		width: min(800px, 95%);
+		text-align: center;
+	}
+	.reviews_link {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		font-size: 3vh;
+		text-decoration: none;
+		padding-bottom: 2vh;
+		margin: 0;
+		width: min(800px, 95%);
+		text-align: center;
+	}
+	.reviews_link:hover {
+		color: purple;
 	}
 	.review_holder {
+		overflow: hidden;
 		position: absolute;
 		height: 350px;
 		width: min(600px, 95%);
@@ -752,8 +800,9 @@
 		/* height: var(--card__height); */
 		width: 100%;
 		height: 100%;
-		opacity: 0;
+		/* opacity: 0; */
 		/* box-shadow: -3rem 0 3rem -2rem #000; */
+		transform: translateX(100%);
 		border-radius: 5px;
 		display: grid;
 		grid-template-columns: minmax(30px, 200px) minmax(250px, 120ch);
@@ -826,11 +875,20 @@
 		font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
 			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
 			Segoe UI Symbol;
-		font-size: clamp(12px, calc(0.7rem + 0.25vw), 24px);
-		line-height: clamp(18px, calc(1.2rem + 0.35vw), 32px);
+		font-size: clamp(16px, calc(0.7rem + 0.25vw), 24px);
+		line-height: 1.2;
 		font-weight: 150;
 		color: rgb(0, 0, 0);
 		white-space: pre-wrap;
+	}
+
+	@media (orientation: portrait) {
+		.hero {
+			transform: translate3d(-2960.19px, -2635.27px, 0px);
+		}
+		.hero_list_holder {
+			display: none;
+		}
 	}
 	@media (max-width: 1200px) {
 		.ava {
