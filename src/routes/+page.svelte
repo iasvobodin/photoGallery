@@ -233,17 +233,20 @@
 		tl.to(
 			'.gallery_middle',
 			{
-				xPercent: -150,
-				duration: 1.5
-				// onComplete: () => console.log('ffff')
+				xPercent: -100,
+				x: 0,
+				duration: 1.5,
+				onComplete: () => console.log('midle')
 			},
 			0
 		);
 		tl.to(
 			['.gallery_top', '.gallery_bottom'],
 			{
-				xPercent: 155,
-				duration: 1.5
+				xPercent: 0,
+				x: '100vw',
+				duration: 1.5,
+				onComplete: () => console.log('tb')
 			},
 			0
 		);
@@ -253,34 +256,38 @@
 				opacity: 1,
 				duration: 0
 			},
-			window.innerWidth < 600 ? 0.7 : 1
+			1.5
+			// window.innerWidth < 600 ? 0.7 : 1.5
 		);
 		tl.to(
 			'.dummy1',
 			{
 				yPercent: -100,
-				duration: 0.7
+				duration: 0.5
 			},
-			window.innerWidth < 600 ? 0.7 : 1
+			1.5
+			// window.innerWidth < 600 ? 0.7 : 1.5
 		);
 		tl.to(
 			'.dummy2',
 			{
 				yPercent: 100,
-				duration: 0.7
+				duration: 0.5
 			},
-			window.innerWidth < 600 ? 0.7 : 1
+			1.5
+			// window.innerWidth < 600 ? 0.7 : 1.5
 		);
 		tl.to(
 			'.hero',
 			{
 				// width: '100%',
 				// height: '100%',
+				duration: 1,
 				scale: scaleCoef,
 				x: 0,
 				y: 0
 			},
-			1.6
+			2
 		);
 		tl.to(
 			['.hero_title', '.hero_title2', '.hero_list_holder'],
@@ -288,7 +295,7 @@
 				opacity: 1,
 				duration: 0.2
 			},
-			1.8
+			2.8
 		);
 
 		gsap.to('.review', {
@@ -581,6 +588,7 @@
 	}
 	.gallery_middle {
 		height: 50vh;
+		/* transform: translateX(100%); */
 		transform: translateX(75vw);
 	}
 	.gallery_img {
