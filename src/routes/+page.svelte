@@ -351,6 +351,7 @@
 		href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400&family=Cormorant+Infant&display=swap"
 		rel="stylesheet"
 	/>
+	<title>Главная</title>
 </svelte:head>
 <!-- <svelte:window bind:scrollY={y} on:scroll={checkScroll} /> -->
 <!-- <ResPic
@@ -395,7 +396,7 @@
 					style="aspect-ratio:{+item.Aspect};"
 					class="gallery_img"
 					src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
-					alt=""
+					alt={item.Title}
 				/>
 			</a>
 		{/each}
@@ -410,7 +411,7 @@
 					style="aspect-ratio:{+item.Aspect};"
 					class="gallery_img"
 					src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
-					alt=""
+					alt={item.Title}
 				/>
 			</a>
 		{/each}
@@ -422,7 +423,7 @@
 					style="aspect-ratio:{+item.Aspect};"
 					class="gallery_img"
 					src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
-					alt=""
+					alt={item.Title}
 				/>
 			</a>
 		{/each}
@@ -462,7 +463,7 @@
 					<img src="/img/rev/{review.id}.jpg" alt="ava" />
 				</div>
 				<div class="review__decription">
-					<h5 class="review__name">{review.name}</h5>
+					<p class="review__name">{review.name}</p>
 					<p class="review__body">{review.body}</p>
 				</div>
 			</div>
@@ -543,7 +544,7 @@
 		margin: 0;
 		width: min(800px, 95%);
 		border-radius: 30px;
-		background-color: #0000004f;
+		background-color: #00000080;
 		padding: max(2vw, 30px);
 		align-self: center;
 		text-indent: 2ch;
