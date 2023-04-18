@@ -332,7 +332,7 @@
 		--clipPath: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
 		position: relative;
 		-webkit-text-stroke: 1px rgb(255, 255, 255);
-		color: transparent;
+		color: white;
 		text-rendering: optimizeLegibility;
 		-webkit-font-smoothing: antialiased;
 		height: var(--font-size-main);

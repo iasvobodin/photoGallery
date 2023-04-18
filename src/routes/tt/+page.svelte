@@ -1,5 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	import Lenis from '@studio-freight/lenis';
@@ -17,7 +17,14 @@
 
 	let allph1 = allphHor.slice(0, 12);
 	let allph2 = allphHor.slice(12, 18);
-	let allph3 = allphVer;
+	let allph3 = allphVer,
+		social = ['instagram.com/svobodinaphoto', 'vk.com/svobodinaphoto', 't.me/svobodinaphoto'],
+		link = [
+			'https://www.instagram.com/svobodinaphoto/',
+			'https://vk.com/svobodinaphoto',
+			'https://t.me/svobodinaphoto'
+		],
+		count = 1;
 
 	// console.log(allphHor, allphVer);
 	// import LocomotiveScroll from 'locomotive-scroll';
@@ -42,7 +49,7 @@
 			images[i].src = currentFrame(i + 1);
 		}
 	};
-
+	let intervalId;
 	onMount(() => {
 		const scaleCoef =
 			window.innerWidth / window.innerHeight > 1
@@ -320,7 +327,13 @@
 		// 	end: '+100% top'
 		// 	// pinSpacing: false
 		// });
+		let i = 3;
+		intervalId = setInterval(() => {
+			i++;
+			count = i % 3;
+		}, 2500);
 	});
+	onDestroy(() => clearInterval(intervalId));
 </script>
 
 <svelte:head>
@@ -429,7 +442,10 @@
 <!-- </div> -->
 <!-- </div> -->
 <div class="reviews">
-	<p class="reviews_title">Отзывы</p>
+	<!-- <p class="reviews_title" class="reviews_title">Отзывы</p> -->
+	<a data-sveltekit-reload href="/reviews" class=" reviews_title"
+		><p class=" reviews_title">Отзывы</p></a
+	>
 	{#each reviewsSlice as review}
 		<div class="review_holder">
 			<div class="review">
@@ -443,22 +459,26 @@
 			</div>
 		</div>
 	{/each}
-	<a data-sveltekit-reload href="/reviews" class="reviews_link">Все отзывы</a>
+	<a data-sveltekit-reload href="/reviews" class="reviews_link">Больше отзывов</a>
 </div>
 <div class="price">
-	<p class="about_desc">
+	<p class="price_desc">
 		Я понимаю, что каждый клиент имеет свои уникальные потребности и пожелания, поэтому я готова
 		подбирать цену на услуги индивидуально для каждого. Вместе мы можем определить, какие услуги
-		будут вам необходимы и какой бюджет будет наиболее подходящим для вас. Подробнее в разделе <a
-			data-sveltekit-reload
-			href="/price">цены</a
-		>
+		будут вам необходимы и какой бюджет будет наиболее подходящим для вас. <br /> Подробнее в
+		разделе <a data-sveltekit-reload href="/price">цены</a>
 	</p>
-	<p class="about_desc">
+	<p class="finish_desc">
 		Я буду рада стать вашим фотографом и помочь вам запечатлеть ваши самые яркие моменты жизни в
 		красивых и незабываемых фотографиях. Свяжитесь со мной, чтобы обсудить детали вашей будущей
 		фотосессии и дайте мне возможность помочь вам сохранить ваши эмоции и чувства на долгие годы.
 	</p>
+</div>
+<div class="contact">
+	<!-- <h2 class="description date">Контакты</h2> -->
+	<a class="description3" href={link[count]} rel="noreferrer" target="_blank">
+		<p>{social[count]}</p>
+	</a>
 </div>
 
 <!-- <div class="dummy" /> -->
@@ -470,29 +490,6 @@
 		display: inline;
 		text-decoration: none;
 		color: purple;
-	}
-	.dummy {
-		height: 500vh;
-		/* background-color: tomato; */
-	}
-	.holder {
-		height: calc(259px * 30);
-		/* background: #ffffff; */
-		position: relative;
-		overflow: hidden;
-	}
-	.canvas_holder {
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-	}
-	.main__description {
-		width: 100%;
-		/* height: 100vh; */
-		/* top: 0px; */
-		/* position: sticky; */
-		/* grid-template-rows: 1fr 1fr 2fr 4fr 2.66fr 5.33fr 5.33fr 4.33fr 2.83fr 3.5fr 3.5fr 2.83fr 4.33fr 5.33fr 5.33fr 2.66fr 4fr 2fr 1fr 1fr; */
-		/* grid-template-columns: 1fr 1fr 2fr 4fr 2.66fr 5.33fr 5.33fr 4.33fr 2.83fr 3.5fr 3.5fr 2.83fr 4.33fr 5.33fr 5.33fr 2.66fr 4fr 2fr 1fr 1fr; */
 	}
 
 	.hed {
@@ -520,13 +517,7 @@
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent; */
 	}
-	.main_holder {
-		position: absolute;
-		width: 100%;
-		height: 200vh;
-		/* overflow: hidden; */
-		top: 150vh;
-	}
+
 	.about {
 		display: grid;
 		align-content: space-evenly;
@@ -550,73 +541,6 @@
 	}
 	.about_desc:nth-child(odd) {
 		justify-self: end;
-	}
-	.block_wedding {
-		/* position: sticky; */
-		/* top: 0; */
-		/* height: 300vh; */
-		margin-top: 50vh;
-		/* position: relative; */
-	}
-	.img_block1,
-	.img_block2 {
-		height: 100vh;
-		width: 100%;
-		display: grid;
-	}
-
-	.img_block2 {
-		/* padding-right: 2vw; */
-	}
-
-	.img_block1 :global(.img1) {
-		place-self: center;
-		grid-area: 1/1/2/2;
-		width: 50vw;
-		height: 50vh;
-		border-radius: 20px;
-		overflow: hidden;
-	}
-
-	.img_block2 :global(.img2) {
-		place-self: end;
-		grid-area: 1/1/2/2;
-		width: 50vw;
-		height: 50vh;
-		border-radius: 20px;
-		overflow: hidden;
-	}
-	.block_portait {
-		margin-top: -100vh;
-		transform: translateX(100%);
-		background-color: white;
-		height: 100vh;
-		width: 100%;
-		display: grid;
-		border: 1px solid green;
-	}
-	.portrait :global(.portrait_img) {
-		grid-area: 1/1/2/2;
-		display: block;
-		width: 50vw;
-		height: 50vh;
-		border-radius: 20px;
-		overflow: hidden;
-	}
-	.portrait {
-		grid-area: 1/1/2/2;
-		width: 50vw;
-		height: 50vh;
-	}
-
-	.portait_block1 {
-		place-self: start;
-	}
-	.portait_block2 {
-		place-self: center;
-	}
-	.portait_block3 {
-		place-self: end;
 	}
 
 	.canva {
@@ -678,11 +602,7 @@
 		line-height: 23vh;
 		/* font-size: clamp(20px, 20px + 10vw, 80px); */
 	}
-	a {
-		display: block;
-		overflow: hidden;
-		border-radius: 15px;
-	}
+
 	.hero_holder {
 		/* z-index: -2; */
 		opacity: 0;
@@ -723,10 +643,11 @@
 		font-size: clamp(16px, 14px + 1.5vw, 24px);
 		color: rgb(0, 0, 0);
 		text-indent: 2ch;
+		border-left: 2px solid rgb(1, 175, 255);
 		margin: auto;
 		width: min(400px, 95%);
 		display: block;
-		border-radius: 10px;
+		/* border-radius: 0 10px 0 10px; */
 		/* border: 1px solid rgb(0, 140, 255); */
 		padding: 10px;
 	}
@@ -795,8 +716,10 @@
 		margin: 0;
 		width: min(800px, 95%);
 		text-align: center;
+		text-decoration: none;
 	}
 	.reviews_link {
+		display: none;
 		position: absolute;
 		bottom: 0;
 		left: 0;
@@ -807,8 +730,13 @@
 		width: min(800px, 95%);
 		text-align: center;
 	}
-	.reviews_link:hover {
+	.reviews_title:hover {
 		color: purple;
+	}
+	.gallery > a {
+		display: block;
+		overflow: hidden;
+		border-radius: 10px;
 	}
 	.review_holder {
 		overflow: hidden;
@@ -859,13 +787,7 @@
 		object-fit: contain;
 		object-position: top;
 	}
-	/* .arrow {
-		align-self: end;
-		justify-self: end;
-		margin-right: 2%;
-		margin-bottom: 2%;
-		width: 25px;
-	} */
+
 	.review__body {
 		place-self: stretch;
 		margin: 0;
@@ -879,7 +801,46 @@
 		color: rgb(0, 0, 0);
 		white-space: pre-wrap;
 	}
-
+	.price {
+		display: grid;
+		width: min(1200px, 95%);
+		margin: auto;
+		margin-top: 15vh;
+		height: auto;
+		row-gap: 10vh;
+	}
+	.price_desc {
+		border-left: 2px solid rgb(1, 175, 255);
+		padding-left: 1vw;
+		color: black;
+		font-size: clamp(18px, 18px + 2vw, 36px);
+		width: min(850px, 95%);
+		text-indent: 2ch;
+		place-self: center end;
+	}
+	.finish_desc {
+		border-left: 2px solid rgb(1, 175, 255);
+		padding-left: 1vw;
+		color: black;
+		font-size: clamp(18px, 18px + 2vw, 36px);
+		width: min(800px, 95%);
+		text-indent: 2ch;
+		place-self: center start;
+	}
+	.description3 {
+		color: black;
+		text-decoration: none;
+		width: 100%;
+		text-align: right;
+		font-size: max(28px, 5vw);
+		margin: 0;
+	}
+	.description3:hover {
+		color: purple;
+	}
+	.description3 > p {
+		padding-bottom: 20px;
+	}
 	@media (orientation: portrait) {
 		.hero {
 			transform: translate3d(-2960.19px, -2635.27px, 0px);
@@ -893,6 +854,9 @@
 		.review {
 			/* height: auto; */
 			grid-template-columns: minmax(250px, 120ch);
+		}
+		.reviews_link {
+			display: block;
 		}
 	}
 </style>
