@@ -445,11 +445,31 @@
 	{/each}
 	<a data-sveltekit-reload href="/reviews" class="reviews_link">Все отзывы</a>
 </div>
-<div class="dummy" />
+<div class="price">
+	<p class="about_desc">
+		Я понимаю, что каждый клиент имеет свои уникальные потребности и пожелания, поэтому я готова
+		подбирать цену на услуги индивидуально для каждого. Вместе мы можем определить, какие услуги
+		будут вам необходимы и какой бюджет будет наиболее подходящим для вас. Подробнее в разделе <a
+			data-sveltekit-reload
+			href="/price">цены</a
+		>
+	</p>
+	<p class="about_desc">
+		Я буду рада стать вашим фотографом и помочь вам запечатлеть ваши самые яркие моменты жизни в
+		красивых и незабываемых фотографиях. Свяжитесь со мной, чтобы обсудить детали вашей будущей
+		фотосессии и дайте мне возможность помочь вам сохранить ваши эмоции и чувства на долгие годы.
+	</p>
+</div>
 
+<!-- <div class="dummy" /> -->
 <style>
 	:global(body) {
 		background-color: white;
+	}
+	.price > p > a {
+		display: inline;
+		text-decoration: none;
+		color: purple;
 	}
 	.dummy {
 		height: 500vh;
@@ -531,73 +551,6 @@
 	.about_desc:nth-child(odd) {
 		justify-self: end;
 	}
-	.block_wedding {
-		/* position: sticky; */
-		/* top: 0; */
-		/* height: 300vh; */
-		margin-top: 50vh;
-		/* position: relative; */
-	}
-	.img_block1,
-	.img_block2 {
-		height: 100vh;
-		width: 100%;
-		display: grid;
-	}
-
-	.img_block2 {
-		/* padding-right: 2vw; */
-	}
-
-	.img_block1 :global(.img1) {
-		place-self: center;
-		grid-area: 1/1/2/2;
-		width: 50vw;
-		height: 50vh;
-		border-radius: 20px;
-		overflow: hidden;
-	}
-
-	.img_block2 :global(.img2) {
-		place-self: end;
-		grid-area: 1/1/2/2;
-		width: 50vw;
-		height: 50vh;
-		border-radius: 20px;
-		overflow: hidden;
-	}
-	.block_portait {
-		margin-top: -100vh;
-		transform: translateX(100%);
-		background-color: white;
-		height: 100vh;
-		width: 100%;
-		display: grid;
-		border: 1px solid green;
-	}
-	.portrait :global(.portrait_img) {
-		grid-area: 1/1/2/2;
-		display: block;
-		width: 50vw;
-		height: 50vh;
-		border-radius: 20px;
-		overflow: hidden;
-	}
-	.portrait {
-		grid-area: 1/1/2/2;
-		width: 50vw;
-		height: 50vh;
-	}
-
-	.portait_block1 {
-		place-self: start;
-	}
-	.portait_block2 {
-		place-self: center;
-	}
-	.portait_block3 {
-		place-self: end;
-	}
 
 	.canva {
 		z-index: -1;
@@ -608,10 +561,7 @@
 		height: 100vh;
 		margin: auto;
 	}
-	.block3 {
-		height: 200vh;
-		background-color: #000000;
-	}
+
 	.gallery_holder {
 		position: relative;
 		overflow: hidden;
@@ -658,11 +608,7 @@
 		line-height: 23vh;
 		/* font-size: clamp(20px, 20px + 10vw, 80px); */
 	}
-	a {
-		display: block;
-		overflow: hidden;
-		border-radius: 15px;
-	}
+
 	.hero_holder {
 		/* z-index: -2; */
 		opacity: 0;
@@ -797,29 +743,13 @@
 		width: min(600px, 95%);
 	}
 	.review {
-		/* height: var(--card__height); */
 		width: 100%;
 		height: 100%;
-		/* opacity: 0; */
-		/* box-shadow: -3rem 0 3rem -2rem #000; */
-		transform: translateX(100%);
+		transform: translateX(101%);
 		border-radius: 5px;
 		display: grid;
 		grid-template-columns: minmax(30px, 200px) minmax(250px, 120ch);
 	}
-	/* <stop offset="0" stop-color="#57ebdb" />
-        <stop offset="1" stop-color="#403ddb" /> */
-	/* .review__body:before {
-		content: '';
-		z-index: -1;
-		border-radius: 5px;
-		background: linear-gradient(120deg, #57ebdb, #403ddb 41.07%, #070047 76.05%);
-		position: absolute;
-		top: -2px;
-		left: -2px;
-		width: calc(100% + 4px);
-		height: calc(100% + 4px);
-	} */
 	.review__decription {
 		-webkit-backdrop-filter: blur(5px);
 		backdrop-filter: blur(5px);
@@ -830,8 +760,6 @@
 		border: 1px solid rgb(1, 175, 255);
 	}
 	.review__name {
-		/* white-space: pre-wrap; */
-		/* grid-area: 1/1; */
 		align-self: start;
 		justify-self: center;
 		font-family: Cormorant Infant;
@@ -845,10 +773,6 @@
 	}
 
 	.ava {
-		/* box-shadow: 5px 5px 5px 0px #292929; */
-		/* filter: grayscale(100%); */
-		/* grid-area: 1/1; */
-		/* align-self: start; */
 		place-self: center;
 		overflow: hidden;
 		border-radius: 5px 5px 5px 5px;
@@ -861,13 +785,6 @@
 		object-fit: contain;
 		object-position: top;
 	}
-	/* .arrow {
-		align-self: end;
-		justify-self: end;
-		margin-right: 2%;
-		margin-bottom: 2%;
-		width: 25px;
-	} */
 	.review__body {
 		place-self: stretch;
 		margin: 0;
@@ -889,17 +806,8 @@
 		.hero_list_holder {
 			display: none;
 		}
-	}
-	@media (max-width: 1200px) {
 		.ava {
 			display: none;
-		}
-		.review {
-			/* height: auto; */
-			grid-template-columns: minmax(250px, 120ch);
-		}
-		.review__decription {
-			/* height: auto; */
 		}
 	}
 </style>
