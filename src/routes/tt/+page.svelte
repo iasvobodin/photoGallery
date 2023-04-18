@@ -244,7 +244,7 @@
 				opacity: 1,
 				duration: 0
 			},
-			1
+			window.innerWidth < 600 ? 0.7 : 1
 		);
 		tl.to(
 			'.dummy1',
@@ -252,7 +252,7 @@
 				yPercent: -100,
 				duration: 0.7
 			},
-			1
+			window.innerWidth < 600 ? 0.7 : 1
 		);
 		tl.to(
 			'.dummy2',
@@ -260,7 +260,7 @@
 				yPercent: 100,
 				duration: 0.7
 			},
-			1
+			window.innerWidth < 600 ? 0.7 : 1
 		);
 		tl.to(
 			'.hero',
@@ -277,7 +277,7 @@
 			['.hero_title', '.hero_title2', '.hero_list_holder'],
 			{
 				opacity: 1,
-				duration: 0.1
+				duration: 0.2
 			},
 			1.8
 		);
