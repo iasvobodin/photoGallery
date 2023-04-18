@@ -208,8 +208,8 @@
 				// pinSpacing: false,
 				// refreshPriority: -1,
 				start: 'top top',
-				end: '500% top',
-				markers: true
+				end: '500% top'
+				// markers: true
 			}
 		});
 
@@ -294,8 +294,8 @@
 				// 	ease: 'power4.in'
 				// },
 				start: 'top top',
-				end: '300% top',
-				markers: true
+				end: '300% top'
+				// markers: true
 			},
 			x: 0,
 			stagger: {
