@@ -1,4 +1,5 @@
 import type { PageServerLoad } from './$types';
+import reviews from "$lib/db/reviews.json";
 import { photos } from '$lib/db/data.js'
 export const prerender = true;
 
@@ -32,6 +33,6 @@ export const load = (() => {
         }
     })
 
-    return { allph }
+    return { allph, reviews }
 
 }) satisfies PageServerLoad;

@@ -9,6 +9,7 @@
 	export let data;
 
 	let allph = data.allph;
+	let reviewsSlice = data.reviews.slice(data.reviews.length - 7, data.reviews.length);
 
 	let allphHor = allph.filter((e) => e.Aspect > 1);
 	let allphVer = allph.filter((e) => e.Aspect < 1);
@@ -42,6 +43,12 @@
 	};
 
 	onMount(() => {
+		const scaleCoef =
+			window.innerWidth / window.innerHeight > 1
+				? 1 / (8072 / window.innerHeight)
+				: 1 / (5381 / window.innerWidth);
+		// const scaleCoef = 1 / (8072 / aspect);
+		// console.log(1 / scaleCoef, 'scaleCoef');
 		const lenis = new Lenis({
 			lerp: 0.08
 		});
@@ -202,8 +209,8 @@
 			'.gallery_middle',
 			{
 				xPercent: -150,
-				duration: 1.5,
-				onComplete: () => console.log('ffff')
+				duration: 1.5
+				// onComplete: () => console.log('ffff')
 			},
 			0
 		);
@@ -242,13 +249,21 @@
 		tl.to(
 			'.hero',
 			{
-				width: '100%',
-				height: '100%',
-				// scale: 0.07,
+				// width: '100%',
+				// height: '100%',
+				scale: scaleCoef,
 				x: 0,
 				y: 0
 			},
 			1.6
+		);
+		tl.to(
+			['.hero_title', '.hero_title2'],
+			{
+				opacity: 1,
+				duration: 0.1
+			},
+			1.8
 		);
 
 		// ScrollTrigger.create({
@@ -370,8 +385,13 @@
 	<div class="hero_holder">
 		<img class="hero" src="/hero/hero.avif" alt="" />
 		<div class="hero_desc">
-			<p class="hero_title">Профессиональное<br />оборудование.</p>
-			<p class="hero_title2">Качество в<br />мельчайших деталях.</p>
+			<p class="hero_title">Качество в<br />мельчайших деталях.</p>
+			<p class="hero_title2">Профессиональное<br />оборудование.</p>
+			<!-- <ul class="hero_list">
+				<li class="price__body">Запасная камера</li>
+				<li class="price__body">Съемка на две флешкарты</li>
+				<li class="price__body">Резервная копия исходников</li>
+			</ul> -->
 			<div class="dummy1" />
 			<div class="dummy2" />
 		</div>
@@ -382,6 +402,19 @@
 <!-- </div> -->
 <div class="reviews">
 	<p class="hero_title">Отзывы</p>
+	{#each reviewsSlice as review}
+		<div class="review_holder">
+			<div class="review">
+				<div class="ava">
+					<img src="/img/rev/{review.id}.jpg" alt="ava" />
+				</div>
+				<div class="review__decription">
+					<h5 class="review__name">{review.name}</h5>
+					<p class="review__body">{review.body}</p>
+				</div>
+			</div>
+		</div>
+	{/each}
 </div>
 <div class="dummy" />
 
@@ -450,12 +483,12 @@
 		align-content: space-evenly;
 		height: 300vh;
 		width: min(95%, 1500px);
-		row-gap: 30vh;
+		row-gap: 20vw;
 		margin: auto;
 	}
 	.about_desc {
 		font-family: 'Cormorant Infant', serif;
-		font-size: clamp(18px, 18px + 3vw, 36px);
+		font-size: clamp(18px, 14px + 3vw, 36px);
 		line-height: 1.25;
 		margin: 0;
 		width: min(800px, 95%);
@@ -602,9 +635,11 @@
 		border-radius: 15px;
 	}
 	.hero_holder {
+		/* z-index: -2; */
 		opacity: 0;
 		position: absolute;
 		top: 0;
+		pointer-events: none;
 		/* --heroW: min(500px, 90%);
 		height: calc(var(--heroW) * 1.5);
 		width: var(--heroW); */
@@ -616,16 +651,17 @@
 		background-color: white;
 	}
 	.hero {
-		transform-origin: top left;
+		pointer-events: none;
+		transform-origin: 0px 0px;
 		/* width: 5381px;
 		height: 8072px; */
 		transform: translate3d(-2364.12px, -2547.02px, 0px);
 
 		/* width: 100%;
 		height: 100%; */
-		object-fit: contain;
+		object-fit: cover;
 		/* object-position: -2671px -2749px; */
-		/* object-position: center; */
+		object-position: center;
 	}
 	.hero_desc {
 		grid-template-rows: 1fr 1fr;
@@ -634,6 +670,8 @@
 		height: 100%;
 		position: absolute;
 		display: grid;
+
+		pointer-events: none;
 		/* padding: 2vw; */
 		grid-template-rows: 1fr 1fr;
 		grid-template-columns: 1fr;
@@ -641,21 +679,32 @@
 			'first'
 			'second';
 	}
-
+	.hero_list {
+		grid-area: 1/1/3/2;
+		align-self: center;
+		justify-self: end;
+	}
 	.reviews,
 	.hero_desc > p {
-		font-size: clamp(18px, 18px + 5vw, 70px);
+		font-size: clamp(16px, 16px + 4vw, 50px);
 		color: black;
-		width: fit-content;
+		/* width: fit-content; */
 		text-align: center;
 		padding: 0;
 		line-height: 1.2;
+		/* margin: 0; */
 	}
 	.hero_title2 {
-		place-self: end;
+		opacity: 0;
+		width: min(600px, 95%);
+		place-self: center end;
 		grid-area: second;
 	}
 	.hero_title {
+		opacity: 0;
+		width: min(600px, 95%);
+		align-self: center;
+		justify-self: end;
 		grid-area: first;
 	}
 	.dummy1 {
@@ -667,5 +716,105 @@
 		grid-area: second;
 		background-color: white;
 		/* opacity: 0.2; */
+	}
+	.reviews {
+		position: relative;
+	}
+	.review_holder {
+		position: absolute;
+		height: 400px;
+		width: min(600px, 95%);
+	}
+	.review {
+		/* height: var(--card__height); */
+		width: 100%;
+		height: 100%;
+		box-shadow: -3rem 0 3rem -2rem #000;
+		border-radius: 5px;
+		display: grid;
+		grid-template-columns: minmax(30px, 200px) minmax(250px, 120ch);
+	}
+	/* <stop offset="0" stop-color="#57ebdb" />
+        <stop offset="1" stop-color="#403ddb" /> */
+	.review__body:before {
+		content: '';
+		z-index: -1;
+		border-radius: 5px;
+		background: linear-gradient(120deg, #57ebdb, #403ddb 41.07%, #070047 76.05%);
+		position: absolute;
+		top: -2px;
+		left: -2px;
+		width: calc(100% + 4px);
+		height: calc(100% + 4px);
+	}
+	.review__decription {
+		position: relative;
+		background: black;
+		border-radius: 5px;
+		display: grid;
+	}
+	.review__name {
+		/* white-space: pre-wrap; */
+		/* grid-area: 1/1; */
+		align-self: start;
+		justify-self: center;
+		font-family: Cormorant Infant;
+		padding: 5px;
+		margin: 0;
+		text-align: center;
+		font-size: calc(20px + 1vw);
+		line-height: calc(20px + 1.2vw);
+		font-weight: 300;
+		color: #ffffff;
+	}
+
+	.ava {
+		/* box-shadow: 5px 5px 5px 0px #292929; */
+		/* filter: grayscale(100%); */
+		/* grid-area: 1/1; */
+		/* align-self: start; */
+		place-self: center;
+		overflow: hidden;
+		border-radius: 5px 5px 5px 5px;
+		width: min(150px, 100%);
+		height: min(300px, 100%);
+	}
+	.ava > img {
+		height: 100%;
+		width: 100%;
+		object-fit: contain;
+		object-position: top;
+	}
+	/* .arrow {
+		align-self: end;
+		justify-self: end;
+		margin-right: 2%;
+		margin-bottom: 2%;
+		width: 25px;
+	} */
+	.review__body {
+		place-self: stretch;
+		margin: 0;
+		padding: 1vw;
+		font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
+			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+			Segoe UI Symbol;
+		font-size: clamp(12px, calc(0.7rem + 0.25vw), 24px);
+		line-height: clamp(18px, calc(1.2rem + 0.35vw), 32px);
+		font-weight: 150;
+		color: white;
+		white-space: pre-wrap;
+	}
+	@media (max-width: 1200px) {
+		.ava {
+			display: none;
+		}
+		.review {
+			height: auto;
+			grid-template-columns: minmax(250px, 120ch);
+		}
+		.review__decription {
+			height: auto;
+		}
 	}
 </style>
