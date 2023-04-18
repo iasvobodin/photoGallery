@@ -506,6 +506,7 @@
 	.header {
 		place-self: center;
 		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+
 		/* font-family: 'Roboto Mono', monospace; */
 		font-size: clamp(14px, 14px + 3.5vw, 80px);
 		line-height: 1.3;
@@ -860,5 +861,11 @@
 		.reviews_link {
 			display: block;
 		}
+		.header {
+			padding: 9vw;
+		}
+	}
+	h1 {
+		margin: 0;
 	}
 </style>

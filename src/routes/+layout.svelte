@@ -251,6 +251,7 @@
 		text-align: end;
 		padding: 0;
 		padding-right: 2ch;
+		margin: 0;
 	}
 	.menu__title__ver {
 		position: absolute;
