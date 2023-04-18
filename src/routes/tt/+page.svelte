@@ -551,6 +551,73 @@
 	.about_desc:nth-child(odd) {
 		justify-self: end;
 	}
+	.block_wedding {
+		/* position: sticky; */
+		/* top: 0; */
+		/* height: 300vh; */
+		margin-top: 50vh;
+		/* position: relative; */
+	}
+	.img_block1,
+	.img_block2 {
+		height: 100vh;
+		width: 100%;
+		display: grid;
+	}
+
+	.img_block2 {
+		/* padding-right: 2vw; */
+	}
+
+	.img_block1 :global(.img1) {
+		place-self: center;
+		grid-area: 1/1/2/2;
+		width: 50vw;
+		height: 50vh;
+		border-radius: 20px;
+		overflow: hidden;
+	}
+
+	.img_block2 :global(.img2) {
+		place-self: end;
+		grid-area: 1/1/2/2;
+		width: 50vw;
+		height: 50vh;
+		border-radius: 20px;
+		overflow: hidden;
+	}
+	.block_portait {
+		margin-top: -100vh;
+		transform: translateX(100%);
+		background-color: white;
+		height: 100vh;
+		width: 100%;
+		display: grid;
+		border: 1px solid green;
+	}
+	.portrait :global(.portrait_img) {
+		grid-area: 1/1/2/2;
+		display: block;
+		width: 50vw;
+		height: 50vh;
+		border-radius: 20px;
+		overflow: hidden;
+	}
+	.portrait {
+		grid-area: 1/1/2/2;
+		width: 50vw;
+		height: 50vh;
+	}
+
+	.portait_block1 {
+		place-self: start;
+	}
+	.portait_block2 {
+		place-self: center;
+	}
+	.portait_block3 {
+		place-self: end;
+	}
 
 	.canva {
 		z-index: -1;
@@ -561,7 +628,10 @@
 		height: 100vh;
 		margin: auto;
 	}
-
+	.block3 {
+		height: 200vh;
+		background-color: #000000;
+	}
 	.gallery_holder {
 		position: relative;
 		overflow: hidden;
@@ -608,7 +678,11 @@
 		line-height: 23vh;
 		/* font-size: clamp(20px, 20px + 10vw, 80px); */
 	}
-
+	a {
+		display: block;
+		overflow: hidden;
+		border-radius: 15px;
+	}
 	.hero_holder {
 		/* z-index: -2; */
 		opacity: 0;
@@ -785,6 +859,13 @@
 		object-fit: contain;
 		object-position: top;
 	}
+	/* .arrow {
+		align-self: end;
+		justify-self: end;
+		margin-right: 2%;
+		margin-bottom: 2%;
+		width: 25px;
+	} */
 	.review__body {
 		place-self: stretch;
 		margin: 0;
@@ -808,6 +889,10 @@
 		}
 		.ava {
 			display: none;
+		}
+		.review {
+			/* height: auto; */
+			grid-template-columns: minmax(250px, 120ch);
 		}
 	}
 </style>
