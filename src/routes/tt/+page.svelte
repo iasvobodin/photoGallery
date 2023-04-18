@@ -49,6 +49,11 @@
 				: 1 / (5381 / window.innerWidth);
 		// const scaleCoef = 1 / (8072 / aspect);
 		// console.log(1 / scaleCoef, 'scaleCoef');
+
+		const revHorizontalCoef =
+			(window.innerWidth * 0.98 - Math.min(600, window.innerWidth * 0.95)) / 6;
+
+		console.log(revHorizontalCoef, 'revHorizontalCoef');
 		const lenis = new Lenis({
 			lerp: 0.08
 		});
@@ -143,6 +148,16 @@
 			start: 'top top',
 			end: '+550% top',
 			pinSpacing: false
+		});
+		gsap.set('.review_holder', {
+			x: function (index, target, targets) {
+				//function-based value
+				return index * revHorizontalCoef;
+			},
+			y: function (index, target, targets) {
+				//function-based value
+				return index * ((window.innerHeight - 350) / 6);
+			}
 		});
 		// gsap.to('.header', {
 		// 	scrollTrigger: {
@@ -266,6 +281,24 @@
 			1.8
 		);
 
+		gsap.to('.review', {
+			scrollTrigger: {
+				trigger: '.reviews',
+				scrub: 1,
+				pin: true,
+				// snap: 1 / 7,
+				start: 'top top',
+				end: '250% top',
+				markers: true
+			},
+			opacity: 1,
+			stagger: {
+				amount: 6,
+				each: 0
+			},
+
+			ease: 'linear'
+		});
 		// ScrollTrigger.create({
 		// 	trigger: '.img_block1',
 		// 	pin: '.img_block1',
@@ -279,23 +312,6 @@
 		// 	start: 'top top',
 		// 	end: '+100% top'
 		// 	// pinSpacing: false
-		// });
-
-		// gsap.to('.hero', {
-		// 	scrollTrigger: {
-		// 		trigger: '.hero_holder',
-		// 		scrub: 0.9,
-		// 		pin: true,
-		// 		start: 'top top',
-		// 		end: '250% top',
-		// 		markers: true
-		// 	},
-		// 	width: '100%',
-		// 	height: '100%',
-		// 	// scale: 0.07,
-		// 	x: 0,
-		// 	y: 0,
-		// 	ease: 'linear'
 		// });
 	});
 </script>
@@ -401,7 +417,7 @@
 <!-- </div> -->
 <!-- </div> -->
 <div class="reviews">
-	<p class="hero_title">Отзывы</p>
+	<p class="reviews_title">Отзывы</p>
 	{#each reviewsSlice as review}
 		<div class="review_holder">
 			<div class="review">
@@ -696,13 +712,13 @@
 	}
 	.hero_title2 {
 		opacity: 0;
-		width: min(600px, 95%);
+		width: min(1000px, 100%);
 		place-self: center end;
 		grid-area: second;
 	}
 	.hero_title {
 		opacity: 0;
-		width: min(600px, 95%);
+		width: min(1000px, 100%);
 		align-self: center;
 		justify-self: end;
 		grid-area: first;
@@ -719,24 +735,32 @@
 	}
 	.reviews {
 		position: relative;
+		height: 100vh;
+	}
+	.reviews_title {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		text-align: right;
 	}
 	.review_holder {
 		position: absolute;
-		height: 400px;
+		height: 350px;
 		width: min(600px, 95%);
 	}
 	.review {
 		/* height: var(--card__height); */
 		width: 100%;
 		height: 100%;
-		box-shadow: -3rem 0 3rem -2rem #000;
+		opacity: 0;
+		/* box-shadow: -3rem 0 3rem -2rem #000; */
 		border-radius: 5px;
 		display: grid;
 		grid-template-columns: minmax(30px, 200px) minmax(250px, 120ch);
 	}
 	/* <stop offset="0" stop-color="#57ebdb" />
         <stop offset="1" stop-color="#403ddb" /> */
-	.review__body:before {
+	/* .review__body:before {
 		content: '';
 		z-index: -1;
 		border-radius: 5px;
@@ -746,12 +770,15 @@
 		left: -2px;
 		width: calc(100% + 4px);
 		height: calc(100% + 4px);
-	}
+	} */
 	.review__decription {
+		-webkit-backdrop-filter: blur(5px);
+		backdrop-filter: blur(5px);
 		position: relative;
-		background: black;
+		background: rgba(255, 255, 255, 0.74);
 		border-radius: 5px;
 		display: grid;
+		border: 1px solid rgb(1, 175, 255);
 	}
 	.review__name {
 		/* white-space: pre-wrap; */
@@ -765,7 +792,7 @@
 		font-size: calc(20px + 1vw);
 		line-height: calc(20px + 1.2vw);
 		font-weight: 300;
-		color: #ffffff;
+		color: #000000;
 	}
 
 	.ava {
@@ -802,7 +829,7 @@
 		font-size: clamp(12px, calc(0.7rem + 0.25vw), 24px);
 		line-height: clamp(18px, calc(1.2rem + 0.35vw), 32px);
 		font-weight: 150;
-		color: white;
+		color: rgb(0, 0, 0);
 		white-space: pre-wrap;
 	}
 	@media (max-width: 1200px) {
@@ -810,11 +837,11 @@
 			display: none;
 		}
 		.review {
-			height: auto;
+			/* height: auto; */
 			grid-template-columns: minmax(250px, 120ch);
 		}
 		.review__decription {
-			height: auto;
+			/* height: auto; */
 		}
 	}
 </style>
