@@ -47,6 +47,7 @@
 	onMount(() => {
 		// ScrollTrigger.killAll();
 		ScrollTrigger.refresh();
+		// ScrollTrigger.update();
 		// disableScrollHandling();
 		// window.history.scrollRestoration = 'auto';
 		// ScrollTrigger.clearScrollMemory();
@@ -184,7 +185,7 @@
 		}, 2500);
 	});
 	onDestroy(() => {
-		debugger;
+		// debugger;
 		// ScrollTrigger.refresh();
 		ScrollTrigger.killAll();
 		clearInterval(intervalId);
