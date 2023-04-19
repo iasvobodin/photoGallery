@@ -14,7 +14,7 @@
 	let reviewsSlice = data.reviews.slice(data.reviews.length - 8, data.reviews.length);
 	let allphHor = allph.filter((e) => e.Aspect > 1);
 	let allphVer = allph.filter((e) => e.Aspect < 1);
-
+	let intervalId: NodeJS.Timer;
 	let allph1 = allphHor.slice(0, 12);
 	let allph2 = allphHor.slice(12, 18);
 	let allph3 = allphVer,
@@ -33,7 +33,8 @@
 
 	const currentFrame = (index: number) => `/canva1/frame${index}.webp`;
 
-	let images = <Array<HTMLImageElement>>[]; // since everything else is 1-indexed, explicitly fill images[0]
+	let images = <Array<HTMLImageElement>>[];
+
 	const preloadImages = () => {
 		for (let i = 0; i < frameQty; i++) {
 			images[i] = new Image();
@@ -42,88 +43,21 @@
 			images[i].src = currentFrame(i + 1);
 		}
 	};
-	let intervalId: NodeJS.Timer;
 	onMount(() => {
-		const scaleCoef =
-			window.innerWidth / window.innerHeight > 1
-				? 1 / (8072 / window.innerHeight)
-				: 1 / (5381 / window.innerWidth);
+		preloadImages();
 
-		const revHorizontalCoef =
-			(window.innerWidth * 0.98 - Math.min(600, window.innerWidth * 0.95)) / reviewsSlice.length;
+		const context = videoCanvas.getContext('2d');
 
-		// console.log(revHorizontalCoef, 'revHorizontalCoef');
+		const updateImage = (index: number) => {
+			context && context.drawImage(images[index], 0, 0);
+		};
+
 		const lenis = new Lenis({
 			lerp: 0.08
 		});
 
-		// lenis.on('scroll', (e) => {
-		//   console.log(e)
-		// })
-
-		// function raf(time) {
-		//   lenis.raf(time)
-		//   requestAnimationFrame(raf)
-		// }
-
-		// requestAnimationFrame(raf)
-
-		// let invis = anime({
-		// 	targets: '.canva',
-		// 	autoplay: false,
-		// 	scale: 2,
-		// 	translateY: '-15%',
-		// 	translateX: '20%',
-		// 	easing: 'linear'
-		// });
-		// let lettersMove = anime({
-		// 	targets: '.letter',
-		// 	translateY: '-100%',
-		// 	translateX: '-100%',
-		// 	opacity: 0,
-		// 	delay: anime.stagger(150),
-		// 	autoplay: false,
-		// 	easing: 'linear'
-		// });
-		// const scroll = new LocomotiveScroll({
-		//   el: document.querySelector("[data-scroll-container]"),
-		//   smooth: true,
-		//   getSpeed: true,
-		// });
-		const html = document.documentElement;
-		// const canvas = document.getElementById('hero-lightpass');
-		const context = videoCanvas.getContext('2d');
-
-		preloadImages();
-
-		const img = new Image();
-		img.src = currentFrame(1);
-		videoCanvas.width = 1920;
-		videoCanvas.height = 1015;
-		img.onload = function () {
-			context && context.drawImage(img, 0, 0);
-		};
-
-		const updateImage = (index: number) => {
-			context && context.drawImage(images[index], 0, 0);
-		}; // = holder; //- window.innerHeight;
-		// scroll.on("scroll", (func) => {
-		//   const lenisScroll = func.scroll.y;
-		//   const maxlenisScroll = holder.scrollHeight - window.innerHeight;
-		//   const scrollFraction = lenisScroll / maxlenisScroll;
-		//   console.log(func);
-		//   const frameIndex = Math.min(
-		//     frameQty - 1,
-		//     Math.ceil(scrollFraction * frameQty)
-		//   );
-		//   console.log(frameIndex);
-		//   requestAnimationFrame(() => updateImage(frameIndex + 1));
-		// });
-		// console.log(html.scrollHeight - window.innerHeight, holder, 259 * 30);
 		const raf = (time: number) => {
 			lenis.raf(time);
-
-			// const frameIndex = Math.min(frameQty - 1, Math.ceil(lenisScroll / 15));
 
 			updateImage(frameIndex);
 
@@ -135,28 +69,54 @@
 
 		lenis.on('scroll', (e: any) => {
 			frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 17));
-			// console.log(window.scrollY, e.scroll, e.targetScroll, e.animatedScroll, e.velocity);
 		});
-		// gsap.ticker.lagSmoothing(0);
+
 		gsap.ticker.add((time) => {
 			lenis.raf(time * 1000);
 		});
-		ScrollTrigger.create({
-			trigger: '.canva',
-			pin: true,
-			start: 'top top',
-			end: '+600% top',
-			pinSpacing: false
-		});
+
+		const scaleCoef =
+			window.innerWidth / window.innerHeight > 1
+				? 1 / (8072 / window.innerHeight)
+				: 1 / (5381 / window.innerWidth);
+
+		const revHorizontalCoef =
+			(window.innerWidth * 0.98 - Math.min(600, window.innerWidth * 0.95)) / reviewsSlice.length;
+
 		gsap.set('.review_holder', {
-			x: function (index, target, targets) {
+			x: function (index) {
 				return index * revHorizontalCoef;
 			},
-			y: function (index, target, targets) {
+			y: function (index) {
 				return (
 					index * ((window.innerHeight - window.innerHeight * 0.12 - 350) / reviewsSlice.length)
 				);
 			}
+		});
+		gsap.set('.gallery_middle', {
+			x: '75vw'
+		});
+		gsap.set(['.gallery_top', '.gallery_bottom'], {
+			xPercent: -100
+		});
+
+		const img = new Image();
+		img.src = currentFrame(1);
+		videoCanvas.width = 1920;
+		videoCanvas.height = 1015;
+		img.onload = function () {
+			context && context.drawImage(img, 0, 0);
+		};
+
+		// gsap.ticker.lagSmoothing(0);
+
+		ScrollTrigger.create({
+			trigger: '.canva',
+			pin: true,
+			start: 'top top',
+			end: '+550% top',
+			refreshPriority: 1,
+			pinSpacing: false
 		});
 
 		gsap.to('.canva', {
@@ -175,6 +135,7 @@
 			scrollTrigger: {
 				trigger: '.gallery_holder',
 				scrub: 1,
+				refreshPriority: 0,
 				pin: '.gallery_holder',
 				start: 'top top',
 				end: '550% top'
@@ -215,7 +176,11 @@
 			count = i % 3;
 		}, 2500);
 	});
-	onDestroy(() => clearInterval(intervalId));
+	onDestroy(() => {
+		// ScrollTrigger.refresh();
+		ScrollTrigger.killAll();
+		clearInterval(intervalId);
+	});
 </script>
 
 <svelte:head>
@@ -457,12 +422,12 @@
 	.gallery_bottom {
 		height: 25vh;
 
-		transform: translateX(-100%);
+		/* transform: translateX(-100%); */
 	}
 	.gallery_middle {
 		height: 50vh;
 		/* transform: translateX(100%); */
-		transform: translateX(75vw);
+		/* transform: translateX(75vw); */
 	}
 	.gallery_img {
 		height: 100%;
