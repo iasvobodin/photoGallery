@@ -5,6 +5,7 @@
 	import Lenis from '@studio-freight/lenis';
 
 	import type { PageData } from './$types';
+	import { disableScrollHandling } from '$app/navigation';
 
 	gsap.registerPlugin(ScrollTrigger);
 
@@ -44,6 +45,9 @@
 		}
 	};
 	onMount(() => {
+		// disableScrollHandling();
+		window.history.scrollRestoration = 'auto';
+		ScrollTrigger.clearScrollMemory();
 		preloadImages();
 
 		const context = videoCanvas.getContext('2d');
