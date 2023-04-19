@@ -1,17 +1,17 @@
-<script>
+<script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	import Lenis from '@studio-freight/lenis';
-	import ResPic from '$lib/components/resPic.svelte';
-	import Circl from '$lib/components/circl.svelte';
+
+	import type { PageData } from './$types';
+
 	gsap.registerPlugin(ScrollTrigger);
 
-	export let data;
+	export let data: PageData;
 
 	let allph = data.allph;
 	let reviewsSlice = data.reviews.slice(data.reviews.length - 8, data.reviews.length);
-	// let reviewsSlice = data.reviews;
 	let allphHor = allph.filter((e) => e.Aspect > 1);
 	let allphVer = allph.filter((e) => e.Aspect < 1);
 
@@ -26,42 +26,33 @@
 		],
 		count = 1;
 
-	// console.log(allphHor, allphVer);
-	// import LocomotiveScroll from 'locomotive-scroll';
-	let items = 'SvobodinaPhoto';
-	let holder,
-		lenisScroll = 0,
-		targetScroll = 0,
-		videoCanvas,
-		frameIndex = 0,
-		maxlenisScroll,
-		y;
+	let videoCanvas: HTMLCanvasElement,
+		frameIndex = 0;
 
 	const frameQty = 259;
-	// const currentFrame = (index) => `/frames2/frame  (${index}).webp`;
-	const currentFrame = (index) => `/canva1/frame${index}.webp`;
 
-	let images = [null]; // since everything else is 1-indexed, explicitly fill images[0]
+	const currentFrame = (index: number) => `/canva1/frame${index}.webp`;
+
+	let images = <Array<HTMLImageElement>>[]; // since everything else is 1-indexed, explicitly fill images[0]
 	const preloadImages = () => {
 		for (let i = 0; i < frameQty; i++) {
 			images[i] = new Image();
 			images[i].crossOrigin = 'Anonymous';
+			images[i].decoding = 'async';
 			images[i].src = currentFrame(i + 1);
 		}
 	};
-	let intervalId;
+	let intervalId: NodeJS.Timer;
 	onMount(() => {
 		const scaleCoef =
 			window.innerWidth / window.innerHeight > 1
 				? 1 / (8072 / window.innerHeight)
 				: 1 / (5381 / window.innerWidth);
-		// const scaleCoef = 1 / (8072 / aspect);
-		// console.log(1 / scaleCoef, 'scaleCoef');
 
 		const revHorizontalCoef =
 			(window.innerWidth * 0.98 - Math.min(600, window.innerWidth * 0.95)) / reviewsSlice.length;
 
-		console.log(revHorizontalCoef, 'revHorizontalCoef');
+		// console.log(revHorizontalCoef, 'revHorizontalCoef');
 		const lenis = new Lenis({
 			lerp: 0.08
 		});
@@ -110,11 +101,11 @@
 		videoCanvas.width = 1920;
 		videoCanvas.height = 1015;
 		img.onload = function () {
-			context.drawImage(img, 0, 0);
+			context && context.drawImage(img, 0, 0);
 		};
 
-		const updateImage = (index) => {
-			context.drawImage(images[index], 0, 0);
+		const updateImage = (index: number) => {
+			context && context.drawImage(images[index], 0, 0);
 		}; // = holder; //- window.innerHeight;
 		// scroll.on("scroll", (func) => {
 		//   const lenisScroll = func.scroll.y;
@@ -129,7 +120,7 @@
 		//   requestAnimationFrame(() => updateImage(frameIndex + 1));
 		// });
 		// console.log(html.scrollHeight - window.innerHeight, holder, 259 * 30);
-		const raf = (time) => {
+		const raf = (time: number) => {
 			lenis.raf(time);
 
 			// const frameIndex = Math.min(frameQty - 1, Math.ceil(lenisScroll / 15));
@@ -138,11 +129,11 @@
 
 			requestAnimationFrame(raf);
 		};
-		raf();
+		raf(0);
 
 		lenis.on('scroll', ScrollTrigger.update);
 
-		lenis.on('scroll', (e) => {
+		lenis.on('scroll', (e: any) => {
 			frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 17));
 			// console.log(window.scrollY, e.scroll, e.targetScroll, e.animatedScroll, e.velocity);
 		});
@@ -154,188 +145,70 @@
 			trigger: '.canva',
 			pin: true,
 			start: 'top top',
-			end: '+550% top',
+			end: '+600% top',
 			pinSpacing: false
 		});
 		gsap.set('.review_holder', {
 			x: function (index, target, targets) {
-				//function-based value
 				return index * revHorizontalCoef;
 			},
 			y: function (index, target, targets) {
-				//function-based value
 				return (
 					index * ((window.innerHeight - window.innerHeight * 0.12 - 350) / reviewsSlice.length)
 				);
 			}
 		});
-		// gsap.to('.header', {
-		// 	scrollTrigger: {
-		// 		trigger: '.hed',
-		// 		scrub: 1.1,
-		// 		start: 'top 30%',
-		// 		end: 'bottom center'
-		// 		// pin: true
-		// 		// pinSpacing: false,
-		// 		// markers: true
-		// 	},
-		// 	opacity: 0,
-		// 	ease: 'linear'
-		// });
+
 		gsap.to('.canva', {
 			scrollTrigger: {
 				trigger: '.about',
 				scrub: 1,
 				start: '80% top',
 				end: '100% top'
-				// markers: true
 			},
 			scale: 0.46,
 			borderRadius: '20px',
 			ease: 'linear'
 		});
-		// gsap.to('.sub_title', {
-		// 	scrollTrigger: {
-		// 		trigger: '.block_wedding',
-		// 		// scrub: 1.1,
-		// 		start: 'top top',
-		// 		end: 'bottom top',
-		// 		pin: '.sub_title',
-		// 		pinSpacing: false
-		// 		// markers: true
-		// 	},
-		// 	opacity: 1,
-		// 	// color: 'black',
-		// 	ease: 'linear'
-		// });
 		const tl = gsap.timeline({
 			ease: 'linear',
 			scrollTrigger: {
 				trigger: '.gallery_holder',
 				scrub: 1,
 				pin: '.gallery_holder',
-				// pinSpacing: false,
-				// refreshPriority: -1,
 				start: 'top top',
-				end: '500% top'
-				// markers: true
+				end: '550% top'
 			}
 		});
 
-		tl.to(
-			'.canva',
-			{
-				duration: 1.5,
-				x: -5400
-			},
-			0
-		);
-		tl.to(
-			'.gallery_middle',
-			{
-				xPercent: -100,
-				x: 0,
-				duration: 1.5,
-				onComplete: () => console.log('midle')
-			},
-			0
-		);
-		tl.to(
-			['.gallery_top', '.gallery_bottom'],
-			{
-				xPercent: 0,
-				x: '100vw',
-				duration: 1.5,
-				onComplete: () => console.log('tb')
-			},
-			0
-		);
-		tl.to(
-			'.hero_holder',
-			{
-				opacity: 1,
-				duration: 0
-			},
-			1.5
-			// window.innerWidth < 600 ? 0.7 : 1.5
-		);
-		tl.to(
-			'.dummy1',
-			{
-				yPercent: -100,
-				duration: 0.5
-			},
-			1.5
-			// window.innerWidth < 600 ? 0.7 : 1.5
-		);
-		tl.to(
-			'.dummy2',
-			{
-				yPercent: 100,
-				duration: 0.5
-			},
-			1.5
-			// window.innerWidth < 600 ? 0.7 : 1.5
-		);
-		tl.to(
-			'.hero',
-			{
-				// width: '100%',
-				// height: '100%',
-				duration: 1,
-				scale: scaleCoef,
-				x: 0,
-				y: 0
-			},
-			2
-		);
-		tl.to(
-			['.hero_title', '.hero_title2', '.hero_list_holder'],
-			{
-				opacity: 1,
-				duration: 0.2
-			},
-			2.8
-		);
+		tl.to('.canva', { duration: 1.5, x: -5400 }, 0);
+		tl.to('.gallery_middle', { xPercent: -100, x: 0, duration: 2 }, 0);
+		tl.to(['.gallery_top', '.gallery_bottom'], { xPercent: 0, x: '100vw', duration: 2 }, 0);
+		tl.to('.hero_holder', { opacity: 1, duration: 0 }, 2);
+		tl.to('.dummy1', { yPercent: -100, duration: 0.6 }, 2);
+		tl.to('.dummy2', { yPercent: 100, duration: 0.6 }, 2);
+		tl.to('.hero', { duration: 1.4, scale: scaleCoef, x: 0, y: 0 }, 2.6);
+		tl.to(['.hero_title', '.hero_title2', '.hero_list_holder'], { opacity: 1, duration: 0.2 }, 3.5);
 
 		gsap.to('.review', {
 			scrollTrigger: {
 				trigger: '.reviews',
 				scrub: 1,
 				pin: true,
-				// snap: {
-				// 	snapTo: 1 / 7,
-				// 	duration: 0.001,
-				// 	delay: 0,
-				// 	ease: 'power4.in'
-				// },
 				start: 'top top',
 				end: '300% top'
-				// markers: true
 			},
 			x: 0,
+			// duration: 7,
 			stagger: {
 				amount: 7,
-				each: 0.0001,
-				ease: 'linear'
+				each: 0.0000001,
+				ease: 'none'
 			},
 
-			ease: 'linear'
+			ease: 'none'
 		});
-		// ScrollTrigger.create({
-		// 	trigger: '.img_block1',
-		// 	pin: '.img_block1',
-		// 	start: 'top top',
-		// 	end: '+200% top',
-		// 	pinSpacing: false
-		// });
-		// ScrollTrigger.create({
-		// 	trigger: '.img_block2',
-		// 	pin: '.img_block2',
-		// 	start: 'top top',
-		// 	end: '+100% top'
-		// 	// pinSpacing: false
-		// });
+
 		let i = 3;
 		intervalId = setInterval(() => {
 			i++;
@@ -353,15 +226,7 @@
 	/>
 	<title>Главная</title>
 </svelte:head>
-<!-- <svelte:window bind:scrollY={y} on:scroll={checkScroll} /> -->
-<!-- <ResPic
-		class="img1"
-		orintation={true}
-		imageH="22-07-16-16-20-35"
-		imageP="21-02-01-14-02-55"
-		size={720}
-	/> -->
-<!-- <div bind:clientHeight={maxlenisScroll} class="holder"> -->
+
 <canvas bind:this={videoCanvas} class="canva" data-scroll id="hero-lightpass" />
 <div class="hed">
 	<h1 class="header">Красивые и неповторимые моменты на фото.</h1>
@@ -429,7 +294,13 @@
 		{/each}
 	</div>
 	<div class="hero_holder">
-		<img class="hero" src="/hero/hero.webp" alt="" />
+		<div class=" hx hero">
+			<img class="x1" src="/h_X/1x.webp" alt="x1" />
+			<img class="x2" src="/h_X/2x.webp" alt="x2" />
+			<img class="x3" src="/h_X/3x.webp" alt="x3" />
+			<img class="x4" src="/h_X/4x.webp" alt="x4" />
+		</div>
+		<!-- <img class="hero" src="/hero/hero.webp" alt="" /> -->
 		<div class="hero_desc">
 			<p class="hero_title">Профессиональное<br />оборудование.</p>
 			<p class="hero_title2">Качество в<br />мельчайших деталях.</p>
@@ -449,10 +320,7 @@
 	</div>
 </div>
 
-<!-- </div> -->
-<!-- </div> -->
 <div class="reviews">
-	<!-- <p class="reviews_title" class="reviews_title">Отзывы</p> -->
 	<a data-sveltekit-reload href="/reviews" class=" reviews_title"
 		><p class=" reviews_title">Отзывы</p></a
 	>
@@ -490,6 +358,13 @@
 		<p>{social[count]}</p>
 	</a>
 </div>
+
+<!-- <div class="hx">
+	<img class="x1" src="/h_X/1x.webp" alt="x1" />
+	<img class="x2" src="/h_X/2x.webp" alt="x2" />
+	<img class="x3" src="/h_X/3x.webp" alt="x3" />
+	<img class="x4" src="/h_X/4x.webp" alt="x4" />
+</div> -->
 
 <!-- <div class="dummy" /> -->
 <style>
@@ -563,10 +438,7 @@
 		height: 100vh;
 		margin: auto;
 	}
-	.block3 {
-		height: 200vh;
-		background-color: #000000;
-	}
+
 	.gallery_holder {
 		position: relative;
 		overflow: hidden;
@@ -850,6 +722,34 @@
 	}
 	.description3 > p {
 		padding-bottom: 20px;
+	}
+	.hx {
+		width: 5381px;
+		height: 8072px;
+		position: relative;
+	}
+	.x1 {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.x2 {
+		position: absolute;
+		top: 1000px;
+		height: 4000px;
+	}
+	.x3 {
+		position: absolute;
+		height: 2000px;
+		width: 3000px;
+		top: 2000px;
+		left: 1500px;
+	}
+	.x4 {
+		position: absolute;
+		top: 2500px;
+		left: 2000px;
 	}
 	@media (orientation: portrait) {
 		.hero {
