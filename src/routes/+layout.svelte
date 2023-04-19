@@ -111,9 +111,9 @@
 	/>
 </svelte:head> -->
 
-<section class="main" class:disable__scroll={menuIsOpen}>
+<div class="main" class:disable__scroll={menuIsOpen}>
 	<slot />
-</section>
+</div>
 {#if $page.url.pathname !== '/'}
 	<button
 		id="bb"
@@ -198,6 +198,9 @@
 		/* --font-size-main: var(--font-size-main); */
 		--slider-height: calc(max(100vh, 500px) - var(--font-size-main) * 2);
 		--slide-width: calc(var(--slider-height) * 0.66);
+	}
+	.main {
+		position: relative;
 	}
 	.hide__svph {
 		opacity: 0;

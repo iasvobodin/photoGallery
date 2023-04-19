@@ -1,9 +1,9 @@
-<div class="main">
+<div class="main_ph">
 	<slot />
 </div>
 
 <style>
-	.main {
+	.main_ph {
 		/* padding-top: 65px; */
 		padding-bottom: 10vh;
 		position: relative;

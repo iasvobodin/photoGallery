@@ -5,7 +5,7 @@
 	import Lenis from '@studio-freight/lenis';
 
 	import type { PageData } from './$types';
-	import { disableScrollHandling } from '$app/navigation';
+	// import { disableScrollHandling } from '$app/navigation';
 
 	gsap.registerPlugin(ScrollTrigger);
 
@@ -45,9 +45,11 @@
 		}
 	};
 	onMount(() => {
+		// ScrollTrigger.killAll();
+		ScrollTrigger.refresh();
 		// disableScrollHandling();
-		window.history.scrollRestoration = 'auto';
-		ScrollTrigger.clearScrollMemory();
+		// window.history.scrollRestoration = 'auto';
+		// ScrollTrigger.clearScrollMemory();
 		preloadImages();
 
 		const context = videoCanvas.getContext('2d');
@@ -60,23 +62,19 @@
 			lerp: 0.08
 		});
 
-		const raf = (time: number) => {
-			lenis.raf(time);
-
-			updateImage(frameIndex);
-
-			requestAnimationFrame(raf);
-		};
-		raf(0);
-
 		lenis.on('scroll', ScrollTrigger.update);
 
 		lenis.on('scroll', (e: any) => {
 			frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 17));
 		});
 
-		gsap.ticker.add((time) => {
-			lenis.raf(time * 1000);
+		ScrollTrigger.create({
+			trigger: '.video_canvas',
+			pin: true,
+			start: 'top top',
+			end: '+550% top',
+			pinSpacing: false
+			// refreshPriority: 1,
 		});
 
 		const scaleCoef =
@@ -103,7 +101,7 @@
 		gsap.set(['.gallery_top', '.gallery_bottom'], {
 			xPercent: -100
 		});
-
+		let midl_gallery = gsap.getProperty('.gallery_middle', 'width');
 		const img = new Image();
 		img.src = currentFrame(1);
 		videoCanvas.width = 1920;
@@ -114,16 +112,7 @@
 
 		// gsap.ticker.lagSmoothing(0);
 
-		ScrollTrigger.create({
-			trigger: '.canva',
-			pin: true,
-			start: 'top top',
-			end: '+550% top',
-			refreshPriority: 1,
-			pinSpacing: false
-		});
-
-		gsap.to('.canva', {
+		gsap.to('.video_canvas', {
 			scrollTrigger: {
 				trigger: '.about',
 				scrub: 1,
@@ -134,19 +123,20 @@
 			borderRadius: '20px',
 			ease: 'linear'
 		});
+
 		const tl = gsap.timeline({
 			ease: 'linear',
 			scrollTrigger: {
 				trigger: '.gallery_holder',
 				scrub: 1,
-				refreshPriority: 0,
-				pin: '.gallery_holder',
+				// refreshPriority: 0,
+				pin: true,
 				start: 'top top',
 				end: '550% top'
 			}
 		});
 
-		tl.to('.canva', { duration: 1.5, x: -5400 }, 0);
+		tl.to('.video_canvas', { duration: 1.5, x: -midl_gallery }, 0);
 		tl.to('.gallery_middle', { xPercent: -100, x: 0, duration: 2 }, 0);
 		tl.to(['.gallery_top', '.gallery_bottom'], { xPercent: 0, x: '100vw', duration: 2 }, 0);
 		tl.to('.hero_holder', { opacity: 1, duration: 0 }, 2);
@@ -174,6 +164,19 @@
 			ease: 'none'
 		});
 
+		const raf = (time: number) => {
+			lenis.raf(time);
+
+			updateImage(frameIndex);
+
+			requestAnimationFrame(raf);
+		};
+		raf(0);
+
+		gsap.ticker.add((time) => {
+			lenis.raf(time * 1000);
+		});
+
 		let i = 3;
 		intervalId = setInterval(() => {
 			i++;
@@ -181,6 +184,7 @@
 		}, 2500);
 	});
 	onDestroy(() => {
+		debugger;
 		// ScrollTrigger.refresh();
 		ScrollTrigger.killAll();
 		clearInterval(intervalId);
@@ -195,13 +199,11 @@
 	/>
 	<title>Главная</title>
 </svelte:head>
-
-<canvas bind:this={videoCanvas} class="canva" data-scroll id="hero-lightpass" />
-<div class="hed">
+<canvas bind:this={videoCanvas} class="video_canvas" />
+<div class="header_holder">
 	<h1 class="header">Красивые и неповторимые моменты на фото.</h1>
 	<p class="header">Фотосессии, которые сделают Ваши воспоминания незабываемыми.</p>
 </div>
-<!-- <div class="main_holder"> -->
 <div class="about">
 	<p class="about_desc p1">
 		Приветствую Вас, Меня зовут Настя, и я профессиональный фотограф, который ценит индивидуальность
@@ -269,11 +271,9 @@
 			<img class="x3" src="/h_X/3x.webp" alt="x3" />
 			<img class="x4" src="/h_X/4x.webp" alt="x4" />
 		</div>
-		<!-- <img class="hero" src="/hero/hero.webp" alt="" /> -->
 		<div class="hero_desc">
 			<p class="hero_title">Профессиональное<br />оборудование.</p>
 			<p class="hero_title2">Качество в<br />мельчайших деталях.</p>
-
 			<div class="hero_list_holder">
 				<q class="hero_list">
 					Я уверена, что лучшая фотосессия - это та, которая проходит гладко и без сбоев. Именно
@@ -282,7 +282,6 @@
 					уверены, что я всегда буду готова к любым условиям!
 				</q>
 			</div>
-
 			<div class="dummy1" />
 			<div class="dummy2" />
 		</div>
@@ -340,19 +339,21 @@
 	:global(body) {
 		background-color: white;
 	}
-	.price > p > a {
-		display: inline;
-		text-decoration: none;
-		color: purple;
-	}
-
-	.hed {
-		/* mix-blend-mode: difference; */
-		display: grid;
+	.video_canvas {
+		/* position: absolute;
+		top: 0; */
+		display: block;
+		object-position: 65%;
+		object-fit: cover;
+		width: 100%;
 		height: 100vh;
+	}
+	.header_holder {
+		/* mix-blend-mode: difference; */
 		position: absolute;
 		top: 0;
-		/* margin: -100vh; */
+		display: grid;
+		height: 100vh;
 		width: min(100%, 1000px);
 	}
 	.header {
@@ -374,6 +375,7 @@
 	}
 
 	.about {
+		position: relative;
 		display: grid;
 		align-content: space-evenly;
 		height: 300vh;
@@ -398,23 +400,14 @@
 		justify-self: end;
 	}
 
-	.canva {
-		z-index: -1;
-		display: block;
-		object-position: 65%;
-		object-fit: cover;
-		width: 100%;
-		height: 100vh;
-		margin: auto;
-	}
-
 	.gallery_holder {
 		position: relative;
 		overflow: hidden;
 		margin-top: 100vh;
+		height: 100vh;
 		/* z-index: -1; */
-		background: transparent;
-		background-color: transparent;
+		/* background: transparent;
+		background-color: transparent; */
 	}
 	.gallery {
 		display: flex;
@@ -457,7 +450,6 @@
 	}
 
 	.hero_holder {
-		/* z-index: -2; */
 		opacity: 0;
 		position: absolute;
 		top: 0;
@@ -469,8 +461,8 @@
 		width: 100%;
 		height: 100vh;
 		/* border-radius: 10px; */
-		margin: auto;
-		background-color: white;
+		/* margin: auto; */
+		/* background-color: white; */
 	}
 	.hero {
 		pointer-events: none;
@@ -719,6 +711,11 @@
 		position: absolute;
 		top: 2500px;
 		left: 2000px;
+	}
+	.price > p > a {
+		display: inline;
+		text-decoration: none;
+		color: purple;
 	}
 	@media (orientation: portrait) {
 		.hero {
