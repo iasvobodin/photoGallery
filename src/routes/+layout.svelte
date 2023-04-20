@@ -80,7 +80,10 @@
 <svelte:head>
 	<meta name="yandex-verification" content="9cd2d955993a7f04" />
 	<meta name="author" content="Anastasia Svobodina" />
-	<meta name="Фотограф Челябинск Свободина Анастасия" content="Фотограф Свободина Анастасия" />
+	<meta
+		name="description"
+		content="Профессиональный фотограф Свободина Анастасия Челябинск. Свадебная, портретная, репортажная, семейная фотосессии. Профессиональное оборудование, быстрые сроки, адекватные цены"
+	/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta property="og:title" content="SvobodinaPhoto" />
 	<meta property="og:type" content="website" />
