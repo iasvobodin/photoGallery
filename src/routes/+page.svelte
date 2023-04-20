@@ -5,6 +5,7 @@
 	import Lenis from '@studio-freight/lenis';
 
 	import type { PageData } from './$types';
+	import { browser } from '$app/environment';
 	// import { disableScrollHandling } from '$app/navigation';
 
 	gsap.registerPlugin(ScrollTrigger);
@@ -29,7 +30,7 @@
 
 	let videoCanvas: HTMLCanvasElement,
 		frameIndex = 0;
-
+	let lenis: Lenis;
 	const frameQty = 259;
 
 	const currentFrame = (index: number) => `/canva1/frame${index}.webp`;
@@ -44,9 +45,16 @@
 			images[i].src = currentFrame(i + 1);
 		}
 	};
+
+	$: if (browser) {
+		lenis = new Lenis({
+			lerp: 0.08
+		});
+		lenis.scrollTo('body', { duration: 0.1, force: true });
+	}
 	onMount(() => {
-		// ScrollTrigger.killAll();
 		ScrollTrigger.refresh();
+		// ScrollTrigger.killAll();
 		// ScrollTrigger.update();
 		// disableScrollHandling();
 		// window.history.scrollRestoration = 'auto';
@@ -58,10 +66,6 @@
 		const updateImage = (index: number) => {
 			context && context.drawImage(images[index], 0, 0);
 		};
-
-		const lenis = new Lenis({
-			lerp: 0.08
-		});
 
 		lenis.on('scroll', ScrollTrigger.update);
 

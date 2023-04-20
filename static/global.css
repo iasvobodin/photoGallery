@@ -31,11 +31,17 @@ body {
 	font-size: 14px;
 	line-height: 1.5;
 	color: #ffffff;
-	overscroll-behavior: none;
+	overscroll-behavior: contain;
 	background-color: black;
 }
 
+.lenis.lenis-smooth {
+	scroll-behavior: auto;
+}
 
+html.lenis {
+	height: auto;
+}
 
 h1 {
 	font-size: 2em;
