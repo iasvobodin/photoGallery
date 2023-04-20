@@ -1,0 +1,49 @@
+@font-face {
+  /* font-display: swap; */
+  font-family: 'Cormorant Infant';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+    url('./lib/fonts/cormorant-infant-v10-latin_cyrillic-regular.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('./lib/fonts/cormorant-infant-v10-latin_cyrillic-regular.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Slab';
+  display: 'swap';
+  src: url('./lib/fonts/RobotoSlab-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+}
+
+
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Mono';
+  display: 'swap';
+  src: url('./lib/fonts/RobotoMono-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 700;
+}
+
+/* caveat-regular - cyrillic */
+/* @font-face {
+  font-display: swap;
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+    url('./lib/fonts/caveat-v9-cyrillic-regular.woff2') format('woff2'),
+    url('./lib/fonts/caveat-v9-cyrillic-regular.woff') format('woff');
+} */
+
+@font-face {
+  font-display: swap;
+  font-family: 'Comfortaa';
+  display: 'swap';
+  src: url('./lib/fonts/Comfortaa-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 700;
+}
+
+/* cormorant-infant-regular - latin_cyrillic */

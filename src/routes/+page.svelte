@@ -47,19 +47,19 @@
 	};
 
 	$: if (browser) {
+		preloadImages();
 		lenis = new Lenis({
 			lerp: 0.08
 		});
 		lenis.scrollTo('body', { duration: 0.1, force: true });
 	}
 	onMount(() => {
-		ScrollTrigger.refresh();
+		// ScrollTrigger.refresh();
 		// ScrollTrigger.killAll();
 		// ScrollTrigger.update();
 		// disableScrollHandling();
 		// window.history.scrollRestoration = 'auto';
 		// ScrollTrigger.clearScrollMemory();
-		preloadImages();
 
 		const context = videoCanvas.getContext('2d');
 
@@ -191,157 +191,157 @@
 	onDestroy(() => {
 		// debugger;
 		// ScrollTrigger.refresh();
-		ScrollTrigger.killAll();
+		// ScrollTrigger.killAll();
 		clearInterval(intervalId);
 	});
 </script>
 
 <svelte:head>
-	<link rel="preconnect" href="https://fonts.gstatic.com" />
+	<!-- <link rel="preconnect" href="https://fonts.gstatic.com" />
 	<link
 		href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400&family=Cormorant+Infant&display=swap"
 		rel="stylesheet"
-	/>
+	/> -->
+
 	<title>Главная</title>
 </svelte:head>
-<canvas bind:this={videoCanvas} class="video_canvas" />
-<div class="header_holder">
-	<h1 class="header">Красивые и неповторимые моменты на фото.</h1>
-	<p class="header">Фотосессии, которые сделают Ваши воспоминания незабываемыми.</p>
-</div>
-<div class="about">
-	<p class="about_desc p1">
-		Приветствую Вас, Меня зовут Настя, и я профессиональный фотограф, который ценит индивидуальность
-		и уникальность каждого клиента.
-	</p>
-	<p class="about_desc p2">
-		Я работаю не просто на получение красивых фотографий, а на создание неповторимых образов,
-		которые отражают вашу индивидуальность и красоту.
-	</p>
 
-	<p class="about_desc p3">
-		Я умею создавать комфортную атмосферу на съемке, которая помогает клиентам чувствовать себя
-		уверенно и расслабленно.
-	</p>
-	<p class="about_desc p4">
-		Моя цель - не просто удовлетворить ваши требования, а превзойти их, чтобы вы получили самые
-		лучшие фотографии, которые будут радовать вас на протяжении всей жизни.
-	</p>
-</div>
+<div class="main_page">
+	<canvas bind:this={videoCanvas} class="video_canvas" />
+	<div class="header_holder">
+		<h1 class="header">Красивые и неповторимые моменты на фото.</h1>
+		<p class="header">Фотосессии, которые сделают Ваши воспоминания незабываемыми.</p>
+	</div>
+	<div class="about">
+		<p class="about_desc p1">
+			Приветствую Вас, Меня зовут Настя, и я профессиональный фотограф, который ценит
+			индивидуальность и уникальность каждого клиента.
+		</p>
+		<p class="about_desc p2">
+			Я работаю не просто на получение красивых фотографий, а на создание неповторимых образов,
+			которые отражают вашу индивидуальность и красоту.
+		</p>
 
-<div class="gallery_holder">
-	<div class="gallery gallery_top">
-		{#each allph1 as item}
-			<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
-				<img
-					style="aspect-ratio:{+item.Aspect};"
-					class="gallery_img"
-					src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
-					alt={item.Title}
-				/>
-			</a>
-		{/each}
-		<div class="sub_title_portrait">
-			<h2 class="sub_title">Фотосерии</h2>
-		</div>
+		<p class="about_desc p3">
+			Я умею создавать комфортную атмосферу на съемке, которая помогает клиентам чувствовать себя
+			уверенно и расслабленно.
+		</p>
+		<p class="about_desc p4">
+			Моя цель - не просто удовлетворить ваши требования, а превзойти их, чтобы вы получили самые
+			лучшие фотографии, которые будут радовать вас на протяжении всей жизни.
+		</p>
 	</div>
-	<div class="gallery gallery_middle">
-		{#each allph2 as item}
-			<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
-				<img
-					style="aspect-ratio:{+item.Aspect};"
-					class="gallery_img"
-					src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
-					alt={item.Title}
-				/>
-			</a>
-		{/each}
-	</div>
-	<div class="gallery gallery_bottom">
-		{#each allph3 as item}
-			<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
-				<img
-					style="aspect-ratio:{+item.Aspect};"
-					class="gallery_img"
-					src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
-					alt={item.Title}
-				/>
-			</a>
-		{/each}
-	</div>
-	<div class="hero_holder">
-		<div class=" hx hero">
-			<img class="x1" src="/h_X/1x.webp" alt="x1" />
-			<img class="x2" src="/h_X/2x.webp" alt="x2" />
-			<img class="x3" src="/h_X/3x.webp" alt="x3" />
-			<img class="x4" src="/h_X/4x.webp" alt="x4" />
-		</div>
-		<div class="hero_desc">
-			<p class="hero_title">Профессиональное<br />оборудование.</p>
-			<p class="hero_title2">Качество в<br />мельчайших деталях.</p>
-			<div class="hero_list_holder">
-				<q class="hero_list">
-					Я уверена, что лучшая фотосессия - это та, которая проходит гладко и без сбоев. Именно
-					поэтому я всегда имею при себе резервный комплект оборудования, чтобы независимо от того,
-					что произойдет, я смогу сохранить всё что снято непосильным трудом. Вы можете быть
-					уверены, что я всегда буду готова к любым условиям!
-				</q>
-			</div>
-			<div class="dummy1" />
-			<div class="dummy2" />
-		</div>
-	</div>
-</div>
 
-<div class="reviews">
-	<a data-sveltekit-reload href="/reviews" class=" reviews_title"
-		><p class=" reviews_title">Отзывы</p></a
-	>
-	{#each reviewsSlice as review}
-		<div class="review_holder">
-			<div class="review">
-				<div class="ava">
-					<img src="/img/rev/{review.id}.jpg" alt="ava" />
-				</div>
-				<div class="review__decription">
-					<p class="review__name">{review.name}</p>
-					<p class="review__body">{review.body}</p>
-				</div>
+	<div class="gallery_holder">
+		<div class="gallery gallery_top">
+			{#each allph1 as item}
+				<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+					<img
+						style="aspect-ratio:{+item.Aspect};"
+						class="gallery_img"
+						src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
+						alt={item.Title}
+					/>
+				</a>
+			{/each}
+			<div class="sub_title_portrait">
+				<h2 class="sub_title">Фотосерии</h2>
 			</div>
 		</div>
-	{/each}
-	<a data-sveltekit-reload href="/reviews" class="reviews_link">Больше отзывов</a>
-</div>
-<div class="price">
-	<p class="price_desc">
-		Я понимаю, что каждый клиент имеет свои уникальные потребности и пожелания, поэтому я готова
-		подбирать цену на услуги индивидуально для каждого. Вместе мы можем определить, какие услуги
-		будут вам необходимы и какой бюджет будет наиболее подходящим для вас. <br /> Подробнее в
-		разделе <a data-sveltekit-reload href="/price">цены</a>
-	</p>
-	<p class="finish_desc">
-		Я буду рада стать вашим фотографом и помочь вам запечатлеть ваши самые яркие моменты жизни в
-		красивых и незабываемых фотографиях. Свяжитесь со мной, чтобы обсудить детали вашей будущей
-		фотосессии и дайте мне возможность помочь вам сохранить ваши эмоции и чувства на долгие годы.
-	</p>
-</div>
-<div class="contact">
-	<!-- <h2 class="description date">Контакты</h2> -->
-	<a class="description3" href={link[count]} rel="noreferrer" target="_blank">
-		<p>{social[count]}</p>
-	</a>
+		<div class="gallery gallery_middle">
+			{#each allph2 as item}
+				<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+					<img
+						style="aspect-ratio:{+item.Aspect};"
+						class="gallery_img"
+						src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
+						alt={item.Title}
+					/>
+				</a>
+			{/each}
+		</div>
+		<div class="gallery gallery_bottom">
+			{#each allph3 as item}
+				<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
+					<img
+						style="aspect-ratio:{+item.Aspect};"
+						class="gallery_img"
+						src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif"
+						alt={item.Title}
+					/>
+				</a>
+			{/each}
+		</div>
+		<div class="hero_holder">
+			<div class=" hx hero">
+				<img class="x1" src="/h_X/1x.webp" alt="x1" />
+				<img class="x2" src="/h_X/2x.webp" alt="x2" />
+				<img class="x3" src="/h_X/3x.webp" alt="x3" />
+				<img class="x4" src="/h_X/4x.webp" alt="x4" />
+			</div>
+			<div class="hero_desc">
+				<p class="hero_title">Профессиональное<br />оборудование.</p>
+				<p class="hero_title2">Качество в<br />мельчайших деталях.</p>
+				<div class="hero_list_holder">
+					<q class="hero_list">
+						Я уверена, что лучшая фотосессия - это та, которая проходит гладко и без сбоев. Именно
+						поэтому я всегда имею при себе резервный комплект оборудования, чтобы независимо от
+						того, что произойдет, я смогу сохранить всё что снято непосильным трудом. Вы можете быть
+						уверены, что я всегда буду готова к любым условиям!
+					</q>
+				</div>
+				<div class="dummy1" />
+				<div class="dummy2" />
+			</div>
+		</div>
+	</div>
+
+	<div class="reviews">
+		<a data-sveltekit-reload href="/reviews" class=" reviews_title"
+			><p class=" reviews_title">Отзывы</p></a
+		>
+		{#each reviewsSlice as review}
+			<div class="review_holder">
+				<div class="review">
+					<div class="ava">
+						<img src="/img/rev/{review.id}.jpg" alt="ava" />
+					</div>
+					<div class="review__decription">
+						<p class="review__name">{review.name}</p>
+						<p class="review__body">{review.body}</p>
+					</div>
+				</div>
+			</div>
+		{/each}
+		<a data-sveltekit-reload href="/reviews" class="reviews_link">Больше отзывов</a>
+	</div>
+	<div class="price">
+		<p class="price_desc">
+			Я понимаю, что каждый клиент имеет свои уникальные потребности и пожелания, поэтому я готова
+			подбирать цену на услуги индивидуально для каждого. Вместе мы можем определить, какие услуги
+			будут вам необходимы и какой бюджет будет наиболее подходящим для вас. <br /> Подробнее в
+			разделе <a data-sveltekit-reload href="/price">цены</a>
+		</p>
+		<p class="finish_desc">
+			Я буду рада стать вашим фотографом и помочь вам запечатлеть ваши самые яркие моменты жизни в
+			красивых и незабываемых фотографиях. Свяжитесь со мной, чтобы обсудить детали вашей будущей
+			фотосессии и дайте мне возможность помочь вам сохранить ваши эмоции и чувства на долгие годы.
+		</p>
+	</div>
+	<div class="contact">
+		<!-- <h2 class="description date">Контакты</h2> -->
+		<a class="description3" href={link[count]} rel="noreferrer" target="_blank">
+			<p>{social[count]}</p>
+		</a>
+	</div>
 </div>
 
-<!-- <div class="hx">
-	<img class="x1" src="/h_X/1x.webp" alt="x1" />
-	<img class="x2" src="/h_X/2x.webp" alt="x2" />
-	<img class="x3" src="/h_X/3x.webp" alt="x3" />
-	<img class="x4" src="/h_X/4x.webp" alt="x4" />
-</div> -->
-
-<!-- <div class="dummy" /> -->
 <style>
-	:global(body) {
+	/* :global(body) {
+		background-color: white;
+	} */
+	.main_page {
+		position: relative;
 		background-color: white;
 	}
 	.video_canvas {
@@ -364,7 +364,7 @@
 	.header {
 		place-self: center;
 		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-
+		font-family: Cormorant Infant, sans-serif;
 		/* font-family: 'Roboto Mono', monospace; */
 		font-size: clamp(14px, 14px + 3.5vw, 80px);
 		line-height: 1.3;
@@ -687,7 +687,8 @@
 		color: purple;
 	}
 	.description3 > p {
-		padding-bottom: 20px;
+		padding-bottom: 40px;
+		margin-bottom: 0px;
 	}
 	.hx {
 		width: 5381px;

@@ -1,11 +1,10 @@
 <script lang="ts">
+	import '../global.css';
+	import '../fonts.css';
 	import { fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Logo from '$lib/components/logo.svelte';
-	// import { gsap } from 'gsap';
-	import { onMount } from 'svelte';
-	import { elasticOut } from 'svelte/easing';
 
 	let numbers: Array<number> = [];
 	const stileRandom = (i: number) => {
@@ -79,15 +78,9 @@
 <svelte:window bind:scrollY={y} bind:scrollX={x} />
 
 <svelte:head>
-	<link
-		rel="preload"
-		href="/fonts/cormorant-infant-v10-latin_cyrillic-regular.woff2"
-		as="font"
-		crossOrigin="anonymous"
-	/>
 	<meta name="yandex-verification" content="9cd2d955993a7f04" />
 	<meta name="author" content="Anastasia Svobodina" />
-	<meta name="description" content="Site portfolio" />
+	<meta name="Фотограф Челябинск Свободина Анастасия" content="Фотограф Свободина Анастасия" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta property="og:title" content="SvobodinaPhoto" />
 	<meta property="og:type" content="website" />
@@ -99,10 +92,15 @@
 	<meta property="og:locale" content="ru_RU" />
 	<meta property="og:description" content="The best photographer ever" />
 	<link rel="canonical" href="https://svobodinaphoto.ru/" />
+	<!-- <link
+		rel="preload"
+		href="$lib/fonts/cormorant-infant-v10-latin_cyrillic-regular.woff2"
+		as="font"
+		crossOrigin="anonymous"
+	/> -->
 </svelte:head>
 
-<!-- 
-<svelte:head>
+<!-- <svelte:head>
 	<link
 		rel="preload"
 		href="/fonts/cormorant-infant-v10-latin_cyrillic-regular.woff2"
