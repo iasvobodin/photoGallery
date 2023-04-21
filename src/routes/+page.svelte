@@ -374,7 +374,7 @@
 		top: 0;
 		display: grid;
 		height: 100vh;
-		width: min(90%, 1000px);
+		width: min(90%, 1200px);
 	}
 	.header {
 		place-self: center;

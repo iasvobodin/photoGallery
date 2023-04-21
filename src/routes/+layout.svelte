@@ -86,7 +86,7 @@
 	/>
 	<!-- <meta name="keywords" content=""> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta property="vk:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
+
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Фотограф Анастасия Свободина" />
 	<meta name="twitter:description" content="Красивые и неповторимые моменты на фото." />
@@ -103,13 +103,8 @@
 		property="og:description"
 		content="Профессиональный фотограф Свободина Анастасия Челябинск. Свадебная, портретная, репортажная, семейная фотосессии. Профессиональное оборудование, быстрые сроки, адекватные цены"
 	/>
+	<meta property="vk:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
 	<link rel="canonical" href="https://svobodinaphoto.ru/" />
-	<!-- <link
-		rel="preload"
-		href="$lib/fonts/cormorant-infant-v10-latin_cyrillic-regular.woff2"
-		as="font"
-		crossOrigin="anonymous"
-	/> -->
 </svelte:head>
 
 <!-- <svelte:head>
