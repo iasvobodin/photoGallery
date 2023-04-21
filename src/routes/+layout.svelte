@@ -84,19 +84,17 @@
 		name="description"
 		content="Профессиональный фотограф Свободина Анастасия Челябинск. Свадебная, портретная, репортажная, семейная фотосессии. Профессиональное оборудование, быстрые сроки, адекватные цены"
 	/>
+	<!-- <meta name="keywords" content=""> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta property="vk:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Фотограф Анастасия Свободина" />
-	<meta
-		name="twitter:description"
-		content="Красивые и неповторимые моменты на фото. Фотосессии, которые сделают Ваши воспоминания незабываемыми."
-	/>
+	<meta name="twitter:description" content="Красивые и неповторимые моменты на фото." />
 	<meta name="twitter:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
 	<meta property="og:title" content="SvobodinaPhoto" />
 	<meta property="og:type" content="website" />
-	<meta property="og:image" content="/icons/logo.svg" />
-	<meta property="og:image:type" content="image/svg" />
+	<meta property="og:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
+	<meta property="og:image:type" content="image/jpg" />
 	<meta property="og:image:width" content="300" />
 	<meta property="og:image:height" content="300" />
 	<meta property="og:url" content="https://svobodinaphoto.ru/" />

@@ -197,19 +197,13 @@
 </script>
 
 <svelte:head>
-	<!-- <link rel="preconnect" href="https://fonts.gstatic.com" />
-	<link
-		href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400&family=Cormorant+Infant&display=swap"
-		rel="stylesheet"
-	/> -->
-
 	<title>Главная</title>
 </svelte:head>
 
 <div class="main_page">
 	<div class="video_canvas">
-		<canvas bind:this={videoCanvas} />
 		<img src="/canva1/frame1.webp" alt="" />
+		<canvas bind:this={videoCanvas} />
 	</div>
 	<div class="header_holder">
 		<h1 class="header">Красивые и неповторимые моменты на фото.</h1>
@@ -350,21 +344,24 @@
 	.video_canvas {
 		overflow: hidden;
 		position: relative;
+		position: sticky;
+		top: 0;
 		height: 100vh;
+		display: grid;
 	}
 	.video_canvas > img {
-		position: absolute;
-		top: 0;
-		z-index: -1;
+		grid-area: 1/1/2/2;
+
 		object-position: 65%;
 		object-fit: cover;
 		width: 100%;
-		height: 100%;
+		height: 100vh;
 	}
 	.video_canvas > canvas {
 		/* position: absolute;
 
 		top: 0; */
+		grid-area: 1/1/2/2;
 		display: block;
 		object-position: 65%;
 		object-fit: cover;
@@ -377,7 +374,7 @@
 		top: 0;
 		display: grid;
 		height: 100vh;
-		width: min(100%, 1000px);
+		width: min(90%, 1000px);
 	}
 	.header {
 		place-self: center;
@@ -505,7 +502,7 @@
 		grid-area: 1/1/3/2;
 		align-self: center;
 		justify-self: end;
-		width: min(1000px, 100%);
+		width: min(1000px, 70%);
 	}
 	.hero_list {
 		font-size: clamp(16px, 14px + 1.5vw, 24px);
@@ -540,7 +537,7 @@
 	.hero_desc > p {
 		font-size: clamp(16px, 16px + 4vw, 50px);
 		color: black;
-		/* width: fit-content; */
+		/* width: 70%; */
 		text-align: center;
 		padding: 0;
 		line-height: 1.2;
@@ -548,13 +545,13 @@
 	}
 	.hero_title2 {
 		opacity: 0;
-		width: min(1000px, 100%);
+		width: min(1000px, 70%);
 		place-self: end end;
 		grid-area: second;
 	}
 	.hero_title {
 		opacity: 0;
-		width: min(1000px, 100%);
+		width: min(1000px, 70%);
 		align-self: start;
 		justify-self: end;
 		grid-area: first;
@@ -758,9 +755,9 @@
 		.reviews_link {
 			display: block;
 		}
-		.header {
+		/* .header {
 			padding: 9vw;
-		}
+		} */
 	}
 	h1 {
 		margin: 0;
