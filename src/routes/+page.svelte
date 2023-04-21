@@ -207,7 +207,10 @@
 </svelte:head>
 
 <div class="main_page">
-	<canvas bind:this={videoCanvas} class="video_canvas" />
+	<div class="video_canvas">
+		<canvas bind:this={videoCanvas} />
+		<img src="/canva1/frame1.webp" alt="" />
+	</div>
 	<div class="header_holder">
 		<h1 class="header">Красивые и неповторимые моменты на фото.</h1>
 		<p class="header">Фотосессии, которые сделают Ваши воспоминания незабываемыми.</p>
@@ -345,13 +348,28 @@
 		background-color: white;
 	}
 	.video_canvas {
+		overflow: hidden;
+		position: relative;
+		height: 100vh;
+	}
+	.video_canvas > img {
+		position: absolute;
+		top: 0;
+		z-index: -1;
+		object-position: 65%;
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+	.video_canvas > canvas {
 		/* position: absolute;
+
 		top: 0; */
 		display: block;
 		object-position: 65%;
 		object-fit: cover;
 		width: 100%;
-		height: 100vh;
+		height: 100%;
 	}
 	.header_holder {
 		/* mix-blend-mode: difference; */

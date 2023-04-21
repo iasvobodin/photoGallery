@@ -27,17 +27,6 @@
   font-weight: 100 700;
 }
 
-/* caveat-regular - cyrillic */
-/* @font-face {
-  font-display: swap;
-  font-family: 'Caveat';
-  font-style: normal;
-  font-weight: 400;
-  src: local(''),
-    url('./lib/fonts/caveat-v9-cyrillic-regular.woff2') format('woff2'),
-    url('./lib/fonts/caveat-v9-cyrillic-regular.woff') format('woff');
-} */
-
 @font-face {
   font-display: swap;
   font-family: 'Comfortaa';

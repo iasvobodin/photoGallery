@@ -85,6 +85,7 @@
 		content="Профессиональный фотограф Свободина Анастасия Челябинск. Свадебная, портретная, репортажная, семейная фотосессии. Профессиональное оборудование, быстрые сроки, адекватные цены"
 	/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="vk:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
 	<meta property="og:title" content="SvobodinaPhoto" />
 	<meta property="og:type" content="website" />
 	<meta property="og:image" content="/icons/logo.svg" />
@@ -93,7 +94,10 @@
 	<meta property="og:image:height" content="300" />
 	<meta property="og:url" content="https://svobodinaphoto.ru/" />
 	<meta property="og:locale" content="ru_RU" />
-	<meta property="og:description" content="The best photographer ever" />
+	<meta
+		property="og:description"
+		content="Профессиональный фотограф Свободина Анастасия Челябинск. Свадебная, портретная, репортажная, семейная фотосессии. Профессиональное оборудование, быстрые сроки, адекватные цены"
+	/>
 	<link rel="canonical" href="https://svobodinaphoto.ru/" />
 	<!-- <link
 		rel="preload"
