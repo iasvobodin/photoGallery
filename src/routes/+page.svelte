@@ -379,15 +379,18 @@
 	.header {
 		place-self: center;
 		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-		font-family: Cormorant Infant, sans-serif;
+		font-family: 'Cormorant Infant', sans-serif;
+		/* font-family: 'Roboto Mono', monospace; */
 		/* font-family: 'Roboto Mono', monospace; */
 		font-size: clamp(14px, 14px + 3.5vw, 80px);
 		line-height: 1.3;
 		font-weight: 700;
+		/* font-weight: 100; */
 		text-align: center;
 		margin: 0;
 		text-indent: 2ch;
 		color: rgb(255, 255, 255);
+		padding-left: 2ch;
 		/* background-color: #ffffff; */
 		/* background-image: linear-gradient(180deg, #ffffff, #44c1ff);
 		-webkit-background-clip: text;
