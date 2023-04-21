@@ -86,6 +86,13 @@
 	/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta property="vk:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Фотограф Анастасия Свободина" />
+	<meta
+		name="twitter:description"
+		content="Красивые и неповторимые моменты на фото. Фотосессии, которые сделают Ваши воспоминания незабываемыми."
+	/>
+	<meta name="twitter:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
 	<meta property="og:title" content="SvobodinaPhoto" />
 	<meta property="og:type" content="website" />
 	<meta property="og:image" content="/icons/logo.svg" />
