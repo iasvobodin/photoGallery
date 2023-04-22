@@ -30,6 +30,10 @@
 			'vk_article_-163390211_31609',
 			'@svobodinaphoto-chelyabinskie-zagsy-glazami-hudozhnika-photoshop-i-nikakogo'
 		);
+		VK.Widgets.Article(
+			'vk_article_-163390211_7677',
+			'@svobodinaphoto-aksessuary-dlya-svadebnoi-fotosessii'
+		);
 	});
 </script>
 
@@ -49,6 +53,7 @@
 	<div id="vk_article_-163390211_44003" />
 	<div id="vk_article_-163390211_89413" />
 	<div id="vk_article_-163390211_31609" />
+	<div id="vk_article_-163390211_7677" />
 </div>
 
 <style>
