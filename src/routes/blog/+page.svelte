@@ -58,7 +58,7 @@
 
 <style>
 	.articles {
-		width: max(1000px, 95%);
+		width: min(1000px, 95%);
 		display: grid;
 		justify-content: center;
 		grid-template-columns: repeat(auto-fill, minmax(max(35vw, 250px), 1fr));
