@@ -218,6 +218,7 @@
 	}
 	.disable__scroll {
 		overflow-y: hidden;
+		height: 100vh;
 	}
 	.menu__back {
 		width: calc((clamp(40px, 6.5vw + 12px, 90px) + 4vh) / 1.5);

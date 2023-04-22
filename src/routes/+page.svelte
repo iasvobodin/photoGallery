@@ -17,10 +17,10 @@
 	let allphHor = allph.filter((e) => e.Aspect > 1);
 	let allphVer = allph.filter((e) => e.Aspect < 1);
 	let intervalId: NodeJS.Timer;
-	let allph1 = allphHor.slice(0, 12);
-	let allph2 = allphHor.slice(12, 18);
-	let allph3 = allphVer,
-		social = ['instagram.com/svobodinaphoto', 'vk.com/svobodinaphoto', 't.me/svobodinaphoto'],
+	let allph1 = allphHor.slice(0, 9);
+	let allph2 = allphVer;
+	let allph3 = allphHor.slice(9, 18);
+	let social = ['instagram.com/svobodinaphoto', 'vk.com/svobodinaphoto', 't.me/svobodinaphoto'],
 		link = [
 			'https://www.instagram.com/svobodinaphoto/',
 			'https://vk.com/svobodinaphoto',
@@ -33,34 +33,27 @@
 	let lenis: Lenis;
 	const frameQty = 259;
 
-	const currentFrame = (index: number) => `/canva1/frame${index}.webp`;
+	const currentFrame = (size: number = 1920, index: number) => `/frames/${size}_frame${index}.webp`;
 
 	let images = <Array<HTMLImageElement>>[];
 
-	const preloadImages = () => {
+	const preloadImages = (size: number) => {
 		for (let i = 0; i < frameQty; i++) {
 			images[i] = new Image();
 			images[i].crossOrigin = 'Anonymous';
 			images[i].decoding = 'async';
-			images[i].src = currentFrame(i + 1);
+			images[i].src = currentFrame(size, i + 1);
 		}
 	};
 
 	$: if (browser) {
-		preloadImages();
+		preloadImages(window.innerWidth > 900 ? 1920 : 1024);
 		lenis = new Lenis({
 			lerp: 0.08
 		});
 		lenis.scrollTo('body', { duration: 0.1, force: true });
 	}
 	onMount(() => {
-		// ScrollTrigger.refresh();
-		// ScrollTrigger.killAll();
-		// ScrollTrigger.update();
-		// disableScrollHandling();
-		// window.history.scrollRestoration = 'auto';
-		// ScrollTrigger.clearScrollMemory();
-
 		const context = videoCanvas.getContext('2d');
 
 		const updateImage = (index: number) => {
@@ -106,16 +99,16 @@
 		gsap.set(['.gallery_top', '.gallery_bottom'], {
 			xPercent: -100
 		});
+
 		let midl_gallery = gsap.getProperty('.gallery_middle', 'width');
-		const img = new Image();
-		img.src = currentFrame(1);
-		videoCanvas.width = 1920;
-		videoCanvas.height = 1015;
-		img.onload = function () {
-			context && context.drawImage(img, 0, 0);
+
+		images[0].onload = function () {
+			videoCanvas.width = images[0].naturalWidth; // img.width;
+			videoCanvas.height = images[0].naturalHeight; // img.height;
+			context && context.drawImage(images[0], 0, 0);
 		};
 
-		// gsap.ticker.lagSmoothing(0);
+		gsap.ticker.lagSmoothing(0);
 
 		gsap.to('.video_canvas', {
 			scrollTrigger: {
@@ -202,7 +195,7 @@
 
 <div class="main_page">
 	<div class="video_canvas">
-		<img src="/canva1/frame1.webp" alt="" />
+		<img src="/frames/1920_frame1.webp" alt="" />
 		<canvas bind:this={videoCanvas} />
 	</div>
 	<div class="header_holder">
