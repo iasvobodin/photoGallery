@@ -144,11 +144,11 @@
 						href="https://t.me/SvobodinaPhoto_bot">Telegram bot&nbsp;&nbsp;&nbsp;</a
 					>
 				</p>
-				<p>
+				<!-- <p>
 					<a rel="noreferrer" target="_blank" class="contact__link" href="tel:+79514616243"
 						>Позвонить&nbsp;&nbsp;&nbsp;</a
 					>
-				</p>
+				</p> -->
 			</div>
 		{/each}
 	</div>

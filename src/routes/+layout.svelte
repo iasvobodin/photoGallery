@@ -199,7 +199,7 @@
 
 	:root {
 		--clip: 0%;
-		--font-size-main: clamp(40px, 8vw + 10px, 90px);
+		--font-size-main: clamp(30px, 20px + 4.5vh, 90px);
 		/* --font-size-main: var(--font-size-main); */
 		--slider-height: calc(max(100vh, 500px) - var(--font-size-main) * 2);
 		--slide-width: calc(var(--slider-height) * 0.66);

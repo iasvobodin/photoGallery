@@ -207,7 +207,7 @@
 	</div>
 	<div class="header_holder">
 		<h1 class="header">Красивые и неповторимые моменты на фото.</h1>
-		<p class="header">Фотосессии, которые сделают Ваши воспоминания незабываемыми.</p>
+		<p class="sub_header">Фотосессии, которые сделают Ваши воспоминания незабываемыми.</p>
 	</div>
 	<div class="about">
 		<p class="about_desc p1">
@@ -277,8 +277,8 @@
 				<img class="x4" src="/h_X/4x.webp" alt="x4" />
 			</div>
 			<div class="hero_desc">
-				<p class="hero_title">Профессиональное<br />оборудование.</p>
-				<p class="hero_title2">Качество в<br />мельчайших деталях.</p>
+				<p class="hero_title">Профессиональное оборудование.</p>
+				<p class="hero_title2">Качество в мельчайших деталях.</p>
 				<div class="hero_list_holder">
 					<q class="hero_list">
 						Я уверена, что лучшая фотосессия - это та, которая проходит гладко и без сбоев. Именно
@@ -374,18 +374,22 @@
 		top: 0;
 		display: grid;
 		height: 100vh;
-		width: min(90%, 1200px);
+		width: min(90%, 1000px);
 	}
-	.header {
+	.header,
+	.sub_header {
 		place-self: center;
 		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-		font-family: 'Cormorant Infant', sans-serif;
+		/* font-family: 'Cormorant Infant', sans-serif;
+		font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
+			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+			Segoe UI Symbol; */
 		/* font-family: 'Roboto Mono', monospace; */
 		/* font-family: 'Roboto Mono', monospace; */
-		font-size: clamp(14px, 14px + 3.5vw, 80px);
-		line-height: 1.3;
+		font-size: clamp(14px, 14px + 3vw, 60px);
+		line-height: 1.2;
 		font-weight: 700;
-		/* font-weight: 100; */
+		font-weight: 100;
 		text-align: center;
 		margin: 0;
 		text-indent: 2ch;
@@ -396,19 +400,22 @@
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent; */
 	}
-
+	.sub_header {
+		font-size: clamp(14px, 14px + 2vw, 40px);
+		width: 80%;
+	}
 	.about {
 		position: relative;
 		display: grid;
-		align-content: space-evenly;
+		/* align-content: space-evenly; */
 		height: 300vh;
 		width: min(95%, 1500px);
 		row-gap: 20vw;
 		margin: auto;
 	}
 	.about_desc {
-		font-family: 'Cormorant Infant', serif;
-		font-size: clamp(18px, 14px + 3vw, 36px);
+		/* font-family: 'Cormorant Infant', serif; */
+		font-size: clamp(18px, 18px + 1vw, 36px);
 		line-height: 1.25;
 		margin: 0;
 		width: min(800px, 95%);
@@ -505,15 +512,15 @@
 		grid-area: 1/1/3/2;
 		align-self: center;
 		justify-self: end;
-		width: min(1000px, 70%);
+		width: min(1000px, 75%);
 	}
 	.hero_list {
-		font-size: clamp(16px, 14px + 1.5vw, 24px);
+		font-size: clamp(16px, 14px + 0.5vw, 24px);
 		color: rgb(0, 0, 0);
 		text-indent: 2ch;
 		border-left: 2px solid rgb(1, 175, 255);
 		margin: auto;
-		width: min(400px, 95%);
+		width: max(600px, 100%);
 		display: block;
 		/* border-radius: 0 10px 0 10px; */
 		/* border: 1px solid rgb(0, 140, 255); */
@@ -538,7 +545,7 @@
 
 	.reviews,
 	.hero_desc > p {
-		font-size: clamp(16px, 16px + 4vw, 50px);
+		font-size: clamp(16px, 18px + 1.5vw, 50px);
 		color: black;
 		/* width: 70%; */
 		text-align: center;
@@ -548,16 +555,23 @@
 	}
 	.hero_title2 {
 		opacity: 0;
-		width: min(1000px, 70%);
+		width: min(1000px, 90%);
 		place-self: end end;
 		grid-area: second;
+		margin: 0;
 	}
 	.hero_title {
 		opacity: 0;
-		width: min(1000px, 70%);
+		width: min(1000px, 90%);
 		align-self: start;
 		justify-self: end;
 		grid-area: first;
+		margin: 0;
+	}
+	.hero_title,
+	.hero_title2 {
+		margin-top: 5vh;
+		margin-bottom: 5vh;
 	}
 	.dummy1 {
 		grid-area: first;
@@ -632,7 +646,7 @@
 	.review__name {
 		align-self: start;
 		justify-self: center;
-		font-family: Cormorant Infant;
+		/* font-family: Cormorant Infant; */
 		padding: 5px;
 		margin: 0;
 		text-align: center;
@@ -660,9 +674,9 @@
 		place-self: stretch;
 		margin: 0;
 		padding: 1vw;
-		font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
+		/* font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
 			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
-			Segoe UI Symbol;
+			Segoe UI Symbol; */
 		font-size: clamp(16px, calc(0.7rem + 0.25vw), 24px);
 		line-height: 1.2;
 		font-weight: 150;
@@ -694,6 +708,7 @@
 		place-self: center start;
 	}
 	.description3 {
+		font-family: Cormorant Infant;
 		color: black;
 		text-decoration: none;
 		width: 100%;
@@ -758,9 +773,12 @@
 		.reviews_link {
 			display: block;
 		}
-		/* .header {
-			padding: 9vw;
-		} */
+		.hero_title,
+		.hero_title2 {
+			width: 100%;
+			margin-top: 5vh;
+			margin-bottom: 5vh;
+		}
 	}
 	h1 {
 		margin: 0;
