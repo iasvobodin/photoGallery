@@ -4,20 +4,8 @@
 <head>
 	<meta charset="utf-8" />
 	<link rel="icon" href="%sveltekit.assets%/favicon.svg" />
-	<!-- <link rel="stylesheet" href="%sveltekit.assets%/fonts.css"> -->
-	<!-- <link rel="stylesheet" href="%sveltekit.assets%/global.css"> -->
 	<meta name="viewport" content="width=device-width" />
 	%sveltekit.head%
-	
-	<script>
-		let vh = window.innerHeight * 0.01;
-		document.documentElement.style.setProperty('--vh', `${vh}px`);
-		window.addEventListener('resize', () => {
-			let vh = window.innerHeight * 0.01;
-			document.documentElement.style.setProperty('--vh', `${vh}px`);
-		});
-
-	</script>
 </head>
 
 <body data-sveltekit-preload-data="hover">

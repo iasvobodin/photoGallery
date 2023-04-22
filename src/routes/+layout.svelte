@@ -5,6 +5,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Logo from '$lib/components/logo.svelte';
+	import { dev } from '$app/environment';
 
 	let numbers: Array<number> = [];
 	const stileRandom = (i: number) => {
@@ -105,45 +106,53 @@
 	/>
 	<meta property="vk:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
 	<link rel="canonical" href="https://svobodinaphoto.ru/" />
-	<!-- Yandex.Metrika counter -->
-	<!-- Yandex.Metrika counter -->
-	<script type="text/javascript">
-		(function (m, e, t, r, i, k, a) {
-			m[i] =
-				m[i] ||
-				function () {
-					(m[i].a = m[i].a || []).push(arguments);
-				};
-			m[i].l = 1 * new Date();
-			for (var j = 0; j < document.scripts.length; j++) {
-				if (document.scripts[j].src === r) {
-					return;
+	{#if !dev}
+		<script type="text/javascript">
+			(function (m, e, t, r, i, k, a) {
+				m[i] =
+					m[i] ||
+					function () {
+						(m[i].a = m[i].a || []).push(arguments);
+					};
+				m[i].l = 1 * new Date();
+				for (var j = 0; j < document.scripts.length; j++) {
+					if (document.scripts[j].src === r) {
+						return;
+					}
 				}
-			}
-			(k = e.createElement(t)),
-				(a = e.getElementsByTagName(t)[0]),
-				(k.async = 1),
-				(k.src = r),
-				a.parentNode.insertBefore(k, a);
-		})(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+				(k = e.createElement(t)),
+					(a = e.getElementsByTagName(t)[0]),
+					(k.async = 1),
+					(k.src = r),
+					a.parentNode.insertBefore(k, a);
+			})(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
 
-		ym(93061408, 'init', {
-			clickmap: true,
-			trackLinks: true,
-			accurateTrackBounce: true,
-			webvisor: true
+			ym(93061408, 'init', {
+				clickmap: true,
+				trackLinks: true,
+				accurateTrackBounce: true,
+				webvisor: true
+			});
+		</script>
+		<noscript
+			><div>
+				<img
+					src="https://mc.yandex.ru/watch/93061408"
+					style="position:absolute; left:-9999px;"
+					alt=""
+				/>
+			</div></noscript
+		>
+	{/if}
+
+	<script>
+		let vh = window.innerHeight * 0.01;
+		document.documentElement.style.setProperty('--vh', `${vh}px`);
+		window.addEventListener('resize', () => {
+			let vh = window.innerHeight * 0.01;
+			document.documentElement.style.setProperty('--vh', `${vh}px`);
 		});
 	</script>
-	<noscript
-		><div>
-			<img
-				src="https://mc.yandex.ru/watch/93061408"
-				style="position:absolute; left:-9999px;"
-				alt=""
-			/>
-		</div></noscript
-	>
-	<!-- /Yandex.Metrika counter -->
 </svelte:head>
 
 <!-- <svelte:head>
