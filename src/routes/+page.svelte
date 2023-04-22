@@ -195,7 +195,7 @@
 
 <div class="main_page">
 	<div class="video_canvas">
-		<img src="/frames/1920_frame1.webp" alt="" />
+		<!-- <img src="/frames/1920_frame1.webp" alt="" /> -->
 		<canvas bind:this={videoCanvas} />
 	</div>
 	<div class="header_holder">
@@ -643,8 +643,8 @@
 		padding: 5px;
 		margin: 0;
 		text-align: center;
-		font-size: calc(20px + 1vw);
-		line-height: calc(20px + 1.2vw);
+		font-size: calc(20px + 0.5vw);
+		line-height: 1.1;
 		font-weight: 300;
 		color: #000000;
 	}

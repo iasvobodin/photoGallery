@@ -30,10 +30,10 @@
 			'vk_article_-163390211_31609',
 			'@svobodinaphoto-chelyabinskie-zagsy-glazami-hudozhnika-photoshop-i-nikakogo'
 		);
-		VK.Widgets.Article(
-			'vk_article_-163390211_7677',
-			'@svobodinaphoto-aksessuary-dlya-svadebnoi-fotosessii'
-		);
+		// VK.Widgets.Article(
+		// 	'vk_article_-163390211_7677',
+		// 	'@svobodinaphoto-aksessuary-dlya-svadebnoi-fotosessii'
+		// );
 	});
 </script>
 
@@ -53,15 +53,15 @@
 	<div id="vk_article_-163390211_44003" />
 	<div id="vk_article_-163390211_89413" />
 	<div id="vk_article_-163390211_31609" />
-	<div id="vk_article_-163390211_7677" />
+	<!-- <div id="vk_article_-163390211_7677" /> -->
 </div>
 
 <style>
 	.articles {
-		width: min(1000px, 95%);
+		width: min(1200px, 95%);
 		display: grid;
 		justify-content: center;
-		grid-template-columns: repeat(auto-fill, minmax(max(35vw, 250px), 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(max(25vw, 250px), 1fr));
 		row-gap: 5vw;
 		column-gap: 5vw;
 		margin: auto;
