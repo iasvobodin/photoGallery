@@ -493,12 +493,45 @@
 		/* width: 5381px;
 		height: 8072px; */
 		transform: translate3d(-2050px, -2547.02px, 0px);
-
+		border-radius: 10px;
+		overflow: hidden;
 		/* width: 100%;
 		height: 100%; */
-		object-fit: cover;
+		/* object-fit: cover; */
 		/* object-position: -2671px -2749px; */
-		object-position: center;
+		/* object-position: center; */
+		border-radius: 10px;
+		overflow: hidden;
+	}
+
+	.hx {
+		width: 5381px;
+		height: 8072px;
+		position: relative;
+	}
+	.x1 {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 10px;
+	}
+	.x2 {
+		position: absolute;
+		top: 1000px;
+		height: 4000px;
+	}
+	.x3 {
+		position: absolute;
+		height: 2000px;
+		width: 3000px;
+		top: 2000px;
+		left: 1500px;
+	}
+	.x4 {
+		position: absolute;
+		top: 2500px;
+		left: 2000px;
 	}
 	.hero_list_holder {
 		opacity: 0;
@@ -716,34 +749,7 @@
 		padding-bottom: 40px;
 		margin-bottom: 0px;
 	}
-	.hx {
-		width: 5381px;
-		height: 8072px;
-		position: relative;
-	}
-	.x1 {
-		position: absolute;
-		top: 0;
-		width: 100%;
-		height: 100%;
-	}
-	.x2 {
-		position: absolute;
-		top: 1000px;
-		height: 4000px;
-	}
-	.x3 {
-		position: absolute;
-		height: 2000px;
-		width: 3000px;
-		top: 2000px;
-		left: 1500px;
-	}
-	.x4 {
-		position: absolute;
-		top: 2500px;
-		left: 2000px;
-	}
+
 	.price > p > a {
 		display: inline;
 		text-decoration: none;
