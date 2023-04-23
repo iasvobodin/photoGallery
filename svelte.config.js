@@ -25,16 +25,16 @@ const config = {
 		}),
 		csp: {
 			directives: {
-				'script-src': ['self'],
-				'img-src': 'https://mc.yandex.ru',
-				'connect-src': 'https://mc.yandex.ru',
-				'child-src': 'https://mc.yandex.ru',
-				'frame-src': 'https://mc.yandex.ru',
+				'script-src': ['self', 'https://mc.yandex.ru', 'https://yastatic.net'],
+				'img-src': ['https://mc.yandex.ru'],
+				'connect-src': ['https://mc.yandex.ru'],
+				'child-src': ['https://mc.yandex.ru'],
+				'frame-src': ['https://mc.yandex.ru'],
 
 			},
-			reportOnly: {
-				'script-src': ['self']
-			}
+			// reportOnly: {
+			// 	'script-src': ['self']
+			// }
 		}
 		// adapter: adapter({
 		// 	// if true, will create a Netlify Edge Function rather
