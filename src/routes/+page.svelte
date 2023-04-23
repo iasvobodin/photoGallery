@@ -24,7 +24,7 @@
 			'instagram.com/svobodinaphoto',
 			'vk.com/svobodinaphoto',
 			'telegram/svobodinaphoto',
-			'watsapp/svobodinaphoto'
+			'whatsapp/svobodinaphoto'
 		],
 		link = [
 			'https://ig.me/m/svobodinaphoto/',
