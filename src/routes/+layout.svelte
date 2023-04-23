@@ -8,7 +8,7 @@
 	import { dev } from '$app/environment';
 
 
-console.log($page.url.href);
+console.log($page.url);
 
 	let numbers: Array<number> = [];
 	const stileRandom = (i: number) => {
@@ -108,7 +108,7 @@ console.log($page.url.href);
 		content="Профессиональный фотограф Свободина Анастасия Челябинск. Свадебная, портретная, репортажная, семейная фотосессии. Профессиональное оборудование, быстрые сроки, адекватные цены"
 	/>
 	<meta property="vk:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
-	<link rel="canonical" href={$page.url.href} />
+	<link rel="canonical" href="https://svobodinaphoto.ru{$page.url.pathname}" />
 	<!-- {#if !dev}
 		<script type="text/javascript" src="/metrika.js"></script>
 	{/if} -->
