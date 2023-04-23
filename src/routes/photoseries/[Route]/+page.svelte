@@ -101,7 +101,7 @@
 		});
 	}
 
-	function imageWidth(x: Number) {
+	function imageWidth(x: number) {
 		// [320, 480, 600, 720, 1024, 1440, 1920, 2560];
 		const calcWidth =
 			x < 320

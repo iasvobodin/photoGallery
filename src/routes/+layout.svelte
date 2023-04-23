@@ -107,7 +107,7 @@
 	<meta property="vk:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
 	<link rel="canonical" href="https://svobodinaphoto.ru/" />
 	{#if !dev}
-		<script type="text/javascript">
+		<script type="text/javascript" nonce="%sveltekit.nonce%">
 			(function (m, e, t, r, i, k, a) {
 				m[i] =
 					m[i] ||
