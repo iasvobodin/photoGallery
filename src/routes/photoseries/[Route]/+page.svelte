@@ -21,6 +21,8 @@
 		preloadData
 	} from '$app/navigation';
 
+
+
 	type LoyData = {
 		setStyle: string;
 		imageSrc?: string;
@@ -287,6 +289,7 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 <svelte:head>
 	<title>{photoSeries && photoSeries.Title}</title>
+	<!-- <link rel="canonical" href={$page.url.href} /> -->
 </svelte:head>
 
 {#if photoSeries}

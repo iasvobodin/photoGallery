@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
-
+	// import { page } from '$app/stores';
+	// console.log($page.url.href);
 	onMount(() => {
 		VK.init({
 			apiId: '51622968',

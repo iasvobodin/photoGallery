@@ -162,6 +162,7 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 <svelte:head>
 	<title>Фотосерии</title>
+	<!-- <link rel="canonical" href={$page.url.href} /> -->
 </svelte:head>
 <!-- on:click={goto(`/photoseries/${photo.Route}`)} -->
 
