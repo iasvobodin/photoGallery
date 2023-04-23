@@ -335,7 +335,7 @@
 			<div class="text_anim">
 				{#each allph as item}
 					<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
-						<img src="https://img.svobodinaphoto.ru/320_{item.Cover}.avif" alt="" />
+						<img src="https://img.svobodinaphoto.ru/320_{item.Cover}.webp" alt="" />
 					</a>
 				{/each}
 			</div>
