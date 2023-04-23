@@ -19,10 +19,23 @@ const config = {
 			// these options are set automatically — see below
 			pages: 'build',
 			assets: 'build',
-			fallback: null,
+			// fallback: null,
 			precompress: false,
 			strict: true
-		})
+		}),
+		csp: {
+			directives: {
+				'script-src': ['self'],
+				'img-src': 'https://mc.yandex.ru',
+				'connect-src': 'https://mc.yandex.ru',
+				'child-src': 'https://mc.yandex.ru',
+				'frame-src': 'https://mc.yandex.ru',
+
+			},
+			reportOnly: {
+				'script-src': ['self']
+			}
+		}
 		// adapter: adapter({
 		// 	// if true, will create a Netlify Edge Function rather
 		// 	// than using standard Node-based functions
