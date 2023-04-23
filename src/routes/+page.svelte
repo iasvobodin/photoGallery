@@ -21,10 +21,10 @@
 	let allph2 = allphVer;
 	let allph3 = allphHor.slice(9, 18);
 	let social = [
-			'instagram.com/svobodinaphoto',
-			'vk.com/svobodinaphoto',
-			'telegram/svobodinaphoto',
-			'whatsapp/svobodinaphoto'
+			'instagram', //.com/svobodinaphoto',
+			'vk', //svobodinaphoto',
+			'telegram', ///svobodinaphoto',
+			'whatsapp' ///svobodinaphoto'
 		],
 		link = [
 			'https://ig.me/m/svobodinaphoto/',
