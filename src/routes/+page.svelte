@@ -11,7 +11,7 @@
 	gsap.registerPlugin(ScrollTrigger);
 
 	export let data: PageData;
-
+	let showDis = false;
 	let allph = data.allph;
 	let reviewsSlice = data.reviews.slice(data.reviews.length - 8, data.reviews.length);
 	let allphHor = allph.filter((e) => e.Aspect > 1);
@@ -20,11 +20,17 @@
 	let allph1 = allphHor.slice(0, 9);
 	let allph2 = allphVer;
 	let allph3 = allphHor.slice(9, 18);
-	let social = ['instagram.com/svobodinaphoto', 'vk.com/svobodinaphoto', 't.me/svobodinaphoto'],
+	let social = [
+			'instagram.com/svobodinaphoto',
+			'vk.com/svobodinaphoto',
+			'telegram/svobodinaphoto',
+			'watsapp/svobodinaphoto'
+		],
 		link = [
-			'https://www.instagram.com/svobodinaphoto/',
-			'https://vk.com/svobodinaphoto',
-			'https://t.me/svobodinaphoto'
+			'https://ig.me/m/svobodinaphoto/',
+			'https://vk.me/aasvobodina/',
+			'https://t.me/svobodinaphoto/',
+			'https://wa.me/%2B79514616243'
 		],
 		count = 1;
 
@@ -175,10 +181,10 @@
 			lenis.raf(time * 1000);
 		});
 
-		let i = 3;
+		let i = 4;
 		intervalId = setInterval(() => {
 			i++;
-			count = i % 3;
+			count = i % 4;
 		}, 2500);
 	});
 	onDestroy(() => {
@@ -320,6 +326,38 @@
 	</div>
 	<div class="contact">
 		<!-- <h2 class="description date">Контакты</h2> -->
+		<button class="disbut" aria-label="Button" on:click={() => (showDis = !showDis)} type="button"
+			>Disclaimer</button
+		>
+		{#if showDis}
+			<div class="dis">
+				<p class="disclemer">
+					<span>*</span> Я не хочу собирать и обрабатывать информацию о вас, размещать здесь никому
+					не нужную "политику конфеденциальности" и прочие радости по типу "уведомить роскомнадзор"
+					которые необходимо соблюдать по закону, чтобы сделать форму для заказа с сайта. <br /> Поэтому
+					ниже ссылки на директ во все разрешенные и запрещённые😁(используйте vpn) на територии РФ соцсети
+				</p>
+			</div>
+		{/if}
+
+		<!-- <div class="lazy_holder">
+			<div class="dis">
+				<p class="disclemer">
+					<span>*</span> Я не хочу собирать и обрабатывать информацию о вас, размещать здесь никому
+					не нужную "политику конфеденциальности" и прочие радости по типу "уведомить роскомнадзор"
+					которые необходимо соблюдать по закону, чтобы сделать форму для заказа с сайта. <br /> Поэтому
+					ниже ссылки на директ во все разрешенные и запрещённые(используйте vpn) на територии РФ соцсети
+					😁
+				</p>
+			</div>
+			<div class="bot">
+				<p class="disclemer">Для интровертов есть телеграмм бот</p>
+				<a href="https://t.me/SvobodinaPhoto_bot" rel="noreferrer" target="_blank">
+					<img class="qr" src="/icons/qr-code.svg" alt="bot" />
+				</a>
+			</div>
+		</div> -->
+
 		<a class="description3" href={link[count]} rel="noreferrer" target="_blank">
 			<p>{social[count]}</p>
 		</a>
@@ -754,6 +792,57 @@
 		display: inline;
 		text-decoration: none;
 		color: purple;
+	}
+	.lazy_holder {
+		display: grid;
+		/* flex-wrap: wrap; */
+		row-gap: 5vh;
+		column-gap: 5vw;
+		width: max(900px, 95%);
+		margin: auto;
+		grid-template-columns: repeat(auto-fit, minmax(max(40vw, 500px), 1fr));
+	}
+	.dis {
+		width: min(1000px, 95%);
+		margin: auto;
+		/* flex: 1 1 700px; */
+		/* place-self: center; */
+	}
+	.disbut {
+		cursor: pointer;
+
+		display: block;
+		width: 30vw;
+		height: 5vh;
+		margin: auto;
+		border-radius: 5px;
+		border: 1px solid dodgerblue;
+		color: black;
+		text-align: center;
+	}
+	.disbut:hover {
+		border: 1px solid purple;
+	}
+	.disclemer {
+		/* width: fit-content; */
+		/* width: 70%; */
+		text-indent: 2ch;
+		color: rgb(25, 0, 50);
+		font-size: clamp(16px, calc(0.7rem + 0.25vw), 24px);
+	}
+	.bot {
+		place-self: center;
+
+		width: max(700px, 100%);
+	}
+	.bot > a {
+		width: 100%;
+	}
+	.qr {
+		object-fit: contain;
+		/* width: min(400px, 100%); */
+		width: 100%;
+		height: 100%;
 	}
 	@media (orientation: portrait) {
 		.hero {
