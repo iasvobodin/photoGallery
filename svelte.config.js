@@ -8,11 +8,11 @@ const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
-	vite: {
-		ssr: {
-			noExternal: ['curtainsjs/src/index.mjs']
-		}
-	},
+	// vite: {
+	// 	ssr: {
+	// 		noExternal: ['curtainsjs/src/index.mjs']
+	// 	}
+	// },
 	kit: {
 		adapter: adapter({
 			// default options are shown. On some platforms
@@ -23,41 +23,47 @@ const config = {
 			precompress: false,
 			strict: true
 		}),
-		// csp: {
-		// 	directives: {
-		// 		'script-src': ['self',
-		// 			'https://mc.yandex.ru',
-		// 			'https://mc.yandex.az',
-		// 			'https://mc.yandex.by',
-		// 			'https://mc.yandex.co.il',
-		// 			'https://mc.yandex.com',
-		// 			'https://mc.yandex.com.am',
-		// 			'https://mc.yandex.com.ge',
-		// 			'https://mc.yandex.com.tr',
-		// 			'https://mc.yandex.ee',
-		// 			'https://mc.yandex.fr',
-		// 			'https://mc.yandex.kg',
-		// 			'https://mc.yandex.kz',
-		// 			'https://mc.yandex.lt',
-		// 			'https://mc.yandex.lv',
-		// 			'https://mc.yandex.md',
-		// 			'https://mc.yandex.tj',
-		// 			'https://mc.yandex.tm',
-		// 			'https://mc.yandex.ua',
-		// 			'https://mc.yandex.uz',
-		// 			'https://mc.webvisor.com',
-		// 			'https://mc.webvisor.org',
-		// 			'https://yastatic.net'
-		// 		],
-		// 		'img-src': ['https://mc.yandex.ru'],
-		// 		'connect-src': ['https://mc.yandex.ru'],
-		// 		'child-src': ['https://mc.yandex.ru'],
-		// 		'frame-src': ['https://mc.yandex.ru'],
+		csp: {
+			mode: 'auto',
+			directives: {
+				// 'script-src': ['self', 'localhost:*'],
 
-		// 	},
-		// 	// reportOnly: {
-		// 	// 	'script-src': ['self']
-		// 	// }
+				// , 'https://svobodinaphoto.ru', 'https://*.svobodinaphoto.ru', 'http://localhost:5173/',
+				// 	'https://mc.yandex.ru',
+				// 	'https://mc.yandex.az',
+				// 	'https://mc.yandex.by',
+				// 	'https://mc.yandex.co.il',
+				// 	'https://mc.yandex.com',
+				// 	'https://mc.yandex.com.am',
+				// 	'https://mc.yandex.com.ge',
+				// 	'https://mc.yandex.com.tr',
+				// 	'https://mc.yandex.ee',
+				// 	'https://mc.yandex.fr',
+				// 	'https://mc.yandex.kg',
+				// 	'https://mc.yandex.kz',
+				// 	'https://mc.yandex.lt',
+				// 	'https://mc.yandex.lv',
+				// 	'https://mc.yandex.md',
+				// 	'https://mc.yandex.tj',
+				// 	'https://mc.yandex.tm',
+				// 	'https://mc.yandex.ua',
+				// 	'https://mc.yandex.uz',
+				// 	'https://mc.webvisor.com',
+				// 	'https://mc.webvisor.org',
+				// 	'https://yastatic.net'
+				// ],
+				'child-src': ['blob:', 'https://mc.yandex.ru'],
+				'frame-src': ['blob:', 'https://mc.yandex.ru'],
+				'img-src': ['https://mc.yandex.ru', 'localhost:*', 'https:'],
+			}
+		}
+		// 'connect-src': ['self', 'https://mc.yandex.ru'],
+
+
+		// },
+		// reportOnly: {
+		// 	'script-src': ['self']
+		// }
 		// }
 		// adapter: adapter({
 		// 	// if true, will create a Netlify Edge Function rather
