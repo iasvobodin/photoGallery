@@ -197,11 +197,15 @@
 
 <svelte:head>
 	<title>Главная</title>
+	<meta
+	name="description"
+	content="Фотограф Свободина Анастасия Челябинск. Свадебная, портретная, репортажная, семейная фотосессии. Профессиональное оборудование, быстрые сроки, адекватные цены"
+/>
 </svelte:head>
 
 <div class="main_page">
 	<div class="video_canvas">
-		<!-- <img src="/frames/1920_frame1.webp" alt="" /> -->
+		<img src="/frames/1920_frame1.webp" alt="" />
 		<canvas bind:this={videoCanvas} />
 	</div>
 	<div class="header_holder">

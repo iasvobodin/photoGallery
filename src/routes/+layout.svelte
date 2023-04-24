@@ -85,10 +85,7 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 <svelte:head>
 	<meta name="yandex-verification" content="9cd2d955993a7f04" />
 	<meta name="author" content="Anastasia Svobodina" />
-	<meta
-		name="description"
-		content="Профессиональный фотограф Свободина Анастасия Челябинск. Свадебная, портретная, репортажная, семейная фотосессии. Профессиональное оборудование, быстрые сроки, адекватные цены"
-	/>
+
 	<!-- <meta name="keywords" content=""> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -110,87 +107,7 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 	/>
 	<meta property="vk:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
 	<link rel="canonical" href={canonical} />
-	<!-- {#if !dev}
-		<script type="text/javascript" src="/metrika.js"></script>
-	{/if} -->
-	<!-- {#if !dev}
-
-		<script type="text/javascript" nonce="%sveltekit.nonce%">
-			(function (m, e, t, r, i, k, a) {
-				m[i] =
-					m[i] ||
-					function () {
-						(m[i].a = m[i].a || []).push(arguments);
-					};
-				m[i].l = 1 * new Date();
-				for (var j = 0; j < document.scripts.length; j++) {
-					if (document.scripts[j].src === r) {
-						return;
-					}
-				}
-				(k = e.createElement(t)),
-					(a = e.getElementsByTagName(t)[0]),
-					(k.async = 1),
-					(k.src = r),
-					a.parentNode.insertBefore(k, a);
-			})(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
-
-			ym(93061408, 'init', {
-				clickmap: true,
-				trackLinks: true,
-				accurateTrackBounce: true,
-				webvisor: true
-			});
-		</script>
-		<noscript
-			><div>
-				<img
-					src="https://mc.yandex.ru/watch/93061408"
-					style="position:absolute; left:-9999px;"
-					alt=""
-				/>
-			</div></noscript
-		>
-	{/if} -->
-
-	<!-- {#if !dev}
-		<script type="text/javascript" nonce="%sveltekit.nonce%">
-			(function (m, e, t, r, i, k, a) {
-				m[i] =
-					m[i] ||
-					function () {
-						(m[i].a = m[i].a || []).push(arguments);
-					};
-				m[i].l = 1 * new Date();
-				for (var j = 0; j < document.scripts.length; j++) {
-					if (document.scripts[j].src === r) {
-						return;
-					}
-				}
-				(k = e.createElement(t)),
-					(a = e.getElementsByTagName(t)[0]),
-					(k.async = 1),
-					(k.src = r),
-					a.parentNode.insertBefore(k, a);
-			})(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
-
-			ym(93061408, 'init', {
-				clickmap: true,
-				trackLinks: true,
-				accurateTrackBounce: true,
-				webvisor: true
-			});
-		</script>
-		<noscript
-			><div>
-				<img
-					src="https://mc.yandex.ru/watch/93061408"
-					style="position:absolute; left:-9999px;"
-					alt=""
-				/>
-			</div></noscript
-		>
-	{/if} -->
+	
 	{#if !dev}
 		<script type="text/javascript" >
 			(function (m, e, t, r, i, k, a) {
@@ -239,25 +156,7 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 	</script>
 </svelte:head>
 
-<!-- <svelte:head>
-	<link
-		rel="preload"
-		href="/fonts/cormorant-infant-v10-latin_cyrillic-regular.woff2"
-		as="font"
-		crossOrigin="anonymous"
-	/>
-</svelte:head> -->
-<!-- {#if !dev}
-	<noscript
-		><div>
-			<img
-				src="https://mc.yandex.ru/watch/XXXXXX"
-				style="position:absolute; left:-9999px;"
-				alt=""
-			/>
-		</div></noscript
-	>
-{/if} -->
+
 <div class="main" class:disable__scroll={menuIsOpen}>
 	<slot />
 </div>
