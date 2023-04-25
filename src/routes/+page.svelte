@@ -827,7 +827,7 @@
 		place-self: center;
 		display: grid;
 		/* grid-auto-flow: column; */
-		grid-template-columns: repeat(auto-fit, minmax(max(40vw, 250px), 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(max(20vw, 250px), 1fr));
 	}
 	.qr {
 		object-fit: contain;
