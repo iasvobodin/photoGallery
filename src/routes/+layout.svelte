@@ -1,11 +1,33 @@
 <script lang="ts">
 	import '../global.css';
 	import '../fonts.css';
+	import { setContext } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { browser, dev} from '$app/environment';
 	import Logo from '$lib/components/logo.svelte';
-	import { dev } from '$app/environment';
+	import Lenis from '@studio-freight/lenis'
+
+	let lenis: Lenis;
+
+	$: if (browser) {
+		console.log('loybro');
+		
+		window.scrollTo(0, 0)
+		window.history.scrollRestoration = 'manual'
+		lenis = new Lenis({
+			lerp: 0.08
+		});
+		const raf = (time: number) => {
+			lenis.raf(time);
+			requestAnimationFrame(raf);
+		};
+		raf(0);
+		setContext('lenis', lenis);
+	}
+
+
 
 
 let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
@@ -77,6 +99,9 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 	let menuIsOpen = false;
 	const stag = () => {
 		menuIsOpen = !menuIsOpen;
+		console.log(menuIsOpen);
+		menuIsOpen ? lenis.stop() : lenis.start()
+		
 	};
 </script>
 
@@ -191,7 +216,7 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 			{/each}
 		</div>
 	{/if}
-	<h1 class="menu__title__hor font__prop" class:hide__svph={$page.url.pathname !== '/'}>
+	<h1 class="menu__title__hor font__prop" class:hide__svph={$page.url.pathname !== '/' || y >= 150}>
 		SVOBODINA
 	</h1>
 	<button
@@ -203,7 +228,7 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 		class:menuIsOpen
 	/>
 	{#if !menuIsOpen}
-		<div class="menu__title__ver font__prop" class:hide__svph={$page.url.pathname !== '/'}>
+		<div class="menu__title__ver font__prop" class:hide__svph={$page.url.pathname !== '/' || y >= 150}>
 			{#each 'PHOTO' as item, i}
 				<div class="char__holder">
 					<span
@@ -249,7 +274,9 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 		position: relative;
 	}
 	.hide__svph {
+		transition: opacity 1s;
 		opacity: 0;
+		
 	}
 	section {
 		all: unset;
@@ -258,8 +285,8 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 		display: block;
 	}
 	.disable__scroll {
-		overflow-y: hidden;
-		height: 100vh;
+		/* overflow-y: hidden;
+		height: 100vh; */
 	}
 	.menu__back {
 		width: calc((clamp(40px, 6.5vw + 12px, 90px) + 4vh) / 1.5);
@@ -288,7 +315,7 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 	}
 	.menu {
 		pointer-events: none;
-		position: absolute;
+		position: fixed;
 		top: 0;
 		height: 100vh;
 		height: calc(var(--vh, 1vh) * 100);

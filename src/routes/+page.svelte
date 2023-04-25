@@ -2,7 +2,8 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-	import Lenis from '@studio-freight/lenis';
+	// import Lenis from '@studio-freight/lenis';
+	import { getContext } from 'svelte';
 
 	import type { PageData } from './$types';
 	import { browser } from '$app/environment';
@@ -36,7 +37,11 @@
 
 	let videoCanvas: HTMLCanvasElement,
 		frameIndex = 0;
-	let lenis: Lenis;
+
+	// let lenis: Lenis;
+
+let lenis;
+
 	const frameQty = 259;
 
 	const currentFrame = (size: number = 1920, index: number) => `/frames/${size}_frame${index}.webp`;
@@ -54,12 +59,15 @@
 
 	$: if (browser) {
 		preloadImages(window.innerWidth > 900 ? 1920 : 1024);
-		lenis = new Lenis({
-			lerp: 0.08
-		});
-		lenis.scrollTo('body', { duration: 0.1, force: true });
+		// lenis = new Lenis({
+		// 	lerp: 0.08
+		// });
+		lenis = getContext('lenis');
+
+		// lenis.scrollTo('body', { duration: 0.1, force: true });
 	}
 	onMount(() => {
+		console.log('main');
 		const context = videoCanvas.getContext('2d');
 
 		const updateImage = (index: number) => {
@@ -169,7 +177,7 @@
 		});
 
 		const raf = (time: number) => {
-			lenis.raf(time);
+			// lenis.raf(time);
 
 			updateImage(frameIndex);
 
