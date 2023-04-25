@@ -198,9 +198,9 @@
 <svelte:head>
 	<title>Главная</title>
 	<meta
-	name="description"
-	content="Фотограф Свободина Анастасия Челябинск. Свадебная, портретная, репортажная, семейная фотосессии. Профессиональное оборудование, быстрые сроки, адекватные цены"
-/>
+		name="description"
+		content="Фотограф Свободина Анастасия Челябинск. Свадебная, портретная, репортажная, семейная фотосессии. Профессиональное оборудование, быстрые сроки, адекватные цены"
+	/>
 </svelte:head>
 
 <div class="main_page">
@@ -313,7 +313,7 @@
 				</div>
 			</div>
 		{/each}
-		<a data-sveltekit-reload href="/reviews" class="reviews_link">Больше отзывов</a>
+		<a data-sveltekit-reload href="/reviews" class="reviews_link">Посмотреть все отзывы</a>
 	</div>
 	<div class="price">
 		<p class="price_desc">
@@ -322,22 +322,43 @@
 			будут вам необходимы и какой бюджет будет наиболее подходящим для вас. <br /> Подробнее в
 			разделе <a data-sveltekit-reload href="/price">цены</a>
 		</p>
+
 		<p class="finish_desc">
 			Я буду рада стать вашим фотографом и помочь вам запечатлеть ваши самые яркие моменты жизни в
 			красивых и незабываемых фотографиях. Свяжитесь со мной, чтобы обсудить детали вашей будущей
 			фотосессии и дайте мне возможность помочь вам сохранить ваши эмоции и чувства на долгие годы.
 		</p>
+		<div class="telegramm_bot">
+			<p class="bot_desc">
+				Подписывайтесь на моего <a
+					class="qr"
+					href="https://t.me/SvobodinaPhoto_bot"
+					rel="noreferrer"
+					target="_blank"
+					>телеграм бота
+				</a> , там я публикую информацию о своих фотопроектах, акциях и скидках.
+			</p>
+			<a class="qr" href="https://t.me/SvobodinaPhoto_bot" rel="noreferrer" target="_blank">
+				<img class="qr" src="/icons/qr-code.svg" alt="bot" />
+			</a>
+		</div>
 	</div>
 	<div class="contact">
 		<!-- <h2 class="description date">Контакты</h2> -->
-		<button class="disbut" aria-label="Button" on:click={() => (showDis = !showDis)} type="button"
+		<!-- <button class="disbut" aria-label="Button" on:click={() => (showDis = !showDis)} type="button"
 			>Disclaimer</button
+		> -->
+
+		<!-- HTML !-->
+		<button on:click={() => (showDis = !showDis)} class="button-38" type="button">Disclaimer</button
 		>
+
 		{#if showDis}
 			<div class="dis">
 				<p class="disclemer">
 					<span>*</span> Я не хочу собирать и обрабатывать информацию о вас, размещать здесь никому
-					не нужную "политику конфеденциальности" и прочие радости по типу "уведомить роскомнадзор",
+					не нужную "политику конфеденциальности" и прочие радости,
+					<!-- по типу "уведомить роскомнадзор" -->
 					которые необходимо соблюдать по закону, чтобы сделать форму для заказа с сайта. <br /> Поэтому
 					ниже ссылки на директ во все разрешенные и запрещённые😎(используйте vpn) на территории РФ
 					соцсети
@@ -363,9 +384,23 @@
 			</div>
 		</div> -->
 
-		<a class="description3" href={link[count]} rel="noreferrer" target="_blank">
+		<div class="icons">
+			<a href="https://t.me/svobodinaphoto/" rel="noreferrer" target="_blank">
+				<img src="/icons/Telegram.svg" alt="Telegram" />
+			</a>
+			<a href="https://ig.me/m/svobodinaphoto/" rel="noreferrer" target="_blank">
+				<img src="/icons/Instagram.svg" alt="instagram" />
+			</a>
+			<a href="https://vk.me/aasvobodina/" rel="noreferrer" target="_blank">
+				<img src="/icons/VK.svg" alt="VK" />
+			</a>
+			<a href="https://wa.me/%2B79514616243" rel="noreferrer" target="_blank">
+				<img src="/icons/Whatsapp.svg" alt="Whatsapp" />
+			</a>
+		</div>
+		<!-- <a class="description3" href={link[count]} rel="noreferrer" target="_blank">
 			<p>{social[count]}</p>
-		</a>
+		</a> -->
 	</div>
 </div>
 
@@ -373,6 +408,9 @@
 	/* :global(body) {
 		background-color: white;
 	} */
+	a {
+		text-decoration: none;
+	}
 	.main_page {
 		position: relative;
 		background-color: white;
@@ -761,6 +799,7 @@
 		row-gap: 10vh;
 	}
 	.price_desc,
+	.bot_desc,
 	.finish_desc {
 		border-left: 2px solid rgb(1, 175, 255);
 		padding-left: 2vh;
@@ -769,14 +808,34 @@
 		width: min(850px, 100%);
 		text-indent: 2ch;
 	}
-
+	.bot_desc {
+		/* width: max(250px, 40vw); */
+		align-self: center;
+	}
+	.bot_desc > a {
+		background: -webkit-linear-gradient(#00c3ff, #000000);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
 	.price_desc {
 		place-self: center end;
 	}
 	.finish_desc {
 		place-self: center start;
 	}
-	.description3 {
+	.telegramm_bot {
+		place-self: center;
+		display: grid;
+		/* grid-auto-flow: column; */
+		grid-template-columns: repeat(auto-fit, minmax(max(40vw, 250px), 1fr));
+	}
+	.qr {
+		object-fit: contain;
+		width: min(400px, 100%);
+		height: 100%;
+		place-self: center;
+	}
+	/* .description3 {
 		font-family: Cormorant Infant;
 		color: black;
 		text-decoration: none;
@@ -791,7 +850,7 @@
 	.description3 > p {
 		padding-bottom: 40px;
 		margin-bottom: 0px;
-	}
+	} */
 
 	.price > p > a {
 		display: inline;
@@ -813,7 +872,7 @@
 		/* flex: 1 1 700px; */
 		/* place-self: center; */
 	}
-	.disbut {
+	/* .disbut {
 		cursor: pointer;
 
 		display: block;
@@ -827,6 +886,42 @@
 	}
 	.disbut:hover {
 		border: 1px solid purple;
+	} */
+
+	/* CSS */
+	.button-38 {
+		margin: auto;
+		width: min(1000px, 90%);
+		display: block;
+		background-color: #ffffff;
+		border: 0;
+		border-radius: 0.5rem;
+		color: #111827;
+		font-size: 0.875rem;
+		font-weight: 600;
+		line-height: 1.25rem;
+		padding: 0.75rem 0px;
+		text-align: center;
+		text-decoration: none #d1d5db solid;
+		text-decoration-thickness: auto;
+		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+		cursor: pointer;
+		user-select: none;
+		-webkit-user-select: none;
+		touch-action: manipulation;
+	}
+
+	.button-38:hover {
+		background-color: rgb(249, 250, 251);
+	}
+
+	.button-38:focus {
+		outline: 2px solid transparent;
+		outline-offset: 2px;
+	}
+
+	.button-38:focus-visible {
+		box-shadow: none;
 	}
 	.disclemer {
 		/* width: fit-content; */
@@ -843,11 +938,18 @@
 	.bot > a {
 		width: 100%;
 	}
-	.qr {
-		object-fit: contain;
-		/* width: min(400px, 100%); */
+
+	.icons {
+		display: grid;
+		grid-auto-flow: column;
+		justify-content: space-evenly;
 		width: 100%;
-		height: 100%;
+		margin-top: 5vh;
+		padding-bottom: 5vh;
+	}
+	.icons > a,
+	.icons > a > img {
+		height: 5vh;
 	}
 	@media (orientation: portrait) {
 		.hero {
