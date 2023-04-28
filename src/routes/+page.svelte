@@ -2,7 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-	// import Lenis from '@studio-freight/lenis';
+	import type Lenis from '@studio-freight/lenis';
 	import { getContext } from 'svelte';
 
 	import type { PageData } from './$types';
@@ -35,12 +35,16 @@
 		],
 		count = 1;
 
+	let priceDescription =
+		'Я понимаю, что каждый клиент имеет свои уникальные потребности и пожелания, поэтому я готова подбирать цену на услуги индивидуально для каждого. Вместе мы можем определить, какие услуги будут вам необходимы и какой бюджет будет наиболее подходящим для вас. Подробнее в разделе';
+	let priceDescriptionByWords = priceDescription.split(' ');
+
 	let videoCanvas: HTMLCanvasElement,
 		frameIndex = 0;
 
 	// let lenis: Lenis;
 
-let lenis;
+	let lenis: Lenis;
 
 	const frameQty = 259;
 
@@ -66,30 +70,21 @@ let lenis;
 
 		// lenis.scrollTo('body', { duration: 0.1, force: true });
 	}
-	onMount(() => {
-		console.log('main');
-		const context = videoCanvas.getContext('2d');
+	// const debounce = (func: () => void, delay:number) => {
+	// 	let timer:NodeJS.Timer;
 
-		const updateImage = (index: number) => {
-			context && context.drawImage(images[index], 0, 0);
-		};
+	// 	return function () {
+	// 		const context = this;
+	// 		const args = arguments;
+	// 		clearTimeout(timer);
+	// 		timer = setTimeout(() => func.apply(context, args), delay);
+	// 	};
+	// };
+	let midl_gallery: string | number, scaleCoef: number;
 
-		lenis.on('scroll', ScrollTrigger.update);
-
-		lenis.on('scroll', (e: any) => {
-			frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 17));
-		});
-
-		ScrollTrigger.create({
-			trigger: '.video_canvas',
-			pin: true,
-			start: 'top top',
-			end: '+550% top',
-			pinSpacing: false
-			// refreshPriority: 1,
-		});
-
-		const scaleCoef =
+	const setGsap = () => {
+		// console.log('setGsap');
+		scaleCoef =
 			window.innerWidth / window.innerHeight > 1
 				? 1 / (8072 / window.innerHeight)
 				: 1 / (5381 / window.innerWidth);
@@ -114,7 +109,50 @@ let lenis;
 			xPercent: -100
 		});
 
-		let midl_gallery = gsap.getProperty('.gallery_middle', 'width');
+		midl_gallery = gsap.getProperty('.gallery_middle', 'width');
+		ScrollTrigger.refresh();
+	};
+
+	const debounce = <F extends (...args: Parameters<F>) => ReturnType<F>>(
+		func: F,
+		waitFor: number
+	) => {
+		let timeout: NodeJS.Timeout;
+
+		const debounced = (...args: Parameters<F>) => {
+			clearTimeout(timeout);
+			timeout = setTimeout(() => func(...args), waitFor);
+		};
+
+		return debounced;
+	};
+
+	const debounceSizes = debounce(setGsap, 300);
+
+	onMount(() => {
+		window.addEventListener('resize', debounceSizes);
+		console.log('main');
+		const context = videoCanvas.getContext('2d');
+
+		const updateImage = (index: number) => {
+			context && context.drawImage(images[index], 0, 0);
+		};
+
+		lenis.on('scroll', ScrollTrigger.update);
+
+		lenis.on('scroll', (e: any) => {
+			frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 17));
+		});
+
+		ScrollTrigger.create({
+			trigger: '.video_canvas',
+			pin: true,
+			start: 'top top',
+			end: '+550% top',
+			pinSpacing: false
+			// refreshPriority: 1,
+		});
+		setGsap();
 
 		images[0].onload = function () {
 			videoCanvas.width = images[0].naturalWidth; // img.width;
@@ -166,6 +204,27 @@ let lenis;
 				end: '300% top'
 			},
 			x: 0,
+			// duration: 7,
+			stagger: {
+				amount: 7,
+				each: 0.0000001,
+				ease: 'none'
+			},
+
+			ease: 'none'
+		});
+
+		gsap.to(['.words', '.price_link'], {
+			scrollTrigger: {
+				trigger: '.price_desc',
+				scrub: 1,
+				// pin: true,
+				start: 'top 70%',
+				end: 'bottom 70%'
+				// pinSpacing: false
+				// markers: true
+			},
+			opacity: 1,
 			// duration: 7,
 			stagger: {
 				amount: 7,
@@ -305,9 +364,9 @@ let lenis;
 	</div>
 
 	<div class="reviews">
-		<a data-sveltekit-reload href="/reviews" class=" reviews_title"
-			><p class=" reviews_title">Отзывы</p></a
-		>
+		<!-- <a data-sveltekit-reload href="/reviews" class=" reviews_title"> -->
+		<p class=" reviews_title">Отзывы</p>
+		<!-- </a> -->
 		{#each reviewsSlice as review}
 			<div class="review_holder">
 				<div class="review">
@@ -324,12 +383,13 @@ let lenis;
 		<a data-sveltekit-reload href="/reviews" class="reviews_link">Посмотреть все отзывы</a>
 	</div>
 	<div class="price">
-		<p class="price_desc">
-			Я понимаю, что каждый клиент имеет свои уникальные потребности и пожелания, поэтому я готова
-			подбирать цену на услуги индивидуально для каждого. Вместе мы можем определить, какие услуги
-			будут вам необходимы и какой бюджет будет наиболее подходящим для вас. <br /> Подробнее в
-			разделе <a data-sveltekit-reload href="/price">цены</a>
-		</p>
+		<div class="price_desc">
+			{#each priceDescriptionByWords as word}
+				<span class="words">{word}</span>
+			{/each}
+			<!-- {priceDescription}  -->
+			<a class="price_link" data-sveltekit-reload href="/price">цены</a>
+		</div>
 
 		<p class="finish_desc">
 			Я буду рада стать вашим фотографом и помочь вам запечатлеть ваши самые яркие моменты жизни в
@@ -339,7 +399,6 @@ let lenis;
 		<div class="telegramm_bot">
 			<p class="bot_desc">
 				Подписывайтесь на моего <a
-					class="qr"
 					href="https://t.me/SvobodinaPhoto_bot"
 					rel="noreferrer"
 					target="_blank"
@@ -367,9 +426,10 @@ let lenis;
 					<span>*</span> Я не хочу собирать и обрабатывать информацию о вас, размещать здесь никому
 					не нужную "политику конфеденциальности" и прочие радости,
 					<!-- по типу "уведомить роскомнадзор" -->
-					которые необходимо соблюдать по закону, чтобы сделать форму для заказа с сайта. <br /> Поэтому
-					ниже ссылки на директ во все разрешенные и запрещённые😎(используйте vpn) на территории РФ
-					соцсети
+					которые необходимо соблюдать по закону, чтобы сделать форму для заказа с сайта. <br />
+					Поэтому ниже ссылки на директ во все разрешенные и запрещённые😎
+					<!-- (используйте vpn) -->
+					на территории РФ соцсети
 				</p>
 			</div>
 		{/if}
@@ -413,6 +473,11 @@ let lenis;
 </div>
 
 <style>
+	:root {
+		--rev_width: min(600px, 95%);
+		--rev_x: calc((98vw - var(--rev_width)) / 8);
+	}
+	/* (window.innerWidth * 0.98 - Math.min(600, window.innerWidth * 0.95)) / reviewsSlice.lengt */
 	/* :global(body) {
 		background-color: white;
 	} */
@@ -716,7 +781,7 @@ let lenis;
 		text-decoration: none;
 	}
 	.reviews_link {
-		display: none;
+		/* display: none; */
 		position: absolute;
 		bottom: 0;
 		left: 0;
@@ -727,9 +792,7 @@ let lenis;
 		width: min(800px, 95%);
 		text-align: center;
 	}
-	.reviews_title:hover {
-		color: purple;
-	}
+
 	.gallery > a {
 		display: block;
 		overflow: hidden;
@@ -739,8 +802,33 @@ let lenis;
 		overflow: hidden;
 		position: absolute;
 		height: 350px;
-		width: min(600px, 95%);
+		width: var(--rev_width);
 	}
+
+	/* .review_holder:nth-child(2) {
+		border: 10px solid red;
+	}
+	.review_holder:nth-child(3) {
+		transform: translateX(calc(var(--rev_x) * 1));
+	}
+	.review_holder:nth-child(4) {
+		transform: translateX(calc(var(--rev_x) * 2));
+	}
+	.review_holder:nth-child(5) {
+		transform: translateX(calc(var(--rev_x) * 3));
+	}
+	.review_holder:nth-child(6) {
+		transform: translateX(calc(var(--rev_x) * 4));
+	}
+	.review_holder:nth-child(7) {
+		transform: translateX(calc(var(--rev_x) * 5));
+	}
+	.review_holder:nth-child(8) {
+		transform: translateX(calc(var(--rev_x) * 6));
+	}
+	.review_holder:nth-child(9) {
+		transform: translateX(calc(var(--rev_x) * 7));
+	} */
 	.review {
 		width: 100%;
 		height: 100%;
@@ -800,10 +888,11 @@ let lenis;
 	}
 	.price {
 		display: grid;
+		/* grid-template-rows: 100vh auto auto; */
 		width: min(1200px, 95%);
 		margin: auto;
 		margin-top: 15vh;
-		height: auto;
+		/* height: auto; */
 		row-gap: 10vh;
 	}
 	.price_desc,
@@ -816,18 +905,44 @@ let lenis;
 		width: min(850px, 100%);
 		text-indent: 2ch;
 	}
+	.price_desc {
+		place-self: center end;
+		height: auto;
+	}
+	.words {
+		all: unset;
+		text-indent: 0.5ch;
+		display: inline-block;
+		opacity: 0.15;
+		/* color: rgba(128, 128, 128, 0.2); */
+		/* width: fit-content; */
+		/* padding-left: 1ch; */
+	}
+	.price_link {
+		opacity: 0.15;
+	}
 	.bot_desc {
 		/* width: max(250px, 40vw); */
 		align-self: center;
 	}
-	.bot_desc > a {
-		background: -webkit-linear-gradient(#00c3ff, #000000);
+	a {
+		background: -webkit-radial-gradient(
+			circle,
+			rgba(2, 0, 36, 1) 0%,
+			rgba(27, 73, 231, 1) 60%,
+			rgba(0, 212, 255, 1) 100%
+		);
+		background: radial-gradient(
+			circle,
+			rgba(2, 0, 36, 1) 0%,
+			rgba(27, 73, 231, 1) 60%,
+			rgba(0, 212, 255, 1) 100%
+		);
 		-webkit-background-clip: text;
+		background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}
-	.price_desc {
-		place-self: center end;
-	}
+
 	.finish_desc {
 		place-self: center start;
 	}
@@ -981,6 +1096,12 @@ let lenis;
 			width: 100%;
 			margin-top: 5vh;
 			margin-bottom: 5vh;
+		}
+		.qr {
+			display: none;
+		}
+		.icons {
+			padding-bottom: 10vh;
 		}
 	}
 	h1 {

@@ -5,17 +5,17 @@
 	import { fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { browser, dev} from '$app/environment';
+	import { browser, dev } from '$app/environment';
 	import Logo from '$lib/components/logo.svelte';
-	import Lenis from '@studio-freight/lenis'
+	import Lenis from '@studio-freight/lenis';
 
 	let lenis: Lenis;
 
 	$: if (browser) {
-		console.log('loybro');
-		
-		window.scrollTo(0, 0)
-		window.history.scrollRestoration = 'manual'
+		// console.log('loybro');
+
+		window.scrollTo(0, 0);
+		window.history.scrollRestoration = 'manual';
 		lenis = new Lenis({
 			lerp: 0.08
 		});
@@ -27,11 +27,8 @@
 		setContext('lenis', lenis);
 	}
 
-
-
-
-let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
-// console.log(canonical);
+	let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`;
+	// console.log(canonical);
 
 	let numbers: Array<number> = [];
 	const stileRandom = (i: number) => {
@@ -100,8 +97,7 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 	const stag = () => {
 		menuIsOpen = !menuIsOpen;
 		console.log(menuIsOpen);
-		menuIsOpen ? lenis.stop() : lenis.start()
-		
+		menuIsOpen ? lenis.stop() : lenis.start();
 	};
 </script>
 
@@ -132,9 +128,9 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 	/>
 	<meta property="vk:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
 	<link rel="canonical" href={canonical} />
-	
+
 	{#if !dev}
-		<script type="text/javascript" >
+		<script type="text/javascript">
 			(function (m, e, t, r, i, k, a) {
 				m[i] =
 					m[i] ||
@@ -171,7 +167,7 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 			</div></noscript
 		>
 	{/if}
-	<script >
+	<script>
 		let vh = window.innerHeight * 0.01;
 		document.documentElement.style.setProperty('--vh', `${vh}px`);
 		window.addEventListener('resize', () => {
@@ -180,7 +176,6 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 		});
 	</script>
 </svelte:head>
-
 
 <div class="main" class:disable__scroll={menuIsOpen}>
 	<slot />
@@ -228,7 +223,10 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 		class:menuIsOpen
 	/>
 	{#if !menuIsOpen}
-		<div class="menu__title__ver font__prop" class:hide__svph={$page.url.pathname !== '/' || y >= 150}>
+		<div
+			class="menu__title__ver font__prop"
+			class:hide__svph={$page.url.pathname !== '/' || y >= 150}
+		>
 			{#each 'PHOTO' as item, i}
 				<div class="char__holder">
 					<span
@@ -276,7 +274,6 @@ let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`
 	.hide__svph {
 		transition: opacity 1s;
 		opacity: 0;
-		
 	}
 	section {
 		all: unset;
