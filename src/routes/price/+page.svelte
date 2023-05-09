@@ -42,7 +42,7 @@
 	.price__holder {
 		display: grid;
 		justify-content: center;
-		grid-template-columns: repeat(auto-fill, minmax(max(25vw, 250px), 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(max(35vw, 250px), 1fr));
 		row-gap: 5vh;
 		column-gap: 2vw;
 		width: 90vw;
