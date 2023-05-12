@@ -4,7 +4,7 @@
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	import type Lenis from '@studio-freight/lenis';
 	import { getContext } from 'svelte';
-
+	import Contact from '$lib/components/contact.svelte';
 	import type { PageData } from './$types';
 	import { browser } from '$app/environment';
 	// import { disableScrollHandling } from '$app/navigation';
@@ -451,8 +451,8 @@
 				</a>
 			</div>
 		</div> -->
-
-		<div class="icons">
+		<Contact />
+		<!-- <div class="icons">
 			<a href="https://t.me/svobodinaphoto/" rel="noreferrer" target="_blank">
 				<img src="/icons/Telegram.svg" alt="Telegram" />
 			</a>
@@ -465,7 +465,7 @@
 			<a href="https://wa.me/%2B79514616243" rel="noreferrer" target="_blank">
 				<img src="/icons/Whatsapp.svg" alt="Whatsapp" />
 			</a>
-		</div>
+		</div> -->
 		<!-- <a class="description3" href={link[count]} rel="noreferrer" target="_blank">
 			<p>{social[count]}</p>
 		</a> -->
@@ -1062,7 +1062,7 @@
 		width: 100%;
 	}
 
-	.icons {
+	/* .icons {
 		display: grid;
 		grid-auto-flow: column;
 		justify-content: space-evenly;
@@ -1073,7 +1073,7 @@
 	.icons > a,
 	.icons > a > img {
 		height: 5vh;
-	}
+	} */
 	@media (orientation: portrait) {
 		.hero {
 			transform: translate3d(-2960.19px, -2635.27px, 0px);
@@ -1100,9 +1100,9 @@
 		.qr {
 			display: none;
 		}
-		.icons {
+		/* .icons {
 			padding-bottom: 10vh;
-		}
+		} */
 	}
 	h1 {
 		margin: 0;
