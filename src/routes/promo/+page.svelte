@@ -148,7 +148,7 @@
 				}
 			})
 			.onRender(() => {
-				noiseEffect += 100 / 45000;
+				noiseEffect += scrollEffect / 45000;
 				plane.uniforms.time.value += 0.01;
 				plane.uniforms.scrollEffect.value = scrollEffect / 80;
 				plane.uniforms.noiseEffect.value = noiseEffect;
@@ -204,7 +204,7 @@
 <main>
 	<div bind:this={canvas} class="webgl" />
 	<div class="plane__wrapper">
-		<h1 class="main__hedlain">Фотопроект<br />"Весеннее волшебство"</h1>
+		<h1 class="main__hedlain">Фотопроект<br />Весеннее волшебство</h1>
 		<p class="description part1">
 			Фотосессия, которую можно снять только раз в году: среди цветущих яблонь
 		</p>
@@ -388,9 +388,10 @@
 		color: black;
 		text-align: center;
 		margin: 0;
+		place-self: center;
 		z-index: 2;
-		grid-row: 3 / 4;
-		grid-column: 6/11;
+		grid-row: 3 / 5;
+		grid-column: 7/11;
 		font-size: max(40px, 5vw);
 		font-family: 'Cormorant Infant', serif;
 		font-weight: 400;
