@@ -28,12 +28,12 @@
 			't.me/svobodinaphoto',
 			'Позвонить'
 		],
-		link = [
-			'https://www.instagram.com/svobodinaphoto/',
-			'https://vk.com/svobodinaphoto',
-			'https://t.me/svobodinaphoto',
-			'tel:+79514616243'
-		],
+		// link = [
+		// 	'https://www.instagram.com/svobodinaphoto/',
+		// 	'https://vk.com/svobodinaphoto',
+		// 	'https://t.me/svobodinaphoto',
+		// 	'tel:+79514616243'
+		// ],
 		pricedata = [
 			{
 				title: '"Первый пакет"',
@@ -67,15 +67,15 @@
 			// }
 		],
 		photos = [
-			'12-05-23-10-26-59',
-			'12-05-23-10-16-31',
-			'12-05-23-10-28-08',
-			'12-05-23-10-38-21',
-			'12-05-23-10-22-16',
-			'12-05-23-10-39-07',
-			'12-05-23-10-22-55',
-			'12-05-23-10-39-41',
-			'12-05-23-10-50-18'
+			'12-05-23-10-26-5',
+			'12-05-23-10-16-3',
+			'12-05-23-10-28-0',
+			'12-05-23-10-38-2',
+			'12-05-23-10-22-1',
+			'12-05-23-10-39-0',
+			'12-05-23-10-22-5',
+			'12-05-23-10-39-4',
+			'12-05-23-10-50-1'
 			// '20-08-31-12-16-04'
 			// '3'
 		];
@@ -231,6 +231,7 @@
 		planes[2].setRelativeTranslation(rearPlane);
 		planes[7].setRelativeTranslation(frontPlane);
 	});
+	let link = 'https://content.svobodinaphoto.ru/promo/';
 </script>
 
 <svelte:head>
@@ -265,14 +266,17 @@
 		{#each photos as photo, index (index)}
 			<div class="plane plane{index}">
 				<picture>
-					<!-- <source srcset="./photoday/{photo}.webp" type="image/webp" /> -->
+					<source media="(max-width: 799px)" srcset="{link}480_{photo}.avif" type="image/avif" />
+					<source media="(min-width: 800px)" srcset="{link}720_{photo}.avif" type="image/avif" />
+					<source media="(max-width: 799px)" srcset="{link}480_{photo}.webp" type="image/webp" />
+					<source media="(min-width: 800px)" srcset="{link}720_{photo}.webp" type="image/webp" />
 					<img
 						data-sampler="planeTexture"
 						alt="SvobodinaPhoto"
 						crossorigin="anonimous"
 						decoding="async"
 						draggable="false"
-						src="/promo/{photo}.jpg"
+						src="{link}720_{photo}.jpg"
 					/>
 				</picture>
 			</div>
