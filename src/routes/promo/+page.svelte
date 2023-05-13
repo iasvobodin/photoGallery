@@ -2,10 +2,9 @@
 	//@ts-nocheck
 	import { Curtains, TextureLoader, Plane, Vec3 } from 'curtainsjs';
 	import { onMount } from 'svelte';
-	import anime from 'animejs';
+	import { gsap } from 'gsap';
 	import vertex from '$lib/assets/photoday.vert?raw';
 	import fragment from '$lib/assets/photoday.frag?raw';
-	import { fly, fade } from 'svelte/transition';
 	import { getContext } from 'svelte';
 	import { browser } from '$app/environment';
 	import Contact from '$lib/components/contact.svelte';
@@ -19,22 +18,11 @@
 		noiseAmp = 0.04,
 		noiseEffect = 0,
 		planes = [],
-		animate,
-		trans = { count: 0 },
-		count = 1,
-		social = [
-			'instagram.com/svobodinaphoto',
-			'vk.com/svobodinaphoto',
-			't.me/svobodinaphoto',
-			'Позвонить'
-		],
-		// link = [
-		// 	'https://www.instagram.com/svobodinaphoto/',
-		// 	'https://vk.com/svobodinaphoto',
-		// 	'https://t.me/svobodinaphoto',
-		// 	'tel:+79514616243'
-		// ],
-		pricedata = [
+		animate;
+	// trans = { count: 0 };
+	let link = 'https://content.svobodinaphoto.ru/promo/';
+
+	let pricedata = [
 			{
 				title: '"Первый пакет"',
 				body: [
@@ -76,10 +64,12 @@
 			'12-05-23-10-22-5',
 			'12-05-23-10-39-4',
 			'12-05-23-10-50-1'
-			// '20-08-31-12-16-04'
-			// '3'
 		];
 	// ==========================
+	let lenis;
+	$: if (browser) {
+		lenis = getContext('lenis');
+	}
 
 	function initPlane(planesElement) {
 		for (const iterator of planesElement) {
@@ -131,29 +121,22 @@
 	}
 
 	function initAnimate() {
-		animate = anime.timeline({
-			autoplay: false
+		animate = gsap.timeline({
+			ease: 'linear',
+			paused: true
 		});
-		animate
-			.add(
-				{
-					targets: '.webgl',
-					scale: [1.13, 1],
-					opacity: [0, 1],
-					easing: 'linear',
-					duration: 800
-				},
-				0
-			)
-			.add(
-				{
-					update: () => {
-						scrollEffect += (80 - scrollEffect) * 0.9;
-					},
-					duration: 500
-				},
-				0
-			);
+		animate.fromTo(
+			'.webgl',
+			{ scale: 1.13, opacity: 0 },
+			{
+				scale: 1,
+				opacity: 1,
+				onUpdate: function () {
+					scrollEffect = 100 - this.progress() * 100;
+				}
+			},
+			0
+		);
 	}
 
 	function handlePlanes(plane) {
@@ -161,14 +144,13 @@
 			.onReady(() => {
 				if (plane.index === planes.length - 1) {
 					document.body.classList.add('planes-loaded');
-
 					animate.play();
 				}
 			})
 			.onRender(() => {
-				noiseEffect += scrollEffect / 45000;
+				noiseEffect += 100 / 45000;
 				plane.uniforms.time.value += 0.01;
-				plane.uniforms.scrollEffect.value = scrollEffect / 100;
+				plane.uniforms.scrollEffect.value = scrollEffect / 80;
 				plane.uniforms.noiseEffect.value = noiseEffect;
 				// scale plane and its texture
 				// plane.setScale(new Vec2(1, 1 + Math.abs(this.scrollEffect) / 1500))
@@ -182,30 +164,11 @@
 		curtains = new Curtains({
 			container: canvas,
 			production: true,
+			watchScroll: false,
 			pixelRatio: Math.min(1.5, window.devicePixelRatio)
 		});
 
 		curtains
-			.onRender(() => {
-				scrollEffect = curtains.lerp(scrollEffect, 0, 0.035);
-			})
-			.onScroll(() => {
-				const delta = curtains.getScrollDeltas();
-				delta.y = -delta.y;
-
-				// console.log(delta.y);
-
-				// threshold
-				if (delta.y > 95) {
-					delta.y = 95;
-				} else if (delta.y < -95) {
-					delta.y = -95;
-				}
-
-				if (Math.abs(delta.y) > Math.abs(scrollEffect)) {
-					scrollEffect = curtains.lerp(scrollEffect, delta.y, 0.5);
-				}
-			})
 			.onError(() => {
 				document.body.classList.add('no-curtains', 'planes-loaded');
 			})
@@ -213,25 +176,26 @@
 				curtains.restoreContext();
 			});
 	}
+
 	onMount(() => {
-		// lenis.on('scroll', (e: any) => {
-		// 	console.log(e.animate.to - e.animate.from);
-		// });
+		lenis.on('scroll', (e: any) => {
+			curtains.updateScrollValues(0, e.scroll);
+			scrollEffect = e.velocity;
+		});
 
 		const planeElements = document.getElementsByClassName('plane');
 		initCurtains();
 		initPlane(planeElements);
 		initAnimate();
 		const frontPlane = new Vec3(0, 0, 80);
+		const rearPlane = new Vec3(0, 0, -80);
 		planes[1].setRelativeTranslation(frontPlane);
 		planes[3].setRelativeTranslation(frontPlane);
 		planes[8].setRelativeTranslation(frontPlane);
-		const rearPlane = new Vec3(0, 0, -80);
+		planes[7].setRelativeTranslation(frontPlane);
 		planes[0].setRelativeTranslation(rearPlane);
 		planes[2].setRelativeTranslation(rearPlane);
-		planes[7].setRelativeTranslation(frontPlane);
 	});
-	let link = 'https://content.svobodinaphoto.ru/promo/';
 </script>
 
 <svelte:head>
@@ -372,14 +336,6 @@
 	.vp-title {
 		display: none !important;
 	}
-	/* @font-face {
-		font-family: 'Cormorant Infant';
-		font-style: normal;
-		font-weight: 300;
-		src: local(''), url('/fonts/cormorant-infant-v11-cyrillic-300.woff2') format('woff2'),
-			url('/fonts/cormorant-infant-v11-cyrillic-300.woff') format('woff');
-		font-display: swap;
-	} */
 	:global(body) {
 		margin: 0;
 	}
