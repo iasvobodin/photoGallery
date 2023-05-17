@@ -166,7 +166,27 @@
 				/>
 			</div></noscript
 		>
+
+		<script type="text/javascript">
+			!(function () {
+				var t = document.createElement('script');
+				(t.type = 'text/javascript'),
+					(t.async = !0),
+					(t.src = 'https://vk.com/js/api/openapi.js?169'),
+					(t.onload = function () {
+						VK.Retargeting.Init('VK-RTRG-1060480-3pHm6'), VK.Retargeting.Hit();
+					}),
+					document.head.appendChild(t);
+			})();
+		</script><noscript
+			><img
+				src="https://vk.com/rtrg?p=VK-RTRG-1060480-3pHm6"
+				style="position:fixed; left:-999px;"
+				alt=""
+			/></noscript
+		>
 	{/if}
+
 	<script>
 		let vh = window.innerHeight * 0.01;
 		document.documentElement.style.setProperty('--vh', `${vh}px`);
