@@ -42,8 +42,6 @@
 	let videoCanvas: HTMLCanvasElement,
 		frameIndex = 0;
 
-	// let lenis: Lenis;
-
 	let lenis: Lenis;
 
 	const frameQty = 259;
