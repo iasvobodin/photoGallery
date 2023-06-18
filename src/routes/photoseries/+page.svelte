@@ -184,9 +184,9 @@
 					<picture>
 						<source srcSet="{photo.imageSrc}.avif" type="image/avif" />
 						<source srcSet="{photo.imageSrc}.webp" type="image/webp" />
+						<!-- loading="lazy" -->
 						<img
 							decoding="async"
-							loading="lazy"
 							in:fade={{ delay: 200 }}
 							draggable="false"
 							src="{photo.imageSrc}.jpg"

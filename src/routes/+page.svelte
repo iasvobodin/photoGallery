@@ -5,6 +5,9 @@
 	import type Lenis from '@studio-freight/lenis';
 	import { getContext } from 'svelte';
 	import Contact from '$lib/components/contact.svelte';
+	import Videocanvas from '$lib/components/VideoCanvas.svelte';
+	import Header from '$lib/components/header.svelte';
+	import AboutDesc from '$lib/components/aboutdesc.svelte';
 	import type { PageData } from './$types';
 	import { browser } from '$app/environment';
 	// import { disableScrollHandling } from '$app/navigation';
@@ -12,7 +15,10 @@
 	gsap.registerPlugin(ScrollTrigger);
 
 	export let data: PageData;
+
+	//replace toanother component
 	let showDis = false;
+
 	let allph = data.allph;
 	let reviewsSlice = data.reviews.slice(data.reviews.length - 8, data.reviews.length);
 	let allphHor = allph.filter((e) => e.Aspect > 1);
@@ -39,35 +45,32 @@
 		'Я понимаю, что каждый клиент имеет свои уникальные потребности и пожелания, поэтому я готова подбирать цену на услуги индивидуально для каждого. Вместе мы можем определить, какие услуги будут вам необходимы и какой бюджет будет наиболее подходящим для вас. Подробнее в разделе';
 	let priceDescriptionByWords = priceDescription.split(' ');
 
-	let videoCanvas: HTMLCanvasElement,
-		frameIndex = 0;
+	// let videoCanvas: HTMLCanvasElement,
+	// 	frameIndex = 0;
 
 	let lenis: Lenis;
 
-	const frameQty = 259;
+	// const frameQty = 259;
 
-	const currentFrame = (size: number = 1920, index: number) => `/frames/${size}_frame${index}.webp`;
+	// const currentFrame = (size: number = 1920, index: number) => `/frames/${size}_frame${index}.webp`;
 
-	let images = <Array<HTMLImageElement>>[];
+	// let images = <Array<HTMLImageElement>>[];
 
-	const preloadImages = (size: number) => {
-		for (let i = 0; i < frameQty; i++) {
-			images[i] = new Image();
-			images[i].crossOrigin = 'Anonymous';
-			images[i].decoding = 'async';
-			images[i].src = currentFrame(size, i + 1);
-		}
-	};
+	// const preloadImages = (size: number) => {
+	// 	for (let i = 0; i < frameQty; i++) {
+	// 		images[i] = new Image();
+	// 		images[i].crossOrigin = 'Anonymous';
+	// 		images[i].decoding = 'async';
+	// 		images[i].src = currentFrame(size, i + 1);
+	// 	}
+	// };
 
 	$: if (browser) {
-		preloadImages(window.innerWidth > 900 ? 1920 : 1024);
-		// lenis = new Lenis({
-		// 	lerp: 0.08
-		// });
+		// preloadImages(window.innerWidth > 900 ? 1920 : 1024);
 		lenis = getContext('lenis');
-
 		// lenis.scrollTo('body', { duration: 0.1, force: true });
 	}
+
 	// const debounce = (func: () => void, delay:number) => {
 	// 	let timer:NodeJS.Timer;
 
@@ -81,7 +84,6 @@
 	let midl_gallery: string | number, scaleCoef: number;
 
 	const setGsap = () => {
-		// console.log('setGsap');
 		scaleCoef =
 			window.innerWidth / window.innerHeight > 1
 				? 1 / (8072 / window.innerHeight)
@@ -129,18 +131,18 @@
 
 	onMount(() => {
 		window.addEventListener('resize', debounceSizes);
-		console.log('main');
-		const context = videoCanvas.getContext('2d');
+		// console.log('main');
+		// const context = videoCanvas.getContext('2d');
 
-		const updateImage = (index: number) => {
-			context && context.drawImage(images[index], 0, 0);
-		};
+		// const updateImage = (index: number) => {
+		// 	context && context.drawImage(images[index], 0, 0);
+		// };
 
 		lenis.on('scroll', ScrollTrigger.update);
 
-		lenis.on('scroll', (e: any) => {
-			frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 17));
-		});
+		// lenis.on('scroll', (e: any) => {
+		// 	frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 17));
+		// });
 
 		ScrollTrigger.create({
 			trigger: '.video_canvas',
@@ -152,11 +154,11 @@
 		});
 		setGsap();
 
-		images[0].onload = function () {
-			videoCanvas.width = images[0].naturalWidth; // img.width;
-			videoCanvas.height = images[0].naturalHeight; // img.height;
-			context && context.drawImage(images[0], 0, 0);
-		};
+		// images[0].onload = function () {
+		// 	videoCanvas.width = images[0].naturalWidth; // img.width;
+		// 	videoCanvas.height = images[0].naturalHeight; // img.height;
+		// 	context && context.drawImage(images[0], 0, 0);
+		// };
 
 		gsap.ticker.lagSmoothing(0);
 
@@ -233,14 +235,12 @@
 			ease: 'none'
 		});
 
-		const raf = (time: number) => {
-			// lenis.raf(time);
+		// const raf = (time: number) => {
+		// 	// updateImage(frameIndex);
 
-			updateImage(frameIndex);
-
-			requestAnimationFrame(raf);
-		};
-		raf(0);
+		// 	requestAnimationFrame(raf);
+		// };
+		// raf(0);
 
 		gsap.ticker.add((time) => {
 			lenis.raf(time * 1000);
@@ -270,31 +270,13 @@
 
 <div class="main_page">
 	<div class="video_canvas">
-		<img src="/frames/1920_frame1.webp" alt="" />
-		<canvas bind:this={videoCanvas} />
+		<Videocanvas />
 	</div>
 	<div class="header_holder">
-		<h1 class="header">Красивые и неповторимые моменты на фото.</h1>
-		<p class="sub_header">Фотосессии, которые сделают Ваши воспоминания незабываемыми.</p>
+		<Header />
 	</div>
 	<div class="about">
-		<p class="about_desc p1">
-			Приветствую Вас, Меня зовут Настя, и я профессиональный фотограф, который ценит
-			индивидуальность и уникальность каждого клиента.
-		</p>
-		<p class="about_desc p2">
-			Я работаю не просто на получение красивых фотографий, а на создание неповторимых образов,
-			которые отражают вашу индивидуальность и красоту.
-		</p>
-
-		<p class="about_desc p3">
-			Я умею создавать комфортную атмосферу на съемке, которая помогает клиентам чувствовать себя
-			уверенно и расслабленно.
-		</p>
-		<p class="about_desc p4">
-			Моя цель - не просто удовлетворить ваши требования, а превзойти их, чтобы вы получили самые
-			лучшие фотографии, которые будут радовать вас на протяжении всей жизни.
-		</p>
+		<AboutDesc />
 	</div>
 
 	<div class="gallery_holder">
@@ -409,15 +391,8 @@
 		</div>
 	</div>
 	<div class="contact">
-		<!-- <h2 class="description date">Контакты</h2> -->
-		<!-- <button class="disbut" aria-label="Button" on:click={() => (showDis = !showDis)} type="button"
-			>Disclaimer</button
-		> -->
-
-		<!-- HTML !-->
 		<button on:click={() => (showDis = !showDis)} class="button-38" type="button">Disclaimer</button
 		>
-
 		{#if showDis}
 			<div class="dis">
 				<p class="disclemer">
@@ -494,25 +469,6 @@
 		height: 100vh;
 		display: grid;
 	}
-	.video_canvas > img {
-		grid-area: 1/1/2/2;
-
-		object-position: 65%;
-		object-fit: cover;
-		width: 100%;
-		height: 100vh;
-	}
-	.video_canvas > canvas {
-		/* position: absolute;
-
-		top: 0; */
-		grid-area: 1/1/2/2;
-		display: block;
-		object-position: 65%;
-		object-fit: cover;
-		width: 100%;
-		height: 100%;
-	}
 	.header_holder {
 		/* mix-blend-mode: difference; */
 		position: absolute;
@@ -521,34 +477,7 @@
 		height: 100vh;
 		width: min(90%, 1000px);
 	}
-	.header,
-	.sub_header {
-		place-self: center;
-		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-		/* font-family: 'Cormorant Infant', sans-serif;
-		font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
-			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
-			Segoe UI Symbol; */
-		/* font-family: 'Roboto Mono', monospace; */
-		/* font-family: 'Roboto Mono', monospace; */
-		font-size: clamp(14px, 14px + 3vw, 60px);
-		line-height: 1.2;
-		font-weight: 700;
-		font-weight: 100;
-		text-align: center;
-		margin: 0;
-		text-indent: 2ch;
-		color: rgb(255, 255, 255);
-		padding-left: 2ch;
-		/* background-color: #ffffff; */
-		/* background-image: linear-gradient(180deg, #ffffff, #44c1ff);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent; */
-	}
-	.sub_header {
-		font-size: clamp(14px, 14px + 2vw, 40px);
-		width: 80%;
-	}
+
 	.about {
 		position: relative;
 		display: grid;
@@ -557,22 +486,6 @@
 		width: min(95%, 1500px);
 		row-gap: 20vw;
 		margin: auto;
-	}
-	.about_desc {
-		/* font-family: 'Cormorant Infant', serif; */
-		font-size: clamp(18px, 18px + 1vw, 36px);
-		line-height: 1.25;
-		margin: 0;
-		width: min(800px, 95%);
-		border-radius: 30px;
-		background-color: #00000080;
-		padding: max(2vw, 30px);
-		align-self: center;
-		text-indent: 2ch;
-		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
-	}
-	.about_desc:nth-child(odd) {
-		justify-self: end;
 	}
 
 	.gallery_holder {

@@ -13,3 +13,4 @@ vite.config.ts.timestamp-*
 .netlify
 static/image/**
 static/image2/**
+static/covers

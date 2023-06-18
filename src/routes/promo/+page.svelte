@@ -148,7 +148,7 @@
 				}
 			})
 			.onRender(() => {
-				noiseEffect += scrollEffect / 45000;
+				// noiseEffect += scrollEffect / 45000;
 				plane.uniforms.time.value += 0.01;
 				plane.uniforms.scrollEffect.value = scrollEffect / 80;
 				plane.uniforms.noiseEffect.value = noiseEffect;
