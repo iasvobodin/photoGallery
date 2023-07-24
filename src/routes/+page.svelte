@@ -409,7 +409,7 @@
 		</div>
 	</div>
 	<div class="contact">
-		<button class="disbut" aria-label="Button" on:click={() => { ym(93061408,'reachGoal','orderButton') showDis = !showDis}} type="button"
+		<button class="disbut" aria-label="Button" on:click={() => (showDis = !showDis)} type="button"
 			><p class="cta">Заказать</p></button
 		>
 		{#if showDis}
