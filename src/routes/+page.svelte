@@ -126,7 +126,12 @@
 	};
 
 	const debounceSizes = debounce(setGsap, 300);
+	const order = () => {
+		showDis = !showDis;
 
+		ym(93061408, 'reachGoal', 'orderButton');
+		console.log('metrika');
+	};
 	onMount(() => {
 		window.addEventListener('resize', debounceSizes);
 		console.log('main');
@@ -409,7 +414,7 @@
 		</div>
 	</div>
 	<div class="contact">
-		<button class="disbut" aria-label="Button" on:click={() => (showDis = !showDis)} type="button"
+		<button class="disbut" aria-label="Button" on:click={order} type="button"
 			><p class="cta">Заказать</p></button
 		>
 		{#if showDis}
