@@ -32,8 +32,14 @@
 				{/each}
 			</ul>
 			<h4 style="line-height:1.2;   align-self: end;justify-self: center;">
-				Цена : {el.price}
+				Цена : <strike>{el.oldprice ? el.oldprice : ''}</strike>
+				{el.price}
 			</h4>
+			<!-- {#if el.oldprice}
+				<h4 style="line-height:1.2;   align-self: end;justify-self: center;">
+					Цена : {el.oldprice}
+				</h4>
+			{/if} -->
 		</div>
 	{/each}
 </div>
