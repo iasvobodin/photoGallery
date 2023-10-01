@@ -128,7 +128,12 @@
 	};
 
 	const debounceSizes = debounce(setGsap, 300);
+	const order = () => {
+		showDis = !showDis;
 
+		ym(93061408, 'reachGoal', 'orderButton');
+		console.log('metrika');
+	};
 	onMount(() => {
 		window.addEventListener('resize', debounceSizes);
 		// console.log('main');
@@ -391,7 +396,8 @@
 		</div>
 	</div>
 	<div class="contact">
-		<button on:click={() => (showDis = !showDis)} class="button-38" type="button">Disclaimer</button
+		<button class="disbut" aria-label="Button" on:click={order} type="button"
+			><p class="cta">Заказать</p></button
 		>
 		{#if showDis}
 			<div class="dis">
@@ -400,14 +406,18 @@
 					не нужную "политику конфеденциальности" и прочие радости,
 					<!-- по типу "уведомить роскомнадзор" -->
 					которые необходимо соблюдать по закону, чтобы сделать форму для заказа с сайта. <br />
-					Поэтому ниже ссылки на директ во все разрешенные и запрещённые😎
+					Поэтому ниже ссылки на <b>директ</b> во все разрешенные и запрещённые😎
 					<!-- (используйте vpn) -->
 					на территории РФ соцсети
+					<br />
+					<br />
+					Напишите мне, я всегда рада ответить 😊
 				</p>
 			</div>
+			<Contact />
 		{/if}
-
-		<!-- <div class="lazy_holder">
+	</div>
+	<!-- <div class="lazy_holder">
 			<div class="dis">
 				<p class="disclemer">
 					<span>*</span> Я не хочу собирать и обрабатывать информацию о вас, размещать здесь никому
@@ -424,8 +434,8 @@
 				</a>
 			</div>
 		</div> -->
-		<Contact />
-		<!-- <div class="icons">
+
+	<!-- <div class="icons">
 			<a href="https://t.me/svobodinaphoto/" rel="noreferrer" target="_blank">
 				<img src="/icons/Telegram.svg" alt="Telegram" />
 			</a>
@@ -439,10 +449,10 @@
 				<img src="/icons/Whatsapp.svg" alt="Whatsapp" />
 			</a>
 		</div> -->
-		<!-- <a class="description3" href={link[count]} rel="noreferrer" target="_blank">
+	<!-- <a class="description3" href={link[count]} rel="noreferrer" target="_blank">
 			<p>{social[count]}</p>
 		</a> -->
-	</div>
+	<!-- </div> -->
 </div>
 
 <style>
@@ -906,24 +916,61 @@
 		/* flex: 1 1 700px; */
 		/* place-self: center; */
 	}
-	/* .disbut {
+	.disbut {
 		cursor: pointer;
-
 		display: block;
-		width: 30vw;
-		height: 5vh;
+		width: 70vw;
 		margin: auto;
-		border-radius: 5px;
-		border: 1px solid dodgerblue;
+		/* border-radius: 5px; */
+		border-top: 1px solid dodgerblue;
+		border-bottom: 1px solid dodgerblue;
 		color: black;
 		text-align: center;
 	}
 	.disbut:hover {
-		border: 1px solid purple;
-	} */
+		border-top: 1px solid purple;
+		border-bottom: 1px solid purple;
+	}
 
 	/* CSS */
+	.cta {
+		margin: 0;
+		text-align: center;
+		font-size: clamp(22px, 14px + 7vw, 70px);
+		background: -webkit-linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+		background-size: 400% 400%;
+		-webkit-background-clip: text;
+		animation: gradient 15s ease infinite;
+		-webkit-text-fill-color: transparent;
+	}
+	.cta span {
+		display: inline-block;
+		border-top: 1px solid #2d2d2d;
+		border-bottom: 1px solid #2d2d2d;
+		/* padding: 0.5em 0.6em; */
+	}
+	.contact {
+		padding: 7vh 0px;
+	}
+	.half {
+		position: relative;
+		top: 0;
+		height: 50vh;
+		background: linear-gradient(180deg, #ffffff, #ffffff, #e73c7e00);
+	}
+	@keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
 	.button-38 {
+		/* z-index: 1; */
 		margin: auto;
 		width: min(1000px, 90%);
 		display: block;
@@ -935,6 +982,7 @@
 		font-weight: 600;
 		line-height: 1.25rem;
 		padding: 0.75rem 0px;
+		/* margin-bottom: 10vh; */
 		text-align: center;
 		text-decoration: none #d1d5db solid;
 		text-decoration-thickness: auto;
@@ -943,6 +991,94 @@
 		user-select: none;
 		-webkit-user-select: none;
 		touch-action: manipulation;
+	}
+
+	#b {
+		top: 2.5vh;
+		width: 95%;
+		left: 0;
+		right: 0;
+		margin: auto;
+		height: 10vh;
+		position: absolute;
+		border-radius: 50px;
+		cursor: pointer;
+	}
+
+	/* #b:hover::after {
+		opacity: 0.5;
+	} */
+
+	#b::after {
+		content: '';
+		display: block;
+		position: absolute;
+		background: #ffffff;
+		inset: 2px;
+		border-radius: 45px;
+		/* z-index: 1; */
+		transition: opacity 0.3s ease;
+	}
+
+	@property --r2 {
+		syntax: '<angle>';
+		inherits: false;
+		initial-value: 0deg;
+	}
+
+	@property --x {
+		syntax: '<length>';
+		inherits: false;
+		initial-value: 0px;
+	}
+
+	#b {
+		background: conic-gradient(
+			from calc(var(--r2) - 80deg) at var(--x) 5vh,
+			#fff 0%,
+			rgb(1, 175, 255) 20%,
+			#fff 25%
+		);
+		animation: -0.64s rotating2 5s linear infinite, -0.64s x 5s linear infinite;
+	}
+	@keyframes x {
+		/* w:h === 6:1 */
+		/* with a 80px x-margin */
+		0% {
+			--x: 80px;
+		}
+		/* 6/(6+3.14) * 50% */
+		32.82275711% {
+			--x: calc(95vw - 80px);
+		}
+		50% {
+			--x: calc(95vw - 80px);
+		}
+		/* 50% + 32.8% */
+		82.82275711% {
+			--x: 80px;
+		}
+		100% {
+			--x: 80px;
+		}
+	}
+
+	@keyframes rotating2 {
+		0% {
+			--r2: 0deg;
+		}
+		32.82275711% {
+			--r2: 0deg;
+		}
+		50% {
+			--r2: 180deg;
+		}
+		82.82275711% {
+			--r2: 180deg;
+		}
+		100% {
+			--r2: 360deg;
+		}
 	}
 
 	.button-38:hover {
