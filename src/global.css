@@ -10,16 +10,16 @@ html {
 }
 
 :root {
-	--font-size: clamp(40px, 8vw + 10px, 90px);
+	/* --font-size: clamp(40px, 8vw + 10px, 90px); */
 }
 
-h1,
+/* h1, */
 h2,
 h3,
 h4,
 h5,
 h6 {
-	font-family: Comfortaa, sans-serif;
+	/* font-family: Comfortaa, sans-serif; */
 	margin: 0;
 	font-weight: 400;
 	line-height: 1.2;
@@ -48,7 +48,7 @@ html.lenis {
 }
 
 h1 {
-	font-size: 2em;
+	/* font-size: 2em; */
 }
 
 h3 {
@@ -75,7 +75,7 @@ button {
 .main__head {
 	text-align: center;
 	white-space: pre-wrap;
-	font-family: Cormorant Infant, sans-serif;
+	/* font-family: Cormorant Infant, sans-serif; */
 	font-weight: 300;
 	padding-bottom: 2vh;
 	padding-right: 50px;
@@ -87,7 +87,7 @@ button {
 .main__title {
 	text-align: end;
 	white-space: pre;
-	font-family: Comfortaa, sans-serif;
+	/* font-family: Comfortaa, sans-serif; */
 	font-weight: 300;
 	padding: 2vh;
 	font-size: var(--font-size);
@@ -95,7 +95,7 @@ button {
 }
 
 code {
-	font-family: menlo, inconsolata, monospace;
+	/* font-family: menlo, inconsolata, monospace; */
 	font-size: calc(1em - 2px);
 	color: #555;
 	background-color: #f0f0f0;

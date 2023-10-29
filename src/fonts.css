@@ -1,5 +1,13 @@
 @font-face {
   /* font-display: swap; */
+  font-family: 'Comfortaa';
+  /* display: 'swap'; */
+  src: url('./lib/fonts/Comfortaa-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 700;
+}
+
+@font-face {
+  /* font-display: swap; */
   font-family: 'Cormorant Infant';
   font-style: normal;
   font-weight: 400;
@@ -27,12 +35,6 @@
   font-weight: 100 700;
 }
 
-@font-face {
-  font-display: swap;
-  font-family: 'Comfortaa';
-  display: 'swap';
-  src: url('./lib/fonts/Comfortaa-VariableFont_wght.ttf') format('truetype');
-  font-weight: 300 700;
-}
+
 
 /* cormorant-infant-regular - latin_cyrillic */

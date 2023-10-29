@@ -4,10 +4,13 @@
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	import type Lenis from '@studio-freight/lenis';
 	import { getContext } from 'svelte';
-	import Contact from '$lib/components/contact.svelte';
-	import Videocanvas from '$lib/components/VideoCanvas.svelte';
-	import Header from '$lib/components/header.svelte';
-	import AboutDesc from '$lib/components/aboutdesc.svelte';
+
+	import MainCanvas from '$lib/components/main-canvas.svelte';
+	import MainHeader from '$lib/components/main-header.svelte';
+	import MainDescripton from '$lib/components/main-description.svelte';
+	import MainDisclemer from '$lib/components/main-disclemer.svelte';
+	import MainContact from '$lib/components/main-contact.svelte';
+
 	import type { PageData } from './$types';
 	import { browser } from '$app/environment';
 	// import { disableScrollHandling } from '$app/navigation';
@@ -18,70 +21,41 @@
 
 	//replace toanother component
 	let showDis = false;
+	// let intervalId: NodeJS.Timer;
+	let shuffled = data.reviews
+		.map((value) => ({ value, sort: Math.random() }))
+		.sort((a, b) => a.sort - b.sort)
+		.map(({ value }) => value);
+
+	let reviewsSlice = shuffled.slice(shuffled.length - 8, shuffled.length);
 
 	let allph = data.allph;
-	let reviewsSlice = data.reviews.slice(data.reviews.length - 8, data.reviews.length);
-	let allphHor = allph.filter((e) => e.Aspect > 1);
-	let allphVer = allph.filter((e) => e.Aspect < 1);
-	let intervalId: NodeJS.Timer;
-	let allph1 = allphHor.slice(0, 9);
-	let allph2 = allphVer;
-	let allph3 = allphHor.slice(9, 18);
-	let social = [
-			'instagram', //.com/svobodinaphoto',
-			'vk', //svobodinaphoto',
-			'telegram', ///svobodinaphoto',
-			'whatsapp' ///svobodinaphoto'
-		],
-		link = [
-			'https://ig.me/m/svobodinaphoto/',
-			'https://vk.me/aasvobodina/',
-			'https://t.me/svobodinaphoto/',
-			'https://wa.me/%2B79514616243'
-		],
-		count = 1;
+	let photoseriesLandscape = allph.filter((e) => e.Aspect > 1);
+	let photoseriesPortrait = allph.filter((e) => e.Aspect < 1);
+
+	let halfOfLandscape = Math.floor(photoseriesLandscape.length / 2);
+
+	let topGallery = photoseriesLandscape.slice(0, halfOfLandscape);
+	let middleGallery = photoseriesPortrait;
+	let bottomGallery = photoseriesLandscape.slice(halfOfLandscape, photoseriesLandscape.length - 1);
 
 	let priceDescription =
 		'Я понимаю, что каждый клиент имеет свои уникальные потребности и пожелания, поэтому я готова подбирать цену на услуги индивидуально для каждого. Вместе мы можем определить, какие услуги будут вам необходимы и какой бюджет будет наиболее подходящим для вас. Подробнее в разделе';
 	let priceDescriptionByWords = priceDescription.split(' ');
 
-	// let videoCanvas: HTMLCanvasElement,
-	// 	frameIndex = 0;
-
 	let lenis: Lenis;
 
-	// const frameQty = 259;
-
-	// const currentFrame = (size: number = 1920, index: number) => `/frames/${size}_frame${index}.webp`;
-
-	// let images = <Array<HTMLImageElement>>[];
-
-	// const preloadImages = (size: number) => {
-	// 	for (let i = 0; i < frameQty; i++) {
-	// 		images[i] = new Image();
-	// 		images[i].crossOrigin = 'Anonymous';
-	// 		images[i].decoding = 'async';
-	// 		images[i].src = currentFrame(size, i + 1);
-	// 	}
-	// };
-
 	$: if (browser) {
-		// preloadImages(window.innerWidth > 900 ? 1920 : 1024);
-		lenis = getContext('lenis');
+		// lenis = getContext('lenis');
+		// lenis.on('scroll', ScrollTrigger.update);
 		// lenis.scrollTo('body', { duration: 0.1, force: true });
 	}
 
 	// const debounce = (func: () => void, delay:number) => {
 	// 	let timer:NodeJS.Timer;
 
-	// 	return function () {
-	// 		const context = this;
-	// 		const args = arguments;
-	// 		clearTimeout(timer);
-	// 		timer = setTimeout(() => func.apply(context, args), delay);
-	// 	};
-	// };
-	let midl_gallery: string | number, scaleCoef: number;
+	let midl_gallery: string | number;
+	let scaleCoef: number;
 
 	const setGsap = () => {
 		scaleCoef =
@@ -102,15 +76,16 @@
 				);
 			}
 		});
-		gsap.set('.gallery_middle', {
-			x: '75vw'
-		});
-		gsap.set(['.gallery_top', '.gallery_bottom'], {
-			xPercent: -100
-		});
+		// gsap.set('.gallery_middle', {
+		// 	x: '75vw'
+		// });
+		// gsap.set(['.gallery_top', '.gallery_bottom'], {
+		// 	xPercent: -100
+		// });
 
 		midl_gallery = gsap.getProperty('.gallery_middle', 'width');
-		ScrollTrigger.refresh();
+
+		// ScrollTrigger.refresh();
 	};
 
 	const debounce = <F extends (...args: Parameters<F>) => ReturnType<F>>(
@@ -128,26 +103,26 @@
 	};
 
 	const debounceSizes = debounce(setGsap, 300);
+
+	//YM ORDER
+
 	const order = () => {
 		showDis = !showDis;
-
 		ym(93061408, 'reachGoal', 'orderButton');
-		console.log('metrika');
 	};
+
 	onMount(() => {
+		setGsap();
+		console.log('pageMuont');
 		window.addEventListener('resize', debounceSizes);
-		// console.log('main');
-		// const context = videoCanvas.getContext('2d');
 
-		// const updateImage = (index: number) => {
-		// 	context && context.drawImage(images[index], 0, 0);
-		// };
-
-		lenis.on('scroll', ScrollTrigger.update);
-
-		// lenis.on('scroll', (e: any) => {
-		// 	frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 17));
+		// gsap.ticker.add((time) => {
+		// 	lenis.raf(time * 1000);
 		// });
+
+		// gsap.ticker.lagSmoothing(0);
+
+		// console.log(gsap.ticker);
 
 		ScrollTrigger.create({
 			trigger: '.video_canvas',
@@ -157,15 +132,6 @@
 			pinSpacing: false
 			// refreshPriority: 1,
 		});
-		setGsap();
-
-		// images[0].onload = function () {
-		// 	videoCanvas.width = images[0].naturalWidth; // img.width;
-		// 	videoCanvas.height = images[0].naturalHeight; // img.height;
-		// 	context && context.drawImage(images[0], 0, 0);
-		// };
-
-		gsap.ticker.lagSmoothing(0);
 
 		gsap.to('.video_canvas', {
 			scrollTrigger: {
@@ -191,7 +157,7 @@
 			}
 		});
 
-		tl.to('.video_canvas', { duration: 1.5, x: -midl_gallery }, 0);
+		tl.to('.video_canvas', { duration: 1.7, x: -midl_gallery }, 0);
 		tl.to('.gallery_middle', { xPercent: -100, x: 0, duration: 2 }, 0);
 		tl.to(['.gallery_top', '.gallery_bottom'], { xPercent: 0, x: '100vw', duration: 2 }, 0);
 		tl.to('.hero_holder', { opacity: 1, duration: 0 }, 2);
@@ -218,6 +184,8 @@
 
 			ease: 'none'
 		});
+
+		//WORDS ANIMATION
 
 		gsap.to(['.words', '.price_link'], {
 			scrollTrigger: {
@@ -247,21 +215,17 @@
 		// };
 		// raf(0);
 
-		gsap.ticker.add((time) => {
-			lenis.raf(time * 1000);
-		});
-
-		let i = 4;
-		intervalId = setInterval(() => {
-			i++;
-			count = i % 4;
-		}, 2500);
+		// let i = 4;
+		// intervalId = setInterval(() => {
+		// 	i++;
+		// 	count = i % 4;
+		// }, 2500);
 	});
 	onDestroy(() => {
 		// debugger;
 		// ScrollTrigger.refresh();
 		// ScrollTrigger.killAll();
-		clearInterval(intervalId);
+		// clearInterval(intervalId);
 	});
 </script>
 
@@ -275,20 +239,21 @@
 
 <div class="main_page">
 	<div class="video_canvas">
-		<Videocanvas />
+		<MainCanvas />
 	</div>
 	<div class="header_holder">
-		<Header />
+		<MainHeader />
 	</div>
 	<div class="about">
-		<AboutDesc />
+		<MainDescripton />
 	</div>
 
 	<div class="gallery_holder">
 		<div class="gallery gallery_top">
-			{#each allph1 as item}
+			{#each topGallery as item}
 				<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
 					<img
+						decoding="async"
 						style="aspect-ratio:{+item.Aspect};"
 						class="gallery_img"
 						src="https://img.svobodinaphoto.ru/320_{item.Cover}.webp"
@@ -301,9 +266,10 @@
 			</div>
 		</div>
 		<div class="gallery gallery_middle">
-			{#each allph2 as item}
+			{#each middleGallery as item}
 				<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
 					<img
+						decoding="async"
 						style="aspect-ratio:{+item.Aspect};"
 						class="gallery_img"
 						src="https://img.svobodinaphoto.ru/320_{item.Cover}.webp"
@@ -313,9 +279,10 @@
 			{/each}
 		</div>
 		<div class="gallery gallery_bottom">
-			{#each allph3 as item}
+			{#each bottomGallery as item}
 				<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
 					<img
+						decoding="async"
 						style="aspect-ratio:{+item.Aspect};"
 						class="gallery_img"
 						src="https://img.svobodinaphoto.ru/320_{item.Cover}.webp"
@@ -372,7 +339,6 @@
 			{#each priceDescriptionByWords as word}
 				<span class="words">{word}</span>
 			{/each}
-			<!-- {priceDescription}  -->
 			<a class="price_link" data-sveltekit-reload href="/price">цены</a>
 		</div>
 
@@ -400,59 +366,10 @@
 			><p class="cta">Заказать</p></button
 		>
 		{#if showDis}
-			<div class="dis">
-				<p class="disclemer">
-					<span>*</span> Я не хочу собирать и обрабатывать информацию о вас, размещать здесь никому
-					не нужную "политику конфеденциальности" и прочие радости,
-					<!-- по типу "уведомить роскомнадзор" -->
-					которые необходимо соблюдать по закону, чтобы сделать форму для заказа с сайта. <br />
-					Поэтому ниже ссылки на <b>директ</b> во все разрешенные и запрещённые😎
-					<!-- (используйте vpn) -->
-					на территории РФ соцсети
-					<br />
-					<br />
-					Напишите мне, я всегда рада ответить 😊
-				</p>
-			</div>
-			<Contact />
+			<MainDisclemer />
+			<MainContact />
 		{/if}
 	</div>
-	<!-- <div class="lazy_holder">
-			<div class="dis">
-				<p class="disclemer">
-					<span>*</span> Я не хочу собирать и обрабатывать информацию о вас, размещать здесь никому
-					не нужную "политику конфеденциальности" и прочие радости по типу "уведомить роскомнадзор"
-					которые необходимо соблюдать по закону, чтобы сделать форму для заказа с сайта. <br /> Поэтому
-					ниже ссылки на директ во все разрешенные и запрещённые(используйте vpn) на територии РФ соцсети
-					😁
-				</p>
-			</div>
-			<div class="bot">
-				<p class="disclemer">Для интровертов есть телеграмм бот</p>
-				<a href="https://t.me/SvobodinaPhoto_bot" rel="noreferrer" target="_blank">
-					<img class="qr" src="/icons/qr-code.svg" alt="bot" />
-				</a>
-			</div>
-		</div> -->
-
-	<!-- <div class="icons">
-			<a href="https://t.me/svobodinaphoto/" rel="noreferrer" target="_blank">
-				<img src="/icons/Telegram.svg" alt="Telegram" />
-			</a>
-			<a href="https://ig.me/m/svobodinaphoto/" rel="noreferrer" target="_blank">
-				<img src="/icons/Instagram.svg" alt="instagram" />
-			</a>
-			<a href="https://vk.me/aasvobodina/" rel="noreferrer" target="_blank">
-				<img src="/icons/VK.svg" alt="VK" />
-			</a>
-			<a href="https://wa.me/%2B79514616243" rel="noreferrer" target="_blank">
-				<img src="/icons/Whatsapp.svg" alt="Whatsapp" />
-			</a>
-		</div> -->
-	<!-- <a class="description3" href={link[count]} rel="noreferrer" target="_blank">
-			<p>{social[count]}</p>
-		</a> -->
-	<!-- </div> -->
 </div>
 
 <style>
@@ -515,14 +432,16 @@
 	}
 	.gallery_top,
 	.gallery_bottom {
+		transform: translateX(-100%);
 		height: 25vh;
-
+	}
+	.gallery_top {
 		/* transform: translateX(-100%); */
 	}
 	.gallery_middle {
 		height: 50vh;
 		/* transform: translateX(100%); */
-		/* transform: translateX(75vw); */
+		transform: translateX(75vw);
 	}
 	.gallery_img {
 		height: 100%;
@@ -565,16 +484,9 @@
 	.hero {
 		pointer-events: none;
 		transform-origin: 0px 0px;
-		/* width: 5381px;
-		height: 8072px; */
+		width: 100%;
+		height: 100vh;
 		transform: translate3d(-2050px, -2547.02px, 0px);
-		border-radius: 10px;
-		overflow: hidden;
-		/* width: 100%;
-		height: 100%; */
-		/* object-fit: cover; */
-		/* object-position: -2671px -2749px; */
-		/* object-position: center; */
 		border-radius: 10px;
 		overflow: hidden;
 	}
@@ -797,12 +709,12 @@
 	.review__body {
 		place-self: stretch;
 		margin: 0;
-		padding: 1vw;
+		padding: 5px;
 		/* font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
 			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
 			Segoe UI Symbol; */
-		font-size: clamp(16px, calc(0.7rem + 0.25vw), 24px);
-		line-height: 1.2;
+		font-size: clamp(12px, calc(0.65rem + 0.23vw), 22px);
+		line-height: 1.15;
 		font-weight: 150;
 		color: rgb(0, 0, 0);
 		white-space: pre-wrap;
@@ -910,12 +822,6 @@
 		margin: auto;
 		grid-template-columns: repeat(auto-fit, minmax(max(40vw, 500px), 1fr));
 	}
-	.dis {
-		width: min(1000px, 95%);
-		margin: auto;
-		/* flex: 1 1 700px; */
-		/* place-self: center; */
-	}
 	.disbut {
 		cursor: pointer;
 		display: block;
@@ -986,7 +892,9 @@
 		text-align: center;
 		text-decoration: none #d1d5db solid;
 		text-decoration-thickness: auto;
-		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+		box-shadow:
+			0 1px 3px 0 rgba(0, 0, 0, 0.1),
+			0 1px 2px 0 rgba(0, 0, 0, 0.06);
 		cursor: pointer;
 		user-select: none;
 		-webkit-user-select: none;
@@ -1039,7 +947,9 @@
 			rgb(1, 175, 255) 20%,
 			#fff 25%
 		);
-		animation: -0.64s rotating2 5s linear infinite, -0.64s x 5s linear infinite;
+		animation:
+			-0.64s rotating2 5s linear infinite,
+			-0.64s x 5s linear infinite;
 	}
 	@keyframes x {
 		/* w:h === 6:1 */
@@ -1081,46 +991,6 @@
 		}
 	}
 
-	.button-38:hover {
-		background-color: rgb(249, 250, 251);
-	}
-
-	.button-38:focus {
-		outline: 2px solid transparent;
-		outline-offset: 2px;
-	}
-
-	.button-38:focus-visible {
-		box-shadow: none;
-	}
-	.disclemer {
-		/* width: fit-content; */
-		/* width: 70%; */
-		text-indent: 2ch;
-		color: rgb(25, 0, 50);
-		font-size: clamp(16px, calc(0.7rem + 0.25vw), 24px);
-	}
-	.bot {
-		place-self: center;
-
-		width: max(700px, 100%);
-	}
-	.bot > a {
-		width: 100%;
-	}
-
-	/* .icons {
-		display: grid;
-		grid-auto-flow: column;
-		justify-content: space-evenly;
-		width: 100%;
-		margin-top: 5vh;
-		padding-bottom: 5vh;
-	}
-	.icons > a,
-	.icons > a > img {
-		height: 5vh;
-	} */
 	@media (orientation: portrait) {
 		.hero {
 			transform: translate3d(-2960.19px, -2635.27px, 0px);

@@ -152,7 +152,7 @@
 
 	.naviganion__next {
 		cursor: pointer;
-		font-family: Cormorant Infant;
+		/* font-family: Cormorant Infant; */
 		margin: 0;
 		text-align: center;
 		font-size: 18px;

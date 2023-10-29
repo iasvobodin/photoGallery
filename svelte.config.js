@@ -9,6 +9,7 @@ const config = {
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
 	kit: {
+		inlineStyleThreshold: 1024,
 		// adapter: adapter({
 		// 	// if true, will create a Netlify Edge Function rather
 		// 	// than using standard Node-based functions

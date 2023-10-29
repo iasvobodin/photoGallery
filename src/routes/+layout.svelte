@@ -1,7 +1,7 @@
 <script lang="ts">
-	import '../global.css';
 	import '../fonts.css';
-	import { setContext } from 'svelte';
+	import '../global.css';
+	import { onMount, setContext } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
@@ -9,28 +9,39 @@
 	import Logo from '$lib/components/logo.svelte';
 	import Lenis from '@studio-freight/lenis';
 
+	onMount(() => {
+		console.log('loyMuont');
+	});
 	let lenis: Lenis;
 
-	$: if (browser) {
-		// console.log('loybro');
+	// gsap.registerPlugin(ScrollTrigger);
 
-		window.scrollTo(0, 0);
-		window.history.scrollRestoration = 'manual';
+	$: if (browser) {
+		console.log('loybro');
+
+		// window.scrollTo(0, 0);
+		// window.history.scrollRestoration = 'manual';
+
 		lenis = new Lenis({
 			lerp: 0.08
 		});
+
 		const raf = (time: number) => {
 			lenis.raf(time);
 			requestAnimationFrame(raf);
 		};
 		raf(0);
+
 		setContext('lenis', lenis);
+		// setContext('gsap', gsap);
+		// setContext('ScrollTrigger', ScrollTrigger);
 	}
 
 	let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`;
 	// console.log(canonical);
 
 	let numbers: Array<number> = [];
+
 	const stileRandom = (i: number) => {
 		const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 		const randomX = Math.floor(Math.random() * window.innerWidth * 0.85);
@@ -106,7 +117,13 @@
 <svelte:head>
 	<meta name="yandex-verification" content="9cd2d955993a7f04" />
 	<meta name="author" content="Anastasia Svobodina" />
-
+	<link
+		rel="preload"
+		href="/fonts/Comfortaa-VariableFont_wght.ttf"
+		crossorigin="anonymous"
+		as="font"
+		type="font/ttf"
+	/>
 	<!-- <meta name="keywords" content=""> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 

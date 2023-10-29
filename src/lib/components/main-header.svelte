@@ -6,10 +6,21 @@
 	.sub_header {
 		place-self: center;
 		text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-		/* font-family: 'Cormorant Infant', sans-serif;
-		font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
-			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
-			Segoe UI Symbol; */
+		/* font-family: 'Cormorant Infant', sans-serif; */
+		font-family:
+			Comfortaa,
+			Sentinel SSm A,
+			Sentinel SSm B,
+			system-ui,
+			-apple-system,
+			BlinkMacSystemFont,
+			Segoe UI,
+			Helvetica,
+			Arial,
+			sans-serif,
+			Apple Color Emoji,
+			Segoe UI Emoji,
+			Segoe UI Symbol;
 		/* font-family: 'Roboto Mono', monospace; */
 		/* font-family: 'Roboto Mono', monospace; */
 		font-size: clamp(14px, 14px + 3vw, 60px);

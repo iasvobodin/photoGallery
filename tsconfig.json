@@ -2,7 +2,7 @@
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
 		"lib": [
-			"ES2021",
+			"ES2022",
 			"esnext.string"
 		],
 		"allowJs": true,
@@ -12,7 +12,10 @@
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
-		"strict": true
+		"strict": true,
+		"types": [
+			"gsap/types"
+		]
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//

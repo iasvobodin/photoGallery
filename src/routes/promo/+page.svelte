@@ -7,7 +7,7 @@
 	import fragment from '$lib/assets/photoday.frag?raw';
 	import { getContext } from 'svelte';
 	import { browser } from '$app/environment';
-	import Contact from '$lib/components/contact.svelte';
+	import Contact from '$lib/components/main-contact.svelte';
 
 	let showDis = false;
 
@@ -304,7 +304,9 @@
 		text-align: center;
 		text-decoration: none #d1d5db solid;
 		text-decoration-thickness: auto;
-		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+		box-shadow:
+			0 1px 3px 0 rgba(0, 0, 0, 0.1),
+			0 1px 2px 0 rgba(0, 0, 0, 0.06);
 		cursor: pointer;
 		user-select: none;
 		-webkit-user-select: none;
