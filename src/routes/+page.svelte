@@ -120,18 +120,18 @@
 		// 	lenis.raf(time * 1000);
 		// });
 
-		// gsap.ticker.lagSmoothing(0);
+		gsap.ticker.lagSmoothing(0);
 
 		// console.log(gsap.ticker);
 
-		ScrollTrigger.create({
-			trigger: '.video_canvas',
-			pin: true,
-			start: 'top top',
-			end: '+550% top',
-			pinSpacing: false
-			// refreshPriority: 1,
-		});
+		// ScrollTrigger.create({
+		// 	trigger: '.video_canvas',
+		// 	pin: true,
+		// 	start: 'top top',
+		// 	end: '+550% top',
+		// 	pinSpacing: false
+		// 	// refreshPriority: 1,
+		// });
 
 		gsap.to('.video_canvas', {
 			scrollTrigger: {
@@ -150,8 +150,9 @@
 			scrollTrigger: {
 				trigger: '.gallery_holder',
 				scrub: 1,
+				// markers: true,
 				// refreshPriority: 0,
-				pin: true,
+				// pin: true,
 				start: 'top top',
 				end: '550% top'
 			}
@@ -160,53 +161,72 @@
 		tl.to('.video_canvas', { duration: 1.7, x: -midl_gallery }, 0);
 		tl.to('.gallery_middle', { xPercent: -100, x: 0, duration: 2 }, 0);
 		tl.to(['.gallery_top', '.gallery_bottom'], { xPercent: 0, x: '100vw', duration: 2 }, 0);
-		tl.to('.hero_holder', { opacity: 1, duration: 0 }, 2);
-		tl.to('.dummy1', { yPercent: -100, duration: 0.6 }, 2);
-		tl.to('.dummy2', { yPercent: 100, duration: 0.6 }, 2);
-		tl.to('.hero', { duration: 1.4, scale: scaleCoef, x: 0, y: 0 }, 2.6);
-		tl.to(['.hero_title', '.hero_title2', '.hero_list_holder'], { opacity: 1, duration: 0.2 }, 3.5);
+		// tl.to('.hero_holder', { opacity: 1, duration: 0 }, 2);
+		// tl.to('.dummy1', { yPercent: -100, duration: 0.6 }, 2);
+		// tl.to('.dummy2', { yPercent: 100, duration: 0.6 }, 2);
+		// tl.to('.hero', { duration: 1.4, scale: scaleCoef, x: 0, y: 0 }, 2.6);
+		// tl.to(['.hero_title', '.hero_title2', '.hero_list_holder'], { opacity: 1, duration: 0.2 }, 3.5);
 
-		gsap.to('.review', {
+		const t2 = gsap.timeline({
+			ease: 'linear',
 			scrollTrigger: {
-				trigger: '.reviews',
+				trigger: '.hero_holder',
 				scrub: 1,
-				pin: true,
-				start: 'top top',
-				end: '300% top'
-			},
-			x: 0,
-			// duration: 7,
-			stagger: {
-				amount: 7,
-				each: 0.0000001,
-				ease: 'none'
-			},
-
-			ease: 'none'
-		});
-
-		//WORDS ANIMATION
-
-		gsap.to(['.words', '.price_link'], {
-			scrollTrigger: {
-				trigger: '.price_desc',
-				scrub: 1,
+				// markers: true,
+				// refreshPriority: 0,
 				// pin: true,
-				start: 'top 70%',
-				end: 'bottom 70%'
-				// pinSpacing: false
-				// markers: true
-			},
-			opacity: 1,
-			// duration: 7,
-			stagger: {
-				amount: 7,
-				each: 0.0000001,
-				ease: 'none'
-			},
-
-			ease: 'none'
+				start: 'top top',
+				end: '350% top'
+			}
 		});
+		// t2.fromTo('.hero_holder', { opacity: 0 }, { opacity: 1, duration: 0 }, 0);
+		t2.to('.hero_holder', { opacity: 1, duration: 0.01 }, 0);
+		t2.to('.dummy1', { yPercent: -100, duration: 0.6 }, 0);
+		t2.to('.dummy2', { yPercent: 100, duration: 0.6 }, 0);
+		t2.to('.hero', { duration: 1.4, scale: scaleCoef, x: 0, y: 0 }, 0.6);
+		t2.to(['.hero_title', '.hero_title2', '.hero_list_holder'], { opacity: 1, duration: 0.2 }, 1.5);
+
+		// gsap.to('.review', {
+		// 	scrollTrigger: {
+		// 		trigger: '.reviews',
+		// 		scrub: 1,
+		// 		pin: true,
+		// 		start: 'top top',
+		// 		end: '300% top'
+		// 	},
+		// 	x: 0,
+		// 	// duration: 7,
+		// 	stagger: {
+		// 		amount: 7,
+		// 		each: 0.0000001,
+		// 		ease: 'none'
+		// 	},
+
+		// 	ease: 'none'
+		// });
+
+		// //WORDS ANIMATION
+
+		// gsap.to(['.words', '.price_link'], {
+		// 	scrollTrigger: {
+		// 		trigger: '.price_desc',
+		// 		scrub: 1,
+		// 		// pin: true,
+		// 		start: 'top 70%',
+		// 		end: 'bottom 70%'
+		// 		// pinSpacing: false
+		// 		// markers: true
+		// 	},
+		// 	opacity: 1,
+		// 	// duration: 7,
+		// 	stagger: {
+		// 		amount: 7,
+		// 		each: 0.0000001,
+		// 		ease: 'none'
+		// 	},
+
+		// 	ease: 'none'
+		// });
 
 		// const raf = (time: number) => {
 		// 	// updateImage(frameIndex);
@@ -291,30 +311,29 @@
 				</a>
 			{/each}
 		</div>
-		<div class="hero_holder">
-			<div class=" hx hero">
-				<img class="x1" src="/h_X/1x.webp" alt="x1" />
-				<img class="x2" src="/h_X/2x.webp" alt="x2" />
-				<img class="x3" src="/h_X/3x.webp" alt="x3" />
-				<img class="x4" src="/h_X/4x.webp" alt="x4" />
+	</div>
+	<div class="hero_holder">
+		<div class=" hx hero">
+			<img class="x1" src="/h_X/1x.webp" alt="x1" />
+			<img class="x2" src="/h_X/2x.webp" alt="x2" />
+			<img class="x3" src="/h_X/3x.webp" alt="x3" />
+			<img class="x4" src="/h_X/4x.webp" alt="x4" />
+		</div>
+		<div class="hero_desc">
+			<p class="hero_title">Профессиональное оборудование.</p>
+			<p class="hero_title2">Качество в мельчайших деталях.</p>
+			<div class="hero_list_holder">
+				<q class="hero_list">
+					Я уверена, что лучшая фотосессия - это та, которая проходит гладко и без сбоев. Именно
+					поэтому я всегда имею при себе резервный комплект оборудования, чтобы независимо от того,
+					что произойдет, я смогу сохранить всё что снято непосильным трудом. Вы можете быть
+					уверены, что я всегда буду готова к любым условиям!
+				</q>
 			</div>
-			<div class="hero_desc">
-				<p class="hero_title">Профессиональное оборудование.</p>
-				<p class="hero_title2">Качество в мельчайших деталях.</p>
-				<div class="hero_list_holder">
-					<q class="hero_list">
-						Я уверена, что лучшая фотосессия - это та, которая проходит гладко и без сбоев. Именно
-						поэтому я всегда имею при себе резервный комплект оборудования, чтобы независимо от
-						того, что произойдет, я смогу сохранить всё что снято непосильным трудом. Вы можете быть
-						уверены, что я всегда буду готова к любым условиям!
-					</q>
-				</div>
-				<div class="dummy1" />
-				<div class="dummy2" />
-			</div>
+			<div class="dummy1" />
+			<div class="dummy2" />
 		</div>
 	</div>
-
 	<div class="reviews">
 		<!-- <a data-sveltekit-reload href="/reviews" class=" reviews_title"> -->
 		<p class=" reviews_title">Отзывы</p>
@@ -387,10 +406,11 @@
 	.main_page {
 		position: relative;
 		background-color: white;
+		/* height: 1000vh; */
 	}
 	.video_canvas {
 		overflow: hidden;
-		position: relative;
+		/* position: relative; */
 		position: sticky;
 		top: 0;
 		height: 100vh;
@@ -416,9 +436,10 @@
 	}
 
 	.gallery_holder {
-		position: relative;
+		position: sticky;
+		top: 0;
 		overflow: hidden;
-		margin-top: 100vh;
+		margin-top: 70vh;
 		height: 100vh;
 		/* z-index: -1; */
 		/* background: transparent;
@@ -435,12 +456,8 @@
 		transform: translateX(-100%);
 		height: 25vh;
 	}
-	.gallery_top {
-		/* transform: translateX(-100%); */
-	}
 	.gallery_middle {
 		height: 50vh;
-		/* transform: translateX(100%); */
 		transform: translateX(75vw);
 	}
 	.gallery_img {
@@ -451,6 +468,7 @@
 		transform: scale(1.05);
 		transition: transform 1s;
 	}
+
 	.sub_title_portrait {
 		/* mix-blend-mode: difference; */
 		pointer-events: none;
@@ -468,15 +486,15 @@
 
 	.hero_holder {
 		opacity: 0;
-		position: absolute;
-		top: 0;
+		/* position: absolute;
+		top: 0; */
 		pointer-events: none;
-		/* --heroW: min(500px, 90%);
-		height: calc(var(--heroW) * 1.5);
-		width: var(--heroW); */
 		overflow: hidden;
 		width: 100%;
 		height: 100vh;
+		position: sticky;
+		top: 0;
+		margin-top: 450vh;
 		/* border-radius: 10px; */
 		/* margin: auto; */
 		/* background-color: white; */
@@ -484,10 +502,9 @@
 	.hero {
 		pointer-events: none;
 		transform-origin: 0px 0px;
-		width: 100%;
-		height: 100vh;
+		/* width: 100%;
+		height: 100vh; */
 		transform: translate3d(-2050px, -2547.02px, 0px);
-		border-radius: 10px;
 		overflow: hidden;
 	}
 
@@ -543,7 +560,7 @@
 		grid-template-rows: 1fr 1fr;
 		top: 0;
 		width: 100%;
-		height: 100%;
+		height: 100vh;
 		position: absolute;
 		display: grid;
 
@@ -588,18 +605,20 @@
 	}
 	.dummy1 {
 		grid-area: first;
-		background-color: white;
+		background-color: rgb(255, 255, 255);
 		/* opacity: 0.2; */
 	}
 	.dummy2 {
 		grid-area: second;
-		background-color: white;
+		background-color: rgb(255, 255, 255);
 		/* opacity: 0.2; */
 	}
 	.reviews {
-		position: relative;
+		position: sticky;
+		top: 0;
+		margin-top: 300vh;
 		height: 100vh;
-		margin-top: 20vh;
+		/* margin-top: 20vh; */
 		padding-top: 6vh;
 		padding-bottom: 6vh;
 	}
