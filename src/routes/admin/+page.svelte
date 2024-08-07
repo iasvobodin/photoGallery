@@ -14,8 +14,7 @@
 <button on:click={fetchToFile}>Load data</button>
 
 <div class="test">
-	<img src="/covers/22-11-07-13-54-12.jpg" alt="" />
-	<img src="/covers/22-11-07-13-54-12.svg" alt="" />
+
 </div>
 
 <style>
