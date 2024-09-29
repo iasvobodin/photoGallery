@@ -1,12 +1,11 @@
-[build]
-  command = "vite build"
+
+
+
+  [build]
   publish = "build"
+  functions = "netlify/functions"
 
-
-[functions]
-    directory = "functions"
-
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
+[dev]
+  framework = "#custom"
+  command = "npm run dev"  # Команда для запуска SvelteKit
+  targetPort = 5173         # Порт, на котором запускается SvelteKit

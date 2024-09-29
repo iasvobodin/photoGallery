@@ -10,6 +10,7 @@
 	import MainDescripton from '$lib/components/main-description.svelte';
 	import MainDisclemer from '$lib/components/main-disclemer.svelte';
 	import MainContact from '$lib/components/main-contact.svelte';
+	import PhotoseriesSlide from '$lib/components/photoseriesSlide.svelte';
 
 	import type { PageData } from './$types';
 	import { browser } from '$app/environment';
@@ -18,36 +19,35 @@
 	gsap.registerPlugin(ScrollTrigger);
 
 	export let data: PageData;
-
 	//replace toanother component
 	let showDis = false;
 	// let intervalId: NodeJS.Timer;
-	let shuffled = data.reviews
-		.map((value) => ({ value, sort: Math.random() }))
-		.sort((a, b) => a.sort - b.sort)
-		.map(({ value }) => value);
+	// let shuffled = data.reviews
+	// 	.map((value) => ({ value, sort: Math.random() }))
+	// 	.sort((a, b) => a.sort - b.sort)
+	// 	.map(({ value }) => value);
+	const reviewsSlice = data.streamed.reviewsSlice;
+	// let reviewsSlice = shuffled.slice(shuffled.length - 8, shuffled.length);
+	// console.log(data.topLevelExample);
 
-	let reviewsSlice = shuffled.slice(shuffled.length - 8, shuffled.length);
+	// let allph = data.allph;
+	// let photoseriesLandscape = allph.filter((e) => e.Aspect > 1);
+	// let photoseriesPortrait = allph.filter((e) => e.Aspect < 1);
 
-	let allph = data.allph;
-	let photoseriesLandscape = allph.filter((e) => e.Aspect > 1);
-	let photoseriesPortrait = allph.filter((e) => e.Aspect < 1);
+	// let halfOfLandscape = Math.floor(photoseriesLandscape.length / 2);
 
-	let halfOfLandscape = Math.floor(photoseriesLandscape.length / 2);
-
-	let topGallery = photoseriesLandscape.slice(0, halfOfLandscape);
-	let middleGallery = photoseriesPortrait;
-	let bottomGallery = photoseriesLandscape.slice(halfOfLandscape, photoseriesLandscape.length - 1);
+	// let topGallery = photoseriesLandscape.slice(0, halfOfLandscape);
+	// let middleGallery = photoseriesPortrait;
+	// let bottomGallery = photoseriesLandscape.slice(halfOfLandscape, photoseriesLandscape.length - 1);
 
 	let priceDescription =
 		'Я понимаю, что каждый клиент имеет свои уникальные потребности и пожелания, поэтому я готова подбирать цену на услуги индивидуально для каждого. Вместе мы можем определить, какие услуги будут вам необходимы и какой бюджет будет наиболее подходящим для вас. Подробнее в разделе';
 	let priceDescriptionByWords = priceDescription.split(' ');
 
-	let lenis: Lenis;
+	// let lenis: Lenis;
 
 	$: if (browser) {
 		// lenis = getContext('lenis');
-		// lenis.on('scroll', ScrollTrigger.update);
 		// lenis.scrollTo('body', { duration: 0.1, force: true });
 	}
 
@@ -113,14 +113,16 @@
 
 	onMount(() => {
 		setGsap();
-		console.log('pageMuont');
+		// console.log('pageMuont');
 		window.addEventListener('resize', debounceSizes);
+
+		window.lenis.on('scroll', ScrollTrigger.update);
 
 		// gsap.ticker.add((time) => {
 		// 	lenis.raf(time * 1000);
 		// });
 
-		gsap.ticker.lagSmoothing(0);
+		// gsap.ticker.lagSmoothing(0);
 
 		// console.log(gsap.ticker);
 
@@ -142,11 +144,11 @@
 			},
 			scale: 0.46,
 			borderRadius: '20px',
-			ease: 'linear'
+			ease: 'none'
 		});
 
 		const tl = gsap.timeline({
-			ease: 'linear',
+			ease: 'none',
 			scrollTrigger: {
 				trigger: '.gallery_holder',
 				scrub: 1,
@@ -158,9 +160,13 @@
 			}
 		});
 
-		tl.to('.video_canvas', { duration: 1.7, x: -midl_gallery }, 0);
-		tl.to('.gallery_middle', { xPercent: -100, x: 0, duration: 2 }, 0);
-		tl.to(['.gallery_top', '.gallery_bottom'], { xPercent: 0, x: '100vw', duration: 2 }, 0);
+		tl.to('.video_canvas', { ease: 'none', duration: 1.7, x: -midl_gallery }, 0);
+		tl.to('.gallery_middle', { ease: 'none', xPercent: -100, x: 0, duration: 2 }, 0);
+		tl.to(
+			['.gallery_top', '.gallery_bottom'],
+			{ ease: 'none', xPercent: 0, x: '100vw', duration: 2 },
+			0
+		);
 		// tl.to('.hero_holder', { opacity: 1, duration: 0 }, 2);
 		// tl.to('.dummy1', { yPercent: -100, duration: 0.6 }, 2);
 		// tl.to('.dummy2', { yPercent: 100, duration: 0.6 }, 2);
@@ -168,7 +174,7 @@
 		// tl.to(['.hero_title', '.hero_title2', '.hero_list_holder'], { opacity: 1, duration: 0.2 }, 3.5);
 
 		const t2 = gsap.timeline({
-			ease: 'linear',
+			ease: 'none',
 			scrollTrigger: {
 				trigger: '.hero_holder',
 				scrub: 1,
@@ -180,7 +186,8 @@
 			}
 		});
 		// t2.fromTo('.hero_holder', { opacity: 0 }, { opacity: 1, duration: 0 }, 0);
-		t2.to('.hero_holder', { opacity: 1, duration: 0.01 }, 0);
+		t2.to('.hero_holder', { opacity: 1, duration: 0.0001 }, 0);
+		// t2.to('.hero_desc', { duration: 0.0001, position: 'fixed', top: 0 }, 0);
 		t2.to('.dummy1', { yPercent: -100, duration: 0.6 }, 0);
 		t2.to('.dummy2', { yPercent: 100, duration: 0.6 }, 0);
 		t2.to('.hero', { duration: 1.4, scale: scaleCoef, x: 0, y: 0 }, 0.6);
@@ -256,7 +263,15 @@
 		content="Фотограф Свободина Анастасия Челябинск. Свадебная, портретная, репортажная, семейная фотосессии. Профессиональное оборудование, быстрые сроки, адекватные цены"
 	/>
 </svelte:head>
-
+<!-- <div class="info">
+	{#await data.streamed.topLevelExample}
+		<p>streaming delayed data from the server...</p>
+	{:then topLevelExample}
+		<div>
+			<p>City is {topLevelExample}</p>
+		</div>
+	{/await}
+</div> -->
 <div class="main_page">
 	<div class="video_canvas">
 		<MainCanvas />
@@ -269,6 +284,13 @@
 	</div>
 
 	<div class="gallery_holder">
+		{#await data.streamed.ph}
+			<p>streaming delayed data from the server...</p>
+		{:then ph}
+			<PhotoseriesSlide {ph} />
+		{/await}
+	</div>
+	<!-- <div class="gallery_holder">
 		<div class="gallery gallery_top">
 			{#each topGallery as item}
 				<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
@@ -311,7 +333,7 @@
 				</a>
 			{/each}
 		</div>
-	</div>
+	</div> -->
 	<div class="hero_holder">
 		<div class=" hx hero">
 			<img class="x1" src="/h_X/1x.webp" alt="x1" />
@@ -338,19 +360,25 @@
 		<!-- <a data-sveltekit-reload href="/reviews" class=" reviews_title"> -->
 		<p class=" reviews_title">Отзывы</p>
 		<!-- </a> -->
-		{#each reviewsSlice as review}
-			<div class="review_holder">
-				<div class="review">
-					<div class="ava">
-						<img src="/img/rev/{review.id}.jpg" alt="ava" />
-					</div>
-					<div class="review__decription">
-						<p class="review__name">{review.name}</p>
-						<p class="review__body">{review.body}</p>
+
+		{#await data.streamed.reviewsSlice}
+			<p>streaming delayed data from the server...</p>
+		{:then reviewsSlice}
+			{#each reviewsSlice as review}
+				<div class="review_holder">
+					<div class="review">
+						<div class="ava">
+							<img src="/img/rev/{review.id}.jpg" alt="ava" />
+						</div>
+						<div class="review__decription">
+							<p class="review__name">{review.name}</p>
+							<p class="review__body">{review.body}</p>
+						</div>
 					</div>
 				</div>
-			</div>
-		{/each}
+			{/each}
+		{/await}
+
 		<a data-sveltekit-reload href="/reviews" class="reviews_link">Посмотреть все отзывы</a>
 	</div>
 	<div class="price">

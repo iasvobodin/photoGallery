@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model PhotoSeries {
+  id          Int     @id @default(autoincrement())
+  type        String
+  group       String?
+  route       String  @unique
+  title       String
+  description String
+  Cover       Cover?
+  photos      Photo[]
+}
+
+model Photo {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  aspect      Float
+  colors      String[]
+  Keywords    String[]
+  Rating      Int
+  seriesRoute String?
+  cover       Cover?
+  series      PhotoSeries? @relation(fields: [seriesRoute], references: [route])
+  props       Props?
+}
+
+model Props {
+  id        Int    @id @default(autoincrement())
+  ShSp      String
+  Ap        String
+  Fl        String
+  photo     Photo  @relation(fields: [photoName], references: [name])
+  photoName String @unique
+}
+
+model Cover {
+  id          Int         @id @default(autoincrement())
+  photoName   String      @unique
+  seriesRoute String      @unique
+  photo       Photo       @relation(fields: [photoName], references: [name])
+  series      PhotoSeries @relation(fields: [seriesRoute], references: [route])
+}

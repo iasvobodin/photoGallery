@@ -23,8 +23,10 @@
 		// window.history.scrollRestoration = 'manual';
 
 		lenis = new Lenis({
-			lerp: 0.08
+			lerp: 0.08,
+			syncTouch: true
 		});
+		window.lenis = lenis;
 
 		const raf = (time: number) => {
 			lenis.raf(time);

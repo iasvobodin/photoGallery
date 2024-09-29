@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import series from "./db/Photoseries.json";
+// import series from "./db/Photoseries.json";
 import { tweened } from 'svelte/motion';
 import { cubicOut, linear } from 'svelte/easing';
 
@@ -9,7 +9,7 @@ export const progress = tweened(0, {
 });
 export const eventAnimation = writable(true);
 export const homePageState = writable(false);
-export const photoseries = writable(series);
+// export const photoseries = writable(series);
 export const inrtoAnimationStart = writable(false)
 export const leaveIndex = writable(false)
 export const leaveRoute = writable(false)

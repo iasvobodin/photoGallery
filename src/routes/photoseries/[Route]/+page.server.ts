@@ -15,7 +15,7 @@ export const load = (({ params }) => {
                 return acc.add(f[0])
             } return acc
         },
-        new Set()
+        new Set<string>()
     )]
 
 

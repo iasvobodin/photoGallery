@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
-	import type Lenis from '@studio-freight/lenis';
+	// import type Lenis from '@studio-freight/lenis';
 	import { getContext } from 'svelte';
 
 	let videoCanvas: HTMLCanvasElement;
@@ -11,7 +11,7 @@
 	let scroll = 0;
 	let frameQty = 259;
 	let canvasHide = false;
-	let lenis: Lenis;
+	// let lenis: Lenis;
 
 	const currentFrame = (size: number = 1920, index: number) => `/frames/${size}_frame${index}.webp`;
 
@@ -29,13 +29,13 @@
 	};
 
 	$: if (browser) {
-		lenis = getContext('lenis');
+		// lenis = getContext('lenis');
 		preloadImages(window.innerWidth > 900 ? 1920 : 1024);
 	}
 	onMount(() => {
 		const context = videoCanvas.getContext('2d');
-
-		lenis.on('scroll', (e: any) => {
+		// window.lenis
+		window.lenis.on('scroll', (e: any) => {
 			scroll = e.scroll;
 		});
 		images.at(-1)!.onload = () => {

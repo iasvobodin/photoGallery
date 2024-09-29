@@ -21,8 +21,6 @@
 		preloadData
 	} from '$app/navigation';
 
-
-
 	type LoyData = {
 		setStyle: string;
 		imageSrc?: string;
@@ -201,20 +199,22 @@
 	// 		setLoy(data, innerWidth, innerHeight);
 	// 	}
 	// });
-	function navigateNext(photoseriesList, Route) {
-		photoseriesList.findIndex((e) => e.Route === Route);
-		// console.log(+photoSeries!.id + 1 === photoseriesList!.length);
-		// if (photoSeries && photoseriesList) {
-		if (photoseriesList.findIndex((e) => e.Route === Route) + 1 === photoseriesList.length) {
-			return photoseriesList[0].Route;
-		} else {
-			return photoseriesList[
-				photoseriesList.findIndex((e) => e.Route === Route) + 1
-			]?.Route.toLowerCase();
+	function navigateNext(photoseriesList: typeof allph, Route: string) {
+		if (photoseriesList) {
+			photoseriesList.findIndex((e) => e.Route === Route);
+			// console.log(+photoSeries!.id + 1 === photoseriesList!.length);
+			// if (photoSeries && photoseriesList) {
+			if (photoseriesList.findIndex((e) => e.Route === Route) + 1 === photoseriesList.length) {
+				return photoseriesList[0].Route;
+			} else {
+				return photoseriesList[
+					photoseriesList.findIndex((e) => e.Route === Route) + 1
+				]?.Route.toLowerCase();
+			}
+			// } else {
+			// 	return '/';
+			// }
 		}
-		// } else {
-		// 	return '/';
-		// }
 	}
 	onMount(() => {
 		initObserver(observElements);
@@ -445,8 +445,19 @@
 		white-space: pre-wrap;
 		text-align: center;
 		margin: 0;
-		font-family: Comfortaa, Sentinel SSm A, Sentinel SSm B, system-ui, -apple-system,
-			BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+		font-family:
+			Comfortaa,
+			Sentinel SSm A,
+			Sentinel SSm B,
+			system-ui,
+			-apple-system,
+			BlinkMacSystemFont,
+			Segoe UI,
+			Helvetica,
+			Arial,
+			sans-serif,
+			Apple Color Emoji,
+			Segoe UI Emoji,
 			Segoe UI Symbol;
 		font-size: clamp(14px, 1rem + 0.6vw, 32px);
 		line-height: clamp(20px, 1.2rem + 0.7vw, 44px);
