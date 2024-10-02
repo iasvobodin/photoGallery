@@ -9,3 +9,4 @@
   framework = "#custom"
   command = "npm run dev"  # Команда для запуска SvelteKit
   targetPort = 5173         # Порт, на котором запускается SvelteKit
+

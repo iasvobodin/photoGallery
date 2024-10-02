@@ -20,7 +20,7 @@ import type { PageServerLoad } from './$types';
 import type { PhotoSeries } from '@prisma/client';
 export const load: PageServerLoad = async ({ fetch }) => {
 	try {
-		const response = await fetch('/.netlify/functions/get-photo-series');
+		const response = await fetch('http://localhost:8888/.netlify/functions/get-photo-series');
 		if (response.ok) {
 			const photoseries: PhotoSeries[] = await response.json();
 

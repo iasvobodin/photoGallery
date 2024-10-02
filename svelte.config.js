@@ -1,8 +1,5 @@
-// import adapter from '@sveltejs/adapter-auto';
-// import adapter from '@sveltejs/adapter-static';
-// import adapter from '@sveltejs/adapter-vercel';
 import adapter from '@sveltejs/adapter-netlify';
-import { vitePreprocess } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -42,12 +39,11 @@ const config = {
 	vite: {
 		server: {
 			proxy: {
-				'/.netlify/functions': 'http://localhost:9999',
-				// '/.netlify/functions': {
-				// 	target: 'http://localhost:8888',  // Netlify Dev сервер
-				// 	changeOrigin: true,
-				// 	secure: false
-				// }
+				'/.netlify/functions': {
+					target: 'http://localhost:8888',  // URL Netlify Dev сервера
+					changeOrigin: true,
+					secure: false
+				}
 			}
 		}
 	}

@@ -2017,7 +2017,7 @@ if (!VK.Widgets) {
     return VK.Widgets._constructor('ads_rotate.php', objId, options, params, funcs, defaults, onDone);
 
     function newAdsOnInitLoader(deps) {
-      // replace's взяты из walkVar
+      // replace's пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ walkVar
       var json = JSON.parse(deps.replace(/&#039;/g, '\'').replace(/&quot;/g, '"').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&amp;/g, '&'));
       adsAttachScript(json);
     }
