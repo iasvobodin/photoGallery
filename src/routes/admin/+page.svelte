@@ -13,10 +13,7 @@
 			script.async = true;
 			script.setAttribute('data-telegram-login', 'SvobodinaPhoto_bot');
 			script.setAttribute('data-size', 'large');
-			script.setAttribute(
-				'data-auth-url',
-				'http://localhost:8888/.netlify/functions/telegram-auth'
-			); // Замените на ваш обработчик
+			script.setAttribute('data-auth-url', '/.netlify/functions/telegram-auth'); // Замените на ваш обработчик
 			script.setAttribute('data-request-access', 'write'); // Опционально, если нужны права на отправку сообщений
 			document.getElementById('telegram-widget-container')!.appendChild(script);
 			widgetLoaded = true;
