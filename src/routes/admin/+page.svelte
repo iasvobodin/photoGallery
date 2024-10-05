@@ -34,7 +34,7 @@
 {/if}
 
 <main>
-	<h1>Авторизация через Telegram</h1>
+	<h1>Авторизация через Telegram!!!</h1>
 	<div id="telegram-widget-container"></div>
 </main>
 
