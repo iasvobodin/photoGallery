@@ -21,7 +21,7 @@
 	});
 </script>
 
-<h1>Фотосерии из базы</h1>
+<h1>Фотосерии из базы rrefd</h1>
 {#if data.photoseries}
 	<ul>
 		{#each data.photoseries as series}
