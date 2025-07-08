@@ -104,7 +104,7 @@
 <svelte:window bind:scrollY={y} bind:scrollX={x} />
 
 <svelte:head>
-	<meta name="yandex-verification" content="9cd2d955993a7f04" />
+	<meta name="yandex-verification" content="0c22a9f3cbd83255" />
 	<meta name="author" content="Anastasia Svobodina" />
 
 	<!-- <meta name="keywords" content=""> -->
