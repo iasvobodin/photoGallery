@@ -16,7 +16,7 @@
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/adapter-netlify": "^2.0.6",
 		"@sveltejs/adapter-static": "^2.0.2",
-		"@sveltejs/kit": "^1.15.7",
+		"@sveltejs/kit": "^1.20.0",
 		"@types/justified-layout": "^4.1.0",
 		"@types/lodash-es": "^4.17.7",
 		"@types/lodash.debounce": "^4.0.7",
@@ -40,7 +40,7 @@
 	"dependencies": {
 		"@studio-freight/lenis": "^1.0.9",
 		"animejs": "^3.2.1",
-		"curtainsjs": "^8.1.4",
+		"curtainsjs": "^8.1.6",
 		"gsap": "^3.11.5",
 		"justified-layout": "^4.1.0",
 		"lodash.debounce": "^4.0.8",
