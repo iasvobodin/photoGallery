@@ -6,14 +6,13 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { browser, dev } from '$app/environment';
-	import Logo from '$lib/components/logo.svelte';
-	import Lenis from '@studio-freight/lenis';
+	import Logo from '$lib/components/Logo.svelte';
+	import Lenis from 'lenis';
+	import type { TransitionConfig } from 'svelte/transition';
 
 	let lenis: Lenis;
 
 	$: if (browser) {
-		// console.log('loybro');
-
 		window.scrollTo(0, 0);
 		window.history.scrollRestoration = 'manual';
 		lenis = new Lenis({
@@ -30,46 +29,31 @@
 	let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`;
 	// console.log(canonical);
 
-	let numbers: Array<number> = [];
-	const stileRandom = (i: number) => {
-		const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-		const randomX = Math.floor(Math.random() * window.innerWidth * 0.85);
-		const randomY = Math.floor(Math.random() * window.innerHeight * 0.85);
-		const randomDeg = Math.floor(Math.random() * window.innerHeight * 0.85);
-		const randomScale = Math.random() + 0.85;
-
-		return `fill: ${randomColor};transform: translate(${randomX}px, -${randomY}px) rotate(${randomDeg}deg) scale(${randomScale})`;
-	};
-	let way = true;
-	function addNumber() {
-		if (numbers.length >= 25) {
-			way = false;
-		}
-		if (numbers.length === 0) {
-			way = true;
-		}
-		way && (numbers = [...numbers, numbers.length + 1]);
-		!way && (numbers = numbers.slice(1));
-	}
-
-	function overlay(node, { duration }) {
+	function overlay(node: Element, { duration }: { duration: number }): TransitionConfig {
 		return {
 			duration,
 			css: (t, u) => `clip-path: circle(${100 * t}%)`
 		};
 	}
 
-	function spin(node, { duration, delay }) {
+	function spin(
+		node: Element,
+		{ duration, delay }: { duration: number; delay?: number }
+	): TransitionConfig {
 		return {
 			delay,
 			duration,
 			css: (t, u) => `transform: translateX(${-100 * u}%)`
 		};
 	}
-	function spin2(node, { duration, delay }) {
+
+	function spin2(
+		node: Element,
+		{ duration, delay }: { duration: number; delay?: number }
+	): TransitionConfig {
 		return {
-			duration,
 			delay,
+			duration,
 			css: (t, u) => `transform: translateX(${100 * u}%)`
 		};
 	}
@@ -130,6 +114,7 @@
 	<link rel="canonical" href={canonical} />
 
 	{#if !dev}
+		<!-- Yandex.Metrika counter -->
 		<script type="text/javascript">
 			(function (m, e, t, r, i, k, a) {
 				m[i] =
@@ -150,22 +135,22 @@
 					a.parentNode.insertBefore(k, a);
 			})(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
 
-			ym(93061408, 'init', {
+			ym(47422762, 'init', {
 				clickmap: true,
 				trackLinks: true,
-				accurateTrackBounce: true,
-				webvisor: true
+				accurateTrackBounce: true
 			});
 		</script>
 		<noscript
 			><div>
 				<img
-					src="https://mc.yandex.ru/watch/93061408"
+					src="https://mc.yandex.ru/watch/47422762"
 					style="position:absolute; left:-9999px;"
 					alt=""
 				/>
 			</div></noscript
 		>
+		<!-- /Yandex.Metrika counter -->
 
 		<script type="text/javascript">
 			!(function () {
@@ -221,14 +206,7 @@
 <div class="menu">
 	{#if menuIsOpen}
 		<div out:overlay={{ duration: 600 }} in:overlay={{ duration: 600 }} class="overlay">
-			<img on:click={addNumber} class="logo" src="/icons/logo.svg" alt="logo" />
-			{#each numbers as item, i}
-				<div style={stileRandom(i)} class="logo-fake">
-					<Logo color={`#${Math.floor(Math.random() * 16777215).toString(16)}`} />
-				</div>
-
-				<!-- <img style={stileRandom(i)} class="logo-fake" src="/icons/logo.svg" alt="logo" /> -->
-			{/each}
+			<Logo />
 		</div>
 	{/if}
 	<h1 class="menu__title__hor font__prop" class:hide__svph={$page.url.pathname !== '/' || y >= 150}>
@@ -295,16 +273,16 @@
 		transition: opacity 1s;
 		opacity: 0;
 	}
-	section {
+	/* section {
 		all: unset;
 		height: 100vh;
 		height: calc(var(--vh, 1vh) * 100);
 		display: block;
-	}
-	.disable__scroll {
-		/* overflow-y: hidden;
-		height: 100vh; */
-	}
+	}*/
+	/* .disable__scroll {
+		overflow-y: hidden;
+		height: 100vh;
+	} */
 	.menu__back {
 		width: calc((clamp(40px, 6.5vw + 12px, 90px) + 4vh) / 1.5);
 		height: calc((clamp(40px, 6.5vw + 12px, 90px) + 4vh) / 1.5);
@@ -383,27 +361,6 @@
 		width: 200%;
 		height: 200%;
 		background-color: black;
-	}
-	.logo {
-		position: absolute;
-		cursor: pointer;
-		width: 15vh;
-		height: 15vh;
-		place-self: end start;
-		margin: 3vw;
-	}
-	.logo-fake {
-		position: absolute;
-		pointer-events: none;
-		width: 15vh;
-		height: 15vh;
-		place-self: end start;
-		margin: 3vw;
-	}
-	.logo-fake > svg {
-		display: block;
-		width: 15vh;
-		height: 15vh;
 	}
 	/* .menu::before {
 		clip-path: circle(100%);

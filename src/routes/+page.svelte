@@ -2,7 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-	import type Lenis from '@studio-freight/lenis';
+	import type Lenis from 'lenis';
 	import { getContext } from 'svelte';
 	import Contact from '$lib/components/contact.svelte';
 	import Videocanvas from '$lib/components/VideoCanvas.svelte';
@@ -23,7 +23,7 @@
 	let reviewsSlice = data.reviews.slice(data.reviews.length - 8, data.reviews.length);
 	let allphHor = allph.filter((e) => e.Aspect > 1);
 	let allphVer = allph.filter((e) => e.Aspect < 1);
-	let intervalId: NodeJS.Timer;
+	let intervalId: ReturnType<typeof setInterval>;
 	let allph1 = allphHor.slice(0, 9);
 	let allph2 = allphVer;
 	let allph3 = allphHor.slice(9, 18);
@@ -117,7 +117,7 @@
 		func: F,
 		waitFor: number
 	) => {
-		let timeout: NodeJS.Timeout;
+		let timeout: ReturnType<typeof setInterval>;
 
 		const debounced = (...args: Parameters<F>) => {
 			clearTimeout(timeout);
@@ -986,7 +986,9 @@
 		text-align: center;
 		text-decoration: none #d1d5db solid;
 		text-decoration-thickness: auto;
-		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+		box-shadow:
+			0 1px 3px 0 rgba(0, 0, 0, 0.1),
+			0 1px 2px 0 rgba(0, 0, 0, 0.06);
 		cursor: pointer;
 		user-select: none;
 		-webkit-user-select: none;
@@ -1039,7 +1041,9 @@
 			rgb(1, 175, 255) 20%,
 			#fff 25%
 		);
-		animation: -0.64s rotating2 5s linear infinite, -0.64s x 5s linear infinite;
+		animation:
+			-0.64s rotating2 5s linear infinite,
+			-0.64s x 5s linear infinite;
 	}
 	@keyframes x {
 		/* w:h === 6:1 */

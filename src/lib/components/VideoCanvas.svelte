@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
-	import type Lenis from '@studio-freight/lenis';
+	import type Lenis from 'lenis';
 	import { getContext } from 'svelte';
 
 	let videoCanvas: HTMLCanvasElement,
