@@ -130,7 +130,7 @@
 	<link rel="canonical" href={canonical} />
 
 	{#if !dev}
-		<script type="text/javascript">
+		<script nonce="%sveltekit.nonce%" type="text/javascript">
 			(function (m, e, t, r, i, k, a) {
 				m[i] =
 					m[i] ||
