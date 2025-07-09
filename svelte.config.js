@@ -29,14 +29,16 @@ const config = {
 			strict: true
 		}),
 		 csp: {
-      mode: 'auto',
       directives: {
-        'default-src': ['self'],
-        'script-src': ['self', 'yastatic.net', 'mc.yandex.ru'],
-        'connect-src': ['self', 'mc.yandex.ru'],
-        'img-src': ['self', 'data:', 'mc.yandex.ru'],
+        'script-src': [
+          'self',
+          'yastatic.net',  // Яндекс.Метрика (скрипты)
+          'mc.yandex.ru',  // Яндекс.Метрика (отправка данных)
+          'unsafe-inline', // Разрешает inline-скрипты Метрики
+        ],
+        // Остальные директивы можно не трогать
       },
-    },
+	}
 		// csp: {
 		// 	mode: 'auto',
 		// 	directives: {
