@@ -130,7 +130,12 @@
 	<link rel="canonical" href={canonical} />
 
 	{#if !dev}
-		<script nonce="%sveltekit.nonce%" type="text/javascript">
+
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "81a8d8bf928542628a1b40e79dad0790"}'></script><!-- End Cloudflare Web Analytics -->
+
+
+
+		<script type="text/javascript">
 			(function (m, e, t, r, i, k, a) {
 				m[i] =
 					m[i] ||
