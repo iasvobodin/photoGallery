@@ -130,8 +130,11 @@
 	<link rel="canonical" href={canonical} />
 
 	{#if !dev}
-
-<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "81a8d8bf928542628a1b40e79dad0790"}'></script><!-- End Cloudflare Web Analytics -->
+{@html `
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "81a8d8bf928542628a1b40e79dad0790"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+  `}
 
 
 
