@@ -28,6 +28,15 @@ const config = {
 			precompress: false,
 			strict: true
 		}),
+		 csp: {
+      mode: 'auto',
+      directives: {
+        'default-src': ['self'],
+        'script-src': ['self', 'yastatic.net', 'mc.yandex.ru'],
+        'connect-src': ['self', 'mc.yandex.ru'],
+        'img-src': ['self', 'data:', 'mc.yandex.ru'],
+      },
+    },
 		// csp: {
 		// 	mode: 'auto',
 		// 	directives: {
