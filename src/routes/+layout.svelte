@@ -1,160 +1,56 @@
 <script lang="ts">
 	import '../global.css';
 	import '../fonts.css';
-	import { setContext } from 'svelte';
-	import { fly } from 'svelte/transition';
-	import { goto } from '$app/navigation';
+	import { setContext, onMount, onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { browser, dev } from '$app/environment';
-	import Logo from '$lib/components/logo.svelte';
-	import Lenis from '@studio-freight/lenis';
 
-	import gsap from 'gsap';
-	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-	import { ScrollSmoother } from 'gsap/ScrollSmoother';
-	import { onMount, onDestroy } from 'svelte';
+	// Компоненты
+	import Menu from '$lib/components/Menu.svelte';
+	import ScrollToTop from '$lib/components/ScrollToTop.svelte';
+	import BackButton from '$lib/components/BackButton.svelte';
 
-	// let lenis: Lenis;
-
-	// $: if (browser) {
-	// 	// console.log('loybro');
-
-	// 	window.scrollTo(0, 0);
-	// 	window.history.scrollRestoration = 'manual';
-	// 	lenis = new Lenis({
-	// 		lerp: 0.08
-	// 	});
-	// 	const raf = (time: number) => {
-	// 		lenis.raf(time);
-	// 		requestAnimationFrame(raf);
-	// 	};
-	// 	raf(0);
-	// 	setContext('lenis', lenis);
-	// }
-
-	onMount(() => {
-		isMounted = true;
-		if (!ScrollTrigger || !ScrollSmoother) return;
-
-		gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-
-		const smoother = ScrollSmoother.create({
-			smooth: 1.2, // скорость
-			effects: true, // включить data-speed
-			smoothTouch: 0.1 // плавность на тач-устройствах
-		});
-
-		setContext('smoother', smoother);
-	});
+	// GSAP Manager
+	import { initGSAP, createSmoother, getSmoother, destroySmoother } from '$lib/utils/gsap';
 
 	let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`;
-	// console.log(canonical);
+	let scrollY: number = 0;
 
-	let numbers: Array<number> = [];
-	const stileRandom = (i: number) => {
-		const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-		const randomX = Math.floor(Math.random() * window.innerWidth * 0.85);
-		const randomY = Math.floor(Math.random() * window.innerHeight * 0.85);
-		const randomDeg = Math.floor(Math.random() * window.innerHeight * 0.85);
-		const randomScale = Math.random() + 0.85;
+	onMount(() => {
+		if (!browser) return;
 
-		return `fill: ${randomColor};transform: translate(${randomX}px, -${randomY}px) rotate(${randomDeg}deg) scale(${randomScale})`;
-	};
-	let way = true;
-	function addNumber() {
-		if (numbers.length >= 25) {
-			way = false;
+		// Инициализируем GSAP один раз
+		initGSAP();
+
+		// Создаём ScrollSmoother
+		const smoother = createSmoother();
+
+		// Передаём в контекст для дочерних компонентов
+		if (smoother) {
+			setContext('smoother', smoother);
 		}
-		if (numbers.length === 0) {
-			way = true;
+	});
+
+	onDestroy(() => {
+		// Очистка при размонтировании (для HMR в dev режиме)
+		if (dev) {
+			destroySmoother();
 		}
-		way && (numbers = [...numbers, numbers.length + 1]);
-		!way && (numbers = numbers.slice(1));
-	}
-
-	function overlay(node, { duration }) {
-		return {
-			duration,
-			css: (t, u) => `clip-path: circle(${100 * t}%)`
-		};
-	}
-
-	function spin(node, { duration, delay }) {
-		return {
-			delay,
-			duration,
-			css: (t, u) => `transform: translateX(${-100 * u}%)`
-		};
-	}
-	function spin2(node, { duration, delay }) {
-		return {
-			duration,
-			delay,
-			css: (t, u) => `transform: translateX(${100 * u}%)`
-		};
-	}
-	// console.log($page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/')));
-	const goSomeWhereBack = () => {
-		goto(
-			$page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'))
-				? $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'))
-				: '/'
-		);
-	};
-	let y: number, x: number;
-
-	const scrollTop = () => {
-		window.scrollTo({ top: 0, behavior: 'smooth' });
-	};
-	const navigation = [
-		{ name: '    ДОМОЙ', route: '/' },
-		{ name: 'ФОТОСЕРИИ', route: '/photoseries' },
-		{ name: '   ОТЗЫВЫ', route: '/reviews' },
-		{ name: '     ЦЕНЫ', route: '/price' },
-		{ name: '   О СЕБЕ', route: '/about' }
-	];
-	let menuIsOpen = false;
-	const stag = () => {
-		menuIsOpen = !menuIsOpen;
-		console.log(menuIsOpen);
-		// menuIsOpen ? lenis.stop() : lenis.start();
-	};
-
-	let overlayEl: HTMLElement | null = null;
-	let isMounted = false;
-	// Следим за menuIsOpen и запускаем анимацию
-	$: if (isMounted && overlayEl) {
-		if (menuIsOpen) {
-			gsap.killTweensOf(overlayEl);
-			gsap.fromTo(
-				overlayEl,
-				{ clipPath: 'circle(0% at 50% 50%)' },
-				{ clipPath: 'circle(100% at 50% 50%)', duration: 0.6, ease: 'linear' }
-			);
-		} else {
-			gsap.killTweensOf(overlayEl);
-			gsap.fromTo(
-				overlayEl,
-				{ clipPath: 'circle(100% at 50% 50%)' },
-				{ clipPath: 'circle(0% at 50% 50%)', duration: 0.6, ease: 'linear' }
-			);
-		}
-	}
+	});
 </script>
 
-<svelte:window bind:scrollY={y} bind:scrollX={x} />
+<svelte:window bind:scrollY />
 
 <svelte:head>
 	<meta name="yandex-verification" content="0c22a9f3cbd83255" />
 	<meta name="author" content="Anastasia Svobodina" />
-
-	<!-- <meta name="keywords" content=""> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Фотограф Анастасия Свободина" />
 	<meta name="twitter:description" content="Красивые и неповторимые моменты на фото." />
 	<meta name="twitter:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
+
 	<meta property="og:title" content="SvobodinaPhoto" />
 	<meta property="og:type" content="website" />
 	<meta property="og:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
@@ -203,18 +99,19 @@
 				accurateTrackBounce: true
 			});
 		</script>
-		<noscript
-			><div>
+		<noscript>
+			<div>
 				<img
 					src="https://mc.yandex.ru/watch/47422762"
 					style="position:absolute; left:-9999px;"
 					alt=""
 				/>
-			</div></noscript
-		>
+			</div>
+		</noscript>
 	{/if}
 
 	<script>
+		// Viewport height fix для мобильных устройств
 		let vh = window.innerHeight * 0.01;
 		document.documentElement.style.setProperty('--vh', `${vh}px`);
 		window.addEventListener('resize', () => {
@@ -224,287 +121,26 @@
 	</script>
 </svelte:head>
 
-<!-- <div class="main" class:disable__scroll={menuIsOpen}>
-	<slot />
-</div> -->
-
+<!-- Smooth Scroll Container -->
 <div id="smooth-wrapper">
 	<div id="smooth-content">
 		<slot />
 	</div>
 </div>
 
+<!-- UI Компоненты -->
 {#if $page.url.pathname !== '/'}
-	<button
-		id="bb"
-		aria-label="Back Button"
-		style="background-image: url('/icons/back3.svg');"
-		on:click={goSomeWhereBack}
-		type="button"
-		class="menu__back unbutton"
-	/>
+	<BackButton />
 {/if}
-{#if y >= 150}
-	<button
-		transition:fly={{ y: 200, duration: 1500 }}
-		on:click={scrollTop}
-		type="button"
-		class="scroll__top"
-	/>
-{/if}
-<div class="menu">
-	<div bind:this={overlayEl} class="overlay">
-		{#if menuIsOpen}
-			<img on:click={addNumber} class="logo" src="/icons/logo.svg" alt="logo" />
-			{#each numbers as item, i}
-				<div style={stileRandom(i)} class="logo-fake">
-					<Logo color={`#${Math.floor(Math.random() * 16777215).toString(16)}`} />
-				</div>
 
-				<!-- <img style={stileRandom(i)} class="logo-fake" src="/icons/logo.svg" alt="logo" /> -->
-			{/each}
-		{/if}
-	</div>
-	<h1 class="menu__title__hor font__prop" class:hide__svph={$page.url.pathname !== '/' || y >= 150}>
-		SVOBODINA
-	</h1>
-	<button
-		id="mb"
-		aria-label="Menu Button"
-		type="button"
-		on:click={stag}
-		class="menu__button font__prop"
-		class:menuIsOpen
-	/>
-	{#if !menuIsOpen}
-		<div
-			class="menu__title__ver font__prop"
-			class:hide__svph={$page.url.pathname !== '/' || y >= 150}
-		>
-			{#each 'PHOTO' as item, i}
-				<div class="char__holder">
-					<span
-						out:spin={{ duration: 600, delay: 0 }}
-						in:spin={{ duration: 600, delay: 100 }}
-						class="ph__char">{item}</span
-					>
-				</div>
-			{/each}
-		</div>
-	{/if}
-	{#if menuIsOpen}
-		<!-- class:menu__item__active={menuIsOpen} -->
-		<div class="menu__items font__prop">
-			{#each navigation as item, i (i)}
-				<a on:click={stag} data-title={item.name} href={item.route} class="font__prop menu__item">
-					{#each item.name as el, j}
-						<div class="char__holder">
-							<span
-								in:spin2={{ duration: 600, delay: (item.name.length + 2 - j) * 20 }}
-								out:spin2={{ duration: 600, delay: j * 20 }}
-								class="char">{el}</span
-							>
-						</div>
-					{/each}
-				</a>
-			{/each}
-		</div>
-	{/if}
-</div>
+<ScrollToTop {scrollY} />
+<Menu {scrollY} />
 
 <style>
-	/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap'); */
-
-	:root {
-		--clip: 0%;
+	:global(:root) {
 		--font-size-main: clamp(30px, 20px + 4.5vh, 90px);
-		/* --font-size-main: var(--font-size-main); */
 		--slider-height: calc(max(100vh, 500px) - var(--font-size-main) * 2);
 		--slide-width: calc(var(--slider-height) * 0.66);
-	}
-	.main {
-		position: relative;
-	}
-	.hide__svph {
-		transition: opacity 1s;
-		opacity: 0;
-	}
-	section {
-		all: unset;
-		height: 100vh;
-		height: calc(var(--vh, 1vh) * 100);
-		display: block;
-	}
-	.disable__scroll {
-		/* overflow-y: hidden;
-		height: 100vh; */
-	}
-	.menu__back {
-		width: calc((clamp(40px, 6.5vw + 12px, 90px) + 4vh) / 1.5);
-		height: calc((clamp(40px, 6.5vw + 12px, 90px) + 4vh) / 1.5);
-		cursor: pointer;
-		position: absolute;
-		top: 0;
-		left: 10px;
-		transform: scaleX(-1);
-	}
-	/* linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent), */
-	.scroll__top {
-		background-image: url('/icons/scroll.svg');
-		position: fixed;
-		bottom: 10px;
-		right: 10px;
-		width: calc(clamp(40px, 6.5vw + 12px, 90px));
-		height: calc(clamp(40px, 6.5vw + 12px, 90px));
-	}
-
-	.font__prop {
-		font-family: 'Roboto Mono', monospace;
-		font-weight: 100;
-		font-size: var(--font-size-main);
-		line-height: 1;
-	}
-	.menu {
-		pointer-events: none;
-		position: fixed;
-		top: 0;
-		height: 100vh;
-		height: calc(var(--vh, 1vh) * 100);
-		right: 0;
-		width: 100%;
-		overflow: hidden;
-	}
-	.menu__title__hor {
-		pointer-events: none;
-		text-align: end;
-		padding: 0;
-		padding-right: 2ch;
-		margin: 0;
-	}
-	.menu__title__ver {
-		position: absolute;
-		display: grid;
-		justify-content: end;
-		right: 0.5ch;
-		/* height: calc(100vh - var(--font-size-main));
-		align-content: space-around; */
-	}
-
-	.ph__char {
-		display: inline-block;
-		height: inherit;
-	}
-	.menu__button {
-		pointer-events: all;
-		background-image: url('/icons/menu3.svg');
-		position: absolute;
-		cursor: pointer;
-		top: 0.36ch;
-		right: 0.5ch;
-		width: 1ch;
-		height: 1ch;
-		transform: scale(1.7);
-	}
-	.overlay {
-		display: grid;
-		pointer-events: all;
-		clip-path: circle(100%);
-		transition: clip-path 1s;
-		position: absolute;
-		top: -100vh;
-		top: calc(var(--vh, 1vh) * -100);
-		left: 0;
-		width: 200%;
-		height: 200%;
-		background-color: black;
-	}
-	.logo {
-		position: absolute;
-		cursor: pointer;
-		width: 15vh;
-		height: 15vh;
-		place-self: end start;
-		margin: 3vw;
-	}
-	.logo-fake {
-		position: absolute;
-		pointer-events: none;
-		width: 15vh;
-		height: 15vh;
-		place-self: end start;
-		margin: 3vw;
-	}
-	.logo-fake > svg {
-		display: block;
-		width: 15vh;
-		height: 15vh;
-	}
-	/* .menu::before {
-		clip-path: circle(100%);
-	} */
-
-	.menuIsOpen {
-		background-image: url('/icons/plus.svg');
-	}
-
-	.menu__items {
-		pointer-events: all;
-		position: absolute;
-		display: grid;
-		justify-content: end;
-		right: 0.5ch;
-		display: grid;
-		/* height: calc(100vh - var(--font-size-main));
-		align-content: space-around; */
-	}
-	.menu__item {
-		--clipPath: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
-		position: relative;
-		-webkit-text-stroke: 1px rgb(255, 255, 255);
-		color: white;
-		text-rendering: optimizeLegibility;
-		-webkit-font-smoothing: antialiased;
-		height: var(--font-size-main);
-		width: 100%;
-		text-decoration: none;
-		text-decoration-line: none;
-		text-decoration-color: white;
-		justify-self: end;
-	}
-	/* .menu__item__active:after {
-		user-select: none;
-		position: absolute;
-		content: attr(data-title);
-		height: 100%;
-		top: 0;
-		right: 0;
-		color: rgb(255, 255, 255);
-		clip-path: polygon(0 0, 0% 0%, 0% 100%, 0 100%);
-		transition: clip-path 0.5s ease-in;
-	}
-	.menu__item__active:hover:after {
-		clip-path: var(--clipPath);
-	} */
-
-	.char__holder {
-		display: inline-block;
-		width: 1ch;
-		overflow: hidden;
-	}
-	.char {
-		display: inline-block;
-		height: inherit;
-		/* transform: translateX(-100%); */
-	}
-	@media (max-width: 500px) {
-		.scroll__top {
-			background-image: url('/icons/scroll.svg');
-			position: fixed;
-			bottom: 20px;
-			right: 20px;
-			width: calc(clamp(40px, 6.5vh + 12px, 90px));
-			height: calc(clamp(40px, 6.5vh + 12px, 90px));
-		}
 	}
 
 	#smooth-wrapper {
