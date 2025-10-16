@@ -40,7 +40,7 @@
 		"@studio-freight/lenis": "^1.0.9",
 		"animejs": "^3.2.1",
 		"curtainsjs": "^8.1.6",
-		"gsap": "^3.11.5",
+		"gsap": "3.13",
 		"justified-layout": "^4.1.0",
 		"lodash.debounce": "^4.0.8",
 		"scrolly-video": "^0.0.15"

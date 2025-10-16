@@ -2,14 +2,12 @@
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import type Lenis from '@studio-freight/lenis';
-	import { getContext } from 'svelte';
-
+	import type { ScrollSmoother } from 'gsap/all';
+	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	let videoCanvas: HTMLCanvasElement,
 		imageHolder: HTMLImageElement,
 		frameIndex = 0,
 		images = <Array<HTMLImageElement>>[];
-
-	let lenis: Lenis;
 
 	let frameQty = 259;
 
@@ -26,21 +24,31 @@
 
 	$: if (browser) {
 		preloadImages(window.innerWidth > 900 ? 1920 : 1024);
-		lenis = getContext('lenis');
 	}
 	onMount(() => {
 		const context = videoCanvas.getContext('2d');
 
-		lenis.on('scroll', (e: any) => {
-			frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 15));
-			if (frameIndex >= 257) {
-				return;
+		ScrollTrigger.create({
+			start: 0,
+			end: 'max',
+			onUpdate: (self) => {
+				const scroll = self.scroll(); // абсолютное значение прокрутки
+				frameIndex = Math.min(frameQty - 1, Math.ceil(scroll / 15));
+				if (frameIndex >= 257) return;
+				updateImage(frameIndex);
 			}
-			// if (frameIndex%1 = 0) {
-
-			// }
-			updateImage(frameIndex);
 		});
+
+		// lenis.on('scroll', (e: any) => {
+		// 	frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 15));
+		// 	if (frameIndex >= 257) {
+		// 		return;
+		// 	}
+		// 	// if (frameIndex%1 = 0) {
+
+		// 	// }
+		// 	updateImage(frameIndex);
+		// });
 
 		let once = true;
 		const updateImage = (index: number) => {

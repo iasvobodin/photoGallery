@@ -2,6 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+	import { ScrollSmoother } from 'gsap/ScrollSmoother';
 	import type Lenis from '@studio-freight/lenis';
 	import { getContext } from 'svelte';
 	import Contact from '$lib/components/contact.svelte';
@@ -12,7 +13,7 @@
 	import { browser } from '$app/environment';
 	// import { disableScrollHandling } from '$app/navigation';
 
-	gsap.registerPlugin(ScrollTrigger);
+	gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 	export let data: PageData;
 
@@ -67,7 +68,7 @@
 
 	$: if (browser) {
 		// preloadImages(window.innerWidth > 900 ? 1920 : 1024);
-		lenis = getContext('lenis');
+		// lenis = getContext('lenis');
 		// lenis.scrollTo('body', { duration: 0.1, force: true });
 	}
 
@@ -142,8 +143,11 @@
 		// const updateImage = (index: number) => {
 		// 	context && context.drawImage(images[index], 0, 0);
 		// };
-
-		lenis.on('scroll', ScrollTrigger.update);
+		ScrollSmoother.create({
+			smooth: 1,
+			effects: true
+		});
+		// lenis.on('scroll', ScrollTrigger.update);
 
 		// lenis.on('scroll', (e: any) => {
 		// 	frameIndex = Math.min(frameQty - 1, Math.ceil(e.scroll / 17));
@@ -247,9 +251,9 @@
 		// };
 		// raf(0);
 
-		gsap.ticker.add((time) => {
-			lenis.raf(time * 1000);
-		});
+		// gsap.ticker.add((time) => {
+		// 	lenis.raf(time * 1000);
+		// });
 
 		let i = 4;
 		intervalId = setInterval(() => {

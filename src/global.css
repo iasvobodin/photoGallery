@@ -39,13 +39,13 @@ body {
 	background-color: black;
 }
 
-.lenis.lenis-smooth {
+/* .lenis.lenis-smooth {
 	scroll-behavior: auto;
 }
 
 html.lenis {
 	height: auto;
-}
+} */
 
 h1 {
 	font-size: 2em;

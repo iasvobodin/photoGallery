@@ -9,23 +9,43 @@
 	import Logo from '$lib/components/logo.svelte';
 	import Lenis from '@studio-freight/lenis';
 
-	let lenis: Lenis;
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+	import { ScrollSmoother } from 'gsap/ScrollSmoother';
+	import { onMount, onDestroy } from 'svelte';
 
-	$: if (browser) {
-		// console.log('loybro');
+	// let lenis: Lenis;
 
-		window.scrollTo(0, 0);
-		window.history.scrollRestoration = 'manual';
-		lenis = new Lenis({
-			lerp: 0.08
+	// $: if (browser) {
+	// 	// console.log('loybro');
+
+	// 	window.scrollTo(0, 0);
+	// 	window.history.scrollRestoration = 'manual';
+	// 	lenis = new Lenis({
+	// 		lerp: 0.08
+	// 	});
+	// 	const raf = (time: number) => {
+	// 		lenis.raf(time);
+	// 		requestAnimationFrame(raf);
+	// 	};
+	// 	raf(0);
+	// 	setContext('lenis', lenis);
+	// }
+
+	onMount(() => {
+		isMounted = true;
+		if (!ScrollTrigger || !ScrollSmoother) return;
+
+		gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+		const smoother = ScrollSmoother.create({
+			smooth: 1.2, // скорость
+			effects: true, // включить data-speed
+			smoothTouch: 0.1 // плавность на тач-устройствах
 		});
-		const raf = (time: number) => {
-			lenis.raf(time);
-			requestAnimationFrame(raf);
-		};
-		raf(0);
-		setContext('lenis', lenis);
-	}
+
+		setContext('smoother', smoother);
+	});
 
 	let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`;
 	// console.log(canonical);
@@ -97,8 +117,29 @@
 	const stag = () => {
 		menuIsOpen = !menuIsOpen;
 		console.log(menuIsOpen);
-		menuIsOpen ? lenis.stop() : lenis.start();
+		// menuIsOpen ? lenis.stop() : lenis.start();
 	};
+
+	let overlayEl: HTMLElement | null = null;
+	let isMounted = false;
+	// Следим за menuIsOpen и запускаем анимацию
+	$: if (isMounted && overlayEl) {
+		if (menuIsOpen) {
+			gsap.killTweensOf(overlayEl);
+			gsap.fromTo(
+				overlayEl,
+				{ clipPath: 'circle(0% at 50% 50%)' },
+				{ clipPath: 'circle(100% at 50% 50%)', duration: 0.6, ease: 'linear' }
+			);
+		} else {
+			gsap.killTweensOf(overlayEl);
+			gsap.fromTo(
+				overlayEl,
+				{ clipPath: 'circle(100% at 50% 50%)' },
+				{ clipPath: 'circle(0% at 50% 50%)', duration: 0.6, ease: 'linear' }
+			);
+		}
+	}
 </script>
 
 <svelte:window bind:scrollY={y} bind:scrollX={x} />
@@ -130,13 +171,11 @@
 	<link rel="canonical" href={canonical} />
 
 	{#if !dev}
-{@html `
+		{@html `
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "81a8d8bf928542628a1b40e79dad0790"}'></script>
     <!-- End Cloudflare Web Analytics -->
   `}
-
-
 
 		<script type="text/javascript">
 			(function (m, e, t, r, i, k, a) {
@@ -185,9 +224,16 @@
 	</script>
 </svelte:head>
 
-<div class="main" class:disable__scroll={menuIsOpen}>
+<!-- <div class="main" class:disable__scroll={menuIsOpen}>
 	<slot />
+</div> -->
+
+<div id="smooth-wrapper">
+	<div id="smooth-content">
+		<slot />
+	</div>
 </div>
+
 {#if $page.url.pathname !== '/'}
 	<button
 		id="bb"
@@ -207,8 +253,8 @@
 	/>
 {/if}
 <div class="menu">
-	{#if menuIsOpen}
-		<div out:overlay={{ duration: 600 }} in:overlay={{ duration: 600 }} class="overlay">
+	<div bind:this={overlayEl} class="overlay">
+		{#if menuIsOpen}
 			<img on:click={addNumber} class="logo" src="/icons/logo.svg" alt="logo" />
 			{#each numbers as item, i}
 				<div style={stileRandom(i)} class="logo-fake">
@@ -217,8 +263,8 @@
 
 				<!-- <img style={stileRandom(i)} class="logo-fake" src="/icons/logo.svg" alt="logo" /> -->
 			{/each}
-		</div>
-	{/if}
+		{/if}
+	</div>
 	<h1 class="menu__title__hor font__prop" class:hide__svph={$page.url.pathname !== '/' || y >= 150}>
 		SVOBODINA
 	</h1>
@@ -459,5 +505,20 @@
 			width: calc(clamp(40px, 6.5vh + 12px, 90px));
 			height: calc(clamp(40px, 6.5vh + 12px, 90px));
 		}
+	}
+
+	#smooth-wrapper {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		top: 0;
+		left: 0;
+	}
+
+	#smooth-content {
+		overflow: visible;
+		width: 100%;
+		min-height: 100vh;
 	}
 </style>
