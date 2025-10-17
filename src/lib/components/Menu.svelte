@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { page } from '$app/stores';
-	import { gsap, createGSAPContext } from '$lib/utils/gsap';
 	import Logo from '$lib/components/logo.svelte';
+	import { gsap } from '$lib/gsap/core';
 
 	export let scrollY: number = 0;
 
@@ -52,7 +52,12 @@
 		menuIsOpen = !menuIsOpen;
 
 		if (menuIsOpen) {
-			openMenu();
+			// Даём время на рендеринг элементов меню
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					openMenu();
+				});
+			});
 		} else {
 			closeMenu();
 		}
@@ -60,6 +65,12 @@
 
 	// Открытие меню
 	function openMenu() {
+		// Проверяем, что элементы меню существуют
+		if (!menuItemsEl) return;
+
+		const menuItems = menuItemsEl.querySelectorAll('.menu__item');
+		if (!menuItems.length) return;
+
 		// Overlay появление
 		gsap.to(overlayEl, {
 			clipPath: 'circle(150% at 50% 50%)',
@@ -76,29 +87,24 @@
 			});
 		}
 
-		// Кнопка меню вращение
-		gsap.to(menuButtonEl, {
-			rotation: 45,
-			duration: 0.3,
-			ease: 'power2.inOut'
+		// Устанавливаем начальное состояние для элементов меню
+		gsap.set(menuItems, {
+			x: 100,
+			opacity: 0
 		});
 
 		// Появление элементов меню с задержкой
-		gsap.fromTo(
-			menuItemsEl.querySelectorAll('.menu__item'),
-			{ x: 100, opacity: 0 },
-			{
-				x: 0,
-				opacity: 1,
-				duration: 0.5,
-				stagger: 0.08,
-				ease: 'power3.out',
-				delay: 0.2
-			}
-		);
+		gsap.to(menuItems, {
+			x: 0,
+			opacity: 1,
+			duration: 0.5,
+			stagger: 0.08,
+			ease: 'power3.out',
+			delay: 0.2
+		});
 
 		// Анимация символов в каждом пункте меню
-		menuItemsEl.querySelectorAll('.menu__item').forEach((item, index) => {
+		menuItems.forEach((item, index) => {
 			const chars = item.querySelectorAll('.char');
 			gsap.fromTo(
 				chars,
@@ -116,8 +122,13 @@
 
 	// Закрытие меню
 	function closeMenu() {
+		if (!menuItemsEl) return;
+
+		const menuItems = menuItemsEl.querySelectorAll('.menu__item');
+		if (!menuItems.length) return;
+
 		// Анимация символов (в обратном порядке)
-		menuItemsEl.querySelectorAll('.menu__item').forEach((item, index) => {
+		menuItems.forEach((item, index) => {
 			const chars = item.querySelectorAll('.char');
 			gsap.to(chars, {
 				x: 100,
@@ -129,7 +140,7 @@
 		});
 
 		// Скрытие элементов меню
-		gsap.to(menuItemsEl.querySelectorAll('.menu__item'), {
+		gsap.to(menuItems, {
 			x: 100,
 			opacity: 0,
 			duration: 0.4,
@@ -142,7 +153,7 @@
 			clipPath: 'circle(0% at 50% 50%)',
 			duration: 0.6,
 			ease: 'power2.inOut',
-			delay: 0.3
+			delay: 0
 		});
 
 		// Возврат вертикального заголовка
@@ -169,12 +180,6 @@
 			// Начальное состояние overlay
 			gsap.set(overlayEl, {
 				clipPath: 'circle(0% at 50% 50%)'
-			});
-
-			// Начальное состояние элементов меню
-			gsap.set(menuItemsEl?.querySelectorAll('.menu__item') || [], {
-				x: 100,
-				opacity: 0
 			});
 
 			// Анимация скрытия заголовков при скролле (только на главной)

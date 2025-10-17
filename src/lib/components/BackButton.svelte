@@ -5,7 +5,7 @@
 	import { gsap, createGSAPContext } from '$lib/utils/gsap';
 
 	let buttonEl: HTMLElement;
-	let ctx: gsap.Context;
+	let ctx: gsap.Context | null;
 
 	const goBack = () => {
 		const parentPath = $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'));

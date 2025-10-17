@@ -4,6 +4,7 @@
 	import { setContext, onMount, onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { browser, dev } from '$app/environment';
+	import { initGSAP, createSmoother, gsap, ScrollTrigger } from '$lib/gsap/core';
 
 	// Компоненты
 	import Menu from '$lib/components/Menu.svelte';
@@ -11,9 +12,10 @@
 	import BackButton from '$lib/components/BackButton.svelte';
 
 	// GSAP Manager
-	import { initGSAP, createSmoother, getSmoother, destroySmoother } from '$lib/utils/gsap';
+	// import { initGSAP, createSmoother, getSmoother, destroySmoother } from '$lib/utils/gsap';
 
 	let canonical = `https://svobodinaphoto.ru${$page.url.pathname}`;
+
 	let scrollY: number = 0;
 
 	onMount(() => {
@@ -25,17 +27,15 @@
 		// Создаём ScrollSmoother
 		const smoother = createSmoother();
 
-		// Передаём в контекст для дочерних компонентов
-		if (smoother) {
-			setContext('smoother', smoother);
-		}
+		// Прокидываем в контекст для дочерних компонентов
+		setContext('gsap', { gsap, ScrollTrigger, smoother });
 	});
 
 	onDestroy(() => {
 		// Очистка при размонтировании (для HMR в dev режиме)
-		if (dev) {
-			destroySmoother();
-		}
+		// if (dev) {
+		// 	destroySmoother();
+		// }
 	});
 </script>
 
