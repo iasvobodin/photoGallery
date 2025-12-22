@@ -258,7 +258,7 @@
 		}, 2500);
 	});
 	onDestroy(() => {
-		// debugger;
+		// debugger44;
 		// ScrollTrigger.refresh();
 		// ScrollTrigger.killAll();
 		clearInterval(intervalId);
