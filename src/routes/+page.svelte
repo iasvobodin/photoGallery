@@ -260,7 +260,7 @@
 	onDestroy(() => {
 		// debugger44;
 		// ScrollTrigger.refresh();
-		// ScrollTrigger.killAll();
+		// ScrollTrigger.killAll(___);
 		clearInterval(intervalId);
 	});
 </script>
