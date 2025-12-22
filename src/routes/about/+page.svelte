@@ -43,12 +43,7 @@
 <div class="about-main">
 	<div class="part1">
 		<div class="about-video">
-			<video
-				autoplay
-				muted
-				loop
-				crossorigin="anonimous"
-				src="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/G1.mp4"
+			<video autoplay muted loop crossorigin="anonimous" src="https://img.svobodinaphoto.ru/G1.mp4"
 				><track kind="captions" />
 			</video>
 		</div>
@@ -82,7 +77,7 @@
 					muted
 					loop
 					crossorigin="anonimous"
-					src="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/V1.mp4"
+					src="https://img.svobodinaphoto.ru/V1.mp4"
 					><track kind="captions" />
 				</video>
 			</div>
@@ -103,12 +98,7 @@
 			</p>
 		</div>
 		<div class="about-video">
-			<video
-				autoplay
-				muted
-				loop
-				crossorigin="anonimous"
-				src="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/G2.mp4"
+			<video autoplay muted loop crossorigin="anonimous" src="https://img.svobodinaphoto.ru/G2.mp4"
 				><track kind="captions" />
 			</video>
 		</div>

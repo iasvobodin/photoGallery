@@ -64,9 +64,9 @@
 				Route: galleryData!.Route[i],
 				Title: galleryData!.Title[i],
 				titleStyle: `font-size:calc(16px + ${Math.floor(el.width) / 40}px)`,
-				imageSrc: `https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/${imageWidth(
-					el.width
-				)}_${galleryData!.ImageName[i]}`,
+				imageSrc: `https://img.svobodinaphoto.ru/${imageWidth(el.width)}_${
+					galleryData!.ImageName[i]
+				}`,
 				boxStyle: `
 				position: absolute;
 				margin:0;

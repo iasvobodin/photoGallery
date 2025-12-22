@@ -9,19 +9,13 @@
 <h1 class="main__head">Цены</h1>
 <div class="price__image">
 	<picture>
-		<source
-			srcSet="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/1024_19-03-02-20-58-27.avif"
-			type="image/avif"
-		/>
-		<source
-			srcSet="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/1024_19-03-02-20-58-27.webp"
-			type="image/webp"
-		/>
+		<source srcSet="https://img.svobodinaphoto.ru/1024_19-03-02-20-58-27.avif" type="image/avif" />
+		<source srcSet="https://img.svobodinaphoto.ru/1024_19-03-02-20-58-27.webp" type="image/webp" />
 		<img
 			decoding="async"
 			loading="lazy"
 			draggable="false"
-			src="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/1024_19-03-02-20-58-27.jpg"
+			src="https://img.svobodinaphoto.ru/1024_19-03-02-20-58-27.jpg"
 			alt="SvobodinaPhot"
 		/>
 	</picture>
