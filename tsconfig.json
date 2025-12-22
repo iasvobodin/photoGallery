@@ -3,6 +3,10 @@
 	"compilerOptions": {
 		"lib": [
 			"ES2021",
+			"DOM",
+			"DOM.Iterable",
+			"ES2021.Promise",
+			"ES2021.String",
 			"esnext.string"
 		],
 		"allowJs": true,
@@ -12,7 +16,8 @@
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
-		"strict": true
+		"strict": true,
+		"verbatimModuleSyntax": true
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//
