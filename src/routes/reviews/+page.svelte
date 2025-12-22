@@ -12,19 +12,13 @@
 	<h1 class="main__head rotate">Отзывы</h1>
 	<div class="review__image">
 		<picture>
-			<source
-				srcSet="https://img.svobodinaphoto.ru/1024_20-07-03-19-19-22.avif"
-				type="image/avif"
-			/>
-			<source
-				srcSet="https://img.svobodinaphoto.ru/1024_20-07-03-19-19-22.webp"
-				type="image/webp"
-			/>
+			<source srcSet="/img/all/1024_20-07-03-19-19-22.avif" type="image/avif" />
+			<source srcSet="/img/all/1024_20-07-03-19-19-22.webp" type="image/webp" />
 			<img
 				decoding="async"
 				loading="lazy"
 				draggable="false"
-				src="https://img.svobodinaphoto.ru/1024_20-07-03-19-19-22.jpg"
+				src="/img/all/1024_20-07-03-19-19-22.jpg"
 				alt="SvobodinaPhot"
 			/>
 		</picture>

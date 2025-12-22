@@ -113,10 +113,10 @@
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Фотограф Анастасия Свободина" />
 	<meta name="twitter:description" content="Красивые и неповторимые моменты на фото." />
-	<meta name="twitter:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
+	<meta name="twitter:image" content="/img/all/1024_19-08-24-17-09-02.jpg" />
 	<meta property="og:title" content="SvobodinaPhoto" />
 	<meta property="og:type" content="website" />
-	<meta property="og:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
+	<meta property="og:image" content="/img/all/1024_19-08-24-17-09-02.jpg" />
 	<meta property="og:image:type" content="image/jpg" />
 	<meta property="og:image:width" content="300" />
 	<meta property="og:image:height" content="300" />
@@ -126,17 +126,15 @@
 		property="og:description"
 		content="Профессиональный фотограф Свободина Анастасия Челябинск. Свадебная, портретная, репортажная, семейная фотосессии. Профессиональное оборудование, быстрые сроки, адекватные цены"
 	/>
-	<meta property="vk:image" content="https://img.svobodinaphoto.ru/1024_19-08-24-17-09-02.jpg" />
+	<meta property="vk:image" content="/img/all/1024_19-08-24-17-09-02.jpg" />
 	<link rel="canonical" href={canonical} />
 
 	{#if !dev}
-{@html `
+		{@html `
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "81a8d8bf928542628a1b40e79dad0790"}'></script>
     <!-- End Cloudflare Web Analytics -->
   `}
-
-
 
 		<script type="text/javascript">
 			(function (m, e, t, r, i, k, a) {

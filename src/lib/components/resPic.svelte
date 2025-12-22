@@ -3,7 +3,7 @@
 	export let imageH: string;
 	export let orintation: boolean;
 	export let size: number;
-	const link = 'https://img.svobodinaphoto.ru';
+	const link = '/img/all';
 </script>
 
 <picture class={$$props.class}>

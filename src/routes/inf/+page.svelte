@@ -71,7 +71,7 @@
 			Route: allph[i]!.Route,
 			// Title: galleryData!.Title[i],
 			// titleStyle: `font-size:calc(16px + ${Math.floor(el.width) / 40}px)`,
-			imageSrc: `https://img.svobodinaphoto.ru/${imageWidth(el.width)}_${allph[i]!.Cover}`,
+			imageSrc: `/img/all/${imageWidth(el.width)}_${allph[i]!.Cover}`,
 			boxStyle: `
 				position: absolute;
 				margin:0;
@@ -271,7 +271,7 @@
 						<img
 							style="aspect-ratio:{+ttt.Aspect};"
 							class="gallery_img"
-							src="https://img.svobodinaphoto.ru/320_{ttt.Cover}.webp"
+							src="/img/all/320_{ttt.Cover}.webp"
 							alt={ttt.Title}
 						/>
 					{/each}
@@ -286,7 +286,7 @@
 					bind:this={cover[i]}
 					style="aspect-ratio:{+ttt.Aspect};"
 					class="gallery_img"
-					src="https://img.svobodinaphoto.ru/320_{ttt.Cover}.webp"
+					src="/img/all/320_{ttt.Cover}.webp"
 					alt={ttt.Title}
 				/>
 			{/each}
