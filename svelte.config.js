@@ -28,6 +28,16 @@ const config = {
 			precompress: false,
 			strict: true
 		}),
+		prerender: {
+			handleHttpError: ({ status, path, referrer, referenceType }) => {
+				if (status === 404) {
+					// Игнорируем 404 для изображений, которых нет в build
+					return 'ignore';
+				}
+				// Для всех остальных ошибок — падаем как обычно
+				throw new Error(`${status} ${path} (referrer: ${referrer})`);
+			}
+		}
 		// csp: {
 		// 	mode: 'auto',
 		// 	directives: {
