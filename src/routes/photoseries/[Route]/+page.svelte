@@ -82,7 +82,9 @@
 		layoutData = layout.boxes.map((el, i) => {
 			return {
 				boxes: el,
-				imageSrc: `/img/all/${imageWidth(el.width)}_${galleryData!.ImageName[i]}`,
+				imageSrc: `https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/${imageWidth(
+					el.width
+				)}_${galleryData!.ImageName[i]}`,
 				setStyle: `
 				position: absolute;
 				margin:0;
@@ -334,7 +336,10 @@
 			<div class="text_anim">
 				{#each allph as item}
 					<a data-sveltekit-reload href={allph ? `/photoseries/${item.Route.toLowerCase()}` : '/'}>
-						<img src="/img/all/320_{item.Cover}.webp" alt="" />
+						<img
+							src="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/320_{item.Cover}.webp"
+							alt=""
+						/>
 					</a>
 				{/each}
 			</div>

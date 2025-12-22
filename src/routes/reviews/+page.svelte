@@ -12,13 +12,19 @@
 	<h1 class="main__head rotate">Отзывы</h1>
 	<div class="review__image">
 		<picture>
-			<source srcSet="/img/all/1024_20-07-03-19-19-22.avif" type="image/avif" />
-			<source srcSet="/img/all/1024_20-07-03-19-19-22.webp" type="image/webp" />
+			<source
+				srcSet="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/1024_20-07-03-19-19-22.avif"
+				type="image/avif"
+			/>
+			<source
+				srcSet="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/1024_20-07-03-19-19-22.webp"
+				type="image/webp"
+			/>
 			<img
 				decoding="async"
 				loading="lazy"
 				draggable="false"
-				src="/img/all/1024_20-07-03-19-19-22.jpg"
+				src="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/1024_20-07-03-19-19-22.jpg"
 				alt="SvobodinaPhot"
 			/>
 		</picture>

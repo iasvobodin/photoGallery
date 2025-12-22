@@ -71,7 +71,9 @@
 			Route: allph[i]!.Route,
 			// Title: galleryData!.Title[i],
 			// titleStyle: `font-size:calc(16px + ${Math.floor(el.width) / 40}px)`,
-			imageSrc: `/img/all/${imageWidth(el.width)}_${allph[i]!.Cover}`,
+			imageSrc: `https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/${imageWidth(
+				el.width
+			)}_${allph[i]!.Cover}`,
 			boxStyle: `
 				position: absolute;
 				margin:0;
@@ -271,7 +273,7 @@
 						<img
 							style="aspect-ratio:{+ttt.Aspect};"
 							class="gallery_img"
-							src="/img/all/320_{ttt.Cover}.webp"
+							src="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/320_{ttt.Cover}.webp"
 							alt={ttt.Title}
 						/>
 					{/each}
@@ -286,7 +288,7 @@
 					bind:this={cover[i]}
 					style="aspect-ratio:{+ttt.Aspect};"
 					class="gallery_img"
-					src="/img/all/320_{ttt.Cover}.webp"
+					src="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/320_{ttt.Cover}.webp"
 					alt={ttt.Title}
 				/>
 			{/each}

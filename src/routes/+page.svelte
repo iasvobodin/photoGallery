@@ -291,7 +291,7 @@
 					<img
 						style="aspect-ratio:{+item.Aspect};"
 						class="gallery_img"
-						src="/img/all/320_{item.Cover}.webp"
+						src="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/320_{item.Cover}.webp"
 						alt={item.Title}
 					/>
 				</a>
@@ -306,7 +306,7 @@
 					<img
 						style="aspect-ratio:{+item.Aspect};"
 						class="gallery_img"
-						src="/img/all/320_{item.Cover}.webp"
+						src="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/320_{item.Cover}.webp"
 						alt={item.Title}
 					/>
 				</a>
@@ -318,7 +318,7 @@
 					<img
 						style="aspect-ratio:{+item.Aspect};"
 						class="gallery_img"
-						src="/img/all/320_{item.Cover}.webp"
+						src="https://s3.ru1.storage.beget.cloud/8c2eb883ab0b-florid-seth/320_{item.Cover}.webp"
 						alt={item.Title}
 					/>
 				</a>
