@@ -111,16 +111,16 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 <div class="gallery">
 	<div class="hor image">
-		<img src="https://img.svobodinaphoto.ru/1024_22-11-30-12-00-39.jpg" alt="" />
+		<img src="https://image.svobodinaphoto.ru/1024_22-11-30-12-00-39.jpg" alt="" />
 	</div>
 	<div class="text">
 		<h2>Семейная</h2>
 	</div>
 	<div class="ver-large image">
-		<img src="https://img.svobodinaphoto.ru/720_23-01-21-14-13-57.jpg" alt="" />
+		<img src="https://image.svobodinaphoto.ru/720_23-01-21-14-13-57.jpg" alt="" />
 	</div>
 	<div class="ver-small image">
-		<img src="https://img.svobodinaphoto.ru/480_22-11-28-13-06-26.jpg" alt="" />
+		<img src="https://image.svobodinaphoto.ru/480_22-11-28-13-06-26.jpg" alt="" />
 	</div>
 </div>
 <!-- <div class="planes__holder">
