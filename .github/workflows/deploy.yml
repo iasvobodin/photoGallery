@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-    workflow_dispatch: # ← добавь это
+  workflow_dispatch: # ← добавь это
 
 jobs:
   deploy:
