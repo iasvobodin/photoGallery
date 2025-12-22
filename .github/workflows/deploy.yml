@@ -3,7 +3,8 @@ name: Deploy SvelteKit static
 on:
   push:
     branches:
-      - main
+      - master
+    workflow_dispatch: # ← добавь это
 
 jobs:
   deploy:
