@@ -24,10 +24,12 @@ const config = {
 			// these options are set automatically — see below
 			pages: 'build',
 			assets: 'build',
+			fallback: 'index.html',
 			// fallback: null,
 			precompress: false,
 			strict: true
 		}),
+		trailingSlash: 'always',
 		prerender: {
 			handleHttpError: ({ status, path, referrer, referenceType }) => {
 				if (status === 404) {
