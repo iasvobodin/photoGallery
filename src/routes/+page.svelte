@@ -291,7 +291,7 @@
 					<img
 						style="aspect-ratio:{+item.Aspect};"
 						class="gallery_img"
-						src="https://image.svobodinaphoto.ru/320_{item.Cover}.webp"
+						src="https://image.svobodinaphoto.ru/photos/320_{item.Cover}.webp"
 						alt={item.Title}
 					/>
 				</a>
@@ -306,7 +306,7 @@
 					<img
 						style="aspect-ratio:{+item.Aspect};"
 						class="gallery_img"
-						src="https://image.svobodinaphoto.ru/320_{item.Cover}.webp"
+						src="https://image.svobodinaphoto.ru/photos/320_{item.Cover}.webp"
 						alt={item.Title}
 					/>
 				</a>
@@ -318,7 +318,7 @@
 					<img
 						style="aspect-ratio:{+item.Aspect};"
 						class="gallery_img"
-						src="https://image.svobodinaphoto.ru/320_{item.Cover}.webp"
+						src="https://image.svobodinaphoto.ru/photos/320_{item.Cover}.webp"
 						alt={item.Title}
 					/>
 				</a>

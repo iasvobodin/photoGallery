@@ -10,18 +10,18 @@
 <div class="price__image">
 	<picture>
 		<source
-			srcSet="https://image.svobodinaphoto.ru/1024_19-03-02-20-58-27.avif"
+			srcSet="https://image.svobodinaphoto.ru/photos/1024_19-03-02-20-58-27.avif"
 			type="image/avif"
 		/>
 		<source
-			srcSet="https://image.svobodinaphoto.ru/1024_19-03-02-20-58-27.webp"
+			srcSet="https://image.svobodinaphoto.ru/photos/1024_19-03-02-20-58-27.webp"
 			type="image/webp"
 		/>
 		<img
 			decoding="async"
 			loading="lazy"
 			draggable="false"
-			src="https://image.svobodinaphoto.ru/1024_19-03-02-20-58-27.jpg"
+			src="https://image.svobodinaphoto.ru/photos/1024_19-03-02-20-58-27.jpg"
 			alt="SvobodinaPhot"
 		/>
 	</picture>

@@ -48,7 +48,7 @@
 				muted
 				loop
 				crossorigin="anonimous"
-				src="https://image.svobodinaphoto.ru/G1.mp4"
+				src="https://image.svobodinaphoto.ru/photos/G1.mp4"
 				><track kind="captions" />
 			</video>
 		</div>
@@ -82,7 +82,7 @@
 					muted
 					loop
 					crossorigin="anonimous"
-					src="https://image.svobodinaphoto.ru/V1.mp4"
+					src="https://image.svobodinaphoto.ru/photos/V1.mp4"
 					><track kind="captions" />
 				</video>
 			</div>
@@ -108,7 +108,7 @@
 				muted
 				loop
 				crossorigin="anonimous"
-				src="https://image.svobodinaphoto.ru/G2.mp4"
+				src="https://image.svobodinaphoto.ru/photos/G2.mp4"
 				><track kind="captions" />
 			</video>
 		</div>
